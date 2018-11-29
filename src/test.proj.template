@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <ItemGroup>
+        <ProjectReferences Include="**/*.Tests.csproj" />
+    </ItemGroup>
+    <Target Name="build">
+        <MSBuild Projects="@(ProjectReferences)" Targets="Build" />
+    </Target>
+    <Target Name="restore">
+        <MSBuild Projects="@(ProjectReferences)" Targets="Restore" />
+    </Target>
+    <Target Name="vstest">
+        <MSBuild Projects="@(ProjectReferences)" Targets="VsTest" />
+    </Target>
+</Project>

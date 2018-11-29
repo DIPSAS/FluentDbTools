@@ -1,0 +1,15 @@
+version: '3'
+
+services: 
+  oracle-db:
+    image: wnameless/oracle-xe-11g
+    hostname: oracle-db
+    ports:
+      - 1521:1521
+      - 5500:5500
+    networks:
+      - backend_network
+
+networks:
+  backend_network:
+    external: true

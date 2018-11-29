@@ -1,0 +1,6 @@
+{
+  "database": {
+    "hostname": "postgres-db",
+    "port": 5432
+  }
+}

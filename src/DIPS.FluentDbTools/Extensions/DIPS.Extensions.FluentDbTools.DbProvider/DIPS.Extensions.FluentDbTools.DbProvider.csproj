@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Abstractions\DIPS.FluentDbTools.Database.Abstractions\DIPS.FluentDbTools.Database.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Implementations\DIPS.FluentDbTools.DbProvider.Oracle\DIPS.FluentDbTools.DbProvider.Oracle.csproj" />
+      <ProjectReference Include="..\..\Implementations\DIPS.FluentDbTools.DbProvider.Postgres\DIPS.FluentDbTools.DbProvider.Postgres.csproj" />
+    </ItemGroup>
+
+</Project>

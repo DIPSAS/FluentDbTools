@@ -1,0 +1,27 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug"
+    },
+    "Console":
+    {
+      "IncludeScopes": true
+    }
+  },
+  "database": {
+    "type": "postgres",
+    "user": "dbuser",
+    "password": "dbpassword",
+    "adminUser": "admindbuser",
+    "adminPassword": "admindbpassword",
+    "schema": "dbuser",
+    "schemaPassword": "dbpassword",
+    "databaseConnectionName": "dbuser",
+    "hostname": "localhost",
+    "port": 5433,
+    "pooling": true
+  },
+  "migration": {
+    "version": 0
+  }
+}

@@ -1,0 +1,9 @@
+﻿{
+  "database": {
+    "type": "Oracle",
+    "adminUser": "system",
+    "adminPassword": "oracle",
+    "databaseConnectionName": "xe",
+    "port": 1521
+  }
+}

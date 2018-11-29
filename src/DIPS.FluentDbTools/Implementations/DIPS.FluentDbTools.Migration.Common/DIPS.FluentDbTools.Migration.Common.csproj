@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Abstractions\DIPS.FluentDbTools.Migration.Abstractions\DIPS.FluentDbTools.Migration.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Extensions\DIPS.Extensions.FluentDbTools.Common\DIPS.Extensions.FluentDbTools.Common.csproj" />
+    </ItemGroup>
+
+</Project>

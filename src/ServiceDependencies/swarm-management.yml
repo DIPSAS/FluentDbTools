@@ -1,0 +1,13 @@
+networks: 
+    backend_network: false
+
+volumes:
+    portainer_data:
+
+stacks:
+    oracle_db: docker-compose.db.oracle.yml
+    postgres_db: docker-compose.db.postgres.yml
+    portainer: docker-compose.portainer.yml
+
+env_files:
+    - environment.env

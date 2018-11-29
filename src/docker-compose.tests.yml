@@ -1,0 +1,19 @@
+version: '3'
+
+services:  
+  fluentdbtools-tests:
+    image: fluentdbtools.tests
+    container_name: fluentdbtools-tests
+    env_file:
+      - test.env
+    build:
+      context: .
+      dockerfile: Dockerfile_Test
+      args:
+        - TEST_FOLDER=DIPS.FluentDbTools/Tests
+    networks:
+      - backend_network
+
+networks:
+  backend_network:
+    external: true

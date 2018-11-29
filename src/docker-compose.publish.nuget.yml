@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  fluentdbtools-abstractions-nuget: &fluentdbtools-nuget
+    image: fluentdbtools.abstractions.nuget
+    build:
+      context: .
+      dockerfile: Dockerfile_PublishNuget
+      args:
+        - VERSION=${VERSION}
+        - PROJECT_FOLDER=DIPS.FluentDbTools/Abstractions
+
+  fluentdbtools-implementations-nuget:
+    <<: *fluentdbtools-nuget
+    image: fluentdbtools.implementations.nuget
+    build:
+      context: .
+      dockerfile: Dockerfile_PublishNuget
+      args:
+        - VERSION=${VERSION}
+        - PROJECT_FOLDER=DIPS.FluentDbTools/Implementations
+
+  fluentdbtools-extensions-nuget:
+    <<: *fluentdbtools-nuget
+    image: fluentdbtools.extensions.nuget
+    build:
+      context: .
+      dockerfile: Dockerfile_PublishNuget
+      args:
+        - VERSION=${VERSION}
+        - PROJECT_FOLDER=DIPS.FluentDbTools/Extensions
+
+  fluentdbtools-contracts-nuget:
+    <<: *fluentdbtools-nuget
+    image: fluentdbtools.contracts.nuget
+    build:
+      context: .
+      dockerfile: Dockerfile_PublishNuget
+      args:
+        - VERSION=${VERSION}
+        - PROJECT_FOLDER=DIPS.FluentDbTools/Contracts
