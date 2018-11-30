@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using DIPS.Extensions.FluentDbTools.Common;
+using DIPS.Extensions.FluentDbTools.MSDependencyInjection;
 using DIPS.FluentDbTools.Example.Config;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,8 +22,8 @@ namespace DIPS.FluentDbTools.Example.Common
         private static IConfigurationBuilder AddDbToolsExampleConfiguration(this IConfigurationBuilder configurationBuilder)
         {
             return configurationBuilder
-                .AddJsonFile(BaseConfig.ConfigFilename)
-                .AddJsonFileIfTrue(BaseConfig.ConfigDockerFilename, () => BaseConfig.InContainer)
+                .AddJsonFile(BaseConfig.DefaultConfigFilename)
+                .AddJsonFileIfTrue(BaseConfig.DefaultConfigDockerFilename, () => BaseConfig.InContainer)
                 .AddInMemoryIfTrue(BaseConfig.ExternalServiceHostConfiguration, () => BaseConfig.UseExternalServiceHost);
         }
     }

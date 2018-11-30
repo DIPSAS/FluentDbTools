@@ -6,7 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Abstractions\DIPS.FluentDbTools.Migration.Abstractions\DIPS.FluentDbTools.Migration.Abstractions.csproj" />
-      <ProjectReference Include="..\..\Extensions\DIPS.Extensions.FluentDbTools.Common\DIPS.Extensions.FluentDbTools.Common.csproj" />
+      <ProjectReference Include="..\..\Extensions\DIPS.Extensions.FluentDbTools.MSDependencyInjection\DIPS.Extensions.FluentDbTools.MSDependencyInjection.csproj" />
     </ItemGroup>
 
 </Project>

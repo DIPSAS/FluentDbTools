@@ -9,8 +9,8 @@
       <ProjectReference Include="..\..\Implementations\DIPS.FluentDbTools.Migration.Oracle\DIPS.FluentDbTools.Migration.Oracle.csproj" />
       <ProjectReference Include="..\..\Implementations\DIPS.FluentDbTools.Migration.Postgres\DIPS.FluentDbTools.Migration.Postgres.csproj" />
       <ProjectReference Include="..\..\Implementations\DIPS.FluentDbTools.Migration\DIPS.FluentDbTools.Migration.csproj" />
-      <ProjectReference Include="..\DIPS.Extensions.FluentDbTools.Common\DIPS.Extensions.FluentDbTools.Common.csproj" />
       <ProjectReference Include="..\DIPS.Extensions.FluentDbTools.DbProvider\DIPS.Extensions.FluentDbTools.DbProvider.csproj" />
+      <ProjectReference Include="..\DIPS.Extensions.FluentDbTools.MSDependencyInjection\DIPS.Extensions.FluentDbTools.MSDependencyInjection.csproj" />
     </ItemGroup>
 
 </Project>

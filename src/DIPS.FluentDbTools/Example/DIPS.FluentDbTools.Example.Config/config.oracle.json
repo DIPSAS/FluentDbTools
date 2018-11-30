@@ -1,0 +1,29 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug"
+    },
+    "Console":
+    {
+      "IncludeScopes": true
+    }
+  },
+  "database": {
+    "type": "Oracle",
+    "user": "dbuser",
+    "password": "dbpassword",
+    "adminUser": "system",
+    "adminPassword": "oracle",
+    "schema": "dbuser",
+    "schemaPassword": "dbpassword",
+    "databaseConnectionName": "xe",
+    "hostname": "localhost",
+    "port": 1521,
+    "pooling": true,
+    "defaultTablespace": "FLUENT_DATA",
+    "tempTablespace": "FLUENT_TEMP"
+  },
+  "migration": {
+    "version": 0
+  }
+}

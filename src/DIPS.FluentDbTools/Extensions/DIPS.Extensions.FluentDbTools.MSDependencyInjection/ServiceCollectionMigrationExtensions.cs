@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DIPS.Extensions.FluentDbTools.Common
+namespace DIPS.Extensions.FluentDbTools.MSDependencyInjection
 {
     public static class ServiceCollectionMigrationExtensions
     {

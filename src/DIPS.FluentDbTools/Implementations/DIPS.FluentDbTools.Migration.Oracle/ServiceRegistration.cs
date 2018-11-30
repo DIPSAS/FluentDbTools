@@ -1,5 +1,5 @@
 ﻿using System;
-using DIPS.Extensions.FluentDbTools.Common;
+using DIPS.Extensions.FluentDbTools.MSDependencyInjection;
 using DIPS.FluentDbTools.Common.Abstractions;
 using DIPS.FluentDbTools.Migration.Abstractions;
 using FluentMigrator;

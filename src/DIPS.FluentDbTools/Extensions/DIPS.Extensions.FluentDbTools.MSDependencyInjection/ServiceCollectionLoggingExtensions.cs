@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace DIPS.Extensions.FluentDbTools.Common
+namespace DIPS.Extensions.FluentDbTools.MSDependencyInjection
 {
     public static class ServiceCollectionLoggingExtensions
     {

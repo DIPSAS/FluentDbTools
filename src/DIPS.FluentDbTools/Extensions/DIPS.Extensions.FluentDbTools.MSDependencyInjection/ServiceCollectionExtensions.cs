@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DIPS.Extensions.FluentDbTools.Common
+namespace DIPS.Extensions.FluentDbTools.MSDependencyInjection
 {
     public static class ServiceCollectionExtensions
     {

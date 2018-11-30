@@ -15,10 +15,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Config.json">
+      <None Update="config.postgres.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Config.Docker.json">
+      <None Update="config.postgres.docker.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="config.oracle.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="config.oracle.docker.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>

@@ -1,4 +1,4 @@
-﻿using DIPS.Extensions.FluentDbTools.Common;
+﻿using DIPS.Extensions.FluentDbTools.MSDependencyInjection;
 using DIPS.FluentDbTools.Migration.Abstractions;
 using FluentMigrator;
 using FluentMigrator.Runner;

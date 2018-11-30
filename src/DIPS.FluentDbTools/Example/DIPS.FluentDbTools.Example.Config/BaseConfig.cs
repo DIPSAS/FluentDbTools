@@ -5,8 +5,14 @@ namespace DIPS.FluentDbTools.Example.Config
 {
     public static class BaseConfig
     {
-        public const string ConfigFilename = "Config.json";
-        public const string ConfigDockerFilename = "Config.Docker.json";
+        public const string DefaultConfigFilename = PostgresConfigFilename;
+        public const string DefaultConfigDockerFilename = PostgresConfigDockerFilename;
+        
+        private const string PostgresConfigFilename = "config.postgres.json";
+        private const string PostgresConfigDockerFilename = "config.postgres.docker.json";
+        
+        private const string OracleConfigFilename = "config.oracle.json";
+        private const string OracleConfigDockerFilename = "config.oracle.docker.json";
         
         public static bool InContainer => 
             Environment.GetEnvironmentVariable("RUNNING_IN_CONTAINER") == "true";

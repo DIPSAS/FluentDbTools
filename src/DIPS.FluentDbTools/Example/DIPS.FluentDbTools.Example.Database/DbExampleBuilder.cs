@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DIPS.FluentDbTools.Example.Common;
-using DIPS.Extensions.FluentDbTools.Common;
+using DIPS.Extensions.FluentDbTools.MSDependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DIPS.FluentDbTools.Example.Database

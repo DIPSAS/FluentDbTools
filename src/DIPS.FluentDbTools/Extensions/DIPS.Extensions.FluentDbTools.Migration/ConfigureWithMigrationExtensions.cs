@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using DIPS.Extensions.FluentDbTools.Common;
-using DIPS.Extensions.FluentDbTools.DbProvider;
+using DIPS.Extensions.FluentDbTools.MSDependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DIPS.Extensions.FluentDbTools.Migration

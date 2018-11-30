@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using DIPS.Extensions.FluentDbTools.Common;
+using DIPS.Extensions.FluentDbTools.MSDependencyInjection;
 using DIPS.FluentDbTools.Common.Abstractions;
 using DIPS.FluentDbTools.Example.Config;
 using Microsoft.Extensions.Configuration;

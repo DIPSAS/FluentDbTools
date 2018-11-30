@@ -16,8 +16,8 @@ namespace DIPS.FluentDbTools.Example.Config
         private const string DefaultDbConnectionName = "postgres";
         private const bool DefaultDbPooling = false;
         private const string DefaultDbSchema = DefaultDbUser;
-        private const string DefaultDbDefaultTablespace = "DIPS_DATA";
-        private const string DefaultDbTempTablespace = "DIPS_TEMP";
+        private const string DefaultDbDefaultTablespace = "FLUENT_DATA";
+        private const string DefaultDbTempTablespace = "FLUENT_TEMP";
 
         private static IConfigurationSection GetDbSection(this IConfiguration configuration)
         {
