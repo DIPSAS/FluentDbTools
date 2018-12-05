@@ -20,8 +20,5 @@
     "hostname": "localhost",
     "port": 5433,
     "pooling": true
-  },
-  "migration": {
-    "version": 0
   }
 }

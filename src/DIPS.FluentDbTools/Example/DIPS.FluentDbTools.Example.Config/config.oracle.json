@@ -22,8 +22,5 @@
     "pooling": true,
     "defaultTablespace": "FLUENT_DATA",
     "tempTablespace": "FLUENT_TEMP"
-  },
-  "migration": {
-    "version": 0
   }
 }
