@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DIPS.Extensions.FluentDbTools.MSDependencyInjection;
+using DIPS.Extensions.FluentDbTools.MSDependencyInjection.DefaultConfigs;
 using DIPS.FluentDbTools.Common.Abstractions;
 using DIPS.FluentDbTools.Example.Config;
 using Microsoft.Extensions.Configuration;
@@ -58,7 +59,7 @@ namespace DIPS.FluentDbTools.TestUtilities
 
         public static IDbConfig CreateTestDbConfig(SupportedDatabaseTypes databaseType, string schema = null)
         {
-            return new DbConfig(CreateTestConfiguration(databaseType, schema));
+            return new DefaultDbConfig(CreateTestConfiguration(databaseType, schema));
         }
     }
 }

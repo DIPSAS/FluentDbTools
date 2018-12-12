@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Abstractions\DIPS.FluentDbTools.Common.Abstractions\DIPS.FluentDbTools.Common.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Extensions\DIPS.Extensions.FluentDbTools.MSDependencyInjection\DIPS.Extensions.FluentDbTools.MSDependencyInjection.csproj" />
     </ItemGroup>
 
     <ItemGroup>

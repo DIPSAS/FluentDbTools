@@ -2,9 +2,9 @@
 using DIPS.FluentDbTools.Common.Abstractions;
 using Microsoft.Extensions.Configuration;
 
-namespace DIPS.FluentDbTools.Example.Config
+namespace DIPS.Extensions.FluentDbTools.MSDependencyInjection.DefaultConfigs
 {
-    internal static class DbConfigExtensions
+    internal static class DefaultDbConfigExtensions
     {
         private const SupportedDatabaseTypes DefaultDatabaseType = SupportedDatabaseTypes.Postgres;
         private const string DefaultDbUser = "user";
@@ -21,13 +21,13 @@ namespace DIPS.FluentDbTools.Example.Config
 
         private static IConfigurationSection GetDbSection(this IConfiguration configuration)
         {
-            return configuration.GetSection("database");
+            return configuration?.GetSection("database");
         }
         
         public static SupportedDatabaseTypes GetDbType(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            if (!Enum.TryParse(section["type"], true, out SupportedDatabaseTypes availableDatabaseType))
+            var section = configuration?.GetDbSection();
+            if (!Enum.TryParse(section?["type"], true, out SupportedDatabaseTypes availableDatabaseType))
             {
                 availableDatabaseType = DefaultDatabaseType;
             }
@@ -36,50 +36,50 @@ namespace DIPS.FluentDbTools.Example.Config
         
         public static string GetDbUser(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            return section["user"] ?? DefaultDbUser;
+            var section = configuration?.GetDbSection();
+            return section?["user"] ?? DefaultDbUser;
         }
         
         public static string GetDbPassword(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            return section["password"] ?? DefaultDbPassword;
+            var section = configuration?.GetDbSection();
+            return section?["password"] ?? DefaultDbPassword;
         }
         
         public static string GetDbAdminUser(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            return section["adminUser"] ?? DefaultDbAdminUser;
+            var section = configuration?.GetDbSection();
+            return section?["adminUser"] ?? DefaultDbAdminUser;
         }
         
         public static string GetDbAdminPassword(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            return section["adminPassword"] ?? DefaultDbAdminPassword;
+            var section = configuration?.GetDbSection();
+            return section?["adminPassword"] ?? DefaultDbAdminPassword;
         }
         
         public static string GetDbHostname(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            return section["hostname"] ?? DefaultDbHostname;
+            var section = configuration?.GetDbSection();
+            return section?["hostname"] ?? DefaultDbHostname;
         }
         
         public static string GetDbPort(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            return section["port"] ?? DefaultDbPort;
+            var section = configuration?.GetDbSection();
+            return section?["port"] ?? DefaultDbPort;
         }
         
         public static string GetDbConnectionName(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            return section["databaseConnectionName"] ?? DefaultDbConnectionName;
+            var section = configuration?.GetDbSection();
+            return section?["databaseConnectionName"] ?? DefaultDbConnectionName;
         }
         
         public static bool GetDbPooling(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            if (!bool.TryParse(section["pooling"], out var pooling))
+            var section = configuration?.GetDbSection();
+            if (!bool.TryParse(section?["pooling"], out var pooling))
             {
                 pooling = DefaultDbPooling;
             }
@@ -88,20 +88,20 @@ namespace DIPS.FluentDbTools.Example.Config
         
         public static string GetDbSchema(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            return (section["schema"] ?? DefaultDbSchema).ToLower();
+            var section = configuration?.GetDbSection();
+            return (section?["schema"] ?? DefaultDbSchema).ToLower();
         }
         
         public static string GetDbDefaultTablespace(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            return (section["defaultTablespace"] ?? DefaultDbDefaultTablespace).ToUpper();
+            var section = configuration?.GetDbSection();
+            return (section?["defaultTablespace"] ?? DefaultDbDefaultTablespace).ToUpper();
         }
         
         public static string GetDbTempTablespace(this IConfiguration configuration)
         {
-            var section = configuration.GetDbSection();
-            return (section["tempTablespace"] ?? DefaultDbTempTablespace).ToUpper();
+            var section = configuration?.GetDbSection();
+            return (section?["tempTablespace"] ?? DefaultDbTempTablespace).ToUpper();
         }
     }
 }

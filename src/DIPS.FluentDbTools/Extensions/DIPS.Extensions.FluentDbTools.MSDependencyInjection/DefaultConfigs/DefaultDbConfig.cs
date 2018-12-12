@@ -1,13 +1,13 @@
 ﻿using DIPS.FluentDbTools.Common.Abstractions;
 using Microsoft.Extensions.Configuration;
 
-namespace DIPS.FluentDbTools.Example.Config
+namespace DIPS.Extensions.FluentDbTools.MSDependencyInjection.DefaultConfigs
 {
-    public class DbConfig : IDbConfig
+    public class DefaultDbConfig : IDbConfig
     {
         private readonly IConfiguration Configuration;
 
-        public DbConfig(IConfiguration configuration)
+        public DefaultDbConfig(IConfiguration configuration)
         {
             Configuration = configuration;
         }

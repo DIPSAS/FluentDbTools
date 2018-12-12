@@ -9,7 +9,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Extensions\DIPS.Extensions.FluentDbTools.MSDependencyInjection\DIPS.Extensions.FluentDbTools.MSDependencyInjection.csproj" />
       <ProjectReference Include="..\DIPS.FluentDbTools.Example.Config\DIPS.FluentDbTools.Example.Config.csproj" />
     </ItemGroup>
 
