@@ -11,7 +11,6 @@ namespace DIPS.FluentDbTools.Example.Common
         public static IServiceCollection UseExampleConfiguration(this IServiceCollection serviceCollection, Dictionary<string, string> overrideConfig = null, string additionalJsonConfig = null)
         {
             return serviceCollection
-                .Register(ServiceRegistration.Register)
                 .AddScoped<IConfiguration>(serviceProvider => new ConfigurationBuilder()
                 .AddDbToolsExampleConfiguration()
                 .AddJsonFileIfTrue(additionalJsonConfig, () => additionalJsonConfig != null)
