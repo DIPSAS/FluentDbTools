@@ -1,0 +1,29 @@
+changelog:
+    file: CHANGELOG.md
+    envKey: VERSION
+
+test:
+    selections:
+        fluentDbTools:
+            directory: src
+            removeContainers: true
+            containerNames:
+                - fluentdbtools-tests
+            files:
+                - docker-compose.tests.yml
+
+publish:
+    selections:
+        fluentDbTools:
+            directory: src
+            additionalTag: latest
+            containerArtifact: false
+            files:
+                - docker-compose.publish.nuget.yml
+
+swarm:
+    selections:
+        fluentDbTools:
+            directory: src/ServiceDependencies
+            files:
+                - swarm-management.yml
