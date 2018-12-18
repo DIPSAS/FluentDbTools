@@ -10,7 +10,7 @@ services:
       context: .
       dockerfile: Dockerfile_Test
       args:
-        - TEST_FOLDER=DIPS.FluentDbTools/Tests
+        - TEST_FOLDER=FluentDbTools/Tests
     networks:
       - backend_network
 

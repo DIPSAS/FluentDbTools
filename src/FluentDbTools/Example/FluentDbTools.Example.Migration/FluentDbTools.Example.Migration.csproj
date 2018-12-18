@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.Migration\FluentDbTools.Extensions.Migration.csproj" />
+      <ProjectReference Include="..\FluentDbTools.Example.Common\FluentDbTools.Example.Common.csproj" />
+      <ProjectReference Include="..\FluentDbTools.Example.Database\FluentDbTools.Example.Database.csproj" />
+    </ItemGroup>
+
+</Project>
