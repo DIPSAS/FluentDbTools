@@ -1,4 +1,4 @@
-﻿# DIPS.FluentDbTools
+﻿# FluentDbTools
 FluentDbTools provides a fluent SQL abstraction layer for creating database connections, building sql queries and migrating your database.
 
 Following databases are currently supported:
@@ -52,7 +52,7 @@ public class AddPersonTable : MigrationModel
 
 ### More Examples
 Please have a look in the example folder: 
-- [src/DIPS.FluentDbTools/Example](src/DIPS.FluentDbTools/Example)
+- [src/FluentDbTools/Example](src/FluentDbTools/Example)
 
 ## Get Started
 1. Install [Docker](https://www.docker.com/)
@@ -71,7 +71,7 @@ Please have a look in the example folder:
 2. Test solution in containers:
     - `dbm -test`
 3. Open solution and continue development:
-    - [DIPS.FluentDbTools](src/DIPS.FluentDbTools)
+    - [FluentDbTools](src/FluentDbTools)
 4. Publish new nuget version:
     - Bump version in [CHANGELOG.md](CHANGELOG.md)
     - `dbm -publish`

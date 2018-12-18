@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.DbProvider\FluentDbTools.Extensions.DbProvider.csproj" />
+      <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.SqlBuilder\FluentDbTools.Extensions.SqlBuilder.csproj" />
+      <ProjectReference Include="..\FluentDbTools.Example.Common\FluentDbTools.Example.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="5.4.2" />
+    </ItemGroup>
+
+</Project>
