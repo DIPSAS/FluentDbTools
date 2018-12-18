@@ -16,8 +16,7 @@ namespace FluentDbTools.Migration.Tests
         public void Migration_Success(SupportedDatabaseTypes databaseType)
         {
             var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
-            var jsonOverrideConfig = OverrideConfig.GetJsonOverrideConfig(databaseType);
-            var provider = MigrationBuilder.BuildMigration(inMemoryOverrideConfig, jsonOverrideConfig);
+            var provider = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig);
             
             using (var scope = provider.CreateScope())
             {

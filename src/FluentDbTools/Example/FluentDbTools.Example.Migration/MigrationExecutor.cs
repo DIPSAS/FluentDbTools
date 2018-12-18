@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Example.Migration.MigrationModels;
 using FluentDbTools.Migration.Abstractions;
 using FluentMigrator.Runner;
@@ -10,12 +11,12 @@ namespace FluentDbTools.Example.Migration
     public static class MigrationExecutor
     {
         public static void ExecuteMigration(
-            Dictionary<string, string> overrideConfig = null, 
-            string additionalJsonConfig = null)
+            SupportedDatabaseTypes databaseType,
+            Dictionary<string, string> overrideConfig = null)
         {
             var provider = MigrationBuilder.BuildMigration(
-                overrideConfig, 
-                additionalJsonConfig);
+                databaseType,
+                overrideConfig);
             
             using (var scope = provider.CreateScope())
             {

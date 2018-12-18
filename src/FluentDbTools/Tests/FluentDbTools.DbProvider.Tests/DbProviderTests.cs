@@ -14,8 +14,7 @@ namespace FluentDbTools.DbProvider.Tests
         public async Task DbProvider_ExampleRepository_Success(SupportedDatabaseTypes databaseType)
         {
             var overrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType);
-            var jsonConfig = OverrideConfig.GetJsonOverrideConfig(databaseType);
-            await DbExampleExecutor.ExecuteDbExample(overrideConfig, jsonConfig);
+            await DbExampleExecutor.ExecuteDbExample(databaseType, overrideConfig);
         }
     }
 }

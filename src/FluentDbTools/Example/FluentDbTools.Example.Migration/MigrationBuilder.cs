@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Example.Common;
 using FluentDbTools.Example.Migration.MigrationModels;
 using FluentDbTools.Extensions.Migration;
@@ -13,14 +14,14 @@ namespace FluentDbTools.Example.Migration
         private static IEnumerable<Assembly> MigrationAssemblies => new[] {typeof(AddPersonTable).Assembly};
         
         public static IServiceProvider BuildMigration(
-            Dictionary<string, string> overrideConfig = null, 
-            string additionalJsonConfig = null)
+            SupportedDatabaseTypes databaseType,
+            Dictionary<string, string> overrideConfig = null)
         {
             return new ServiceCollection()
                 .ConfigureWithMigration(MigrationAssemblies)
                 .UseExampleConfiguration(
-                    overrideConfig, 
-                    additionalJsonConfig)
+                    databaseType,
+                    overrideConfig)
                 .BuildServiceProvider();
         }
     }

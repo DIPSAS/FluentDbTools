@@ -1,12 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using FluentDbTools.Common.Abstractions;
 
 namespace FluentDbTools.Example.Config
 {
     public static class BaseConfig
     {
-        public const string DefaultConfigFilename = PostgresConfigFilename;
-        public const string DefaultConfigDockerFilename = PostgresConfigDockerFilename;
+        public static string ConfigFilename(SupportedDatabaseTypes databaseType)
+        {
+            switch (databaseType)
+            {
+                case SupportedDatabaseTypes.Postgres:
+                    return PostgresConfigFilename;
+                case SupportedDatabaseTypes.Oracle:
+                    return OracleConfigFilename;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(databaseType), databaseType, null);
+            }
+        }
+        
+        public static string ConfigDockerFilename(SupportedDatabaseTypes dbType)
+        {
+            switch (dbType)
+            {
+                case SupportedDatabaseTypes.Postgres:
+                    return PostgresConfigDockerFilename;
+                case SupportedDatabaseTypes.Oracle:
+                    return OracleConfigDockerFilename;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(dbType), dbType, null);
+            }
+        }
         
         private const string PostgresConfigFilename = "config.postgres.json";
         private const string PostgresConfigDockerFilename = "config.postgres.docker.json";
