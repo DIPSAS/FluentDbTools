@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile_PublishNuget
       args:
         - VERSION=${VERSION}
-        - PROJECT_FOLDER=DIPS.FluentDbTools/Abstractions
+        - PROJECT_FOLDER=FluentDbTools/Abstractions
 
   fluentdbtools-implementations-nuget:
     <<: *fluentdbtools-nuget
@@ -18,7 +18,7 @@ services:
       dockerfile: Dockerfile_PublishNuget
       args:
         - VERSION=${VERSION}
-        - PROJECT_FOLDER=DIPS.FluentDbTools/Implementations
+        - PROJECT_FOLDER=FluentDbTools/Implementations
 
   fluentdbtools-extensions-nuget:
     <<: *fluentdbtools-nuget
@@ -28,7 +28,7 @@ services:
       dockerfile: Dockerfile_PublishNuget
       args:
         - VERSION=${VERSION}
-        - PROJECT_FOLDER=DIPS.FluentDbTools/Extensions
+        - PROJECT_FOLDER=FluentDbTools/Extensions
 
   fluentdbtools-contracts-nuget:
     <<: *fluentdbtools-nuget
@@ -38,4 +38,4 @@ services:
       dockerfile: Dockerfile_PublishNuget
       args:
         - VERSION=${VERSION}
-        - PROJECT_FOLDER=DIPS.FluentDbTools/Contracts
+        - PROJECT_FOLDER=FluentDbTools/Contracts

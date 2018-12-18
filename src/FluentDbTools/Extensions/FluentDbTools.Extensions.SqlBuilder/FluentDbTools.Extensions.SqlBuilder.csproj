@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Abstractions\FluentDbTools.SqlBuilder.Abstractions\FluentDbTools.SqlBuilder.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Implementations\FluentDbTools.SqlBuilder\FluentDbTools.SqlBuilder.csproj" />
+    </ItemGroup>
+
+</Project>
