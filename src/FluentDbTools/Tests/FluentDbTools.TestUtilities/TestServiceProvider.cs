@@ -15,8 +15,7 @@ namespace FluentDbTools.TestUtilities
         {
             var overrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType);
             additionalOverrideConfig?.ToList().ForEach(x => overrideConfig[x.Key] = x.Value);
-            var jsonConfig = OverrideConfig.GetJsonOverrideConfig(databaseType);
-            return DbExampleBuilder.BuildDbExample(overrideConfig, jsonConfig);
+            return DbExampleBuilder.BuildDbExample(databaseType, overrideConfig);
         }
         
         public static IServiceProvider GetMigrationExampleServiceProvider(
@@ -25,8 +24,7 @@ namespace FluentDbTools.TestUtilities
         {
             var overrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType);
             additionalOverrideConfig?.ToList().ForEach(x => overrideConfig[x.Key] = x.Value);
-            var jsonConfig = OverrideConfig.GetJsonOverrideConfig(databaseType);
-            return MigrationBuilder.BuildMigration(overrideConfig, jsonConfig);
+            return MigrationBuilder.BuildMigration(databaseType, overrideConfig);
         }
     }
 }

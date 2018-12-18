@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using FluentDbTools.Example.Database.Entities;
 using FluentAssertions;
+using FluentDbTools.Common.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FluentDbTools.Example.Database
@@ -11,12 +12,12 @@ namespace FluentDbTools.Example.Database
     public static class DbExampleExecutor
     {
         public static async Task ExecuteDbExample(
-            Dictionary<string, string> overrideConfig = null, 
-            string additionalJsonConfig = null)
+            SupportedDatabaseTypes databaseType,
+            Dictionary<string, string> overrideConfig = null)
         {
             var provider = DbExampleBuilder.BuildDbExample(
-                overrideConfig, 
-                additionalJsonConfig);
+                databaseType,
+                overrideConfig);
 
             var persons = CreatePersons(10).ToArray();
             

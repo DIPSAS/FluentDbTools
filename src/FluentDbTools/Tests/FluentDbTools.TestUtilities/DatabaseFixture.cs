@@ -20,8 +20,7 @@ namespace FluentDbTools.TestUtilities
             foreach (var databaseType in SelectedDatabaseTypesToTest())
             {
                 var overrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, MigratedDatabaseSchema);
-                var jsonConfig = OverrideConfig.GetJsonOverrideConfig(databaseType);
-                MigrationExecutor.ExecuteMigration(overrideConfig, jsonConfig);
+                MigrationExecutor.ExecuteMigration(databaseType, overrideConfig);
             }
         }
         
