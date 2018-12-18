@@ -1,4 +1,4 @@
-﻿using FluentDbTools.Common.Abstractions;
+﻿using FluentDbTools.Example.Config;
 using FluentDbTools.Example.Migration;
 
 namespace FluentDbTools.Migrator
@@ -7,7 +7,7 @@ namespace FluentDbTools.Migrator
     {
         static void Main(string[] args)
         {
-            MigrationExecutor.ExecuteMigration(SupportedDatabaseTypes.Postgres);
+            MigrationExecutor.ExecuteMigration(BaseConfig.DatabaseSelectionFromEnvironment());
         }
     }
 }

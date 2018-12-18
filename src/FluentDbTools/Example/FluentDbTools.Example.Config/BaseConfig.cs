@@ -52,5 +52,19 @@ namespace FluentDbTools.Example.Config
             {
                 {"database:hostname", ExternalServiceHost}
             };
+        
+        public static SupportedDatabaseTypes DatabaseSelectionFromEnvironment()
+        {
+            var databaseString = Environment.GetEnvironmentVariable("DATABASE")?.ToLower();
+            
+            switch (databaseString)
+            {
+                case "oracle":
+                    return SupportedDatabaseTypes.Oracle;
+                case "postgres":
+                default:
+                    return SupportedDatabaseTypes.Postgres;
+            }
+        }
     }
 }
