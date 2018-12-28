@@ -33,6 +33,7 @@ namespace FluentDbTools.Example.Database
                 (await repository.SelectPerson(persons.First().Id)).Should().BeEquivalentTo(persons.First());
                 (await repository.SelectPersons(persons.Select(x => x.Id).ToArray())).Last().Should().BeEquivalentTo(persons.Last());
 
+                persons.First().Alive = false;
                 persons.First().Username = "New Name";
                 await repository.UpdatePerson(persons.First());
                 (await repository.SelectPerson(persons.First().Id)).Should().BeEquivalentTo(persons.First());

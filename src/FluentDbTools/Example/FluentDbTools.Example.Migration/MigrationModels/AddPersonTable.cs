@@ -12,6 +12,7 @@ namespace FluentDbTools.Example.Migration.MigrationModels
             Create.Table(Table.Person).InSchema(SchemaName)
                 .WithColumn(Column.Id).AsGuid().PrimaryKey()
                 .WithColumn(Column.SequenceNumber).AsInt32().NotNullable()
+                .WithColumn(Column.Alive).AsBoolean().NotNullable()
                 .WithColumn(Column.Username).AsString()
                 .WithColumn(Column.Password).AsString()
                 .WithTableSequence(this);

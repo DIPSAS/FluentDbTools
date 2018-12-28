@@ -29,6 +29,7 @@ namespace FluentDbTools.Example.Database.Select
                 .OnSchema()
                 .Fields<Person>(x => x.F(item => item.Id))
                 .Fields<Person>(x => x.F(item => item.SequenceNumber))
+                .Fields<Person>(x => x.F(item => item.Alive))
                 .Fields<Person>(x => x.F(item => item.Username))
                 .Fields<Person>(x => x.F(item => item.Password))
                 .Where<Person>(x => x.WP(item => item.Id, inSelections))

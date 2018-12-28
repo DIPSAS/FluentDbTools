@@ -16,6 +16,8 @@ namespace FluentDbTools.SqlBuilder.Abstractions.Parameters
         string AsForeignKey<T>(string postfix = "Id");
 
         object WithGuidParameterValue(Guid guid);
+        
+        object WithBooleanParameterValue(bool boolean);
 
         string GetParameterPrefix();
     }

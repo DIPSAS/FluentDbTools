@@ -68,6 +68,16 @@ namespace FluentDbTools.SqlBuilder.Parameters
             return guid;
         }
 
+        public object WithBooleanParameterValue(bool boolean)
+        {
+            if (DatabaseType == SupportedDatabaseTypes.Oracle)
+            {
+                return boolean ? 1 : 0;
+            }
+
+            return boolean;
+        }
+
         public string GetParameterPrefix()
         {
             return SqlBuilderHelper.GetParameterPrefixIfNull(DbConfig?.GetParameterPrefix());
