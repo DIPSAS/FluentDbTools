@@ -142,6 +142,11 @@ namespace FluentDbTools.SqlBuilder.Parameters
             return DatabaseParameterHelperField?.WithGuidParameterValue(guid);
         }
 
+        public object WithBooleanParameterValue(bool boolean)
+        {
+            return DatabaseParameterHelperField?.WithBooleanParameterValue(boolean);
+        }
+
         public string GetParameterPrefix()
         {
             return SqlBuilderHelper.GetParameterPrefixIfNull(DatabaseParameterHelperField?.GetParameterPrefix());
