@@ -28,8 +28,8 @@ namespace FluentDbTools.SqlBuilder.Parameters
                 var parameterNames = new List<string>();
                 for (var i = 0; i < array.Length; i++)
                 {
-                    var parameterName = $"{databaseParameterHelper.GetParameterPrefix()}{paramName}{i}";
-                    parameterNames.Add(parameterName);
+                    var parameterName = $"{paramName}{i}";
+                    parameterNames.Add($"{databaseParameterHelper.GetParameterPrefix()}{parameterName}");
                     parameters.Add(parameterName, array.GetValue(i));
                 }
 
@@ -37,7 +37,7 @@ namespace FluentDbTools.SqlBuilder.Parameters
             }
             parameters.Add(paramName, array);
 
-            return new []{paramName};
+            return new []{$"{databaseParameterHelper.GetParameterPrefix()}{paramName}"};
         }
 
         public static void AddArrayParameter<T>(this IDatabaseParameterHelper databaseParameterHelper, IDataParameterCollectionExt parameters, string paramName, IEnumerable<T> enumerable, ref string sql)

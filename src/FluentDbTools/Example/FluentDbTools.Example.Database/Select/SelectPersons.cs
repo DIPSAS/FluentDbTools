@@ -12,13 +12,14 @@ namespace FluentDbTools.Example.Database.Select
 {
     public static class SelectPersons
     {
-        public static Task<IEnumerable<Person>> Execute(
+        public async static Task<IEnumerable<Person>> Execute(
             IDbConnection dbConnection,
             IDbConfig dbConfig,
             Guid[] ids)
         {
             var sql = dbConfig.BuildSql(ids, out var @params);
-            return dbConnection.QueryAsync<Person>(sql, @params);
+            var res = await dbConnection.QueryAsync<Person>(sql, @params);
+            return res;
         }
         
         private static string BuildSql(this IDbConfig dbConfig, Guid[] ids, out DynamicParameters @params)
