@@ -5,6 +5,12 @@ Following databases are currently supported:
 - Oracle
 - Postgres
 
+## Nugets
+- DbProvider: `FluentDbTools.Extensions.DbProvider`
+- SqlBuilder: `FluentDbTools.Extensions.SqlBuilder`
+- Migration: `FluentDbTools.Extensions.Migration`
+- Extension.MSDependencyInjection: `FluentDbTools.Extensions.MSDependencyInjection`
+
 ## Example
 The `IDbConfig` interface is the only member you need to instantiate.
 It provides a simple interface for providing which database type to use, and other necessary database settings.
