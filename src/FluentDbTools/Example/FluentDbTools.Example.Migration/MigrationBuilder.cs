@@ -11,7 +11,7 @@ namespace FluentDbTools.Example.Migration
 {
     public static class MigrationBuilder
     {
-        private static IEnumerable<Assembly> MigrationAssemblies => new[] {typeof(AddPersonTable).Assembly};
+        public static IEnumerable<Assembly> MigrationAssemblies => new[] {typeof(AddPersonTable).Assembly};
         
         public static IServiceProvider BuildMigration(
             SupportedDatabaseTypes databaseType,
