@@ -1,9 +1,12 @@
-using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Example.Common;
 using FluentDbTools.Example.Migration;
+using FluentDbTools.Extensions.Migration;
+using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using FluentDbTools.TestUtilities;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.VersionTableInfo;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -29,6 +32,30 @@ namespace FluentDbTools.Migration.Tests
                 
                 migrationRunner.DropData(versionTable);
             }
+        }
+        
+        [Theory]
+        [MemberData(nameof(TestParameters.DbParameters), MemberType = typeof(TestParameters))]
+        public void MigrationWithExecutorExtension_Success(SupportedDatabaseTypes databaseType)
+        {
+            var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
+            var configuration = new ConfigurationBuilder()
+                .AddDbToolsExampleConfiguration(databaseType)
+                .AddInMemoryCollection(inMemoryOverrideConfig)
+                .Build();
+
+            var serviceProvider = new ServiceCollection()
+                .AddScoped<IConfiguration>(provider => configuration)
+                .AddScoped<IDbConfig, DefaultDbConfig>()
+                .BuildServiceProvider();
+
+            var dbConfig = serviceProvider.GetService<IDbConfig>();
+
+            var runner = dbConfig.GetMigrationRunner(MigrationBuilder.MigrationAssemblies);
+            
+            runner.MigrateUp();
+
+            dbConfig.DropData(MigrationBuilder.MigrationAssemblies);
         }
     }
 }
