@@ -54,5 +54,28 @@ namespace FluentDbTools.Extensions.Migration
                 migrationRunner.DropData(versionTable);
             }
         }
+        
+        public static IServiceProvider ExecuteMigration(this IServiceProvider provider)
+        {
+            using (var scope = provider.CreateScope())
+            {
+                var runner = scope.ServiceProvider.GetService<IMigrationRunner>();
+                runner.MigrateUp();
+            }
+
+            return provider;
+        }
+        
+        public static IServiceProvider DropData(this IServiceProvider provider)
+        {
+            using (var scope = provider.CreateScope())
+            {
+                var versionTable = scope.ServiceProvider.GetService<IVersionTableMetaData>();
+                var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
+                migrationRunner.DropData(versionTable);
+            }
+
+            return provider;
+        }
     }
 }
