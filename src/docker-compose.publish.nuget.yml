@@ -9,6 +9,7 @@ services:
       args:
         - VERSION=${VERSION}
         - PROJECT_FOLDER=FluentDbTools/Abstractions
+        - API_KEY=${API_KEY}
 
   fluentdbtools-implementations-nuget:
     <<: *fluentdbtools-nuget
@@ -19,6 +20,7 @@ services:
       args:
         - VERSION=${VERSION}
         - PROJECT_FOLDER=FluentDbTools/Implementations
+        - API_KEY=${API_KEY}
 
   fluentdbtools-extensions-nuget:
     <<: *fluentdbtools-nuget
@@ -29,6 +31,7 @@ services:
       args:
         - VERSION=${VERSION}
         - PROJECT_FOLDER=FluentDbTools/Extensions
+        - API_KEY=${API_KEY}
 
   fluentdbtools-contracts-nuget:
     <<: *fluentdbtools-nuget
@@ -39,3 +42,4 @@ services:
       args:
         - VERSION=${VERSION}
         - PROJECT_FOLDER=FluentDbTools/Contracts
+        - API_KEY=${API_KEY}
