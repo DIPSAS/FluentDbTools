@@ -5,6 +5,10 @@ services:
 
 before_install:
 - pip install DockerBuildManagement
+- dbm -start
 
 script:
 - dbm -test
+
+after_script:
+- dbm -stop
