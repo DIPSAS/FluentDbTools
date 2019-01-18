@@ -1,4 +1,7 @@
 ﻿# FluentDbTools
+
+[![Build Status](https://travis-ci.com/DIPSAS/FluentDbTools.svg?branch=master)](https://travis-ci.com/DIPSAS/FluentDbTools)
+
 FluentDbTools provides a fluent SQL abstraction layer for creating database connections, building sql queries and migrating your database.
 
 Following databases are currently supported:
