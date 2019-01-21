@@ -6,6 +6,10 @@ ENV RUN_TEST_FOLDER=$TEST_FOLDER
 WORKDIR /src
 COPY . .
 
+ENV TZ=Europe/Oslo
+ENV RUNNING_IN_CONTAINER=true
+ENV DATABASE=postgres
+
 COPY ./test.proj.template ./${RUN_TEST_FOLDER}/test.proj
 RUN dotnet build ./${RUN_TEST_FOLDER} --verbosity=minimal
 ENTRYPOINT dotnet test ./${RUN_TEST_FOLDER} --verbosity=normal --no-build
