@@ -2,6 +2,33 @@ changelog:
     file: CHANGELOG.md
     envKey: VERSION
 
+build:
+    selections:
+        fluentDbTools:
+            directory: src
+            files:
+                - docker-compose.nuget.build.yml
+
+run:
+    selections:
+        fluentDbTools-extract-nuget:
+            directory: src
+            copyFromContainer:
+                fluentdbtools.abstractions.nuget:
+                    containerSrc: src/nuget/
+                    hostDest: output
+                fluentdbtools.implementations.nuget:
+                    containerSrc: src/nuget/
+                    hostDest: output
+                fluentdbtools.extensions.nuget:
+                    containerSrc: src/nuget/
+                    hostDest: output
+                fluentdbtools.contracts.nuget:
+                    containerSrc: src/nuget/
+                    hostDest: output
+            files:
+                - docker-compose.nuget.build.yml
+
 test:
     selections:
         fluentDbTools:
@@ -19,7 +46,7 @@ publish:
             additionalTag: latest
             containerArtifact: false
             files:
-                - docker-compose.publish.nuget.yml
+                - docker-compose.nuget.publish.yml
 
 swarm:
     selections:

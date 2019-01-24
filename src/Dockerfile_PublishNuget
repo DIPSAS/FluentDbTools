@@ -4,13 +4,10 @@ FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
 COPY . .
 
-ARG VERSION=1.0.0
-ARG PROJECT_FOLDER
-
-ENV PROJECT_FOLDER=$PROJECT_FOLDER
+ENV VERSION=1.0.0
+ENV NUGET_FOLDER=output/nuget/signed
 ENV API_KEY=Admin:Admin
 
-RUN ls ${PROJECT_FOLDER}/*/*.csproj | xargs -I % sh -c 'dotnet pack % -c Release /p:Version=${VERSION} /p:PackageVersion=${VERSION}'
-ENTRYPOINT ls ${PROJECT_FOLDER}/*/bin/Release/*.nupkg | xargs -I % sh -c 'dotnet nuget push -k ${API_KEY} %'
+ENTRYPOINT ls ${NUGET_FOLDER}/*.${VERSION}.nupkg | xargs -I % sh -c 'dotnet nuget push -k ${API_KEY} %'
 
     
