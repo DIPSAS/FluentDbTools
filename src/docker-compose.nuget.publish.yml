@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  fluentdbtools-publish-nuget:
+    image: fluentdbtools.publish.nuget
+    build:
+      context: .
+      dockerfile: Dockerfile_PublishNuget
+    environment:
+      - VERSION=${VERSION}
+      - NUGET_FOLDER=${NUGET_FOLDER}
+      - API_KEY=${API_KEY}

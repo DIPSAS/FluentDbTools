@@ -83,7 +83,10 @@ Please have a look in the example folder:
     - [FluentDbTools](src/FluentDbTools)
 4. Publish new nuget version:
     - Bump version in [CHANGELOG.md](CHANGELOG.md)
-    - `dbm -publish`
+    - Build nugets: `dbm -build`
+    - Copy nugets from containers: `dbm -run`
+    - Sign nugets: `python .\sign_nugets.py`
+    - Publish nugets: `dbm -publish`
 7. Stop development when you feel like it:
     - `dbm -stop`
 

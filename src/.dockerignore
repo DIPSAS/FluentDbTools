@@ -8,5 +8,9 @@ docker-compose.yml
 docker-compose.*.yml
 */bin
 */obj
-*.nupkg
 .idea
+
+*.crt
+*.p7b
+PKCS7/
+X509/
