@@ -4,12 +4,13 @@ import glob
 import os
 import sys
 
+
 NUGET_FOLDER = 'src/output/nuget/'
 CERTIFICATE_FILE_PATH = 'CodeSign/CodeSign.pfx'
-CERTIFICATE_PASSWORD = 'xxxxx'
 TIMESTAMPER_URL = 'http://sha256timestamp.ws.symantec.com/sha256/timestamp'
 OUTPOUT_DIRECTORY = 'src/output/nuget/signed/'
 CHANGELOG_PATH = 'CHANGELOG.md'
+
 
 def GetNugets(nugetFolder, version):
     return glob.glob(os.path.join(nugetFolder, '*.%s.nupkg' % (version)))
@@ -45,7 +46,7 @@ def SignNugetPackages(
 def GetPasswordFromArguments(arguments):
     passwords = SwarmTools.GetArgumentValues(arguments, '-p')
     if len(passwords) == 0:
-        return CERTIFICATE_PASSWORD
+        return 'xxxx'
     return passwords[0]
 
 
