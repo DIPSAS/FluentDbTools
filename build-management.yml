@@ -14,7 +14,7 @@ build:
 
 run:
     selections:
-        fluentDbTools-extract-nuget:
+        fluentDbTools:
             directory: src
             copyFromContainer:
                 fluentdbtools.nuget:
