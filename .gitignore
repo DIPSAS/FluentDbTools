@@ -52,7 +52,7 @@ __pycache__/
 *.pfx
 *.p12
 pw.txt
-pw.txt
+apikey.txt
 PKCS7/
 X509/
 CodeSign/
