@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+
+        <Authors>Team Frost</Authors> 
+        <Company>DIPS AS</Company> 
+        <Copyright>Copyright © 2019</Copyright> 
+
+        <Product>FluentDbTools</Product> 
+        <ProductName>FluentDbTools</ProductName> 
+
+        <RepositoryType>csharp</RepositoryType> 
+        <PackageIconUrl>https://github.com/DIPSAS/FluentDbTools/tree/master/src/FluentDbTools/icon.png?raw=true</PackageIconUrl> 
+        <RepositoryUrl>https://github.com/DIPSAS/FluentDbTools</RepositoryUrl> 
+        <Description>FluentDbTools provides a fluent SQL abstraction layer for creating database connections, building sql queries and migrating your database.</Description>
+
+    </PropertyGroup> 
+
+</Project>

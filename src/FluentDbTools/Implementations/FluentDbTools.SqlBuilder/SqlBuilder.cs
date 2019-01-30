@@ -2,7 +2,7 @@
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions;
 
-[assembly: InternalsVisibleTo("FluentDbTools.SqlBuilder.Tests")]
+[assembly: InternalsVisibleTo("Test.FluentDbTools.SqlBuilder")]
 namespace FluentDbTools.SqlBuilder
 {
     public class SqlBuilder : ISqlBuilder

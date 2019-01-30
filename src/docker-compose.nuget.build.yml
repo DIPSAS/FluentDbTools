@@ -1,45 +1,12 @@
 version: '3'
 
 services:
-  fluentdbtools-abstractions-nuget: &fluentdbtools-nuget
-    image: fluentdbtools.abstractions.nuget
-    container_name: fluentdbtools.abstractions.nuget
+  fluentdbtools-nuget:
+    image: fluentdbtools.nuget
+    container_name: fluentdbtools.nuget
     build:
       context: .
       dockerfile: Dockerfile_BuildNuget
       args:
         - VERSION=${VERSION}
-        - PROJECT_FOLDER=FluentDbTools/Abstractions
-
-  fluentdbtools-implementations-nuget:
-    <<: *fluentdbtools-nuget
-    image: fluentdbtools.implementations.nuget
-    container_name: fluentdbtools.implementations.nuget
-    build:
-      context: .
-      dockerfile: Dockerfile_BuildNuget
-      args:
-        - VERSION=${VERSION}
-        - PROJECT_FOLDER=FluentDbTools/Implementations
-
-  fluentdbtools-extensions-nuget:
-    <<: *fluentdbtools-nuget
-    image: fluentdbtools.extensions.nuget
-    container_name: fluentdbtools.extensions.nuget
-    build:
-      context: .
-      dockerfile: Dockerfile_BuildNuget
-      args:
-        - VERSION=${VERSION}
-        - PROJECT_FOLDER=FluentDbTools/Extensions
-
-  fluentdbtools-contracts-nuget:
-    <<: *fluentdbtools-nuget
-    image: fluentdbtools.contracts.nuget
-    container_name: fluentdbtools.contracts.nuget
-    build:
-      context: .
-      dockerfile: Dockerfile_BuildNuget
-      args:
-        - VERSION=${VERSION}
-        - PROJECT_FOLDER=FluentDbTools/Contracts
+        - SOLUTION_NAMESPACE=FluentDbTools

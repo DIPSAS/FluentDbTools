@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
     <ItemGroup>
-        <ProjectReferences Include="**/*.Tests.csproj" />
+        <ProjectReferences Include="**/Test.*.csproj" />
     </ItemGroup>
     <Target Name="build">
         <MSBuild Projects="@(ProjectReferences)" Targets="Build" />
