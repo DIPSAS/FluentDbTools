@@ -2,6 +2,9 @@ changelog:
     file: CHANGELOG.md
     envKey: VERSION
 
+env_files:
+    - .env
+
 build:
     selections:
         fluentDbTools:
@@ -14,16 +17,7 @@ run:
         fluentDbTools-extract-nuget:
             directory: src
             copyFromContainer:
-                fluentdbtools.abstractions.nuget:
-                    containerSrc: src/nuget/
-                    hostDest: output
-                fluentdbtools.implementations.nuget:
-                    containerSrc: src/nuget/
-                    hostDest: output
-                fluentdbtools.extensions.nuget:
-                    containerSrc: src/nuget/
-                    hostDest: output
-                fluentdbtools.contracts.nuget:
+                fluentdbtools.nuget:
                     containerSrc: src/nuget/
                     hostDest: output
             files:

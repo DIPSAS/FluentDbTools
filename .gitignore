@@ -49,8 +49,13 @@ __pycache__/
 # certificates
 *.crt
 *.p7b
+*.pfx
+*.p12
+pw.txt
+pw.txt
 PKCS7/
 X509/
+CodeSign/
 
 docker-compose.build.*.yml
 docker-compose.publish.*.yml

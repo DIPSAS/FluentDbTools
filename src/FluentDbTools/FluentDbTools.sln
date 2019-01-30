@@ -28,13 +28,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Extensions.Mi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Example.Migration", "Example\FluentDbTools.Example.Migration\FluentDbTools.Example.Migration.csproj", "{A7F2BB62-54CF-4552-B481-5A2DC952276C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Migrator", "Services\FluentDbTools.Migrator\FluentDbTools.Migrator.csproj", "{540440D0-0B38-4129-B57E-F12358221FE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.FluentDbTools.Migrator", "Services\Service.FluentDbTools.Migrator\Service.FluentDbTools.Migrator.csproj", "{540440D0-0B38-4129-B57E-F12358221FE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Migration.Tests", "Tests\FluentDbTools.Migration.Tests\FluentDbTools.Migration.Tests.csproj", "{ACE26CB1-3A70-42D7-B03F-156CF3A435E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.FluentDbTools.Migration", "Tests\Test.FluentDbTools.Migration\Test.FluentDbTools.Migration.csproj", "{ACE26CB1-3A70-42D7-B03F-156CF3A435E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.TestUtilities", "Tests\FluentDbTools.TestUtilities\FluentDbTools.TestUtilities.csproj", "{2CBE6B3F-53A2-455B-9F55-7E299F725542}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUtilities.FluentDbTools", "Tests\TestUtilities.FluentDbTools\TestUtilities.FluentDbTools.csproj", "{2CBE6B3F-53A2-455B-9F55-7E299F725542}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.DbProvider.Tests", "Tests\FluentDbTools.DbProvider.Tests\FluentDbTools.DbProvider.Tests.csproj", "{9FE41817-62AC-41D4-9467-D606E9AFDF8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.FluentDbTools.DbProvider", "Tests\Test.FluentDbTools.DbProvider\Test.FluentDbTools.DbProvider.csproj", "{9FE41817-62AC-41D4-9467-D606E9AFDF8E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Example.Common", "Example\FluentDbTools.Example.Common\FluentDbTools.Example.Common.csproj", "{FEBD9B64-8449-4105-9AFB-C7840EA47469}"
 EndProject
@@ -62,7 +62,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.SqlBuilder", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.SqlBuilder.Abstractions", "Abstractions\FluentDbTools.SqlBuilder.Abstractions\FluentDbTools.SqlBuilder.Abstractions.csproj", "{808DAA71-CFD4-42EA-86C5-709B9F15C54F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.SqlBuilder.Tests", "Tests\FluentDbTools.SqlBuilder.Tests\FluentDbTools.SqlBuilder.Tests.csproj", "{1BEEDB88-7A6B-495E-ACB4-9C03E118CD1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.FluentDbTools.SqlBuilder", "Tests\Test.FluentDbTools.SqlBuilder\Test.FluentDbTools.SqlBuilder.csproj", "{1BEEDB88-7A6B-495E-ACB4-9C03E118CD1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Extensions.SqlBuilder", "Extensions\FluentDbTools.Extensions.SqlBuilder\FluentDbTools.Extensions.SqlBuilder.csproj", "{8F3570E1-477E-4CE2-A8C1-6320D2506FE5}"
 EndProject
