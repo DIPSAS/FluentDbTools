@@ -13,13 +13,13 @@ def GetNugets(nugetFolder):
 def SignNugetPackage(nugetPackage, certificateFilePath, outputDirectory):
     terminalCommand = 'nuget sign %s -CertificatePath %s -OutputDirectory %s' % (
         nugetPackage, certificateFilePath, outputDirectory)
-    TerminalTools.ExecuteTerminalCommands([terminalCommand])
+    TerminalTools.ExecuteTerminalCommands([terminalCommand], True)
 
 
 def VerifySignedNugetPackage(nugetPackage):
     terminalCommand = 'nuget verify -Signatures %s' % (
         nugetPackage)
-    TerminalTools.ExecuteTerminalCommands([terminalCommand])
+    TerminalTools.ExecuteTerminalCommands([terminalCommand], True)
 
 
 def SignNugetPackages(nugetFolder=NUGET_FOLDER, 
