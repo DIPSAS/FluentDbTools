@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Example.Migration;
+using Example.FluentDbTools.Migration;
 using FluentDbTools.Migration;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.VersionTableInfo;

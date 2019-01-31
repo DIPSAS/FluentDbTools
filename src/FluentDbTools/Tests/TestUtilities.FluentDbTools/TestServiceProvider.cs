@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Example.Database;
-using FluentDbTools.Example.Migration;
+using Example.FluentDbTools.Database;
+using Example.FluentDbTools.Migration;
 
 namespace TestUtilities.FluentDbTools
 {

@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Example\FluentDbTools.Example.Migration\FluentDbTools.Example.Migration.csproj" />
+      <ProjectReference Include="..\..\Example\Example.FluentDbTools.Migration\Example.FluentDbTools.Migration.csproj" />
     </ItemGroup>
 
 </Project>

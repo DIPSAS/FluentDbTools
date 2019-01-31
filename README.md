@@ -9,10 +9,10 @@ Following databases are currently supported:
 - Postgres
 
 ## Nugets
-- DbProvider: `FluentDbTools.Extensions.DbProvider`
-- SqlBuilder: `FluentDbTools.Extensions.SqlBuilder`
-- Migration: `FluentDbTools.Extensions.Migration`
-- Extension.MSDependencyInjection: `FluentDbTools.Extensions.MSDependencyInjection`
+- FluentDbTools.Extensions.DbProvider: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Extensions.DbProvider.svg)](https://badge.fury.io/nu/FluentDbTools.Extensions.DbProvider)
+- FluentDbTools.Extensions.SqlBuilder: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Extensions.SqlBuilder.svg)](https://badge.fury.io/nu/FluentDbTools.Extensions.SqlBuilder)
+- FluentDbTools.Extensions.Migration: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Extensions.Migration.svg)](https://badge.fury.io/nu/FluentDbTools.Extensions.Migration)
+- FluentDbTools.Extension.MSDependencyInjection: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Extensions.MSDependencyInjection.svg)](https://badge.fury.io/nu/FluentDbTools.Extensions.MSDependencyInjection)
 
 ## Example
 The `IDbConfig` interface is the only member you need to instantiate.

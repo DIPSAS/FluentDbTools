@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Example.Database;
+using Example.FluentDbTools.Database;
 using TestUtilities.FluentDbTools;
 using Xunit;
 
