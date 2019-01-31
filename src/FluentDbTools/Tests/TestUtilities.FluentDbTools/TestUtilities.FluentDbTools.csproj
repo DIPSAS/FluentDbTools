@@ -12,8 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Example\FluentDbTools.Example.Database\FluentDbTools.Example.Database.csproj" />
-      <ProjectReference Include="..\..\Example\FluentDbTools.Example.Migration\FluentDbTools.Example.Migration.csproj" />
+      <ProjectReference Include="..\..\Example\Example.FluentDbTools.Database\Example.FluentDbTools.Database.csproj" />
+      <ProjectReference Include="..\..\Example\Example.FluentDbTools.Migration\Example.FluentDbTools.Migration.csproj" />
     </ItemGroup>
 
     <ItemGroup>

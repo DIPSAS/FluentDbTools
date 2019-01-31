@@ -1,6 +1,6 @@
 using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Example.Common;
-using FluentDbTools.Example.Migration;
+using Example.FluentDbTools.Common;
+using Example.FluentDbTools.Migration;
 using FluentDbTools.Extensions.Migration;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using FluentDbTools.Migration;

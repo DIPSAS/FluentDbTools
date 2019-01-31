@@ -2,7 +2,7 @@
 
     <PropertyGroup>
 
-        <Authors>Team Frost</Authors> 
+        <Authors>DIPS AS, Team Frost</Authors> 
         <Company>DIPS AS</Company> 
         <Copyright>Copyright © 2019</Copyright> 
 
@@ -10,9 +10,10 @@
         <ProductName>FluentDbTools</ProductName> 
 
         <RepositoryType>csharp</RepositoryType> 
-        <PackageIconUrl>https://github.com/DIPSAS/FluentDbTools/tree/master/src/FluentDbTools/icon.png?raw=true</PackageIconUrl> 
+        <PackageIconUrl>https://raw.githubusercontent.com/DIPSAS/FluentDbTools/master/src/FluentDbTools/icon.png</PackageIconUrl> 
         <RepositoryUrl>https://github.com/DIPSAS/FluentDbTools</RepositoryUrl> 
         <Description>FluentDbTools provides a fluent SQL abstraction layer for creating database connections, building sql queries and migrating your database.</Description>
+        <PackageTags>database,sql,sqlbuilder,migrator,fluentmigrator</PackageTags>
 
     </PropertyGroup> 
 

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Example.Common;
-using FluentDbTools.Example.Config;
+using Example.FluentDbTools.Common;
+using Example.FluentDbTools.Config;
 using Microsoft.Extensions.Configuration;
 
 namespace TestUtilities.FluentDbTools
