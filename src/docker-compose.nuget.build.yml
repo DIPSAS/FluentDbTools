@@ -9,4 +9,4 @@ services:
       dockerfile: Dockerfile_BuildNuget
       args:
         - VERSION=${VERSION}
-        - SOLUTION_NAMESPACE=FluentDbTools
+        - SOLUTION_FOLDER=FluentDbTools
