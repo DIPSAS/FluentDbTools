@@ -23,7 +23,7 @@ namespace FluentDbTools.Migration.Oracle
 
         private const string SchemaExistsSqlTemplate = "SELECT 1 FROM ALL_USERS WHERE USERNAME = '{0}'";
         private const string CreateSchemaSqlTemplate = "CREATE USER {0} IDENTIFIED BY {1} DEFAULT TABLESPACE {2} TEMPORARY TABLESPACE {3}";
-        private const string DropSchemaSqlTemplate = 
+        private const string DropSchemaSqlTemplate =
 @"DECLARE
     lc_username   VARCHAR2 (32) := '{0}';
 BEGIN
@@ -35,7 +35,7 @@ BEGIN
 END;";
 
         private const string TableSpaceExistsSqlTemplate = "SELECT 1 FROM DBA_TABLESPACES WHERE TABLESPACE_NAME = '{0}'";
-        
+
         private readonly IQuoter Quoter;
         private readonly IDbConfig DbConfig;
 
@@ -90,7 +90,7 @@ END;";
 
             return string.Format(CreateConstraintSqlTemplate, Quoter.QuoteTableName(expression.Constraint.TableName, expression.Constraint.SchemaName),
                 Quoter.QuoteConstraintName(expression.Constraint.ConstraintName, expression.Constraint.SchemaName),
-                constraintType, 
+                constraintType,
                 string.Join(", ", columns));
         }
 
@@ -111,8 +111,8 @@ END;";
                 sequenceName = "-empty-";
             }
 
-            return string.IsNullOrEmpty(schemaName) 
-                ? $"SELECT 1 FROM ALL_SEQUENCES WHERE SEQUENCE_NAME = '{sequenceName.ToUpper()}'" 
+            return string.IsNullOrEmpty(schemaName)
+                ? $"SELECT 1 FROM ALL_SEQUENCES WHERE SEQUENCE_NAME = '{sequenceName.ToUpper()}'"
                 : $"SELECT 1 FROM ALL_SEQUENCES WHERE SEQUENCE_NAME = '{sequenceName.ToUpper()}' and SEQUENCE_OWNER = '{schemaName.ToUpper()}'";
         }
 
@@ -126,7 +126,7 @@ END;";
         {
             throw new NotImplementedException();
         }
-        
+
         public string Generate(CreateUserExpression expression)
         {
             throw new NotImplementedException();
@@ -138,7 +138,12 @@ END;";
             if (expression.SchemaName.Equals(DbConfig.Schema,
                 StringComparison.OrdinalIgnoreCase))
             {
-                schemaPassword = DbConfig.Password;
+                schemaPassword = DbConfig.SchemaPassword;
+            }
+
+            if (string.IsNullOrEmpty(schemaPassword))
+            {
+                schemaPassword = expression.SchemaName;
             }
 
             using (var writer = new StringWriter())

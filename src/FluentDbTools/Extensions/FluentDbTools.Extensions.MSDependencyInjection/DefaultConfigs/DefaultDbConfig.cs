@@ -22,6 +22,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         public string DatabaseConnectionName => Configuration.GetDbConnectionName();
         public bool Pooling => Configuration.GetDbPooling();
         public string Schema => Configuration.GetDbSchema();
+        public string SchemaPassword => Configuration.GetDbSchemaPassword();
         public string DefaultTablespace => Configuration.GetDbDefaultTablespace();
         public string TempTablespace => Configuration.GetDbTempTablespace();
     }
