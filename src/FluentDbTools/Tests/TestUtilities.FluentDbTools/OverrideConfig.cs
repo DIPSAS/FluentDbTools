@@ -24,6 +24,8 @@ namespace TestUtilities.FluentDbTools
             {
                 {"database:schema", schema},
                 {"database:user", schema},
+                {"database:schemapassword", schema},
+                {"database:password", schema},
             };
 
             switch (databaseType)
