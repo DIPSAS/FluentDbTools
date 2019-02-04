@@ -14,7 +14,7 @@ CHANGELOG_PATH = 'CHANGELOG.md'
 
 def GetNugets(nugetFolder, version):
     nugetPackages = glob.glob(os.path.join(nugetFolder, '*.%s.nupkg' % (version)))
-    nugetPackages += glob.glob(os.path.join(nugetFolder, '*.%s.symbols.nupkg' % (version)))
+    nugetPackages += glob.glob(os.path.join(nugetFolder, '*.%s.snupkg' % (version)))
     return nugetPackages
 
 
