@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using FluentDbTools.Common.Abstractions;
 using Microsoft.Extensions.Configuration;
 
@@ -23,7 +24,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         {
             return configuration?.GetSection("database");
         }
-        
+
         public static SupportedDatabaseTypes GetDbType(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
@@ -33,49 +34,49 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             }
             return availableDatabaseType;
         }
-        
+
         public static string GetDbUser(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section?["user"] ?? DefaultDbUser;
+            return section.GetSectionStringValue("user", DefaultDbUser);
         }
-        
+
         public static string GetDbPassword(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section?["password"] ?? DefaultDbPassword;
+            return section.GetSectionStringValue("password", DefaultDbPassword);
         }
-        
+
         public static string GetDbAdminUser(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section?["adminUser"] ?? DefaultDbAdminUser;
+            return section.GetSectionStringValue("adminUser", DefaultDbAdminUser);
         }
-        
+
         public static string GetDbAdminPassword(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section?["adminPassword"] ?? DefaultDbAdminPassword;
+            return section.GetSectionStringValue("adminPassword", DefaultDbAdminPassword);
         }
-        
+
         public static string GetDbHostname(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section?["hostname"] ?? DefaultDbHostname;
+            return section.GetSectionStringValue("hostname", DefaultDbHostname);
         }
-        
+
         public static string GetDbPort(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section?["port"] ?? DefaultDbPort;
+            return section.GetSectionStringValue("port", DefaultDbPort);
         }
-        
+
         public static string GetDbConnectionName(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section?["databaseConnectionName"] ?? DefaultDbConnectionName;
+            return section.GetSectionStringValue("databaseConnectionName", DefaultDbConnectionName);
         }
-        
+
         public static bool GetDbPooling(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
@@ -85,23 +86,46 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             }
             return pooling;
         }
-        
+
         public static string GetDbSchema(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return (section?["schema"] ?? DefaultDbSchema).ToLower();
+            return section.GetSectionStringValue("schema", DefaultDbSchema).ToLower();
         }
-        
+
+        public static string GetDbSchemaPassword(this IConfiguration configuration)
+        {
+            var section = configuration?.GetDbSection();
+            return section.GetSectionStringValue("schemaPassword", configuration.GetDbSchema());
+        }
+
+
         public static string GetDbDefaultTablespace(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return (section?["defaultTablespace"] ?? DefaultDbDefaultTablespace).ToUpper();
+            return section.GetSectionStringValue("defaultTablespace", DefaultDbDefaultTablespace).ToUpper();
         }
-        
+
         public static string GetDbTempTablespace(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return (section?["tempTablespace"] ?? DefaultDbTempTablespace).ToUpper();
+            return section.GetSectionStringValue("tempTablespace", DefaultDbTempTablespace).ToUpper();
+        }
+
+        private static string GetSectionStringValue(this IConfigurationSection section, string key, string defaultValue = null)
+        {
+            if (section == null)
+            {
+                return defaultValue;
+            }
+
+            var value = section[key];
+            if (string.IsNullOrEmpty(value))
+            {
+                value = defaultValue;
+            }
+
+            return value;
         }
     }
 }

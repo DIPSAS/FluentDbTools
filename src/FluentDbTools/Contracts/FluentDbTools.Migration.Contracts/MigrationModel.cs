@@ -54,14 +54,15 @@ namespace FluentDbTools.Migration.Contracts
 
                 var type = typeof(FluentMigrator.Migration);
                 var property = type.GetProperty("Context", BindingFlags.Instance | BindingFlags.NonPublic);
-                if (property != null)
+                if (property == null)
                 {
-                    Version = (property.GetValue(this) as MigrationContext)?.ServiceProvider?.GetService<IVersionTableMetaData>();
-                    if (Version != null)
-                    {
-                        SchemaNameField = Version.SchemaName;
-                    }
+                    return SchemaNameField;
+                }
 
+                Version = (property.GetValue(this) as MigrationContext)?.ServiceProvider?.GetService<IVersionTableMetaData>();
+                if (Version != null)
+                {
+                    SchemaNameField = Version.SchemaName;
                 }
 
                 return SchemaNameField;
@@ -87,7 +88,7 @@ namespace FluentDbTools.Migration.Contracts
         {
             return IsPostgres(this.GetConfigurtedDatabaseType());
         }
-        
+
         private static bool IsOracle(string configuredDatabaseType)
         {
             return IsDatabase(configuredDatabaseType, "oracle");
@@ -97,7 +98,7 @@ namespace FluentDbTools.Migration.Contracts
         {
             return IsDatabase(configuredDatabaseType, "mssql");
         }
-        
+
         private static bool IsPostgres(string configuredDatabaseType)
         {
             return IsDatabase(configuredDatabaseType, "postgres");
@@ -117,7 +118,7 @@ namespace FluentDbTools.Migration.Contracts
 
             return column.AsDateTime();
         }
-        
+
         internal TNext AsDatabaseBlob<TNext>(IColumnTypeSyntax<TNext> column) where TNext : IFluentSyntax
         {
             if (IsOracle(ConfiguredDatabaseType))

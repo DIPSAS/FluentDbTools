@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using FluentDbTools.Common.Abstractions;
+﻿using System.Data;
 
-namespace FluentDbTools.Database.Abstractions
+namespace FluentDbTools.Common.Abstractions
 {
     public interface IDbConnectionProvider
     {

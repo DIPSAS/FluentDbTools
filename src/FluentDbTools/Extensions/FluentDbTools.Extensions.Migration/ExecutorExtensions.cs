@@ -18,64 +18,104 @@ namespace FluentDbTools.Extensions.Migration
             return GetMigrationRunner(provider => dbConfig, assembliesWithMigrationModels, serviceCollection);
         }
 
-        public static void DropData(this IDbConfig dbConfig,
+        public static IMigrationRunner GetMigrationRunner(this IServiceProvider provider)
+        {
+            return provider.GetService<IMigrationRunner>();
+        }
+
+        public static IMigrationRunner GetMigrationRunner(Func<IServiceProvider, IDbConfig> dbConfig, IEnumerable<Assembly> assembliesWithMigrationModels,
+            IServiceCollection serviceCollection = null)
+        {
+            var serviceProvider = BuildServiceProviderWithMigration(dbConfig, assembliesWithMigrationModels, serviceCollection);
+
+            var scope = serviceProvider.CreateScope();
+            return scope.ServiceProvider.GetMigrationRunner();
+        }
+
+        public static void DropSchema(this IDbConfig dbConfig,
             IEnumerable<Assembly> assembliesWithMigrationModels,
             IServiceCollection serviceCollection = null)
         {
-            DropData(provider => dbConfig, assembliesWithMigrationModels, serviceCollection);
+            DropSchema(provider => dbConfig, assembliesWithMigrationModels, serviceCollection);
         }
 
-        public static IMigrationRunner GetMigrationRunner(Func<IServiceProvider, IDbConfig> dbConfig, IEnumerable<Assembly> assembliesWithMigrationModels, 
-            IServiceCollection serviceCollection = null)
-        {
-            serviceCollection = serviceCollection ?? new ServiceCollection();
-            var serviceProvider = serviceCollection
-                .AddScoped(dbConfig)
-                .ConfigureWithMigration(assembliesWithMigrationModels)
-                .BuildServiceProvider();
 
-            var scope = serviceProvider.CreateScope();
-            return scope.ServiceProvider.GetService<IMigrationRunner>();
-        }
-        
-        public static void DropData(Func<IServiceProvider, IDbConfig> dbConfig, IEnumerable<Assembly> assembliesWithMigrationModels, 
+        public static void DropSchema(Func<IServiceProvider, IDbConfig> dbConfig, IEnumerable<Assembly> assembliesWithMigrationModels,
             IServiceCollection serviceCollection = null)
         {
-            serviceCollection = serviceCollection ?? new ServiceCollection();
-            var serviceProvider = serviceCollection
-                .AddScoped(dbConfig)
-                .ConfigureWithMigration(assembliesWithMigrationModels)
-                .BuildServiceProvider();
-            
-            using (var scope = serviceProvider.CreateScope())
-            {
-                var versionTable = scope.ServiceProvider.GetService<IVersionTableMetaData>();
-                var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
-                migrationRunner.DropData(versionTable);
-            }
+            BuildServiceProviderWithMigration(dbConfig, assembliesWithMigrationModels, serviceCollection)
+                .DropSchema();
         }
-        
-        public static IServiceProvider ExecuteMigration(this IServiceProvider provider)
+
+        public static IServiceProvider DropSchema(this IServiceProvider provider)
         {
             using (var scope = provider.CreateScope())
             {
-                var runner = scope.ServiceProvider.GetService<IMigrationRunner>();
+                var versionTable = scope.ServiceProvider.GetVersionTableMetaData();
+                var migrationRunner = scope.ServiceProvider.GetMigrationRunner();
+                migrationRunner.DropSchema(versionTable);
+            }
+
+            return provider;
+        }
+
+        [Obsolete("Please use MigrateUp")]
+        public static IServiceProvider ExecuteMigration(this IServiceProvider provider)
+        {
+            return provider.MigrateUp();
+        }
+
+        public static IServiceProvider MigrateUp(this IServiceProvider provider)
+        {
+            using (var scope = provider.CreateScope())
+            {
+                var runner = scope.ServiceProvider.GetMigrationRunner();
                 runner.MigrateUp();
             }
 
             return provider;
         }
-        
-        public static IServiceProvider DropData(this IServiceProvider provider)
+
+        public static IServiceProvider MigrateDown(this IServiceProvider provider, long version = default(long))
         {
             using (var scope = provider.CreateScope())
             {
-                var versionTable = scope.ServiceProvider.GetService<IVersionTableMetaData>();
-                var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
-                migrationRunner.DropData(versionTable);
+                var runner = scope.ServiceProvider.GetMigrationRunner();
+                runner.MigrateDown(version);
             }
 
             return provider;
         }
+
+
+        public static IServiceProvider ResetMigration(this IServiceProvider provider)
+        {
+            using (var scope = provider.CreateScope())
+            {
+                var runner = scope.ServiceProvider.GetMigrationRunner();
+                runner.RollbackToVersion(0);
+            }
+
+            return provider;
+        }
+
+
+        public static IVersionTableMetaData GetVersionTableMetaData(this IServiceProvider provider)
+        {
+            return provider.GetService<IVersionTableMetaData>();
+        }
+
+
+        private static ServiceProvider BuildServiceProviderWithMigration(Func<IServiceProvider, IDbConfig> dbConfig,
+            IEnumerable<Assembly> assembliesWithMigrationModels, IServiceCollection serviceCollection)
+        {
+            serviceCollection = serviceCollection ?? new ServiceCollection();
+            var serviceProvider = serviceCollection
+                .AddScoped(dbConfig)
+                .ConfigureWithMigration(assembliesWithMigrationModels)
+                .BuildServiceProvider();
+            return serviceProvider;
+        }
+
     }
 }

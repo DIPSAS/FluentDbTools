@@ -11,7 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Abstractions\FluentDbTools.Database.Abstractions\FluentDbTools.Database.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Abstractions\FluentDbTools.Common.Abstractions\FluentDbTools.Common.Abstractions.csproj" />
     </ItemGroup>
 
 

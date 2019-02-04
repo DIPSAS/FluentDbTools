@@ -5,7 +5,6 @@ using FluentDbTools.Migration.Common;
 using FluentMigrator.Expressions;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Generators.Postgres;
-using FluentMigrator.Runner.Helpers;
 using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.Postgres;
@@ -237,26 +236,32 @@ namespace FluentDbTools.Migration.Postgres
             }
 
             Logger.LogSay($"Creating Postgres schema '{expression.SchemaName}'...");
+            Debug($"Postgress-Process(CreateSchemaExpression): Sql={ExtendedGeneratorField.Generate(expression)}");
             Process(ExtendedGeneratorField.Generate(expression));
             Logger.LogSay($"Created Postgres schema '{expression.SchemaName}'...");
+        }
+
+        private void Debug(string s)
+        {
+            Logger.LogSay(s);
         }
 
         public override void Process(DeleteSchemaExpression expression)
         {
             this.ExecuteCodeBlockUntilNoExeception(() =>
+            {
+                if (!SchemaExists(expression.SchemaName))
                 {
-                    if (!SchemaExists(expression.SchemaName))
-                    {
-                        return;
-                    }
+                    return;
+                }
 
-                    Logger.LogSay($"Dropping Postgres schema(user) '{expression.SchemaName}'...");
-                    Process(ExtendedGeneratorField.Generate(expression));
-                    Logger.LogSay($"Dropped Postgres schema(user) '{expression.SchemaName}'...");
+                Logger.LogSay($"Dropping Postgres schema(user) '{expression.SchemaName}'...");
+                Process(ExtendedGeneratorField.Generate(expression));
+                Logger.LogSay($"Dropped Postgres schema(user) '{expression.SchemaName}'...");
 
-                    Process(new DeleteUserExpression(expression));
-                    PostgresDatabaseCreator.DropDatabase(DbConfig);
-                },
+                Process(new DeleteUserExpression(expression));
+                PostgresDatabaseCreator.DropDatabase(DbConfig);
+            },
                 ex => Logger.LogError(ex, $"Dropping Postgres schema(user) '{expression.SchemaName}' failed with exception :-("));
         }
 
@@ -268,6 +273,7 @@ namespace FluentDbTools.Migration.Postgres
             }
 
             Logger.LogSay($"Creating Postgres user '{expression.SchemaName}'...");
+            Debug($"Postgress-Process(CreateUserExpression): Sql={ExtendedGeneratorField.Generate(expression)}");
             Process(ExtendedGeneratorField.Generate(expression));
             Logger.LogSay($"Created Postgres user '{expression.SchemaName}'...");
 

@@ -31,7 +31,7 @@ namespace Test.FluentDbTools.Migration
                 
                 migrationRunner.MigrateDown(0);
                 
-                migrationRunner.DropData(versionTable);
+                migrationRunner.DropSchema(versionTable);
             }
         }
         
@@ -56,7 +56,7 @@ namespace Test.FluentDbTools.Migration
             
             runner.MigrateUp();
 
-            dbConfig.DropData(MigrationBuilder.MigrationAssemblies);
+            dbConfig.DropSchema(MigrationBuilder.MigrationAssemblies);
         }
     }
 }
