@@ -13,7 +13,9 @@ CHANGELOG_PATH = 'CHANGELOG.md'
 
 
 def GetNugets(nugetFolder, version):
-    return glob.glob(os.path.join(nugetFolder, '*.%s.nupkg' % (version)))
+    nugetPackages = glob.glob(os.path.join(nugetFolder, '*.%s.nupkg' % (version)))
+    nugetPackages += glob.glob(os.path.join(nugetFolder, '*.%s.symbols.nupkg' % (version)))
+    return nugetPackages
 
 
 def SignNugetPackage(nugetPackage, certificateFilePath, certificatePassword, timestamperUrl, outputDirectory):
