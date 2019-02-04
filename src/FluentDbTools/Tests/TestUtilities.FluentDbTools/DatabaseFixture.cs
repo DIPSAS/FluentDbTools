@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Migration;
+using FluentDbTools.Example.Migration;
 using FluentDbTools.Migration;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.VersionTableInfo;
@@ -20,7 +21,7 @@ namespace TestUtilities.FluentDbTools
             foreach (var databaseType in SelectedDatabaseTypesToTest())
             {
                 var overrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, MigratedDatabaseSchema);
-                MigrationExecutor.ExecuteMigration(databaseType, overrideConfig);
+                MigrationExecutor.MigrateUp(databaseType, overrideConfig);
             }
         }
         
@@ -52,7 +53,7 @@ namespace TestUtilities.FluentDbTools
         {
             var versionTable = scope.ServiceProvider.GetService<IVersionTableMetaData>();
             var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
-            migrationRunner.DropData(versionTable);
+            migrationRunner.DropSchema(versionTable);
         }
 
         private static IEnumerable<SupportedDatabaseTypes> SelectedDatabaseTypesToTest()

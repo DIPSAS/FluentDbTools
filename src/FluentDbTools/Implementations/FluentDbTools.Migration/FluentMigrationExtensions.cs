@@ -6,7 +6,7 @@ namespace FluentDbTools.Migration
 {
     public static class FluentMigrationExtensions
     {
-        public static void DropData(this IMigrationRunner migrationRunner, IVersionTableMetaData versionTableMetaData)
+        public static void DropSchema(this IMigrationRunner migrationRunner, IVersionTableMetaData versionTableMetaData)
         {
             var schemaName = versionTableMetaData.SchemaName;
             migrationRunner.Processor

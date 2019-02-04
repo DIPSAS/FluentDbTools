@@ -8,16 +8,17 @@ namespace FluentDbTools.Migration.Abstractions
         void Process(CreateSchemaExpression expression);
         void Process(DeleteSchemaExpression expression);
         void Process(DeleteDataExpression expression);
-        IDbConnection GetMigrationDbConnection();
         void Process(CreateConstraintExpression expression);
         void Process(CreateIndexExpression expression);
-
-        void ProcessSql(string sql);
         void Process(CreateTableExpression expression);
         void Process(CreateSequenceExpression expression);
         void Process(DeleteTableExpression expression);
+
+        IDbConnection GetMigrationDbConnection();
+        void ProcessSql(string sql);
+
     }
-    
+
     public interface IExtendedMigrationProcessor<T> : IExtendedMigrationProcessor
     {
     }

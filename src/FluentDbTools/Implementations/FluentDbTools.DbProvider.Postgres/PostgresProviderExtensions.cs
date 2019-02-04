@@ -2,7 +2,6 @@
 using System.Data;
 using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Database.Abstractions;
 using Npgsql;
 
 [assembly: InternalsVisibleTo("FluentDbTools.Extensions.DbProvider")]

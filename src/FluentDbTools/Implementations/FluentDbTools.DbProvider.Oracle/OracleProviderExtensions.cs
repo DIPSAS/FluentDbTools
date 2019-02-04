@@ -2,7 +2,6 @@
 using System.Data;
 using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Database.Abstractions;
 using Oracle.ManagedDataAccess.Client;
 
 [assembly: InternalsVisibleTo("FluentDbTools.Extensions.DbProvider")]
@@ -11,29 +10,29 @@ namespace FluentDbTools.DbProvider.Oracle
     internal class OracleProvider : IDbConnectionProvider
     {
         public SupportedDatabaseTypes DatabaseType => SupportedDatabaseTypes.Oracle;
-        
+
         private static string ConnectionStringTemplate => "User Id={0};" +
-                                                   "Password={1};" +
-                                                   "Pooling={5};" +
-                                                   "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={2})(PORT={3})))(CONNECT_DATA=(SERVICE_NAME={4})))";
-        
+                                                          "Password={1};" +
+                                                          "Pooling={5};" +
+                                                          "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={2})(PORT={3})))(CONNECT_DATA=(SERVICE_NAME={4})))";
+
         public string GetConnectionString(IDbConfig dbConfig) =>
             string.Format(ConnectionStringTemplate,
-                dbConfig.User.ToLower(),
+                dbConfig.User.ToUpper(),
                 dbConfig.Password,
                 dbConfig.Hostname,
                 dbConfig.Port,
                 dbConfig.DatabaseConnectionName.ToLower(),
-                dbConfig.Pooling.ToString());
-        
+                dbConfig.Pooling);
+
         public string GetAdminConnectionString(IDbConfig dbConfig) =>
             string.Format(ConnectionStringTemplate,
-                dbConfig.AdminUser.ToLower(),
+                dbConfig.AdminUser.ToUpper(),
                 dbConfig.AdminPassword,
                 dbConfig.Hostname,
                 dbConfig.Port,
                 dbConfig.DatabaseConnectionName.ToLower(),
-                dbConfig.Pooling.ToString());
+                dbConfig.Pooling);
 
         public IDbConnection CreateDbConnection(IDbConfig dbConfig, bool withAdminPrivileges = false)
         {

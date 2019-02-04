@@ -1,5 +1,6 @@
 ﻿using Example.FluentDbTools.Config;
 using Example.FluentDbTools.Migration;
+using FluentDbTools.Example.Migration;
 
 namespace Service.FluentDbTools.Migrator
 {
@@ -7,7 +8,7 @@ namespace Service.FluentDbTools.Migrator
     {
         static void Main(string[] args)
         {
-            MigrationExecutor.ExecuteMigration(BaseConfig.DatabaseSelectionFromEnvironment());
+            MigrationExecutor.MigrateUp(BaseConfig.DatabaseSelectionFromEnvironment());
         }
     }
 }
