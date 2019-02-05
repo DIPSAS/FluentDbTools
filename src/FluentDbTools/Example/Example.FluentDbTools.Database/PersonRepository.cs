@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Database.Entities;
@@ -10,60 +11,57 @@ namespace Example.FluentDbTools.Database
     public class PersonRepository : IPersonRepository
     {
         private readonly ILogger Logger;
-        private readonly IDbProvider DbProvider;
         private readonly IDbConfig DbConfig;
 
         public PersonRepository(
             ILogger<PersonRepository> logger,
-            IDbProvider dbProvider,
             IDbConfig dbConfig)
         {
             Logger = logger;
-            DbProvider = dbProvider;
             DbConfig = dbConfig;
         }
         
-        public Task InsertPerson(Person person)
+        public Task InsertPerson(Person person, IDbConnection dbConnection)
         {
             Logger.LogDebug($"Inserting person with id: {person.Id}");
             return Insert.InsertPerson.Execute(
-                DbProvider.DbTransaction.Connection,
+                dbConnection,
                 DbConfig,
                 person);
         }
 
-        public Task<IEnumerable<Person>> SelectPersons(Guid[] ids)
+        public Task<IEnumerable<Person>> SelectPersons(Guid[] ids, IDbConnection dbConnection)
         {
             Logger.LogDebug($"Selecting multiple persons");
             return Select.SelectPersons.Execute(
-                DbProvider.DbTransaction.Connection,
+                dbConnection,
                 DbConfig,
                 ids);
         }
 
-        public Task<Person> SelectPerson(Guid id)
+        public Task<Person> SelectPerson(Guid id, IDbConnection dbConnection)
         {
             Logger.LogDebug($"Selecting person with id: {id}");
             return Select.SelectPerson.Execute(
-                DbProvider.DbTransaction.Connection,
+                dbConnection,
                 DbConfig,
                 id);
         }
 
-        public Task UpdatePerson(Person person)
+        public Task UpdatePerson(Person person, IDbConnection dbConnection)
         {
             Logger.LogDebug($"Updating person with id: {person.Id}");
             return Update.UpdatePerson.Execute(
-                DbProvider.DbTransaction.Connection,
+                dbConnection,
                 DbConfig,
                 person);
         }
 
-        public Task DeletePerson(Guid id)
+        public Task DeletePerson(Guid id, IDbConnection dbConnection)
         {
             Logger.LogDebug($"Deleting person with id: {id}");
             return Delete.DeletePerson.Execute(
-                DbProvider.DbTransaction.Connection,
+                dbConnection,
                 DbConfig,
                 id);
         }
