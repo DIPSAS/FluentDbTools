@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
 using Oracle.ManagedDataAccess.Client;
