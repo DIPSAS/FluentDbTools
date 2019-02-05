@@ -15,7 +15,7 @@ namespace TestUtilities.FluentDbTools
         {
             var overrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType);
             additionalOverrideConfig?.ToList().ForEach(x => overrideConfig[x.Key] = x.Value);
-            return DbExampleBuilder.BuildDbExample(databaseType, overrideConfig);
+            return DbExampleBuilder.BuildDbExample(databaseType, false, overrideConfig);
         }
         
         public static IServiceProvider GetMigrationExampleServiceProvider(

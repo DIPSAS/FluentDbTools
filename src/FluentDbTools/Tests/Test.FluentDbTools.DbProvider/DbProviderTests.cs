@@ -14,7 +14,15 @@ namespace Test.FluentDbTools.DbProvider
         public async Task DbProvider_ExampleRepository_Success(SupportedDatabaseTypes databaseType)
         {
             var overrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType);
-            await DbExampleExecutor.ExecuteDbExample(databaseType, overrideConfig);
+            await DbExampleExecutor.ExecuteDbExample(databaseType, false, overrideConfig);
+        }
+        
+        [Theory]
+        [MemberData(nameof(TestParameters.DbParameters), MemberType = typeof(TestParameters))]
+        public async Task DbProvider_ExampleRepository_WithDbProviderFactory_Success(SupportedDatabaseTypes databaseType)
+        {
+            var overrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType);
+            await DbExampleExecutor.ExecuteDbExample(databaseType, true, overrideConfig);
         }
     }
 }
