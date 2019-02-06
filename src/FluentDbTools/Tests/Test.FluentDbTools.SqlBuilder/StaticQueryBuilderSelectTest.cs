@@ -48,6 +48,45 @@ namespace Test.FluentDbTools.SqlBuilder
         }
 
         [Theory]
+        [InlineData(SupportedDatabaseTypes.Oracle, null, "SELECT COUNT(e.Name, e.Description) FROM Entity e WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, "SELECT COUNT(e.Name, e.Description) FROM Entity e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "SELECT COUNT(e.Name, e.Description) FROM {0}.Entity e WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "SELECT COUNT(e.Name, e.Description) FROM {0}.Entity e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        public void SelectCountTestOneTableOnly(SupportedDatabaseTypes databaseTypes, string schema, string expectedSql)
+        {
+            var dbConfig = OverrideConfig.CreateTestDbConfig(databaseTypes, schema);
+            var useSchema = !string.IsNullOrEmpty(schema);
+            expectedSql = string.Format(expectedSql, dbConfig.Schema);
+
+            var builder = dbConfig.CreateSqlBuilder();
+            var select = builder.Select();
+            var sqls = new List<string>
+                {
+                    select
+                        .Count()
+                        .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue: () => useSchema)
+                        .Fields<Entity>(x => x.F(item => item.Name))
+                        .Fields<Entity>(x => x.F(item => item.Description))
+                        .Where<Entity>(x => x.WP(item => item.Id, "IdParam"))
+                        .Where<Entity>(x => x.WV(item => item.Name, "Arild"))
+                        .Build(),
+                    select
+                        .Count()
+                        .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue: () => useSchema)
+                        .From<Entity>()
+                        .Fields<Entity>(x => x.F(item => item.Name))
+                        .Fields<Entity>(x => x.F(item => item.Description))
+                        .Where<Entity>(x => x.WP(item => item.Id, "IdParam"))
+                        .Where<Entity>(x => x.WV(item => item.Name, "Arild"))
+                        .Build()
+                };
+            foreach (var sql in sqls)
+            {
+                sql.Should().Be(expectedSql);
+            }
+        }
+
+        [Theory]
         [InlineData(SupportedDatabaseTypes.Oracle, null, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM Entity e INNER JOIN ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
         [InlineData(SupportedDatabaseTypes.Postgres, null, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM Entity e INNER JOIN ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
         [InlineData(SupportedDatabaseTypes.Oracle, "schema", "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {0}.Entity e INNER JOIN {0}.ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]

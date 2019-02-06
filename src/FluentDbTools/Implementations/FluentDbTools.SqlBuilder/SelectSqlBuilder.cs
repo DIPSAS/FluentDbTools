@@ -24,6 +24,7 @@ namespace FluentDbTools.SqlBuilder
 
         private string TableAlias;
         private string SchemaName;
+        private bool SelectCount = false;
 
         private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? string.Empty : $"{SchemaName}.";
 
@@ -44,6 +45,12 @@ namespace FluentDbTools.SqlBuilder
                 SchemaName = schemaName ?? DbConfig.Schema;
             }
 
+            return this;
+        }
+
+        public ISelectSqlBuilder Count()
+        {
+            SelectCount = true;
             return this;
         }
 
@@ -173,8 +180,10 @@ namespace FluentDbTools.SqlBuilder
         public string Build()
         {
             var fields = string.Join(", ", FieldsList);
+            var countStart = SelectCount ? "COUNT(" : string.Empty;
+            var countEnd = SelectCount ? ")" : string.Empty;
 
-            var select = $"SELECT {fields} FROM {TableName} {TableAlias}";
+            var select = $"SELECT {countStart}{fields}{countEnd} FROM {TableName} {TableAlias}";
 
             if (Joins.Count > 0)
             {
@@ -202,6 +211,7 @@ namespace FluentDbTools.SqlBuilder
             SchemaName = null;
             TableName = null;
             TableAlias = null;
+            SelectCount = false;
         }
     }
 }
