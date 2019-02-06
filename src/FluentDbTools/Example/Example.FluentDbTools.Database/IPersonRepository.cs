@@ -13,5 +13,6 @@ namespace Example.FluentDbTools.Database
         Task<Person> SelectPerson(Guid id, IDbConnection dbConnection);
         Task UpdatePerson(Person person, IDbConnection dbConnection);
         Task DeletePerson(Guid id, IDbConnection dbConnection);
+        Task<long> CountAlivePersons(IDbConnection dbConnection);
     }
 }
