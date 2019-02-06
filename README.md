@@ -89,9 +89,6 @@ Please have a look in the example folder:
 7. Stop development when you feel like it:
     - `dbm -stop`
 
-## Additional Info
-- 
-
 ### Buildsystem
 - [DockerBuildManagement](https://github.com/DIPSAS/DockerBuildManagement)
 - [DockerBuildSystem](https://github.com/DIPSAS/DockerBuildSystem)
