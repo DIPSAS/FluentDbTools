@@ -6,6 +6,12 @@ namespace FluentDbTools.SqlBuilder.Abstractions
 {
     public interface ISelectSqlBuilder : ISqlBuildOnly
     {
+        /// <summary>
+        /// Count
+        /// </summary>
+        /// <returns type="ISelectSqlBuilder"></returns>
+        ISelectSqlBuilder Count();
+
         ISelectSqlBuilder OnSchema(string schemaName = null, Func<bool> setSchemaNameIfExpressionIsEvaluatedToTrue = null);
 
         ISelectSqlBuilder Fields<T>(Action<ISelectFieldSelector<T>> selector);

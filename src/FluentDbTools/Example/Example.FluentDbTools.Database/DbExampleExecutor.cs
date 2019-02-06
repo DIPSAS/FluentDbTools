@@ -35,6 +35,7 @@ namespace Example.FluentDbTools.Database
                     await repository.InsertPerson(person, dbConnection);
                 }
                 
+                (await repository.CountAlivePersons(dbConnection)).Should().BeInRange(10,20); // using range because of parallell test runs...
                 (await repository.SelectPerson(persons.First().Id, dbConnection)).Id.Should().Be(persons.First().Id);
 
                 var subsetPersons = persons.Take(persons.Length / 2).ToArray();

@@ -48,6 +48,14 @@ namespace Example.FluentDbTools.Database
                 id);
         }
 
+        public Task<long> CountAlivePersons(IDbConnection dbConnection)
+        {
+            Logger.LogDebug($"Count how many persons alive.");
+            return Select.SelectPersonsCount.Execute(
+                dbConnection,
+                DbConfig);
+        }
+
         public Task UpdatePerson(Person person, IDbConnection dbConnection)
         {
             Logger.LogDebug($"Updating person with id: {person.Id}");
