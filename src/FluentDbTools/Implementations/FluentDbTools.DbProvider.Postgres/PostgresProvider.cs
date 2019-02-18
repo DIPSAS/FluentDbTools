@@ -11,7 +11,7 @@ namespace FluentDbTools.DbProvider.Postgres
     {
         public SupportedDatabaseTypes DatabaseType => SupportedDatabaseTypes.Postgres;
         
-        private const string ConnectionStringTemplate = "User ID={0};" +
+        private const string DefaultConnectionStringTemplate = "User ID={0};" +
                                                         "Password={1};" +
                                                         "Host={2};" +
                                                         "Port={3};" +
@@ -19,7 +19,7 @@ namespace FluentDbTools.DbProvider.Postgres
                                                         "Pooling={5};";
         
         public string GetConnectionString(IDbConfig dbConfig) =>
-            string.Format(ConnectionStringTemplate,
+            string.Format(dbConfig.ConnectionStringTemplate ?? DefaultConnectionStringTemplate,
                 dbConfig.User.ToLower(),
                 dbConfig.Password,
                 dbConfig.Hostname,
@@ -28,7 +28,7 @@ namespace FluentDbTools.DbProvider.Postgres
                 dbConfig.Pooling.ToString());
         
         public string GetAdminConnectionString(IDbConfig dbConfig) =>
-            string.Format(ConnectionStringTemplate,
+            string.Format(dbConfig.ConnectionStringTemplate ?? DefaultConnectionStringTemplate,
                 dbConfig.AdminUser.ToLower(),
                 dbConfig.AdminPassword,
                 dbConfig.Hostname,

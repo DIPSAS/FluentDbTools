@@ -13,7 +13,7 @@ namespace Example.FluentDbTools.Migration
     {
         public static IEnumerable<Assembly> MigrationAssemblies => new[] {typeof(AddPersonTable).Assembly};
         
-        public static IServiceProvider BuildMigration(
+        public static IServiceCollection BuildMigrationServiceCollection(
             SupportedDatabaseTypes databaseType,
             Dictionary<string, string> overrideConfig = null)
         {
@@ -21,7 +21,14 @@ namespace Example.FluentDbTools.Migration
                 .ConfigureWithMigration(MigrationAssemblies)
                 .UseExampleConfiguration(
                     databaseType,
-                    overrideConfig)
+                    overrideConfig);
+        }
+        
+        public static IServiceProvider BuildMigration(
+            SupportedDatabaseTypes databaseType,
+            Dictionary<string, string> overrideConfig = null)
+        {
+            return BuildMigrationServiceCollection(databaseType, overrideConfig)
                 .BuildServiceProvider();
         }
     }
