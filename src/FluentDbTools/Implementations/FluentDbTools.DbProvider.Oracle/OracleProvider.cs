@@ -10,13 +10,13 @@ namespace FluentDbTools.DbProvider.Oracle
     {
         public SupportedDatabaseTypes DatabaseType => SupportedDatabaseTypes.Oracle;
 
-        private static string ConnectionStringTemplate => "User Id={0};" +
-                                                          "Password={1};" +
-                                                          "Pooling={5};" +
-                                                          "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={2})(PORT={3})))(CONNECT_DATA=(SERVICE_NAME={4})))";
+        private const string DefaultConnectionStringTemplate = "User Id={0};" +
+                                                                 "Password={1};" +
+                                                                 "Pooling={5};" +
+                                                                 "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={2})(PORT={3})))(CONNECT_DATA=(SERVICE_NAME={4})))";
 
         public string GetConnectionString(IDbConfig dbConfig) =>
-            string.Format(ConnectionStringTemplate,
+            string.Format(dbConfig.ConnectionStringTemplate ?? DefaultConnectionStringTemplate,
                 dbConfig.User.ToUpper(),
                 dbConfig.Password,
                 dbConfig.Hostname,
@@ -25,7 +25,7 @@ namespace FluentDbTools.DbProvider.Oracle
                 dbConfig.Pooling);
 
         public string GetAdminConnectionString(IDbConfig dbConfig) =>
-            string.Format(ConnectionStringTemplate,
+            string.Format(dbConfig.ConnectionStringTemplate ?? DefaultConnectionStringTemplate,
                 dbConfig.AdminUser.ToUpper(),
                 dbConfig.AdminPassword,
                 dbConfig.Hostname,
