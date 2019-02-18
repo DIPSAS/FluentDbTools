@@ -27,5 +27,7 @@ namespace FluentDbTools.Common.Abstractions
         string DefaultTablespace { get; }
         
         string TempTablespace { get; }
+        
+        string ConnectionStringTemplate { get; }
     }
 }

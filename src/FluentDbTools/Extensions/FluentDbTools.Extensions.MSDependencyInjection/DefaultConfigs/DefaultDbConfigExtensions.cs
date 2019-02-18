@@ -111,6 +111,12 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             var section = configuration?.GetDbSection();
             return section.GetSectionStringValue("tempTablespace", DefaultDbTempTablespace).ToUpper();
         }
+        
+        public static string GetDbConnectionStringTemplate(this IConfiguration configuration)
+        {
+            var section = configuration?.GetDbSection();
+            return section.GetSectionStringValue("connectionStringTemplate");
+        }
 
         private static string GetSectionStringValue(this IConfigurationSection section, string key, string defaultValue = null)
         {
