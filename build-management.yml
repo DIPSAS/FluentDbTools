@@ -2,9 +2,6 @@ changelog:
     file: CHANGELOG.md
     envKey: VERSION
 
-env_files:
-    - .env
-
 build:
     selections:
         fluentDbTools:
@@ -37,7 +34,8 @@ publish:
     selections:
         fluentDbTools:
             directory: src
-            additionalTag: latest
+            cmd:
+                - python .\sign_nugets.py -p ${CERTIFICATE_PASSWORD} -c ${CERTIFICATE_PATH}
             containerArtifact: false
             files:
                 - docker-compose.nuget.publish.yml
