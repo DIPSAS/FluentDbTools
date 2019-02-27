@@ -69,7 +69,12 @@ namespace FluentDbTools.Migration.Postgres
             if (expression.SchemaName.Equals(DbConfig.Schema,
                 StringComparison.OrdinalIgnoreCase))
             {
-                schemaPassword = DbConfig.Password;
+                schemaPassword = DbConfig.SchemaPassword;
+            }
+            
+            if (string.IsNullOrEmpty(schemaPassword))
+            {
+                schemaPassword = expression.SchemaName;
             }
 
             var sql = string.Format(CreateUserSqlTemplate, Quoter.QuoteSchemaName(expression.SchemaName), schemaPassword);

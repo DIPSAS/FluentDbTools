@@ -16,7 +16,6 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         private const string DefaultDbPort = "5432";
         private const string DefaultDbConnectionName = "postgres";
         private const bool DefaultDbPooling = false;
-        private const string DefaultDbSchema = DefaultDbUser;
         private const string DefaultDbDefaultTablespace = "FLUENT_DATA";
         private const string DefaultDbTempTablespace = "FLUENT_TEMP";
 
@@ -90,13 +89,13 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         public static string GetDbSchema(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("schema", DefaultDbSchema).ToLower();
+            return section.GetSectionStringValue("schema", configuration.GetDbUser()).ToLower();
         }
 
         public static string GetDbSchemaPassword(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("schemaPassword", configuration.GetDbSchema());
+            return section.GetSectionStringValue("schemaPassword", configuration.GetDbPassword());
         }
 
 
