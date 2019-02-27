@@ -10,12 +10,8 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         private const SupportedDatabaseTypes DefaultDatabaseType = SupportedDatabaseTypes.Postgres;
         private const string DefaultDbUser = "user";
         private const string DefaultDbPassword = "password";
-        private const string DefaultDbAdminUser = "admin";
-        private const string DefaultDbAdminPassword = "admin";
         private const string DefaultDbHostname = "localhost";
-        private const string DefaultDbPort = "5432";
-        private const string DefaultDbConnectionName = "postgres";
-        private const bool DefaultDbPooling = false;
+        private const bool DefaultDbPooling = true;
         private const string DefaultDbDefaultTablespace = "FLUENT_DATA";
         private const string DefaultDbTempTablespace = "FLUENT_TEMP";
 
@@ -48,14 +44,38 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 
         public static string GetDbAdminUser(this IConfiguration configuration)
         {
+            string defaultDbAdminUser;
+            switch (configuration.GetDbType())
+            {
+                case SupportedDatabaseTypes.Postgres:
+                    defaultDbAdminUser = "postgres";
+                    break;
+                case SupportedDatabaseTypes.Oracle:
+                    defaultDbAdminUser = "system";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("adminUser", DefaultDbAdminUser);
+            return section.GetSectionStringValue("adminUser", defaultDbAdminUser);
         }
 
         public static string GetDbAdminPassword(this IConfiguration configuration)
         {
+            string defaultDbAdminPassword;
+            switch (configuration.GetDbType())
+            {
+                case SupportedDatabaseTypes.Postgres:
+                    defaultDbAdminPassword = "postgres";
+                    break;
+                case SupportedDatabaseTypes.Oracle:
+                    defaultDbAdminPassword = "oracle";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("adminPassword", DefaultDbAdminPassword);
+            return section.GetSectionStringValue("adminPassword", defaultDbAdminPassword);
         }
 
         public static string GetDbHostname(this IConfiguration configuration)
@@ -66,14 +86,38 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 
         public static string GetDbPort(this IConfiguration configuration)
         {
+            string defaultDbPort;
+            switch (configuration.GetDbType())
+            {
+                case SupportedDatabaseTypes.Postgres:
+                    defaultDbPort = "5432";
+                    break;
+                case SupportedDatabaseTypes.Oracle:
+                    defaultDbPort = "1521";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("port", DefaultDbPort);
+            return section.GetSectionStringValue("port", defaultDbPort);
         }
 
         public static string GetDbConnectionName(this IConfiguration configuration)
         {
+            string defaultConnectionName;
+            switch (configuration.GetDbType())
+            {
+                case SupportedDatabaseTypes.Postgres:
+                    defaultConnectionName = configuration.GetDbSchema();
+                    break;
+                case SupportedDatabaseTypes.Oracle:
+                    defaultConnectionName = "xe";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("databaseConnectionName", DefaultDbConnectionName);
+            return section.GetSectionStringValue("databaseConnectionName", defaultConnectionName);
         }
 
         public static bool GetDbPooling(this IConfiguration configuration)
