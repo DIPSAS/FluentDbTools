@@ -3,11 +3,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 {
-    public class DefaultDbConfig : IDbConfig
+    public class MSDbConfig : IDbConfig
     {
         private readonly IConfiguration Configuration;
 
-        public DefaultDbConfig(IConfiguration configuration)
+        public MSDbConfig(IConfiguration configuration)
         {
             Configuration = configuration;
         }

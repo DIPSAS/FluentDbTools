@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 {
-    internal static class DefaultDbConfigExtensions
+    internal static class MSDbConfigExtensions
     {
         private const SupportedDatabaseTypes DefaultDatabaseType = SupportedDatabaseTypes.Postgres;
         private const string DefaultDbUser = "user";
