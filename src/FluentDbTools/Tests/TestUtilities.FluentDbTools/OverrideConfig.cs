@@ -44,7 +44,7 @@ namespace TestUtilities.FluentDbTools
 
         public static IDbConfig CreateTestDbConfig(SupportedDatabaseTypes databaseType, string schema = null)
         {
-            return new DefaultDbConfig(CreateTestConfiguration(databaseType, schema));
+            return new MSDbConfig(CreateTestConfiguration(databaseType, schema));
         }
 
         public static IConfigurationRoot CreateTestConfiguration(SupportedDatabaseTypes databaseType, string schema = null)

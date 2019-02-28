@@ -47,7 +47,7 @@ namespace Test.FluentDbTools.Migration
 
             var serviceProvider = new ServiceCollection()
                 .AddScoped<IConfiguration>(provider => configuration)
-                .AddScoped<IDbConfig, DefaultDbConfig>()
+                .AddScoped<IDbConfig, MSDbConfig>()
                 .BuildServiceProvider();
 
             var dbConfig = serviceProvider.GetService<IDbConfig>();

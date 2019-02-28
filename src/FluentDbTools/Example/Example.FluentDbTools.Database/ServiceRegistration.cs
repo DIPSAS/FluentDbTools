@@ -11,7 +11,7 @@ namespace Example.FluentDbTools.Database
         public static IServiceCollection Register(IServiceCollection serviceCollection, bool useDbProviderFactory)
         {
             return serviceCollection
-                .AddScoped<IDbConfig, DefaultDbConfig>()
+                .AddScoped<IDbConfig, MSDbConfig>()
                 .AddScoped<IPersonRepository, PersonRepository>()
                 .AddScoped<IDbConnection>(sp =>
                 {
