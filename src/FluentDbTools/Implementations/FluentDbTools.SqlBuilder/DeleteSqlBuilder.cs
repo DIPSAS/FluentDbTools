@@ -12,6 +12,7 @@ namespace FluentDbTools.SqlBuilder
     {
         private readonly List<string> Wheres = new List<string>();
         private readonly IDbConfig DbConfig;
+        private string TableName;
         private string SchemaName;
 
         private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? string.Empty : $"{SchemaName}.";
@@ -44,6 +45,12 @@ namespace FluentDbTools.SqlBuilder
             return this;
         }
 
+        public IDeleteSqlBuilder<TClass> OnTable(string tableName)
+        {
+            TableName = tableName;
+            return this;
+        }
+
         public IDeleteSqlBuilder<TClass> OnSchema(string schemaName = null, Func<bool> setSchemaNameIfExpressionIsEvaluatedToTrue = null)
         {
             if (setSchemaNameIfExpressionIsEvaluatedToTrue?.Invoke() ?? true)
@@ -55,7 +62,7 @@ namespace FluentDbTools.SqlBuilder
 
         public string Build()
         {
-            var sql = $"DELETE FROM {SqlBuilderHelper.GetTableNameForType<TClass>(SchemaNamePrefix)}";
+            var sql = $"DELETE FROM {SqlBuilderHelper.GetTableName<TClass>(SchemaNamePrefix, TableName)}";
 
             if (Wheres.Count > 0)
             {

@@ -13,7 +13,7 @@ namespace FluentDbTools.SqlBuilder.Common
         {
             var fields = string.Join(", ", FieldsList.Select(x => $"{x.FieldName} = {CreateFieldValue(x)}"));
 
-            return $"UPDATE {SqlBuilderHelper.GetTableNameForType<TClass>(SchemaNamePrefix)} SET {fields}";
+            return $"UPDATE {GetTableNameWithSchemaNamePrefix} SET {fields}";
         }
 
         private string CreateFieldValue(Field field)
