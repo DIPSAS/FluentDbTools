@@ -46,6 +46,44 @@ namespace Test.FluentDbTools.SqlBuilder
                 sql.Should().Be(expectedSql);
             }
         }
+        
+        [Theory]
+        [InlineData(SupportedDatabaseTypes.Oracle, null, "SELECT e.Name, e.Description FROM EntityTable e WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, "SELECT e.Name, e.Description FROM EntityTable e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "SELECT e.Name, e.Description FROM {0}.EntityTable e WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "SELECT e.Name, e.Description FROM {0}.EntityTable e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        public void SelectTestOneTableOnly_WithTableNameSet(SupportedDatabaseTypes databaseTypes, string schema, string expectedSql)
+        {
+            const string tableName = "EntityTable";
+            var dbConfig = OverrideConfig.CreateTestDbConfig(databaseTypes, schema);
+            var useSchema = !string.IsNullOrEmpty(schema);
+            expectedSql = string.Format(expectedSql, dbConfig.Schema);
+
+            var builder = dbConfig.CreateSqlBuilder();
+            var select = builder.Select();
+            var sqls = new List<string>
+                {
+                    select
+                        .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue: () => useSchema)
+                        .Fields<Entity>(x => x.F(item => item.Name), tableName)
+                        .Fields<Entity>(x => x.F(item => item.Description), tableName)
+                        .Where<Entity>(x => x.WP(item => item.Id, "IdParam"))
+                        .Where<Entity>(x => x.WV(item => item.Name, "Arild"))
+                        .Build(),
+                    select
+                        .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue: () => useSchema)
+                        .From<Entity>(tableName)
+                        .Fields<Entity>(x => x.F(item => item.Name))
+                        .Fields<Entity>(x => x.F(item => item.Description))
+                        .Where<Entity>(x => x.WP(item => item.Id, "IdParam"))
+                        .Where<Entity>(x => x.WV(item => item.Name, "Arild"))
+                        .Build()
+                };
+            foreach (var sql in sqls)
+            {
+                sql.Should().Be(expectedSql);
+            }
+        }
 
         [Theory]
         [InlineData(SupportedDatabaseTypes.Oracle, null, "SELECT COUNT(e.Name, e.Description) FROM Entity e WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
@@ -215,6 +253,67 @@ namespace Test.FluentDbTools.SqlBuilder
                         .From<Entity>()
                         .InnerJoin<Entity, ChildEntity>()
                         .LeftOuterJoin<ChildEntity, ChildChildEntity>()
+                        .Where<Entity>(x => x.WP(item => item.Id, "IdParam"))
+                        .Where<Entity>(x => x.WV(item => item.Name, "Arild"))
+                        .Build(),
+                };
+            foreach (var sql in sqls)
+            {
+                sql.Should().Be(expectedSql);
+            }
+        }
+        
+        [Theory]
+        [InlineData(SupportedDatabaseTypes.Oracle, null, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM EntityTable e INNER JOIN ChildEntityTable ce ON e.ChildEntityTableId = ce.Id LEFT OUTER JOIN ChildChildEntityTable cce ON ce.ChildChildEntityTableId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM EntityTable e INNER JOIN ChildEntityTable ce ON e.ChildEntityTableId = ce.Id LEFT OUTER JOIN ChildChildEntityTable cce ON ce.ChildChildEntityTableId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {0}.EntityTable e INNER JOIN {0}.ChildEntityTable ce ON e.ChildEntityTableId = ce.Id LEFT OUTER JOIN {0}.ChildChildEntityTable cce ON ce.ChildChildEntityTableId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {0}.EntityTable e INNER JOIN {0}.ChildEntityTable ce ON e.ChildEntityTableId = ce.Id LEFT OUTER JOIN {0}.ChildChildEntityTable cce ON ce.ChildChildEntityTableId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        public void SelectTestWithJoins_WithTableNameSet(SupportedDatabaseTypes databaseTypes, string schema, string expectedSql)
+        {
+            const string entityTableName = "EntityTable";
+            const string childTableName = "ChildEntityTable";
+            const string childChildTableName = "ChildChildEntityTable";
+            var dbConfig = OverrideConfig.CreateTestDbConfig(databaseTypes, schema);
+            var useSchema = !string.IsNullOrEmpty(schema);
+            expectedSql = string.Format(expectedSql, dbConfig.Schema);
+            
+            var builder = dbConfig.CreateSqlBuilder();
+            var select = builder.Select();
+
+            var sqls = new List<string>
+                {
+                    @select
+                        .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue:() => useSchema)
+                        .From<Entity>(entityTableName)
+                        .InnerJoin<Entity, ChildEntity>(fromTableName: entityTableName, toTableName: childTableName)
+                        .LeftOuterJoin<ChildEntity, ChildChildEntity>(fromTableName: childTableName, toTableName: childChildTableName)
+                        .Fields<ChildEntity>(x => x.F(item => item.Description))
+                        .Fields<ChildEntity>(x => x.F(item => item.Relation))
+                        .Fields<Entity>(x => x.F(item => item.Name))
+                        .Fields<Entity>(x => x.F(item => item.Description))
+                        .Where<Entity>(x => x.WP(item => item.Id, "IdParam"))
+                        .Where<Entity>(x => x.WV(item => item.Name, "Arild"))
+                        .Build(),
+                    @select
+                        .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue:() => useSchema)
+                        .From<Entity>(entityTableName)
+                        .Fields<ChildEntity>(x => x.F(item => item.Description))
+                        .Fields<ChildEntity>(x => x.F(item => item.Relation))
+                        .Fields<Entity>(x => x.F(item => item.Name))
+                        .Fields<Entity>(x => x.F(item => item.Description))
+                        .InnerJoin<Entity, ChildEntity>(fromTableName: entityTableName, toTableName: childTableName)
+                        .LeftOuterJoin<ChildEntity, ChildChildEntity>(fromTableName: childTableName, toTableName: childChildTableName)
+                        .Where<Entity>(x => x.WP(item => item.Id, "IdParam"))
+                        .Where<Entity>(x => x.WV(item => item.Name, "Arild"))
+                        .Build(),
+                    @select
+                        .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue:() => useSchema)
+                        .InnerJoin<Entity, ChildEntity>(fromTableName: entityTableName, toTableName: childTableName)
+                        .LeftOuterJoin<ChildEntity, ChildChildEntity>(fromTableName: childTableName, toTableName: childChildTableName)
+                        .Fields<ChildEntity>(x => x.F(item => item.Description))
+                        .Fields<ChildEntity>(x => x.F(item => item.Relation))
+                        .Fields<Entity>(x => x.F(item => item.Name))
+                        .Fields<Entity>(x => x.F(item => item.Description))
                         .Where<Entity>(x => x.WP(item => item.Id, "IdParam"))
                         .Where<Entity>(x => x.WV(item => item.Name, "Arild"))
                         .Build(),

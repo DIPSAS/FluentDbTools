@@ -33,13 +33,22 @@ namespace FluentDbTools.SqlBuilder.Common
 
         protected readonly List<Field> FieldsList = new List<Field>();
 
+        public string TableName { get; set; }
         public string SchemaName { get; set; }
+        
+        public IFieldSetterSelector<TClass> OnTable(string tableName)
+        {
+            TableName = tableName;
+            return this;
+        }
 
         public IFieldSetterSelector<TClass> OnSchema(string schemaName = null)
         {
             SchemaName = schemaName;
             return this;
         }
+
+        protected string GetTableNameWithSchemaNamePrefix => SqlBuilderHelper.GetTableName<TClass>(SchemaNamePrefix, TableName);
 
         protected string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? string.Empty : $"{SchemaName}.";
 

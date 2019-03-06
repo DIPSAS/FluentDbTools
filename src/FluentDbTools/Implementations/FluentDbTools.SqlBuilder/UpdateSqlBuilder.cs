@@ -16,6 +16,7 @@ namespace FluentDbTools.SqlBuilder
         private readonly List<string> Wheres = new List<string>();
         private readonly UpdateFieldSelector<TClass> UpdateFieldSelector;
         private readonly IDbConfig DbConfig;
+        private string TableName;
         private string SchemaName;
 
         public UpdateSqlBuilder(IDbConfig dbConfig)
@@ -30,6 +31,7 @@ namespace FluentDbTools.SqlBuilder
 
         public IUpdateSqlBuilder<TClass> Fields(Action<IFieldSetterSelector<TClass>> selector)
         {
+            UpdateFieldSelector.OnTable(TableName);
             UpdateFieldSelector.OnSchema(SchemaName);
             selector(UpdateFieldSelector);
 
@@ -54,6 +56,12 @@ namespace FluentDbTools.SqlBuilder
             {
                 Where(selector);
             }
+            return this;
+        }
+
+        public IUpdateSqlBuilder<TClass> OnTable(string tableName)
+        {
+            TableName = tableName;
             return this;
         }
 
