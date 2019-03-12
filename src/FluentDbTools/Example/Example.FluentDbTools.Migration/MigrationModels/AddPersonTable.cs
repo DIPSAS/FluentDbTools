@@ -10,11 +10,11 @@ namespace Example.FluentDbTools.Migration.MigrationModels
         public override void Up()
         {
             Create.Table(Table.Person).InSchema(SchemaName)
-                .WithColumn(Column.Id).AsGuid().PrimaryKey()
-                .WithColumn(Column.SequenceNumber).AsInt32().NotNullable()
-                .WithColumn(Column.Alive).AsBoolean().NotNullable()
-                .WithColumn(Column.Username).AsString()
-                .WithColumn(Column.Password).AsString()
+                .WithColumn(Column.Id).AsGuid().PrimaryKey().WithColumnDescription("Unique id.")
+                .WithColumn(Column.SequenceNumber).AsInt32().NotNullable().WithColumnDescription("sequence number.")
+                .WithColumn(Column.Alive).AsBoolean().NotNullable().WithColumnDescription("Alive flag.")
+                .WithColumn(Column.Username).AsString().WithColumnDescription("username.")
+                .WithColumn(Column.Password).AsString().WithColumnDescription("password.")
                 .WithTableSequence(this);
         }
 

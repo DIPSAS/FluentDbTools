@@ -15,10 +15,12 @@ namespace FluentDbTools.Migration.Postgres
         public OverriddenPostgresGenerator(
             PostgresQuoter quoter,
             OverriddenPostgresColumn column,
+            OverridenPostgresDescriptionGenerator descriptionGenerator,
             IOptions<GeneratorOptions> generatorOptions)
             : base (quoter, generatorOptions)
         {
             Column = column;
+            this.SetPrivateFieldValue<GeneratorBase>("_descriptionGenerator", descriptionGenerator);
             this.SetPrivateFieldValue<GeneratorBase>("_quoter", quoter);
             this.SetPrivateFieldValue<GeneratorBase>("_column",column);
         }

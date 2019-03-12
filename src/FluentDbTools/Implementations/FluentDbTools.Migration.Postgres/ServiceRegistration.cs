@@ -2,6 +2,7 @@
 using FluentDbTools.Migration.Abstractions;
 using FluentMigrator;
 using FluentMigrator.Runner;
+using FluentMigrator.Runner.Generators.Generic;
 using FluentMigrator.Runner.Generators.Postgres;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,6 +26,7 @@ namespace FluentDbTools.Migration.Postgres
                         .AddScoped<ExtendedPostgresProcessor>()
                         .AddScoped<IExtendedMigrationProcessor<ExtendedPostgresProcessor>>(sp => sp.GetRequiredService<ExtendedPostgresProcessor>())
                         .AddScoped<IMigrationProcessor>(sp => sp.GetRequiredService<ExtendedPostgresProcessor>())
+                        .AddScoped<OverridenPostgresDescriptionGenerator>()
                         .AddScoped<PostgresQuoter, OverriddenPostgresQouter>()
                         .AddScoped<PostgresTypeMap>()
                         .AddScoped<OverriddenPostgresColumn>()
