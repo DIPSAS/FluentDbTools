@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
-using Npgsql;
 
 [assembly: InternalsVisibleTo("FluentDbTools.Extensions.DbProvider")]
-namespace FluentDbTools.DbProvider.Postgres
+namespace FluentDbTools.DbProviders
 {
     internal class PostgresProvider : IDbConnectionProvider
     {
@@ -35,11 +32,5 @@ namespace FluentDbTools.DbProvider.Postgres
                 dbConfig.Port,
                 dbConfig.DatabaseConnectionName.ToLower(),
                 dbConfig.Pooling.ToString());
-
-        public IDbConnection CreateDbConnection(IDbConfig dbConfig, bool withAdminPrivileges = false)
-        {
-            var connectionString = withAdminPrivileges ? GetAdminConnectionString(dbConfig) : GetConnectionString(dbConfig);
-            return new NpgsqlConnection(connectionString);
-        }
     }
 }

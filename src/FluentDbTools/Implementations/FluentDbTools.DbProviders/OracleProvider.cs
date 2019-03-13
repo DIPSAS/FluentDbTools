@@ -1,10 +1,8 @@
-﻿using System.Data;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
-using Oracle.ManagedDataAccess.Client;
 
 [assembly: InternalsVisibleTo("FluentDbTools.Extensions.DbProvider")]
-namespace FluentDbTools.DbProvider.Oracle
+namespace FluentDbTools.DbProviders
 {
     internal class OracleProvider : IDbConnectionProvider
     {
@@ -32,11 +30,5 @@ namespace FluentDbTools.DbProvider.Oracle
                 dbConfig.Port,
                 dbConfig.DatabaseConnectionName.ToLower(),
                 dbConfig.Pooling);
-
-        public IDbConnection CreateDbConnection(IDbConfig dbConfig, bool withAdminPrivileges = false)
-        {
-            var connectionString = withAdminPrivileges ? GetAdminConnectionString(dbConfig) : GetConnectionString(dbConfig);
-            return new OracleConnection(connectionString);
-        }
     }
 }

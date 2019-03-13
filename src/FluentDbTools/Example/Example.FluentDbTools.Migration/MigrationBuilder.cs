@@ -5,6 +5,8 @@ using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Common;
 using Example.FluentDbTools.Migration.MigrationModels;
 using FluentDbTools.Extensions.Migration;
+using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
+using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Example.FluentDbTools.Migration

@@ -1,6 +1,5 @@
 ﻿using Example.FluentDbTools.Config;
 using Example.FluentDbTools.Migration;
-using FluentDbTools.Example.Migration;
 
 namespace Service.FluentDbTools.Migrator
 {
