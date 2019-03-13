@@ -2,6 +2,8 @@
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.DbProvider;
+using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
+using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Example.FluentDbTools.Database
@@ -13,15 +15,8 @@ namespace Example.FluentDbTools.Database
             return serviceCollection
                 .AddScoped<IDbConfig, MSDbConfig>()
                 .AddScoped<IPersonRepository, PersonRepository>()
-                .AddScoped<IDbConnection>(sp =>
-                {
-                    var dbConfig = sp.GetService<IDbConfig>();
-                    var dbConnection = useDbProviderFactory ? 
-                        dbConfig.GetDbProviderFactory().CreateConnection() : 
-                        dbConfig.CreateDbConnection();
-                    dbConnection.Open();
-                    return dbConnection;
-                });
+                .AddOracleDbProvider()
+                .AddPostgresDbProvider();
         }
     }
 }

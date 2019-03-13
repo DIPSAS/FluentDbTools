@@ -7,8 +7,7 @@
     <Import Project="..\..\SolutionInfo.proj" />
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Implementations\FluentDbTools.DbProvider.Oracle\FluentDbTools.DbProvider.Oracle.csproj" />
-      <ProjectReference Include="..\..\Implementations\FluentDbTools.DbProvider.Postgres\FluentDbTools.DbProvider.Postgres.csproj" />
+      <ProjectReference Include="..\..\Implementations\FluentDbTools.DbProviders\FluentDbTools.DbProviders.csproj" />
     </ItemGroup>
 
 </Project>

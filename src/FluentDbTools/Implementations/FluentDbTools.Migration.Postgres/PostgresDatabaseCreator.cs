@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.IO;
-using System.Threading;
-using Dapper;
 using FluentDbTools.Common.Abstractions;
 using Npgsql;
 
