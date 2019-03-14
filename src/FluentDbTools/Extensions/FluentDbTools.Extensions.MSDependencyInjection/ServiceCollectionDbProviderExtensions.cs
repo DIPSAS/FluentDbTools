@@ -10,10 +10,18 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
 {
     public static class ServiceCollectionDbProviderExtensions
     {
+        public static IServiceCollection AddDbProvider<TDbConfig>(this IServiceCollection serviceCollection)
+            where  TDbConfig : class, IDbConfig
+        {
+            serviceCollection.TryAddTransient<IDbConfig, TDbConfig>();
+            return serviceCollection.AddDbProvider();
+        }
+
         public static IServiceCollection AddDbProvider(this IServiceCollection serviceCollection)
         {
             serviceCollection.TryAddSingleton(sp =>
                 sp.GetRequiredService<IDbConfig>().GetDbProviderFactory());
+            serviceCollection.IfExistThen<DbConnection>(() => serviceCollection.TryAddScoped<IDbConnection>(sp => sp.GetRequiredService<DbConnection>()));
             serviceCollection.TryAddScoped<IDbConnection>(sp =>
             {
                 var dbConnection = sp.GetRequiredService<DbProviderFactory>().CreateConnection();
