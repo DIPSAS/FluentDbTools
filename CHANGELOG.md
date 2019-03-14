@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.1.1 2019-03-14
+ - Added service collection extension feature.
+
 ### Version 1.1.0 2019-03-13
  - Removed direct db driver dependencies.
  - Included extension projects for oracle and postgres.
