@@ -54,14 +54,24 @@ namespace FluentDbTools.Extensions.DbProvider
             return dbConfig.GetDbProviderFactory(withAdminPrivileges).CreateConnection();
         }
 
-        public static IDbConnectionProvider Register(this IDbConnectionProvider dbConnectionProvider)
+        public static IDbConnectionProvider Register(this IDbConnectionProvider dbConnectionProvider, bool skipIfAlreadyRegistered = false)
         {
+            if (skipIfAlreadyRegistered && DbConnectionProviders.ContainsKey(dbConnectionProvider.DatabaseType))
+            {
+                return DbConnectionProviders[dbConnectionProvider.DatabaseType];
+            }
+            
             DbConnectionProviders[dbConnectionProvider.DatabaseType] = dbConnectionProvider;
             return dbConnectionProvider;
         }
         
-        public static DbProviderFactory Register(this DbProviderFactory dbProviderFactory, SupportedDatabaseTypes databaseType)
+        public static DbProviderFactory Register(this DbProviderFactory dbProviderFactory, SupportedDatabaseTypes databaseType, bool skipIfAlreadyRegistered = false)
         {
+            if (skipIfAlreadyRegistered && DbProviderFactories.ContainsKey(databaseType))
+            {
+                return DbProviderFactories[databaseType];
+            }
+            
             DbProviderFactories[databaseType] = dbProviderFactory;
             return dbProviderFactory;
         }
