@@ -10,7 +10,7 @@ using FluentDbTools.SqlBuilder.Parameters;
 
 namespace FluentDbTools.SqlBuilder.Common
 {
-    public static class SqlBuilderHelper
+    internal static class SqlBuilderHelper
     {
         private static readonly ConcurrentDictionary<Type, string> Alias = new ConcurrentDictionary<Type, string>();
 
@@ -35,7 +35,19 @@ namespace FluentDbTools.SqlBuilder.Common
             return alias;
         }
 
+        public static string GetTableName<T>(string schemaNamePrefix, string tableName = null)
+        {
+            return tableName != null ? 
+                GetTableName(tableName, schemaNamePrefix) : 
+                GetTableNameForType<T>(schemaNamePrefix);   
+        }
+
         public static string GetTableNameForType<T>(string schemaNamePrefix)
+        {
+            return GetTableName(typeof(T).Name, schemaNamePrefix);
+        }
+        
+        public static string GetTableName(string tableName, string schemaNamePrefix)
         {
             if (!string.IsNullOrEmpty(schemaNamePrefix) && !schemaNamePrefix.EndsWith("."))
             {
@@ -43,7 +55,7 @@ namespace FluentDbTools.SqlBuilder.Common
             }
 
             schemaNamePrefix = schemaNamePrefix ?? string.Empty;
-            return $"{schemaNamePrefix}{typeof(T).Name}";
+            return $"{schemaNamePrefix}{tableName}";
         }
 
         public static string GetNameFromExpression<TClass, T>(Expression<Func<TClass, T>> field)

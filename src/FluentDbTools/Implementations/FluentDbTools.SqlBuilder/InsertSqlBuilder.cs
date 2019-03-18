@@ -21,6 +21,7 @@ namespace FluentDbTools.SqlBuilder
         
         private string Sql;
         private InsertFieldSelector FieldSelector;
+        private string TableName;
         private string SchemaName;
 
         private class InsertFieldSelector : BaseFieldSetterSelector<TClass>
@@ -32,7 +33,7 @@ namespace FluentDbTools.SqlBuilder
             public override string Build()
             {
                 return
-                    $"INSERT INTO {SqlBuilderHelper.GetTableNameForType<TClass>(SchemaNamePrefix)}({string.Join(", ", FieldsList.Select(x => x.FieldName))}) VALUES({string.Join(", ", FieldsList.Select(CreateFieldValue))})";
+                    $"INSERT INTO {GetTableNameWithSchemaNamePrefix}({string.Join(", ", FieldsList.Select(x => x.FieldName))}) VALUES({string.Join(", ", FieldsList.Select(CreateFieldValue))})";
             }
 
             private string CreateFieldValue(Field field)
@@ -44,11 +45,18 @@ namespace FluentDbTools.SqlBuilder
         public IInsertSqlBuilder<TClass> Fields(Action<IFieldSetterSelector<TClass>> selector)
         {
             FieldSelector = FieldSelector ?? new InsertFieldSelector(DbConfig);
+            FieldSelector.OnTable(TableName);
             FieldSelector.OnSchema(SchemaName);
             selector(FieldSelector);
 
             Sql = FieldSelector.Build();
 
+            return this;
+        }
+
+        public IInsertSqlBuilder<TClass> OnTable(string tableName)
+        {
+            TableName = tableName;
             return this;
         }
 

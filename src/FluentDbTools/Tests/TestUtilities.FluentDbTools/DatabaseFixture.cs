@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Migration;
-using FluentDbTools.Example.Migration;
 using FluentDbTools.Migration;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.VersionTableInfo;

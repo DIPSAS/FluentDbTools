@@ -5,11 +5,11 @@ import os
 import sys
 
 
-NUGET_FOLDER = 'src/output/nuget/'
-CERTIFICATE_FILE_PATH = 'CodeSign/CodeSign.pfx'
+NUGET_FOLDER = 'output/nuget/'
+CERTIFICATE_FILE_PATH = '../CodeSign/CodeSign.pfx'
 TIMESTAMPER_URL = 'http://sha256timestamp.ws.symantec.com/sha256/timestamp'
-OUTPOUT_DIRECTORY = 'src/output/nuget/signed/'
-CHANGELOG_PATH = 'CHANGELOG.md'
+OUTPOUT_DIRECTORY = 'output/nuget/signed/'
+CHANGELOG_PATH = '../CHANGELOG.md'
 
 
 def GetNugets(nugetFolder, version):

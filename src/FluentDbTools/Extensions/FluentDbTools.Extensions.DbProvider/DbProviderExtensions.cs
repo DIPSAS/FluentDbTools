@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Data;
 using System.Data.Common;
 using FluentDbTools.Common.Abstractions;
-using FluentDbTools.DbProvider.Oracle;
-using FluentDbTools.DbProvider.Postgres;
-using Npgsql;
-using Oracle.ManagedDataAccess.Client;
 
 namespace FluentDbTools.Extensions.DbProvider
 {
@@ -16,22 +12,15 @@ namespace FluentDbTools.Extensions.DbProvider
                                         "Please register a database provider implementing the '{1}' interface, " +
                                         "and register with 'Register'.";
        
-        public static readonly Dictionary<SupportedDatabaseTypes, IDbConnectionProvider> DbConnectionProvidersField =
-            new Dictionary<SupportedDatabaseTypes, IDbConnectionProvider>
+        public static readonly ConcurrentDictionary<SupportedDatabaseTypes, IDbConnectionProvider> DbConnectionProviders =
+            new ConcurrentDictionary<SupportedDatabaseTypes, IDbConnectionProvider>
             {
-                {SupportedDatabaseTypes.Oracle, new OracleProvider()},
-                {SupportedDatabaseTypes.Postgres, new PostgresProvider()}
-            };
-        
-        public static readonly Dictionary<SupportedDatabaseTypes, DbProviderFactory> DbProviderFactoriesField =
-            new Dictionary<SupportedDatabaseTypes, DbProviderFactory>
-            {
-                {SupportedDatabaseTypes.Oracle, OracleClientFactory.Instance},
-                {SupportedDatabaseTypes.Postgres, NpgsqlFactory.Instance}
+                [SupportedDatabaseTypes.Oracle] = new DbProviders.OracleProvider(),
+                [SupportedDatabaseTypes.Postgres] = new DbProviders.PostgresProvider()
             };
 
-        public static IReadOnlyDictionary<SupportedDatabaseTypes, IDbConnectionProvider>
-            DbConnectionProviders => DbConnectionProvidersField;
+        public static readonly ConcurrentDictionary<SupportedDatabaseTypes, DbProviderFactory> DbProviderFactories =
+            new ConcurrentDictionary<SupportedDatabaseTypes, DbProviderFactory>();
 
         public static string GetConnectionString(this IDbConfig dbConfig)
         {
@@ -53,7 +42,7 @@ namespace FluentDbTools.Extensions.DbProvider
             AssertDbProviderFactoryImplemented(dbType);
             var connectionString =
                 withAdminPrivileges ? dbConfig.GetAdminConnectionString() : dbConfig.GetConnectionString();
-            var dbProviderFactory = new FluentDbProviderFactory(DbProviderFactoriesField[dbType], connectionString);
+            var dbProviderFactory = new FluentDbProviderFactory(DbProviderFactories[dbType], connectionString);
             return dbProviderFactory;
         }
 
@@ -61,32 +50,29 @@ namespace FluentDbTools.Extensions.DbProvider
         {
             var dbType = dbConfig.DbType;
             AssertDbConnectionImplemented(dbType);
-            return DbConnectionProviders[dbType].CreateDbConnection(dbConfig, withAdminPrivileges); 
+            AssertDbProviderFactoryImplemented(dbType);
+            return dbConfig.GetDbProviderFactory(withAdminPrivileges).CreateConnection();
         }
 
-        public static IDbConnectionProvider Register(this IDbConnectionProvider dbConnectionProvider, bool replaceOldInstance = true)
+        public static IDbConnectionProvider Register(this IDbConnectionProvider dbConnectionProvider, bool skipIfAlreadyRegistered = false)
         {
-            if (replaceOldInstance)
+            if (skipIfAlreadyRegistered && DbConnectionProviders.ContainsKey(dbConnectionProvider.DatabaseType))
             {
-                DbConnectionProvidersField[dbConnectionProvider.DatabaseType] = dbConnectionProvider;
+                return DbConnectionProviders[dbConnectionProvider.DatabaseType];
             }
-            else
-            {
-                DbConnectionProvidersField.Add(dbConnectionProvider.DatabaseType, dbConnectionProvider);
-            }
+            
+            DbConnectionProviders[dbConnectionProvider.DatabaseType] = dbConnectionProvider;
             return dbConnectionProvider;
         }
         
-        public static DbProviderFactory Register(this DbProviderFactory dbProviderFactory, SupportedDatabaseTypes databaseType, bool replaceOldInstance = true)
+        public static DbProviderFactory Register(this DbProviderFactory dbProviderFactory, SupportedDatabaseTypes databaseType, bool skipIfAlreadyRegistered = false)
         {
-            if (replaceOldInstance)
+            if (skipIfAlreadyRegistered && DbProviderFactories.ContainsKey(databaseType))
             {
-                DbProviderFactoriesField[databaseType] = dbProviderFactory;
+                return DbProviderFactories[databaseType];
             }
-            else
-            {
-                DbProviderFactoriesField.Add(databaseType, dbProviderFactory);
-            }
+            
+            DbProviderFactories[databaseType] = dbProviderFactory;
             return dbProviderFactory;
         }
 
@@ -100,7 +86,7 @@ namespace FluentDbTools.Extensions.DbProvider
         
         private static void AssertDbProviderFactoryImplemented(SupportedDatabaseTypes dbType)
         {
-            if (!DbProviderFactoriesField.ContainsKey(dbType))
+            if (!DbProviderFactories.ContainsKey(dbType))
             {
                 throw new NotImplementedException(string.Format(ErrorMsg, dbType.ToString(), nameof(DbProviderFactory)));
             }

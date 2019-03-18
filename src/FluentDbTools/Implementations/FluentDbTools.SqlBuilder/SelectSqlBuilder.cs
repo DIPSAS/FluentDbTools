@@ -24,6 +24,7 @@ namespace FluentDbTools.SqlBuilder
 
         private string TableAlias;
         private string SchemaName;
+        private bool SelectCount = false;
 
         private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? string.Empty : $"{SchemaName}.";
 
@@ -36,7 +37,6 @@ namespace FluentDbTools.SqlBuilder
 
         public SupportedDatabaseTypes DbType { get; }
 
-
         public ISelectSqlBuilder OnSchema(string schemaName = null, Func<bool> setSchemaNameIfExpressionIsEvaluatedToTrue = null)
         {
             if (setSchemaNameIfExpressionIsEvaluatedToTrue?.Invoke() ?? true)
@@ -47,39 +47,46 @@ namespace FluentDbTools.SqlBuilder
             return this;
         }
 
-        public ISelectSqlBuilder Fields<T>(Action<ISelectFieldSelector<T>> selector)
+        public ISelectSqlBuilder Count()
+        {
+            SelectCount = true;
+            return this;
+        }
+
+        public ISelectSqlBuilder Fields<T>(Action<ISelectFieldSelector<T>> selector, string tableName = null)
         {
             var fieldSelector = new SelectFieldSelector<T>();
             selector(fieldSelector);
             SetTableName<T>(
                 () =>
                    {
-                       if (string.IsNullOrEmpty(TableName) || !string.Equals(TableName, SqlBuilderHelper.GetTableNameForType<T>(SchemaNamePrefix), StringComparison.OrdinalIgnoreCase))
+                       if (string.IsNullOrEmpty(TableName) || 
+                           !string.Equals(TableName, SqlBuilderHelper.GetTableName<T>(SchemaNamePrefix, tableName), StringComparison.OrdinalIgnoreCase))
                        {
                            return;
                        }
-
+                       
                        var alias = fieldSelector.GetFirstTableAlias(typeof(T));
                        if (!string.IsNullOrEmpty(alias))
                        {
                            TableAlias = alias;
                        }
-                   });
+                   }, tableName);
 
             FieldsList.AddRange(fieldSelector.Build());
 
             return this;
         }
 
-        private void SetTableName<T>(Action additionAction = null)
+        private void SetTableName<T>(Action additionAction = null, string originalTableName = null)
         {
             if (!string.IsNullOrEmpty(TableName))
             {
                 additionAction?.Invoke();
                 return;
             }
-
-            TableName = SqlBuilderHelper.GetTableNameForType<T>(SchemaNamePrefix);
+            
+            TableName = SqlBuilderHelper.GetTableName<T>(SchemaNamePrefix, originalTableName);
             TableAlias = SqlBuilderHelper.GetAliasForType<T>();
 
             additionAction?.Invoke();
@@ -117,9 +124,11 @@ namespace FluentDbTools.SqlBuilder
             return this;
         }
 
-        public ISelectSqlBuilder InnerJoin<TFrom, TTo>(string fromField = null, string toField = null, string toPrefix = null, string fromPrefix = null)
+        public ISelectSqlBuilder InnerJoin<TFrom, TTo>(string fromField = null, string toField = null, string toPrefix = null, string fromPrefix = null,
+            string fromTableName = null,
+            string toTableName = null)
         {
-            return TypeJoin<TFrom, TTo>("INNER", fromField, toField, toPrefix, fromPrefix);
+            return TypeJoin<TFrom, TTo>("INNER", fromField, toField, toPrefix, fromPrefix, fromTableName, toTableName);
         }
 
         /// <summary>
@@ -128,14 +137,16 @@ namespace FluentDbTools.SqlBuilder
         /// <typeparam name="TFrom"></typeparam>
         /// <typeparam name="TTo"></typeparam>
         /// <returns></returns>
-        public ISelectSqlBuilder LeftOuterJoin<TFrom, TTo>(string fromField = null, string toField = null, string toPrefix = null, string fromPrefix = null)
+        public ISelectSqlBuilder LeftOuterJoin<TFrom, TTo>(string fromField = null, string toField = null, string toPrefix = null, string fromPrefix = null,
+            string fromTableName = null,
+            string toTableName = null)
         {
-            return TypeJoin<TFrom, TTo>("LEFT OUTER", fromField, toField, toPrefix, fromPrefix);
+            return TypeJoin<TFrom, TTo>("LEFT OUTER", fromField, toField, toPrefix, fromPrefix, fromTableName, toTableName);
         }
 
-        public ISelectSqlBuilder From<TFrom>()
+        public ISelectSqlBuilder From<TFrom>(string fromTableName = null)
         {
-            SetTableName<TFrom>();
+            SetTableName<TFrom>(originalTableName: fromTableName);
             return this;
         }
 
@@ -145,12 +156,14 @@ namespace FluentDbTools.SqlBuilder
         }
 
 
-        private ISelectSqlBuilder TypeJoin<TFrom, TTo>(string joinType, string fromField = null, string toField = null, string toPrefix = null, string fromPrefix = null)
+        private ISelectSqlBuilder TypeJoin<TFrom, TTo>(string joinType, string fromField = null, string toField = null, string toPrefix = null, string fromPrefix = null,
+            string fromTableName = null,
+            string toTableName = null)
         {
-            SetTableName<TFrom>();
+            SetTableName<TFrom>(originalTableName: fromTableName);
             if (string.IsNullOrEmpty(fromField))
             {
-                fromField = SqlBuilderHelper.GetTableNameForType<TTo>(null) + "Id";
+                fromField = SqlBuilderHelper.GetTableName<TTo>(null, toTableName) + "Id";
             }
 
             if (string.IsNullOrEmpty(toField))
@@ -162,7 +175,7 @@ namespace FluentDbTools.SqlBuilder
 
             Joins.Add(string.Format("{0} JOIN {1} {2} ON {3} = {2}.{4}",
                 joinType.ToUpper(),
-                SqlBuilderHelper.GetTableNameForType<TTo>(SchemaNamePrefix),
+                SqlBuilderHelper.GetTableName<TTo>(SchemaNamePrefix, toTableName),
                 GetTypeAlias<TTo>(toPrefix),
                 fromExpresstion,
                 toField));
@@ -173,8 +186,10 @@ namespace FluentDbTools.SqlBuilder
         public string Build()
         {
             var fields = string.Join(", ", FieldsList);
+            var countStart = SelectCount ? "COUNT(" : string.Empty;
+            var countEnd = SelectCount ? ")" : string.Empty;
 
-            var select = $"SELECT {fields} FROM {TableName} {TableAlias}";
+            var select = $"SELECT {countStart}{fields}{countEnd} FROM {TableName} {TableAlias}";
 
             if (Joins.Count > 0)
             {
@@ -202,6 +217,7 @@ namespace FluentDbTools.SqlBuilder
             SchemaName = null;
             TableName = null;
             TableAlias = null;
+            SelectCount = false;
         }
     }
 }
