@@ -5,6 +5,8 @@ using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Common;
 using Example.FluentDbTools.Migration.MigrationModels;
 using FluentDbTools.Extensions.Migration;
+using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
+using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Example.FluentDbTools.Migration
@@ -13,7 +15,7 @@ namespace Example.FluentDbTools.Migration
     {
         public static IEnumerable<Assembly> MigrationAssemblies => new[] {typeof(AddPersonTable).Assembly};
         
-        public static IServiceProvider BuildMigration(
+        public static IServiceCollection BuildMigrationServiceCollection(
             SupportedDatabaseTypes databaseType,
             Dictionary<string, string> overrideConfig = null)
         {
@@ -21,7 +23,14 @@ namespace Example.FluentDbTools.Migration
                 .ConfigureWithMigration(MigrationAssemblies)
                 .UseExampleConfiguration(
                     databaseType,
-                    overrideConfig)
+                    overrideConfig);
+        }
+        
+        public static IServiceProvider BuildMigration(
+            SupportedDatabaseTypes databaseType,
+            Dictionary<string, string> overrideConfig = null)
+        {
+            return BuildMigrationServiceCollection(databaseType, overrideConfig)
                 .BuildServiceProvider();
         }
     }

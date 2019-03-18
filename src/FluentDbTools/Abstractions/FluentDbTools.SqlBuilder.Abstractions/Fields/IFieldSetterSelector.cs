@@ -5,6 +5,7 @@ namespace FluentDbTools.SqlBuilder.Abstractions.Fields
 {
     public interface IFieldSetterSelector<TClass>
     {
+        string TableName { get; }
         string SchemaName { get; }
         
         IFieldSetterSelector<TClass> FP<T>(Expression<Func<TClass, T>> field, string param = null);

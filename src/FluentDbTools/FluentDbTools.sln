@@ -51,12 +51,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.FluentDbTools.Confi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{0672E194-A96C-4F5C-8AD6-BF36CC1EE875}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbProviders", "DbProviders", "{98ABC5A5-833E-4973-86A7-92C9482D25BD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.DbProvider.Oracle", "Implementations\FluentDbTools.DbProvider.Oracle\FluentDbTools.DbProvider.Oracle.csproj", "{B8DD3980-9417-462C-A1FB-8920B548B252}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.DbProvider.Postgres", "Implementations\FluentDbTools.DbProvider.Postgres\FluentDbTools.DbProvider.Postgres.csproj", "{B061BC81-C8D6-4DB4-9244-AE419A372E49}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Migration.Contracts", "Contracts\FluentDbTools.Migration.Contracts\FluentDbTools.Migration.Contracts.csproj", "{444D93D8-8E11-4B63-80F2-4B5AA5C13ABE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.SqlBuilder", "Implementations\FluentDbTools.SqlBuilder\FluentDbTools.SqlBuilder.csproj", "{8018E232-E007-40BE-96EB-E6F391525D16}"
@@ -68,6 +62,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Extensions.SqlBuilder", "Extensions\FluentDbTools.Extensions.SqlBuilder\FluentDbTools.Extensions.SqlBuilder.csproj", "{8F3570E1-477E-4CE2-A8C1-6320D2506FE5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Extensions.MSDependencyInjection", "Extensions\FluentDbTools.Extensions.MSDependencyInjection\FluentDbTools.Extensions.MSDependencyInjection.csproj", "{CE2743D1-AB69-4EA5-BE26-DBF5BF0025CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.DbProviders", "Implementations\FluentDbTools.DbProviders\FluentDbTools.DbProviders.csproj", "{9607857F-FCC8-41DE-9E40-C11970D6B455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Extensions.MSDependencyInjection.Oracle", "Extensions\FluentDbTools.Extensions.MSDependencyInjection.Oracle\FluentDbTools.Extensions.MSDependencyInjection.Oracle.csproj", "{0E4F964D-2064-4459-83EA-F3ED82B38F92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Extensions.MSDependencyInjection.Postgres", "Extensions\FluentDbTools.Extensions.MSDependencyInjection.Postgres\FluentDbTools.Extensions.MSDependencyInjection.Postgres.csproj", "{7102F129-7912-4C06-8026-52C7875AB871}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,14 +139,6 @@ Global
 		{2FC4D9C1-4B1C-4B92-AA9D-DA29E2855D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FC4D9C1-4B1C-4B92-AA9D-DA29E2855D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FC4D9C1-4B1C-4B92-AA9D-DA29E2855D0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8DD3980-9417-462C-A1FB-8920B548B252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8DD3980-9417-462C-A1FB-8920B548B252}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8DD3980-9417-462C-A1FB-8920B548B252}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8DD3980-9417-462C-A1FB-8920B548B252}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B061BC81-C8D6-4DB4-9244-AE419A372E49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B061BC81-C8D6-4DB4-9244-AE419A372E49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B061BC81-C8D6-4DB4-9244-AE419A372E49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B061BC81-C8D6-4DB4-9244-AE419A372E49}.Release|Any CPU.Build.0 = Release|Any CPU
 		{444D93D8-8E11-4B63-80F2-4B5AA5C13ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{444D93D8-8E11-4B63-80F2-4B5AA5C13ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{444D93D8-8E11-4B63-80F2-4B5AA5C13ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -171,6 +163,18 @@ Global
 		{CE2743D1-AB69-4EA5-BE26-DBF5BF0025CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE2743D1-AB69-4EA5-BE26-DBF5BF0025CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE2743D1-AB69-4EA5-BE26-DBF5BF0025CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9607857F-FCC8-41DE-9E40-C11970D6B455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9607857F-FCC8-41DE-9E40-C11970D6B455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9607857F-FCC8-41DE-9E40-C11970D6B455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9607857F-FCC8-41DE-9E40-C11970D6B455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E4F964D-2064-4459-83EA-F3ED82B38F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E4F964D-2064-4459-83EA-F3ED82B38F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E4F964D-2064-4459-83EA-F3ED82B38F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E4F964D-2064-4459-83EA-F3ED82B38F92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7102F129-7912-4C06-8026-52C7875AB871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7102F129-7912-4C06-8026-52C7875AB871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7102F129-7912-4C06-8026-52C7875AB871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7102F129-7912-4C06-8026-52C7875AB871}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -193,15 +197,15 @@ Global
 		{094FF1C7-D6EF-41E2-8BC4-F0B9C6654114} = {F9572DDD-9BBC-46F9-AE80-13DF17777802}
 		{9A90B0AF-48C2-48B0-BD3B-D6F187E43BDC} = {B0C57E4F-7A8C-4A5A-B680-63938380A853}
 		{2FC4D9C1-4B1C-4B92-AA9D-DA29E2855D0D} = {B0C57E4F-7A8C-4A5A-B680-63938380A853}
-		{98ABC5A5-833E-4973-86A7-92C9482D25BD} = {4852BBC1-F0A6-456A-9C0B-1854FBD95F41}
-		{B8DD3980-9417-462C-A1FB-8920B548B252} = {98ABC5A5-833E-4973-86A7-92C9482D25BD}
-		{B061BC81-C8D6-4DB4-9244-AE419A372E49} = {98ABC5A5-833E-4973-86A7-92C9482D25BD}
 		{444D93D8-8E11-4B63-80F2-4B5AA5C13ABE} = {0672E194-A96C-4F5C-8AD6-BF36CC1EE875}
 		{8018E232-E007-40BE-96EB-E6F391525D16} = {4852BBC1-F0A6-456A-9C0B-1854FBD95F41}
 		{808DAA71-CFD4-42EA-86C5-709B9F15C54F} = {49A16F56-EDC2-4980-8F9F-081833D2DA18}
 		{1BEEDB88-7A6B-495E-ACB4-9C03E118CD1A} = {65B7029A-534B-446A-90A8-64DC2E75D487}
 		{8F3570E1-477E-4CE2-A8C1-6320D2506FE5} = {C43702A5-E00A-4CFF-8D62-931A2A762FD7}
 		{CE2743D1-AB69-4EA5-BE26-DBF5BF0025CC} = {C43702A5-E00A-4CFF-8D62-931A2A762FD7}
+		{9607857F-FCC8-41DE-9E40-C11970D6B455} = {4852BBC1-F0A6-456A-9C0B-1854FBD95F41}
+		{0E4F964D-2064-4459-83EA-F3ED82B38F92} = {C43702A5-E00A-4CFF-8D62-931A2A762FD7}
+		{7102F129-7912-4C06-8026-52C7875AB871} = {C43702A5-E00A-4CFF-8D62-931A2A762FD7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {456583DA-E724-4868-A195-2FE2F14160A6}

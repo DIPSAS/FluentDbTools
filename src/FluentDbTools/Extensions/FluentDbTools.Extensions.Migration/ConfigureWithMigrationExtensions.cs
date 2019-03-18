@@ -17,7 +17,7 @@ namespace FluentDbTools.Extensions.Migration
                 .Register(FluentDbTools.Migration.Postgres.ServiceRegistration.Register)
                 .ConfigureWithMigrationAssemblies(FluentDbTools.Migration.ServiceRegistration.Register,
                     assembliesWithMigrationModels)
-                .TryAddScoped<IDbConfig, DefaultDbConfig>();
+                .TryAddScoped<IDbConfig, MSDbConfig>();
             return serviceCollection;
         }
     }
