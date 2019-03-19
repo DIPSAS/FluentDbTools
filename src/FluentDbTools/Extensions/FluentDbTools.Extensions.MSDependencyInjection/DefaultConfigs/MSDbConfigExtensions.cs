@@ -117,7 +117,9 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
                     throw new ArgumentOutOfRangeException();
             }
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("databaseConnectionName", defaultConnectionName);
+            return section.GetSectionStringValue("databaseConnectionName")
+                ?? section.GetSectionStringValue("servicename")
+                ?? defaultConnectionName;
         }
 
         public static bool GetDbPooling(this IConfiguration configuration)
