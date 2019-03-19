@@ -16,7 +16,7 @@
     "adminPassword": "oracle",
     "schema": "dbuser",
     "schemaPassword": "dbpassword",
-    "databaseConnectionName": "xe",
+    "servicename": "xe",
     "hostname": "localhost",
     "port": 1521,
     "pooling": true,

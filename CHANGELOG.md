@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.1.3 2019-03-19
+ - Servicename in config, to support Oracle naming conventions
+
 ### Version 1.1.2 2019-03-15
  - Added skip flag to db provider registration.
 
