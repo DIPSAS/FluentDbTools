@@ -3,7 +3,7 @@ using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions.Common;
 using TestUtilities.FluentDbTools;
 using FluentAssertions;
-using FTest.FluentDbTools.SqlBuilderTestEntities;
+using Test.FluentDbTools.SqlBuilder.TestEntities;
 using Xunit;
 
 namespace Test.FluentDbTools.SqlBuilder

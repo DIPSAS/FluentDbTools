@@ -68,7 +68,10 @@ namespace FluentDbTools.SqlBuilder.Common
             var name = memberExpression.Member.Name;
             var baseType = memberExpression.Type.BaseType;
 
-            if (baseType == null || baseType == typeof(ValueType) || baseType == typeof(Object))
+            if (baseType == null || 
+                baseType == typeof(ValueType) || 
+                baseType == typeof(Object) || 
+                baseType == typeof(Enum))
             {
                 return name;
             }
