@@ -42,9 +42,9 @@ namespace TestUtilities.FluentDbTools
             return overrideDict;
         }
 
-        public static IDbConfig CreateTestDbConfig(SupportedDatabaseTypes databaseType, string schema = null)
+        public static IDbConfigDatabaseTargets CreateTestDbConfig(SupportedDatabaseTypes databaseType, string schema = null)
         {
-            return new MSDbConfig(CreateTestConfiguration(databaseType, schema));
+            return new MsDbConfig(CreateTestConfiguration(databaseType, schema));
         }
 
         public static IConfigurationRoot CreateTestConfiguration(SupportedDatabaseTypes databaseType, string schema = null)

@@ -5,7 +5,7 @@ namespace FluentDbTools.SqlBuilder.Common
 {
     internal class UpdateFieldSelector<TClass> : BaseFieldSetterSelector<TClass>
     {
-        public UpdateFieldSelector(IDbConfig dbConfig)
+        public UpdateFieldSelector(IDbConfigDatabaseTargets dbConfig)
             :base(dbConfig)
         {
         }

@@ -9,12 +9,12 @@ namespace FluentDbTools.SqlBuilder
 {
     internal static class SqlBuilderExtensionTools
     {
-        public static string GetParameterPrefix(this IDbConfig dbConfig)
+        public static string GetParameterPrefix(this IDbConfigDatabaseTargets dbConfig)
         {
             return dbConfig.DbType == SupportedDatabaseTypes.Oracle ? ":" : "@";
         }
 
-        public static string WithParameters(this IDbConfig dbConfig, params string[] parameters)
+        public static string WithParameters(this IDbConfigDatabaseTargets dbConfig, params string[] parameters)
         {
             var prefix = dbConfig.GetParameterPrefix();
 

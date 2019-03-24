@@ -11,11 +11,11 @@ namespace Example.FluentDbTools.Database
     public class PersonRepository : IPersonRepository
     {
         private readonly ILogger Logger;
-        private readonly IDbConfig DbConfig;
+        private readonly IDbConfigDatabaseTargets DbConfig;
 
         public PersonRepository(
             ILogger<PersonRepository> logger,
-            IDbConfig dbConfig)
+            IDbConfigDatabaseTargets dbConfig)
         {
             Logger = logger;
             DbConfig = dbConfig;

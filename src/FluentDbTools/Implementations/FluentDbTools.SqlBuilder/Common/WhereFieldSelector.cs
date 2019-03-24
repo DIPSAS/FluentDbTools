@@ -9,10 +9,10 @@ namespace FluentDbTools.SqlBuilder.Common
 {
     internal class WhereFieldSelector<TClass> : IWhereFieldSelector<TClass>
     {
-        protected readonly IDbConfig DbConfig;
+        protected readonly IDbConfigDatabaseTargets DbConfig;
         private readonly List<string> Wheres = new List<string>();
 
-        public WhereFieldSelector(IDbConfig dbConfig)
+        public WhereFieldSelector(IDbConfigDatabaseTargets dbConfig)
         {
             DbConfig = dbConfig;
         }

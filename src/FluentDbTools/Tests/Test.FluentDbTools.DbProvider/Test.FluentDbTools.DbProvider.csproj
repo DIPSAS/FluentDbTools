@@ -18,13 +18,4 @@
       <ProjectReference Include="..\TestUtilities.FluentDbTools\TestUtilities.FluentDbTools.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Update="sqlnet.ora">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="tnsnames.ora">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
-
 </Project>

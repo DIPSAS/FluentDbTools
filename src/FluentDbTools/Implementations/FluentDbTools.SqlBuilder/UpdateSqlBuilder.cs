@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions;
-using FluentDbTools.SqlBuilder.Abstractions.Common;
 using FluentDbTools.SqlBuilder.Abstractions.Fields;
 using FluentDbTools.SqlBuilder.Common;
 
@@ -15,11 +13,11 @@ namespace FluentDbTools.SqlBuilder
 
         private readonly List<string> Wheres = new List<string>();
         private readonly UpdateFieldSelector<TClass> UpdateFieldSelector;
-        private readonly IDbConfig DbConfig;
+        private readonly IDbConfigDatabaseTargets DbConfig;
         private string TableName;
         private string SchemaName;
 
-        public UpdateSqlBuilder(IDbConfig dbConfig)
+        public UpdateSqlBuilder(IDbConfigDatabaseTargets dbConfig)
         {
             DbConfig = dbConfig;
             DbType = dbConfig?.DbType ?? SupportedDatabaseTypes.Postgres;

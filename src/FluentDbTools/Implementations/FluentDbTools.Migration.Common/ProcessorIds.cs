@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
 
 [assembly: InternalsVisibleTo("FluentDbTools.Migration")]
+[assembly: InternalsVisibleTo("FluentDbTools.Extensions.Migration")]
 [assembly: InternalsVisibleTo("FluentDbTools.Migration.Oracle")]
 [assembly: InternalsVisibleTo("FluentDbTools.Migration.Postgres")]
 namespace FluentDbTools.Migration.Common

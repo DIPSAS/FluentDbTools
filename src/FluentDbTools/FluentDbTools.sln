@@ -63,11 +63,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Extensions.Sq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Extensions.MSDependencyInjection", "Extensions\FluentDbTools.Extensions.MSDependencyInjection\FluentDbTools.Extensions.MSDependencyInjection.csproj", "{CE2743D1-AB69-4EA5-BE26-DBF5BF0025CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.DbProviders", "Implementations\FluentDbTools.DbProviders\FluentDbTools.DbProviders.csproj", "{9607857F-FCC8-41DE-9E40-C11970D6B455}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.DbProviders", "Implementations\FluentDbTools.DbProviders\FluentDbTools.DbProviders.csproj", "{9607857F-FCC8-41DE-9E40-C11970D6B455}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Extensions.MSDependencyInjection.Oracle", "Extensions\FluentDbTools.Extensions.MSDependencyInjection.Oracle\FluentDbTools.Extensions.MSDependencyInjection.Oracle.csproj", "{0E4F964D-2064-4459-83EA-F3ED82B38F92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Extensions.MSDependencyInjection.Oracle", "Extensions\FluentDbTools.Extensions.MSDependencyInjection.Oracle\FluentDbTools.Extensions.MSDependencyInjection.Oracle.csproj", "{0E4F964D-2064-4459-83EA-F3ED82B38F92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Extensions.MSDependencyInjection.Postgres", "Extensions\FluentDbTools.Extensions.MSDependencyInjection.Postgres\FluentDbTools.Extensions.MSDependencyInjection.Postgres.csproj", "{7102F129-7912-4C06-8026-52C7875AB871}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Extensions.MSDependencyInjection.Postgres", "Extensions\FluentDbTools.Extensions.MSDependencyInjection.Postgres\FluentDbTools.Extensions.MSDependencyInjection.Postgres.csproj", "{7102F129-7912-4C06-8026-52C7875AB871}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.FluentDbTools.SqlBuilder.MinimumDependencies", "Tests\Test.FluentDbTools.SqlBuilder.MinimumDependencies\Test.FluentDbTools.SqlBuilder.MinimumDependencies.csproj", "{CC341E1A-C5EA-4925-B0F6-04152C59270F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Contracts", "Contracts\FluentDbTools.Contracts\FluentDbTools.Contracts\FluentDbTools.Contracts.csproj", "{CF582DD2-A038-4487-A3D3-3451B3800523}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -175,6 +179,14 @@ Global
 		{7102F129-7912-4C06-8026-52C7875AB871}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7102F129-7912-4C06-8026-52C7875AB871}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7102F129-7912-4C06-8026-52C7875AB871}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC341E1A-C5EA-4925-B0F6-04152C59270F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC341E1A-C5EA-4925-B0F6-04152C59270F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC341E1A-C5EA-4925-B0F6-04152C59270F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC341E1A-C5EA-4925-B0F6-04152C59270F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF582DD2-A038-4487-A3D3-3451B3800523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF582DD2-A038-4487-A3D3-3451B3800523}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF582DD2-A038-4487-A3D3-3451B3800523}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF582DD2-A038-4487-A3D3-3451B3800523}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -206,6 +218,8 @@ Global
 		{9607857F-FCC8-41DE-9E40-C11970D6B455} = {4852BBC1-F0A6-456A-9C0B-1854FBD95F41}
 		{0E4F964D-2064-4459-83EA-F3ED82B38F92} = {C43702A5-E00A-4CFF-8D62-931A2A762FD7}
 		{7102F129-7912-4C06-8026-52C7875AB871} = {C43702A5-E00A-4CFF-8D62-931A2A762FD7}
+		{CC341E1A-C5EA-4925-B0F6-04152C59270F} = {65B7029A-534B-446A-90A8-64DC2E75D487}
+		{CF582DD2-A038-4487-A3D3-3451B3800523} = {0672E194-A96C-4F5C-8AD6-BF36CC1EE875}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {456583DA-E724-4868-A195-2FE2F14160A6}

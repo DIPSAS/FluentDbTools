@@ -11,11 +11,11 @@ namespace FluentDbTools.SqlBuilder.Parameters
 {
     public class DatabaseParameterResolver : IDatabaseParameterResolver
     {
-        private readonly IDbConfig DbConfig;
+        private readonly IDbConfigDatabaseTargets DbConfig;
         private readonly IDatabaseParameterHelper DatabaseParameterHelperField;
 
         public DatabaseParameterResolver(
-            IDbConfig dbConfig)
+            IDbConfigDatabaseTargets dbConfig)
         {
             DbConfig = dbConfig;
             DatabaseParameterHelperField = new DatabaseParameterHelper(dbConfig);
