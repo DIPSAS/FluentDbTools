@@ -12,14 +12,14 @@ namespace Example.FluentDbTools.Database.Select
     {
         public async static Task<long> Execute(
             IDbConnection dbConnection,
-            IDbConfig dbConfig)
+            IDbConfigDatabaseTargets dbConfig)
         {
             var sql = dbConfig.BuildSql(out var @params);
             var res = await dbConnection.QuerySingleAsync<long>(sql, @params);
             return res;
         }
         
-        private static string BuildSql(this IDbConfig dbConfig, out DynamicParameters @params)
+        private static string BuildSql(this IDbConfigDatabaseTargets dbConfig, out DynamicParameters @params)
         {
             @params = new DynamicParameters();
             @params.Add(nameof(Person.Alive), dbConfig.CreateParameterResolver().WithBooleanParameterValue(true));

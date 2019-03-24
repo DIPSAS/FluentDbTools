@@ -20,14 +20,12 @@ namespace FluentDbTools.Migration.Oracle
     {
         private readonly IExtendedMigrationGenerator ExtendedGenerator;
 
-        public ExtendedOracleProcessorBase(
-            IDbConfig dbConfig,
-            OracleBaseDbFactory factory,
+        public ExtendedOracleProcessorBase(OracleBaseDbFactory factory,
             IMigrationGenerator generator,
             ILogger logger,
             IOptionsSnapshot<ProcessorOptions> options,
             IConnectionStringAccessor connectionStringAccessor,
-            IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator> extendedGenerator) : base(dbConfig.DbType.GetProcessorId(), factory, generator, logger, options, connectionStringAccessor)
+            IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator> extendedGenerator) : base(ProcessorIds.OracleProcessorId, factory, generator, logger, options, connectionStringAccessor)
         {
             ExtendedGenerator = extendedGenerator;
         }

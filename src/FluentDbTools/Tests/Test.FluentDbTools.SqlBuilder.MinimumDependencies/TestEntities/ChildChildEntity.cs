@@ -1,4 +1,4 @@
-﻿namespace Test.FluentDbTools.SqlBuilder.TestEntities
+﻿namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies.TestEntities
 {
     public class ChildChildEntity
     {

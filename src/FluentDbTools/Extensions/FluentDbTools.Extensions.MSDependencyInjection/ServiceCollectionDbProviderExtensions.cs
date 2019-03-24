@@ -11,16 +11,17 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
     public static class ServiceCollectionDbProviderExtensions
     {
         public static IServiceCollection AddDbProvider<TDbConfig>(this IServiceCollection serviceCollection)
-            where  TDbConfig : class, IDbConfig
+            where TDbConfig : class, IDbConfig
         {
-            serviceCollection.TryAddTransient<IDbConfig, TDbConfig>();
-            return serviceCollection.AddDbProvider();
+            return serviceCollection
+                .AddDbConfig<TDbConfig>()
+                .AddDbProvider();
         }
 
         public static IServiceCollection AddDbProvider(this IServiceCollection serviceCollection)
         {
-            serviceCollection.TryAddSingleton(sp =>
-                sp.GetRequiredService<IDbConfig>().GetDbProviderFactory());
+            serviceCollection.AddDbConfigDatabaseTargets();
+            serviceCollection.TryAddSingleton(sp => sp.GetRequiredService<IDbConfig>().GetDbProviderFactory());
             serviceCollection.IfExistThen<DbConnection>(() => serviceCollection.TryAddScoped<IDbConnection>(sp => sp.GetRequiredService<DbConnection>()));
             serviceCollection.TryAddScoped<IDbConnection>(sp =>
             {
@@ -31,7 +32,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                     throw new NullReferenceException(
                         $"{nameof(IDbConnection)} provided by the db provider factory cannot be null!");
                 }
-                
+
                 dbConnection.Open();
                 return dbConnection;
             });

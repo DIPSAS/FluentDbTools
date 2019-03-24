@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using FluentDbTools.Common.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace FluentDbTools.Extensions.MSDependencyInjection
 {
@@ -67,7 +69,8 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         public static IServiceCollection AddSingletonIfNotExists<T>(this IServiceCollection serviceCollection)
             where T : class
         {
-            return serviceCollection.AddSingletonIfNotExists<T,T>();
+            serviceCollection.TryAddSingleton<T>();
+            return serviceCollection;
         }
 
 
@@ -75,59 +78,68 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
             where T : class
             where TImpl : class, T
         {
-            return serviceCollection.IfNotExistThen<TImpl>(() => serviceCollection.AddSingleton<T, TImpl>());
+            serviceCollection.TryAddSingleton<T,TImpl>();
+            return serviceCollection;
         }
 
         public static IServiceCollection AddSingletonIfNotExists<T, TImpl>(this IServiceCollection serviceCollection, TImpl implent)
             where T : class
             where TImpl : class, T
         {
-            return serviceCollection.IfNotExistThen<TImpl>(() => serviceCollection.AddSingleton<T>(implent));
+            serviceCollection.TryAddSingleton<T>(implent);
+            return serviceCollection;
         }
 
         public static IServiceCollection AddSingletonIfNotExists<T>(this IServiceCollection serviceCollection, Func<IServiceProvider, T> implentFunc)
             where T : class
         {
-            return serviceCollection.IfNotExistThen<T>(() => serviceCollection.AddSingleton(implentFunc));
+            serviceCollection.TryAddSingleton(implentFunc);
+            return serviceCollection;
         }
 
         public static IServiceCollection AddScopedIfNotExists<T>(this IServiceCollection serviceCollection)
             where T : class
         {
-            return serviceCollection.AddScopedIfNotExists<T, T>();
+            serviceCollection.TryAddScoped<T>();
+            return serviceCollection;
         }
 
         public static IServiceCollection AddScopedIfNotExists<T, TImpl>(this IServiceCollection serviceCollection)
             where T : class
             where TImpl : class, T
         {
-            return serviceCollection.IfNotExistThen<TImpl>(() => serviceCollection.AddScoped<T, TImpl>());
+            serviceCollection.TryAddScoped<T,TImpl>();
+            return serviceCollection;
         }
-
+        
         public static IServiceCollection AddScopedIfNotExists<T>(this IServiceCollection serviceCollection, Func<IServiceProvider, T> implentFunc)
             where T : class
         {
-            return serviceCollection.IfNotExistThen<T>(() => serviceCollection.AddScoped(implentFunc));
+            serviceCollection.TryAddScoped(implentFunc);
+            return serviceCollection;
         }
 
         public static IServiceCollection AddTransientIfNotExists<T>(this IServiceCollection serviceCollection)
             where T : class
         {
-            return serviceCollection.AddTransientIfNotExists<T, T>();
+            serviceCollection.TryAddTransient<T>();
+            return serviceCollection;
         }
 
         public static IServiceCollection AddTransientIfNotExists<T, TImpl>(this IServiceCollection serviceCollection)
             where T : class
             where TImpl : class, T
         {
-            return serviceCollection.IfNotExistThen<TImpl>(() => serviceCollection.AddTransient<T, TImpl>());
+            serviceCollection.TryAddTransient<T,TImpl>();
+            return serviceCollection;
         }
 
 
         public static IServiceCollection AddTransientIfNotExists<T>(this IServiceCollection serviceCollection, Func<IServiceProvider, T> implentFunc)
             where T : class
         {
-            return serviceCollection.IfNotExistThen<T>(() => serviceCollection.AddTransient(implentFunc));
+            serviceCollection.TryAddTransient(implentFunc);
+            return serviceCollection;
         }
     }
 }

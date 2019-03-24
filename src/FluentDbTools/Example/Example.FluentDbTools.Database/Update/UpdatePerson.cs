@@ -4,6 +4,7 @@ using Dapper;
 using FluentDbTools.Extensions.SqlBuilder;
 using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Database.Entities;
+using FluentDbTools.Extensions.DbProvider;
 
 namespace Example.FluentDbTools.Database.Update
 {
@@ -11,7 +12,7 @@ namespace Example.FluentDbTools.Database.Update
     {
         public static Task Execute(
             IDbConnection dbConnection,
-            IDbConfig dbConfig,
+            IDbConfigDatabaseTargets dbConfig,
             Person person)
         {
             var sql = dbConfig.BuildSql();
@@ -23,7 +24,7 @@ namespace Example.FluentDbTools.Database.Update
             return dbConnection.ExecuteAsync(sql, @params);
         }
         
-        private static string BuildSql(this IDbConfig dbConfig)
+        private static string BuildSql(this IDbConfigDatabaseTargets dbConfig)
         {
             var sql = dbConfig.CreateSqlBuilder().Update<Person>()
                 .OnSchema()
