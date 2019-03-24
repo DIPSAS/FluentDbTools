@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration;
+using FluentDbTools.Migration.Abstractions;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,7 @@ namespace FluentDbTools.Extensions.Migration
 {
     public static class ExecutorExtensions
     {
-        public static IMigrationRunner GetMigrationRunner(this IDbConfig dbConfig,
+        public static IMigrationRunner GetMigrationRunner(this IDbMigrationConfig dbConfig,
             IEnumerable<Assembly> assembliesWithMigrationModels,
             IServiceCollection serviceCollection = null)
         {
@@ -23,7 +24,8 @@ namespace FluentDbTools.Extensions.Migration
             return provider.GetService<IMigrationRunner>();
         }
 
-        public static IMigrationRunner GetMigrationRunner(Func<IServiceProvider, IDbConfig> dbConfig, IEnumerable<Assembly> assembliesWithMigrationModels,
+        public static IMigrationRunner GetMigrationRunner(Func<IServiceProvider, IDbMigrationConfig> dbConfig,
+            IEnumerable<Assembly> assembliesWithMigrationModels,
             IServiceCollection serviceCollection = null)
         {
             var serviceProvider = BuildServiceProviderWithMigration(dbConfig, assembliesWithMigrationModels, serviceCollection);
@@ -32,7 +34,7 @@ namespace FluentDbTools.Extensions.Migration
             return scope.ServiceProvider.GetMigrationRunner();
         }
 
-        public static void DropSchema(this IDbConfig dbConfig,
+        public static void DropSchema(this IDbMigrationConfig dbConfig,
             IEnumerable<Assembly> assembliesWithMigrationModels,
             IServiceCollection serviceCollection = null)
         {
@@ -40,7 +42,8 @@ namespace FluentDbTools.Extensions.Migration
         }
 
 
-        public static void DropSchema(Func<IServiceProvider, IDbConfig> dbConfig, IEnumerable<Assembly> assembliesWithMigrationModels,
+        public static void DropSchema(Func<IServiceProvider, IDbMigrationConfig> dbConfig,
+            IEnumerable<Assembly> assembliesWithMigrationModels,
             IServiceCollection serviceCollection = null)
         {
             BuildServiceProviderWithMigration(dbConfig, assembliesWithMigrationModels, serviceCollection)
@@ -106,7 +109,8 @@ namespace FluentDbTools.Extensions.Migration
         }
 
 
-        private static ServiceProvider BuildServiceProviderWithMigration(Func<IServiceProvider, IDbConfig> dbConfig,
+        private static ServiceProvider BuildServiceProviderWithMigration(
+            Func<IServiceProvider, IDbMigrationConfig> dbConfig,
             IEnumerable<Assembly> assembliesWithMigrationModels, IServiceCollection serviceCollection)
         {
             serviceCollection = serviceCollection ?? new ServiceCollection();

@@ -11,13 +11,13 @@ namespace FluentDbTools.SqlBuilder
     internal class DeleteSqlBuilder<TClass> : IDeleteSqlBuilder<TClass>
     {
         private readonly List<string> Wheres = new List<string>();
-        private readonly IDbConfig DbConfig;
+        private readonly IDbConfigDatabaseTargets DbConfig;
         private string TableName;
         private string SchemaName;
 
         private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? string.Empty : $"{SchemaName}.";
 
-        public DeleteSqlBuilder(IDbConfig dbConfig)
+        public DeleteSqlBuilder(IDbConfigDatabaseTargets dbConfig)
         {
             DbConfig = dbConfig;
             DbType = dbConfig?.DbType ?? SupportedDatabaseTypes.Postgres;

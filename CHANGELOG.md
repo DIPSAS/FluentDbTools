@@ -6,15 +6,22 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Version 1.1.5 2019-03-23
  - Added support of simplified Oracle EzConnect
    
-        ie: database:databaseConnectionName = "host/service"
+        e.g: database:dataSource = "host/service"
  - Added support of Oracle TnsAliasName
       
-        ie: database:hostName = ""
-            database:databaseConnectionName = "tnsAliasName"
+        e.g: database:dataSource = "tnsAliasName"
             => "tnsAliasName" must be available in tnsnames.ora 
             => tnsnames.ora must be localized in running folder or specified with 
                Enviroment-variable TNS_ADMIN 
                ie: TNS_ADMIN=C:\oracle\product\11.2.0.3.0\network\admin
+ - Added UnitTests for ConnectionStringBuilders
+ - Refacted IDbConfig:
+   - IDbConfig is now mainly used for reading configuration and data holder for ConnectionString parameters
+   - IDbConfig is devided into:
+     - IDbMigrationConfig used by DbMigration
+     - IDbConnectionStringBuilder used by ConnectionString builders
+     - IDbConfigDatabaseTargets used by SqlBuilder
+- Reduced use of IDbConfig in UnitTests and Example codes.      
 
 ### Version 1.1.4 2019-03-23
  - Fixed Enum bug with sql builder.

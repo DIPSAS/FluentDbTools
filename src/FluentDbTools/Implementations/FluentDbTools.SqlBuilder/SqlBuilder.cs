@@ -7,12 +7,12 @@ namespace FluentDbTools.SqlBuilder
 {
     public class SqlBuilder : ISqlBuilder
     {
-        private readonly IDbConfig DbConfig;
+        private readonly IDbConfigDatabaseTargets DbConfig;
 
        
         public SupportedDatabaseTypes DatabaseType => DbConfig.DbType;
 
-        public SqlBuilder(IDbConfig dbConfig)
+        public SqlBuilder(IDbConfigDatabaseTargets dbConfig)
         {
             DbConfig = dbConfig;
         }

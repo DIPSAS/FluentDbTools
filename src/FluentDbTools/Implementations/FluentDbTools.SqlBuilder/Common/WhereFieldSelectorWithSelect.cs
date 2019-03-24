@@ -7,7 +7,7 @@ namespace FluentDbTools.SqlBuilder.Common
     {
         private readonly string Prefix;
 
-        public WhereFieldSelectorWithSelect(string prefix, IDbConfig dbConfig) : base(dbConfig)
+        public WhereFieldSelectorWithSelect(string prefix, IDbConfigDatabaseTargets dbConfig) : base(dbConfig)
         {
             Prefix = prefix;
         }

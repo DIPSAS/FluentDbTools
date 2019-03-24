@@ -8,7 +8,7 @@ namespace FluentDbTools.SqlBuilder.Common
 {
     public abstract class BaseFieldSetterSelector<TClass> : IFieldSetterSelector<TClass>
     {
-        protected readonly IDbConfig DbConfig;
+        protected readonly IDbConfigDatabaseTargets DbConfig;
 
         protected class Field
         {
@@ -26,7 +26,7 @@ namespace FluentDbTools.SqlBuilder.Common
             }
         }
 
-        protected BaseFieldSetterSelector(IDbConfig dbConfig)
+        protected BaseFieldSetterSelector(IDbConfigDatabaseTargets dbConfig)
         {
             DbConfig = dbConfig;
         }

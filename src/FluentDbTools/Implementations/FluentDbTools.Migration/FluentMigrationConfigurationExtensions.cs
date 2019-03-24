@@ -2,6 +2,7 @@
 using System.Reflection;
 using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Common;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Initialization;
@@ -20,38 +21,36 @@ namespace FluentDbTools.Migration
                 {
                     var factory = sp.GetService<IOptionsFactory<ProcessorOptions>>();
                     var manager = new OptionsManager<ProcessorOptions>(factory);
-                    var dbConfig = sp.GetService<IDbConfig>();
-                    manager.Value.ConnectionString = dbConfig.GetAdminConnectionString();
+                    manager.Value.ConnectionString = sp.GetService<IDbMigrationConfig>().ConnectionString;
                     return manager;
-                })
-                .AddScoped<IOptions<ProcessorOptions>>(sp =>
-                {
-                    var options = new OptionsWrapper<ProcessorOptions>(new ProcessorOptions
-                    {
-                        ConnectionString =
-                            sp.GetService<IDbConfig>().GetAdminConnectionString()
-                    });
-                    return options;
                 })
                 .AddScoped<IOptionsSnapshot<SelectingProcessorAccessorOptions>>(sp =>
                 {
                     var factory = sp.GetService<IOptionsFactory<SelectingProcessorAccessorOptions>>();
                     var optionsManager = new OptionsManager<SelectingProcessorAccessorOptions>(factory);
-                    var databaseType = sp.GetService<IDbConfig>().DbType;
-                    optionsManager.Value.ProcessorId = databaseType.GetProcessorId();
+                    optionsManager.Value.ProcessorId = sp.GetService<IDbMigrationConfig>().ProcessorId;
                     return optionsManager;
-                })
-                .AddScoped<IOptions<SelectingProcessorAccessorOptions>>(sp =>
-                {
-                    var options = new OptionsWrapper<SelectingProcessorAccessorOptions>(
-                        new SelectingProcessorAccessorOptions()
-                        {
-                            ProcessorId = sp.GetService<IDbConfig>().DbType.GetProcessorId()
-                        });
-                    return options;
                 });
+                //.AddScoped<IOptions<ProcessorOptions>>(sp =>
+                //{
+                //    var options = new OptionsWrapper<ProcessorOptions>(new ProcessorOptions
+                //    {
+                //        ConnectionString =
+                //            sp.GetService<IDbConfig>().GetAdminConnectionString()
+                //    });
+                //    return options;
+                //})
+                //.AddScoped<IOptions<SelectingProcessorAccessorOptions>>(sp =>
+                //{
+                //    var options = new OptionsWrapper<SelectingProcessorAccessorOptions>(
+                //        new SelectingProcessorAccessorOptions()
+                //        {
+                //            ProcessorId = sp.GetService<IDbConfig>().DbType.GetProcessorId()
+                //        });
+                //    return options;
+                //});
         }
-        
+
         public static IScanInBuilder AssembliesForMigrations(this IScanInBuilder scanInBuilder, IEnumerable<Assembly> assembliesWithMigrationModels)
         {
             foreach (var assemblyWithMigrationModels in assembliesWithMigrationModels)
