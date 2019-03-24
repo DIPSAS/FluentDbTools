@@ -17,6 +17,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Update="sqlnet.ora">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="tnsnames.ora">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
       <None Update="xunit.runner.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>

@@ -12,7 +12,7 @@ namespace Example.FluentDbTools.Database.Select
     {
         public static Task<Person> Execute(
             IDbConnection dbConnection,
-            IDbConfig dbConfig,
+            IDbConfigDatabaseTargets dbConfig,
             Guid id)
         {
             var sql = dbConfig.BuildSql();
@@ -21,7 +21,7 @@ namespace Example.FluentDbTools.Database.Select
             return dbConnection.QuerySingleAsync<Person>(sql, @params);
         }
         
-        private static string BuildSql(this IDbConfig dbConfig)
+        private static string BuildSql(this IDbConfigDatabaseTargets dbConfig)
         {
             var sql = dbConfig.CreateSqlBuilder().Select()
                 .OnSchema()

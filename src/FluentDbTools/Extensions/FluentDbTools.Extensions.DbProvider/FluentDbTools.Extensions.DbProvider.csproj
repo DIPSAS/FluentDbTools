@@ -7,6 +7,7 @@
     <Import Project="..\..\SolutionInfo.proj" />
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Contracts\FluentDbTools.Contracts\FluentDbTools.Contracts\FluentDbTools.Contracts.csproj" />
       <ProjectReference Include="..\..\Implementations\FluentDbTools.DbProviders\FluentDbTools.DbProviders.csproj" />
     </ItemGroup>
 

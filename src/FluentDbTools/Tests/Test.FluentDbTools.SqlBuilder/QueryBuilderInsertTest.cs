@@ -3,7 +3,7 @@ using FluentDbTools.Common.Abstractions;
 using TestUtilities.FluentDbTools;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using Test.FluentDbTools.SqlBuilder.TestEntities;
+using Test.FluentDbTools.SqlBuilder.MinimumDependencies.TestEntities;
 using Xunit;
 
 namespace Test.FluentDbTools.SqlBuilder
@@ -19,7 +19,7 @@ namespace Test.FluentDbTools.SqlBuilder
         {
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes).CreateScope())
             {
-                var dbConfig = scope.ServiceProvider.GetService<IDbConfig>();
+                var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema);
                 
                 var builder = dbConfig.CreateSqlBuilder();
@@ -45,7 +45,7 @@ namespace Test.FluentDbTools.SqlBuilder
         {
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes).CreateScope())
             {
-                var dbConfig = scope.ServiceProvider.GetService<IDbConfig>();
+                var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema);
                 
                 var builder = dbConfig.CreateSqlBuilder();

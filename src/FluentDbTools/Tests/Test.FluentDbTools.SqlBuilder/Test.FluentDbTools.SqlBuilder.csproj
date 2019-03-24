@@ -5,7 +5,6 @@
 
         <IsPackable>false</IsPackable>
     </PropertyGroup>
-
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
         <PackageReference Include="xunit" Version="2.3.1" />
@@ -14,8 +13,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.SqlBuilder\FluentDbTools.Extensions.SqlBuilder.csproj" />
-      <ProjectReference Include="..\TestUtilities.FluentDbTools\TestUtilities.FluentDbTools.csproj" />
+        <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.SqlBuilder\FluentDbTools.Extensions.SqlBuilder.csproj" />
+        <ProjectReference Include="..\Test.FluentDbTools.SqlBuilder.MinimumDependencies\Test.FluentDbTools.SqlBuilder.MinimumDependencies.csproj" />
+        <ProjectReference Include="..\TestUtilities.FluentDbTools\TestUtilities.FluentDbTools.csproj" />
     </ItemGroup>
 
 </Project>

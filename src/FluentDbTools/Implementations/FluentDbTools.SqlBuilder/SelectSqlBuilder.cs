@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions;
-using FluentDbTools.SqlBuilder.Abstractions.Common;
 using FluentDbTools.SqlBuilder.Abstractions.Fields;
-using FluentDbTools.SqlBuilder.Abstractions.Parameters;
 using FluentDbTools.SqlBuilder.Common;
 
 namespace FluentDbTools.SqlBuilder
 {
     internal class SelectSqlBuilder : ISelectSqlBuilder
     {
-        private readonly IDbConfig DbConfig;
+        private readonly IDbConfigDatabaseTargets DbConfig;
         private readonly List<string> FieldsList = new List<string>();
 
         private readonly List<string> Joins = new List<string>();
@@ -29,7 +25,7 @@ namespace FluentDbTools.SqlBuilder
         private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? string.Empty : $"{SchemaName}.";
 
 
-        public SelectSqlBuilder(IDbConfig dbConfig)
+        public SelectSqlBuilder(IDbConfigDatabaseTargets dbConfig)
         {
             DbConfig = dbConfig;
             DbType = dbConfig.DbType;

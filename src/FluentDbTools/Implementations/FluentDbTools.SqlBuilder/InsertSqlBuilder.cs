@@ -9,9 +9,9 @@ namespace FluentDbTools.SqlBuilder
 {
     internal class InsertSqlBuilder<TClass> : IInsertSqlBuilder<TClass>
     {
-        private readonly IDbConfig DbConfig;
+        private readonly IDbConfigDatabaseTargets DbConfig;
 
-        public InsertSqlBuilder(IDbConfig dbConfig)
+        public InsertSqlBuilder(IDbConfigDatabaseTargets dbConfig)
         {
             DbConfig = dbConfig;
             DbType = dbConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
@@ -26,7 +26,7 @@ namespace FluentDbTools.SqlBuilder
 
         private class InsertFieldSelector : BaseFieldSetterSelector<TClass>
         {
-            public InsertFieldSelector(IDbConfig dbConfig)
+            public InsertFieldSelector(IDbConfigDatabaseTargets dbConfig)
                 : base (dbConfig)
             {
             }
