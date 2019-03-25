@@ -71,7 +71,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Extensions.MS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.FluentDbTools.SqlBuilder.MinimumDependencies", "Tests\Test.FluentDbTools.SqlBuilder.MinimumDependencies\Test.FluentDbTools.SqlBuilder.MinimumDependencies.csproj", "{CC341E1A-C5EA-4925-B0F6-04152C59270F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Contracts", "Contracts\FluentDbTools.Contracts\FluentDbTools.Contracts\FluentDbTools.Contracts.csproj", "{CF582DD2-A038-4487-A3D3-3451B3800523}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentDbTools.Contracts", "Contracts\FluentDbTools.Contracts\FluentDbTools.Contracts.csproj", "{CF582DD2-A038-4487-A3D3-3451B3800523}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
