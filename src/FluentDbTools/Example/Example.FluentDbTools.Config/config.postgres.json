@@ -14,11 +14,13 @@
     "password": "dbpassword",
     "adminUser": "admin",
     "adminPassword": "admin",
-    "schema": "dbuser",
-    "schemaPassword": "dbpassword",
-    "databaseConnectionName": "dbuser",
+    "schema": "dbuser", // If not set, then it equals to ':databaseuser'
+    "databaseName": "dbuser", // If not set, then it equals to 'database:schema'
     "hostname": "localhost",
     "port": 5433,
-    "pooling": true
+    "pooling": true,
+    "migration": {
+      "schemaPassword": "dbpassword" // If not set, then it equals to 'database:password'
+    }
   }
 }

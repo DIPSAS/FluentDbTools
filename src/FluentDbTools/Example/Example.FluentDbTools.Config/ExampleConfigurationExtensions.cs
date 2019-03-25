@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.MSDependencyInjection;
-using Example.FluentDbTools.Config;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Example.FluentDbTools.Common
+namespace Example.FluentDbTools.Config
 {
     public static class ExampleConfigurationExtensions
     {

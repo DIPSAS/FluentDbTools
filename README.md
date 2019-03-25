@@ -29,7 +29,7 @@ var dbConnection = dbConfig.CreateDbConnection();
 
 ### Build SQL Query Fluently
 ```csharp
-IDbConfig dbConfig = new DbConfig(..)
+IDbConfig dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema);
 var sql = dbConfig.CreateSqlBuilder().Select()
             .OnSchema()
             .Fields<Person>(x => x.F(item => item.Id))
@@ -47,7 +47,8 @@ public class AddPersonTable : MigrationModel
 {
     public override void Up()
     {
-        Create.Table(Table.Person).InSchema(SchemaName)
+        Create.Table(Table.Person)
+            .InSchema(SchemaName)
             .WithColumn(Column.Id).AsGuid().PrimaryKey()
             .WithColumn(Column.SequenceNumber).AsInt32().NotNullable()
             .WithColumn(Column.Username).AsString()

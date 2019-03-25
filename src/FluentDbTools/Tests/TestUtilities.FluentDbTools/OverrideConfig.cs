@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using FluentDbTools.Common.Abstractions;
-using Example.FluentDbTools.Common;
 using Example.FluentDbTools.Config;
 using Microsoft.Extensions.Configuration;
 
@@ -24,14 +23,14 @@ namespace TestUtilities.FluentDbTools
             {
                 {"database:schema", schema},
                 {"database:user", schema},
-                {"database:schemapassword", schema},
+                {"database:migration:schemaPassword", schema},
                 {"database:password", schema},
             };
 
             switch (databaseType)
             {
                 case SupportedDatabaseTypes.Postgres:
-                    overrideDict["database:databaseConnectionName"] = schema;
+                    overrideDict["database:databaseName"] = schema;
                     break;
                 case SupportedDatabaseTypes.Oracle:
                     break;
