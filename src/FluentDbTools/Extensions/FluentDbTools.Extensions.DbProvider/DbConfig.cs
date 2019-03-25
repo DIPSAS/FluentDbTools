@@ -1,6 +1,6 @@
 ﻿using System;
 using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Contracts.DefaultConfigs;
+using FluentDbTools.Contracts;
 
 namespace FluentDbTools.Extensions.DbProvider
 {

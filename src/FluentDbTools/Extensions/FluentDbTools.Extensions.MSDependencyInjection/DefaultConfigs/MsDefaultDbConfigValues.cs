@@ -1,4 +1,4 @@
-﻿using FluentDbTools.Contracts.DefaultConfigs;
+﻿using FluentDbTools.Contracts;
 using Microsoft.Extensions.Configuration;
 
 namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
