@@ -1,6 +1,6 @@
 ﻿using FluentDbTools.Common.Abstractions;
 
-namespace FluentDbTools.Contracts.DefaultConfigs
+namespace FluentDbTools.Contracts
 {
     public class DbConfigCredentials : IDbConfigCredentials
     {

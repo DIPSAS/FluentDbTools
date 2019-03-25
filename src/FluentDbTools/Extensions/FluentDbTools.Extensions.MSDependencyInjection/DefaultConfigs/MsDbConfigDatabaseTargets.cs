@@ -1,6 +1,6 @@
 ﻿using System.Security;
 using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Contracts.DefaultConfigs;
+using FluentDbTools.Contracts;
 using FluentDbTools.Extensions.DbProvider;
 using Microsoft.Extensions.Configuration;
 

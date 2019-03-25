@@ -1,8 +1,8 @@
 ﻿using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Contracts.DefaultConfigs;
 using FluentDbTools.Extensions.SqlBuilder;
 using FluentDbTools.SqlBuilder.Abstractions.Common;
 using FluentAssertions;
+using FluentDbTools.Contracts;
 using Test.FluentDbTools.SqlBuilder.MinimumDependencies.TestEntities;
 using Xunit;
 
