@@ -14,7 +14,7 @@ namespace Example.FluentDbTools.Database.Select
     {
         public async static Task<IEnumerable<Person>> Execute(
             IDbConnection dbConnection,
-            IDbConfig dbConfig,
+            IDbConfigDatabaseTargets dbConfig,
             Guid[] ids)
         {
             var sql = dbConfig.BuildSql(ids, out var @params);
@@ -22,7 +22,7 @@ namespace Example.FluentDbTools.Database.Select
             return res;
         }
         
-        private static string BuildSql(this IDbConfig dbConfig, Guid[] ids, out DynamicParameters @params)
+        private static string BuildSql(this IDbConfigDatabaseTargets dbConfig, Guid[] ids, out DynamicParameters @params)
         {
             @params = new DynamicParameters();
             var inSelections = dbConfig.CreateParameterResolver().AddArrayParameter(@params, nameof(Person.Id), ids);

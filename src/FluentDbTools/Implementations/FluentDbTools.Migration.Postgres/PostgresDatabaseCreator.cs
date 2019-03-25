@@ -2,6 +2,8 @@
 using System.Data;
 using System.IO;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Extensions.DbProvider;
+using FluentDbTools.Migration.Abstractions;
 using Npgsql;
 
 namespace FluentDbTools.Migration.Postgres
@@ -25,14 +27,15 @@ namespace FluentDbTools.Migration.Postgres
 
         private const string ConnectionStringWithoutDatabaseTemplate = "User ID={0};Password={1};Host={2};Port={3};Pooling={4};";
 
-        public static void CreateDatabase(IDbConfig dbConfig)
+
+        public static void CreateDatabase(IDbMigrationConfig dbMigrationConfig)
         {
-            using (var dbConnection = dbConfig.CreateDbConnection())
+            using (var dbConnection = CreateDbConnection(GetConnecionStringWithoutDatabase(dbMigrationConfig)))
             {
                 dbConnection.Open();
                 try
                 {
-                    CreateDatabase(dbConfig, dbConnection);
+                    CreateDatabase(dbMigrationConfig, dbConnection);
                 }
                 finally 
                 {
@@ -41,14 +44,14 @@ namespace FluentDbTools.Migration.Postgres
             }
         }
         
-        public static void DropDatabase(IDbConfig dbConfig)
+        public static void DropDatabase(IDbMigrationConfig dbMigrationConfig)
         {
-            using (var dbConnection = dbConfig.CreateDbConnection())
+            using (var dbConnection = CreateDbConnection(GetConnecionStringWithoutDatabase(dbMigrationConfig)))
             {
                 dbConnection.Open();
                 try
                 {
-                    DropDatabase(dbConfig, dbConnection);
+                    DropDatabase(dbMigrationConfig, dbConnection);
                 }
                 finally 
                 {
@@ -57,22 +60,22 @@ namespace FluentDbTools.Migration.Postgres
             }
         }
 
-        private static void CreateDatabase(IDbConfig dbConfig, IDbConnection dbConnection)
+        private static void CreateDatabase(IDbMigrationConfig dbMigrationConfig, IDbConnection dbConnection)
         {
-            if (!dbConnection.Exists(string.Format(DatabaseExistsSqlTemplate, dbConfig.DatabaseConnectionName.ToLower())))
+            if (!dbConnection.Exists(string.Format(DatabaseExistsSqlTemplate, dbMigrationConfig.DatabaseName.ToLower())))
             {
-                var sqlCreateDatabase = string.Format(DatabaseCreateSqlTemplate, dbConfig.DatabaseConnectionName.ToLower(), dbConfig.AdminUser.ToLower());
+                var sqlCreateDatabase = string.Format(DatabaseCreateSqlTemplate, dbMigrationConfig.DatabaseName.ToLower(), dbMigrationConfig.DatabaseOwner.ToLower());
                 dbConnection.ExecuteWithCommand(sqlCreateDatabase);
             }
         }
 
-        private static void DropDatabase(IDbConfig dbConfig, IDbConnection dbConnection)
+        private static void DropDatabase(IDbMigrationConfig dbMigrationConfig, IDbConnection dbConnection)
         {
             var maxTries = 5;
-            while (dbConnection.Exists(string.Format(DatabaseExistsSqlTemplate, dbConfig.DatabaseConnectionName.ToLower())))
+            while (dbConnection.Exists(string.Format(DatabaseExistsSqlTemplate, dbMigrationConfig.DatabaseName.ToLower())))
             {
-                KillAllDatabaseConnections(dbConfig, dbConnection);
-                var sqlDropDatabase = string.Format(DatabaseDropSqlTemplate, dbConfig.DatabaseConnectionName.ToLower());
+                KillAllDatabaseConnections(dbMigrationConfig, dbConnection);
+                var sqlDropDatabase = string.Format(DatabaseDropSqlTemplate, dbMigrationConfig.DatabaseName.ToLower());
                 dbConnection.ExecuteWithCommand(sqlDropDatabase);
                 if (--maxTries < 0)
                 {
@@ -81,11 +84,11 @@ namespace FluentDbTools.Migration.Postgres
             }
         }
 
-        private static void KillAllDatabaseConnections(IDbConfig dbConfig, IDbConnection dbConnection)
+        private static void KillAllDatabaseConnections(IDbMigrationConfig dbMigrationConfig, IDbConnection dbConnection)
         {
-            if (dbConnection.Exists(string.Format(DatabaseExistsSqlTemplate, dbConfig.DatabaseConnectionName.ToLower())))
+            if (dbConnection.Exists(string.Format(DatabaseExistsSqlTemplate, dbMigrationConfig.DatabaseName.ToLower())))
             {
-                var sqlKillAllConnections = string.Format(DatabaseKillAllConnections, dbConfig.DatabaseConnectionName.ToLower());
+                var sqlKillAllConnections = string.Format(DatabaseKillAllConnections, dbMigrationConfig.DatabaseName.ToLower());
                 dbConnection.ExecuteWithCommand(sqlKillAllConnections);
             }
         }
@@ -113,14 +116,9 @@ namespace FluentDbTools.Migration.Postgres
             }
         }
 
-        private static IDbConnection CreateDbConnection(this IDbConfig dbConfig)
+        private static IDbConnection CreateDbConnection(string connectionString)
         {
-            return new NpgsqlConnection(string.Format(ConnectionStringWithoutDatabaseTemplate, 
-                dbConfig.AdminUser.ToLower(),
-                dbConfig.AdminPassword,
-                dbConfig.Hostname.ToLower(),
-                dbConfig.Port,
-                dbConfig.Pooling.ToString()));
+            return SupportedDatabaseTypes.Postgres.CreateDbConnection(connectionString);
         }
 
         private static bool Exists(this IDbConnection dbConnection, string template, params object[] args)
@@ -132,6 +130,18 @@ namespace FluentDbTools.Migration.Postgres
                 return reader.Read();
             }
         }
+
+        private static string GetConnecionStringWithoutDatabase(this IDbMigrationConfig dbMigrationConfig)
+        {
+            var dbConfig = dbMigrationConfig.GetDbConfig();
+            return string.Format(ConnectionStringWithoutDatabaseTemplate,
+                dbConfig.AdminUser.ToLower(),
+                dbConfig.AdminPassword,
+                dbConfig.Hostname.ToLower(),
+                dbConfig.Port,
+                dbConfig.Pooling);
+        }
+
 
     }
 }

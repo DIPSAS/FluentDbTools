@@ -1,33 +1,15 @@
 namespace FluentDbTools.Common.Abstractions
 {
-    public interface IDbConfig
+    public interface IDbConfig : IDbConnectionStringBuilderConfig
     {
-        SupportedDatabaseTypes DbType { get; }
-        
-        string User{ get; }
-        
-        string Password { get; }
-        
-        string AdminUser { get; }
-        
-        string AdminPassword { get; }
-        
-        string Hostname { get; }
-        
-        string Port { get; }
-        
-        string DatabaseConnectionName { get; }
-        
-        bool Pooling { get; }
-        
-        string Schema { get; }
+        /// <summary>
+        /// If set, overrides all other config values related to the connection string.
+        /// </summary>
+        string ConnectionString { get; }
 
-        string SchemaPassword { get; }
-
-        string DefaultTablespace { get; }
-        
-        string TempTablespace { get; }
-        
-        string ConnectionStringTemplate { get; }
+        /// <summary>
+        /// If set, overrides all other config values related to the admin connection string.
+        /// </summary>
+        string AdminConnectionString { get; }
     }
 }

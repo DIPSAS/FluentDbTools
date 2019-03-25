@@ -1,4 +1,5 @@
 ﻿using FluentDbTools.Extensions.MSDependencyInjection;
+using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using FluentDbTools.Migration.Abstractions;
 using FluentMigrator;
 using FluentMigrator.Runner;
@@ -31,6 +32,7 @@ namespace FluentDbTools.Migration.Postgres
                         .AddScoped<PostgresTypeMap>()
                         .AddScoped<OverriddenPostgresColumn>()
                         .AddScoped<PostgresGenerator, OverriddenPostgresGenerator>()
+                        .AddPostgresDbProvider()
                 );
 
             return serviceCollection;

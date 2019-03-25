@@ -13,12 +13,12 @@ namespace FluentDbTools.Extensions.SqlBuilder
             TypeHandlerRegistration.RegisterTypeHandlers();
         }
         
-        public static ISqlBuilder CreateSqlBuilder(this IDbConfig dbConfig)
+        public static ISqlBuilder CreateSqlBuilder(this IDbConfigDatabaseTargets dbConfig)
         {
             return new FluentDbTools.SqlBuilder.SqlBuilder(dbConfig);
         }
 
-        public static IDatabaseParameterResolver CreateParameterResolver(this IDbConfig dbConfig)
+        public static IDatabaseParameterResolver CreateParameterResolver(this IDbConfigDatabaseTargets dbConfig)
         {
             return new DatabaseParameterResolver(dbConfig);
         }

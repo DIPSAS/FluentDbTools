@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
 using FluentDbTools.Migration.Abstractions;
 using FluentMigrator;
 using FluentMigrator.Runner;
@@ -34,6 +35,7 @@ namespace FluentDbTools.Migration.Oracle
                         .AddScoped<IMigrationProcessor>(sp => sp.GetRequiredService<ExtendedOracleManagedProcessor>())
                         .AddScopedIfNotExists<OracleGenerator>()
                         .AddScopedIfNotExists<OracleManagedDbFactory>()
+                        .AddOracleDbProvider()
                 );
 
 
@@ -43,9 +45,7 @@ namespace FluentDbTools.Migration.Oracle
 
         private static ExtendedOracleProcessorBase CreateExtendedOracleProcessorBase(IServiceProvider sp)
         {
-            return new ExtendedOracleProcessorBase(
-                sp.GetRequiredService<IDbConfig>(),
-                sp.GetRequiredService<OracleManagedDbFactory>(),
+            return new ExtendedOracleProcessorBase(sp.GetRequiredService<OracleManagedDbFactory>(),
                 sp.GetRequiredService<OracleGenerator>(),
                 sp.GetRequiredService<ILogger<ExtendedOracleManagedProcessor>>(),
                 sp.GetRequiredService<IOptionsSnapshot<ProcessorOptions>>(),

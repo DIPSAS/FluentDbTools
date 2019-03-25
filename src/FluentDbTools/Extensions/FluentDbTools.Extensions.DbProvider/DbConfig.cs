@@ -1,100 +1,29 @@
-﻿using FluentDbTools.Common.Abstractions;
+﻿using System;
+using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Contracts.DefaultConfigs;
 
 namespace FluentDbTools.Extensions.DbProvider
 {
-    public class DbConfig : IDbConfig
+    public class DbConfig : DbConnectionStringBuilderConfig, IDbConfig
     {
-        private SupportedDatabaseTypes? DbTypeField;
-        public virtual SupportedDatabaseTypes DbType
+        public DbConfig(DefaultDbConfigValues defaultDbConfigValues = null)
+            : base(defaultDbConfigValues)
         {
-            get => DbTypeField ?? SupportedDatabaseTypes.Postgres;
-            set => DbTypeField = value;
+            
         }
-        
-        private string UserField;
-        public virtual string User
+        private string ConnectionStringField;
+        public virtual string ConnectionString
         {
-            get => UserField ?? "user";
-            set => UserField = value;
-        }
-        
-        private string PasswordField;
-        public virtual string Password
-        {
-            get => PasswordField ?? "password";
-            set => PasswordField = value;
-        }
-        
-        private string AdminUserField;
-        public virtual string AdminUser
-        {
-            get => AdminUserField ?? "postgres";
-            set => AdminUserField = value;
-        }
-        
-        private string AdminPasswordField;
-        public virtual string AdminPassword
-        {
-            get => AdminPasswordField ?? "postgres";
-            set => AdminPasswordField = value;
+            get => ConnectionStringField ?? Defaults.GetDefaultConnectionString();
+            set => ConnectionStringField = value;
         }
 
-        private string HostnameField;
-        public virtual string Hostname
-        {
-            get => HostnameField ?? "localhost";
-            set => HostnameField = value;
-        }
+        private string AdminConnectionStringField;
 
-        private string PortField;
-        public virtual string Port
+        public virtual string AdminConnectionString
         {
-            get => PortField ?? "5432";
-            set => PortField = value;
+            get => AdminConnectionStringField ?? Defaults.GetDefaultAdminConnectionString();
+            set => AdminConnectionStringField = value;
         }
-
-        private string DatabaseConnectionNameField;
-        public virtual string DatabaseConnectionName
-        {
-            get => DatabaseConnectionNameField ?? Schema;
-            set => DatabaseConnectionNameField = value;
-        }
-
-        private bool? PoolingField;
-        public virtual bool Pooling
-        {
-            get => PoolingField ?? true;
-            set => PoolingField = value;
-        }
-
-        private string SchemaField;
-        public virtual string Schema
-        {
-            get => SchemaField ?? User;
-            set => SchemaField = value;
-        }
-
-        private string SchemaPasswordField;
-        public virtual string SchemaPassword
-        {
-            get => SchemaPasswordField ?? Password;
-            set => SchemaPasswordField = value;
-        }
-
-        private string TablespaceField;
-        public virtual string DefaultTablespace
-        {
-            get => TablespaceField ?? "FLUENT_DATA";
-            set => TablespaceField = value;
-        }
-
-        private string TempTablespaceField;
-        public virtual string TempTablespace
-        {
-            get => TempTablespaceField ?? "FLUENT_TEMP";
-            set => TempTablespaceField = value;
-        }
-
-        public virtual string ConnectionStringTemplate { get; set; }
     }
 }

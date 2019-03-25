@@ -37,14 +37,14 @@ END;";
         private const string TableSpaceExistsSqlTemplate = "SELECT 1 FROM DBA_TABLESPACES WHERE TABLESPACE_NAME = '{0}'";
 
         private readonly IQuoter Quoter;
-        private readonly IDbConfig DbConfig;
+        private readonly IDbMigrationConfig DbMigrationConfig;
 
         public ExtendedOracleMigrationGenerator(
             OracleQuoterBase quoter,
-            IDbConfig dbConfig)
+            IDbMigrationConfig dbMigrationConfig)
         {
             Quoter = quoter;
-            DbConfig = dbConfig;
+            DbMigrationConfig = dbMigrationConfig;
         }
 
         public virtual string GetUniqueString(CreateIndexExpression column)
@@ -135,10 +135,10 @@ END;";
         public string Generate(CreateSchemaExpression expression)
         {
             var schemaPassword = expression.SchemaName;
-            if (expression.SchemaName.Equals(DbConfig.Schema,
+            if (expression.SchemaName.Equals(DbMigrationConfig.Schema,
                 StringComparison.OrdinalIgnoreCase))
             {
-                schemaPassword = DbConfig.SchemaPassword;
+                schemaPassword = DbMigrationConfig.SchemaPassword;
             }
 
             if (string.IsNullOrEmpty(schemaPassword))
@@ -151,8 +151,8 @@ END;";
                 writer.WriteLine(CreateSchemaSqlTemplate,
                     Quoter.QuoteSchemaName(expression.SchemaName),
                     Quoter.QuoteSchemaName(schemaPassword),
-                    Quoter.QuoteSchemaName(DbConfig.DefaultTablespace),
-                    Quoter.QuoteSchemaName(DbConfig.TempTablespace));
+                    Quoter.QuoteSchemaName(DbMigrationConfig.DefaultTablespace),
+                    Quoter.QuoteSchemaName(DbMigrationConfig.TempTablespace));
                 writer.WriteLine(";");
                 writer.WriteLine(GrantTableSpaceAccess(expression.SchemaName));
                 writer.WriteLine(";");
@@ -186,8 +186,8 @@ END;";
         public string GetTableSpaceName(TableSpaceType tableSpaceType)
         {
             var tableSpace = tableSpaceType == TableSpaceType.Temp
-                ? DbConfig.TempTablespace
-                : DbConfig.DefaultTablespace;
+                ? DbMigrationConfig.TempTablespace
+                : DbMigrationConfig.DefaultTablespace;
             return tableSpace?.ToUpper();
         }
 
