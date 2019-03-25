@@ -14,13 +14,15 @@
     "password": "dbpassword",
     "adminUser": "system",
     "adminPassword": "oracle",
-    "schema": "dbuser",
-    "schemaPassword": "dbpassword",
+    "schema": "dbuser", // If not set, then it equals to 'database:user'
     "servicename": "xe",
     "hostname": "localhost",
     "port": 1521,
     "pooling": true,
-    "defaultTablespace": "FLUENT_DATA",
-    "tempTablespace": "FLUENT_TEMP"
+    "migration": {
+      "schemaPassword": "dbpassword", // If not set, then it equals to 'database:password'
+      "defaultTablespace": "FLUENT_DATA",
+      "tempTablespace": "FLUENT_TEMP"
+    }
   }
 }
