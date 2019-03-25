@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Example.FluentDbTools.Config;
 using FluentDbTools.Common.Abstractions;
-using Example.FluentDbTools.Common;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 

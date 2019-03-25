@@ -10,7 +10,7 @@
       <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.MSDependencyInjection.Oracle\FluentDbTools.Extensions.MSDependencyInjection.Oracle.csproj" />
       <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.MSDependencyInjection.Postgres\FluentDbTools.Extensions.MSDependencyInjection.Postgres.csproj" />
       <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.SqlBuilder\FluentDbTools.Extensions.SqlBuilder.csproj" />
-      <ProjectReference Include="..\Example.FluentDbTools.Common\Example.FluentDbTools.Common.csproj" />
+      <ProjectReference Include="..\Example.FluentDbTools.Config\Example.FluentDbTools.Config.csproj" />
     </ItemGroup>
 
     <ItemGroup>

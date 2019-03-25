@@ -1,6 +1,5 @@
 using System;
 using FluentDbTools.Common.Abstractions;
-using Example.FluentDbTools.Common;
 using Example.FluentDbTools.Config;
 using Example.FluentDbTools.Migration;
 using FluentAssertions;

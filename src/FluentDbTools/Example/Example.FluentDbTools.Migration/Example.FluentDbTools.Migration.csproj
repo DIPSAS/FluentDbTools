@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.Migration\FluentDbTools.Extensions.Migration.csproj" />
-      <ProjectReference Include="..\Example.FluentDbTools.Common\Example.FluentDbTools.Common.csproj" />
       <ProjectReference Include="..\Example.FluentDbTools.Database\Example.FluentDbTools.Database.csproj" />
     </ItemGroup>
 

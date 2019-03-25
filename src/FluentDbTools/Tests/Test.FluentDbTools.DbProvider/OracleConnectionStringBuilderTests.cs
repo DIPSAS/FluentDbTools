@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Example.FluentDbTools.Common;
 using Example.FluentDbTools.Config;
 using FluentAssertions;
 using FluentDbTools.Common.Abstractions;
