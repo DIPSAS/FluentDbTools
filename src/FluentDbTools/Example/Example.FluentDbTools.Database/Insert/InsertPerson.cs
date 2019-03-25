@@ -12,7 +12,7 @@ namespace Example.FluentDbTools.Database.Insert
     {
         public async static Task Execute(
             IDbConnection dbConnection,
-            IDbConfig dbConfig,
+            IDbConfigDatabaseTargets dbConfig,
             Person person)
         {
             var sql = dbConfig.BuildSql();
@@ -24,7 +24,7 @@ namespace Example.FluentDbTools.Database.Insert
             await dbConnection.ExecuteAsync(sql, @params);
         }
         
-        private static string BuildSql(this IDbConfig dbConfig)
+        private static string BuildSql(this IDbConfigDatabaseTargets dbConfig)
         {
             var parameterResolver = dbConfig.CreateParameterResolver();
             var sql = dbConfig.CreateSqlBuilder().Insert<Person>()

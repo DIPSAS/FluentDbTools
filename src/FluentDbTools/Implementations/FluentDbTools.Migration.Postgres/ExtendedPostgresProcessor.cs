@@ -16,10 +16,9 @@ namespace FluentDbTools.Migration.Postgres
     internal class ExtendedPostgresProcessor : PostgresProcessor, IExtendedMigrationProcessor<ExtendedPostgresProcessor>
     {
         private readonly IExtendedMigrationGenerator ExtendedGeneratorField;
-        private readonly IDbConfig DbConfig;
+        private readonly IDbMigrationConfig DbMigrationConfig;
 
-        public ExtendedPostgresProcessor(
-            IDbConfig dbConfig,
+        public ExtendedPostgresProcessor(IDbMigrationConfig dbMigrationConfig,
             PostgresQuoter quoter,
             PostgresDbFactory factory,
             PostgresGenerator generator,
@@ -30,11 +29,11 @@ namespace FluentDbTools.Migration.Postgres
             : base(factory, generator, logger, options, connectionStringAccessor)
         {
             ExtendedGeneratorField = extendedGenerator;
-            DbConfig = dbConfig;
+            DbMigrationConfig = dbMigrationConfig;
 
-            if (dbConfig.DbType.GetProcessorId() == ProcessorIds.PostgresProcessorId)
+            if (dbMigrationConfig.ProcessorId == ProcessorIds.PostgresProcessorId)
             {
-                PostgresDatabaseCreator.CreateDatabase(dbConfig);
+                PostgresDatabaseCreator.CreateDatabase(dbMigrationConfig);
             }
 
             this.SetPrivateFieldValue<PostgresProcessor>("_quoter", quoter);
@@ -260,7 +259,7 @@ namespace FluentDbTools.Migration.Postgres
                 Logger.LogSay($"Dropped Postgres schema(user) '{expression.SchemaName}'...");
 
                 Process(new DeleteUserExpression(expression));
-                PostgresDatabaseCreator.DropDatabase(DbConfig);
+                PostgresDatabaseCreator.DropDatabase(DbMigrationConfig);
             },
                 ex => Logger.LogError(ex, $"Dropping Postgres schema(user) '{expression.SchemaName}' failed with exception :-("));
         }

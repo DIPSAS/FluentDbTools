@@ -14,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Implementations\FluentDbTools.DbProviders\FluentDbTools.DbProviders.csproj" />
       <ProjectReference Include="..\TestUtilities.FluentDbTools\TestUtilities.FluentDbTools.csproj" />
     </ItemGroup>
 

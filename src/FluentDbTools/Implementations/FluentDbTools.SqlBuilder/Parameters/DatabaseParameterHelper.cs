@@ -9,10 +9,10 @@ namespace FluentDbTools.SqlBuilder.Parameters
 {
     internal class DatabaseParameterHelper : IDatabaseParameterHelper
     {
-        private readonly IDbConfig DbConfig;
+        private readonly IDbConfigDatabaseTargets DbConfig;
 
         
-        public DatabaseParameterHelper(IDbConfig dbConfig)
+        public DatabaseParameterHelper(IDbConfigDatabaseTargets dbConfig)
         {
             DbConfig = dbConfig;
             DatabaseType = dbConfig?.DbType ?? SupportedDatabaseTypes.Postgres;

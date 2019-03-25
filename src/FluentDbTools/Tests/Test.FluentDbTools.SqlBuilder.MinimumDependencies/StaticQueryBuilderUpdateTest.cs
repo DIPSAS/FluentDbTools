@@ -1,12 +1,12 @@
-﻿using FluentDbTools.Extensions.SqlBuilder;
-using FluentDbTools.Common.Abstractions;
+﻿using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Contracts.DefaultConfigs;
+using FluentDbTools.Extensions.SqlBuilder;
 using FluentDbTools.SqlBuilder.Abstractions.Common;
-using TestUtilities.FluentDbTools;
 using FluentAssertions;
-using Test.FluentDbTools.SqlBuilder.TestEntities;
+using Test.FluentDbTools.SqlBuilder.MinimumDependencies.TestEntities;
 using Xunit;
 
-namespace Test.FluentDbTools.SqlBuilder
+namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
 {
     public class StaticQueryBuilderUpdateTest
     {
@@ -17,7 +17,7 @@ namespace Test.FluentDbTools.SqlBuilder
         [InlineData(SupportedDatabaseTypes.Postgres, "schema", "UPDATE {0}.Entity SET Description = @Description, Name = 'Arild' WHERE Id = @IdParam")]
         public void UpdateTest(SupportedDatabaseTypes databaseTypes, string schema, string expectedSql)
         {
-            var dbConfig = OverrideConfig.CreateTestDbConfig(databaseTypes, schema);
+            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema);
             var useSchema = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema);
 
@@ -42,7 +42,7 @@ namespace Test.FluentDbTools.SqlBuilder
         public void UpdateTest_WithTableNameSet(SupportedDatabaseTypes databaseTypes, string schema, string expectedSql)
         {
             const string tableName = "EntityTable";
-            var dbConfig = OverrideConfig.CreateTestDbConfig(databaseTypes, schema);
+            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema);
             var useSchema = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema);
 
@@ -67,7 +67,7 @@ namespace Test.FluentDbTools.SqlBuilder
         [InlineData(SupportedDatabaseTypes.Postgres, "schema", "UPDATE Entity SET Description = @Description, Name = 'Arild' WHERE Id = @IdParam AND Name <> 'Arild'")]
         public void UpdateTestWithWhereIfTest(SupportedDatabaseTypes databaseTypes, string schema, string expectedSql)
         {
-            var dbConfig = OverrideConfig.CreateTestDbConfig(databaseTypes, schema);
+            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema);
             var ifStatementResult = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema);
 

@@ -1,11 +1,11 @@
-﻿using FluentDbTools.Extensions.SqlBuilder;
-using FluentDbTools.Common.Abstractions;
-using TestUtilities.FluentDbTools;
+﻿using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Contracts.DefaultConfigs;
+using FluentDbTools.Extensions.SqlBuilder;
 using FluentAssertions;
-using Test.FluentDbTools.SqlBuilder.TestEntities;
+using Test.FluentDbTools.SqlBuilder.MinimumDependencies.TestEntities;
 using Xunit;
 
-namespace Test.FluentDbTools.SqlBuilder
+namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
 {
     public class StaticQueryBuilderDeleteTest
     {
@@ -18,7 +18,7 @@ namespace Test.FluentDbTools.SqlBuilder
         {
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = OverrideConfig.CreateTestDbConfig(databaseTypes, schema);
+            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema);
 
             var builder = dbConfig.CreateSqlBuilder();
@@ -43,7 +43,7 @@ namespace Test.FluentDbTools.SqlBuilder
             const string tableName = "EntityTable";
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = OverrideConfig.CreateTestDbConfig(databaseTypes, schema);
+            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema);
 
             var builder = dbConfig.CreateSqlBuilder();

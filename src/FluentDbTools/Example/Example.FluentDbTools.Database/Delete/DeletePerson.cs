@@ -12,7 +12,7 @@ namespace Example.FluentDbTools.Database.Delete
     {
         public static Task Execute(
             IDbConnection dbConnection,
-            IDbConfig dbConfig,
+            IDbConfigDatabaseTargets dbConfig,
             Guid id)
         {
             var sql = dbConfig.BuildSql();
@@ -21,7 +21,7 @@ namespace Example.FluentDbTools.Database.Delete
             return dbConnection.ExecuteAsync(sql, @params);
         }
         
-        private static string BuildSql(this IDbConfig dbConfig)
+        private static string BuildSql(this IDbConfigDatabaseTargets dbConfig)
         {
             var sql = dbConfig.CreateSqlBuilder().Delete<Person>()
                 .OnSchema()

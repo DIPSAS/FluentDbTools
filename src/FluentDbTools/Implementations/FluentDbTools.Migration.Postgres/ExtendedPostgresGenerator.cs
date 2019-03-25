@@ -29,14 +29,14 @@ namespace FluentDbTools.Migration.Postgres
         private const string DropUserSqlTemplate = "DROP ROLE IF EXISTS {0};";
 
         private readonly IQuoter Quoter;
-        private readonly IDbConfig DbConfig;
+        private readonly IDbMigrationConfig DbMigrationConfig;
 
         public ExtendedPostgresGenerator(
             PostgresQuoter quoter,
-            IDbConfig dbConfig)
+            IDbMigrationConfig dbMigrationConfig)
         {
             Quoter = quoter;
-            DbConfig = dbConfig;
+            DbMigrationConfig = dbMigrationConfig;
         }
 
 
@@ -66,10 +66,10 @@ namespace FluentDbTools.Migration.Postgres
         public string Generate(CreateUserExpression expression)
         {
             var schemaPassword = expression.SchemaName;
-            if (expression.SchemaName.Equals(DbConfig.Schema,
+            if (expression.SchemaName.Equals(DbMigrationConfig.Schema,
                 StringComparison.OrdinalIgnoreCase))
             {
-                schemaPassword = DbConfig.SchemaPassword;
+                schemaPassword = DbMigrationConfig.SchemaPassword;
             }
             
             if (string.IsNullOrEmpty(schemaPassword))
@@ -134,7 +134,7 @@ namespace FluentDbTools.Migration.Postgres
         private string AlterUser(string user, string schemaName)
         {
             
-            return string.Format(AlterUserSqlTemplate, Quoter.QuoteSchemaName(user), Quoter.QuoteSchemaName(DbConfig.DatabaseConnectionName), Quoter.QuoteSchemaName(schemaName));
+            return string.Format(AlterUserSqlTemplate, Quoter.QuoteSchemaName(user), Quoter.QuoteSchemaName(DbMigrationConfig.DatabaseName), Quoter.QuoteSchemaName(schemaName));
         }
 
     }
