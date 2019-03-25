@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
-using Example.FluentDbTools.Common;
+using Example.FluentDbTools.Config;
 using FluentAssertions;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.DbProvider;
@@ -23,7 +23,7 @@ namespace Test.FluentDbTools.DbProvider
         {
             var overridedConfig = new Dictionary<string, string>
             {
-                {"database:databaseConnectionName", "postgres"}
+                {"database:databaseName", "postgres"}
             };
 
 
@@ -47,7 +47,7 @@ namespace Test.FluentDbTools.DbProvider
         {
             var overridedConfig = new Dictionary<string, string>
             {
-                {"database:databaseConnectionName", "postgres"}
+                {"database:databaseName", "postgres"}
             };
 
             var dbConfig = GetDbConfig(overridedConfig, setTimeout);
@@ -65,7 +65,7 @@ namespace Test.FluentDbTools.DbProvider
         {
             var overridedConfig = new Dictionary<string, string>
             {
-                {"database:databaseConnectionName", "InvalidDatabase"}
+                {"database:databaseName", "InvalidDatabase"}
             };
 
             var dbConfig = GetDbConfig(overridedConfig);
@@ -90,7 +90,7 @@ namespace Test.FluentDbTools.DbProvider
         {
             var overridedConfig = new Dictionary<string, string>
             {
-                {"database:databaseConnectionName", "postgres"},
+                {"database:databaseName", "postgres"},
                 {"database:hostname", "InvalidHost"}
             };
 
