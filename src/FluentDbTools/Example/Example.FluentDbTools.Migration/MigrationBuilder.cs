@@ -21,7 +21,7 @@ namespace Example.FluentDbTools.Migration
             Func<IServiceCollection, IServiceCollection> additionalRegistration = null)
         {
             return new ServiceCollection()
-                .ConfigureWithMigration(MigrationAssemblies)
+                .ConfigureWithMigrationAndScanForVersionTable(MigrationAssemblies)
                 .UseExampleConfiguration(
                     databaseType,
                     overrideConfig);
