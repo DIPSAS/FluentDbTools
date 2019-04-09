@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Data;
 using System.Data.Common;
+using System.IO;
 using FluentDbTools.Common.Abstractions;
 
 namespace FluentDbTools.Extensions.DbProvider
@@ -100,6 +101,46 @@ namespace FluentDbTools.Extensions.DbProvider
             
             DbProviderFactories[databaseType] = dbProviderFactory;
             return dbProviderFactory;
+        }
+
+        /// <summary>
+        /// To support TnsName lookup you can use this function to configure then path containing tnsnames.ora and sqlnet.ora
+        /// If path is null or empty, the function wil try to resolve the path containing tnsnames.ora from Environment::Path 
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static IDbConfig ConfigureOracleTnsAdminPath(this IDbConfig dbConfig, string path)
+        {
+            ConfigureOracleTnsAdminPath(path);
+            return dbConfig;
+        }
+
+        /// <summary>
+        /// To support TnsName lookup you can use this function to configure then path containing tnsnames.ora and sqlnet.ora
+        /// If path is null or empty, the function wil try to resolve the path containing tnsnames.ora from Environment::Path 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static void ConfigureOracleTnsAdminPath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                var environmentPath = (Environment.GetEnvironmentVariable("PATH") ?? string.Empty).Split(Path.PathSeparator);
+                foreach (var pathToCheck in environmentPath)
+                {
+                    if (File.Exists(Path.Combine(pathToCheck, "tnsnames.ora")))
+                    {
+                        path = pathToCheck;
+                    }
+                }
+            }
+
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+            Environment.SetEnvironmentVariable("TNS_ADMIN", path, EnvironmentVariableTarget.Process);
         }
 
         private static void AssertDbConnectionImplemented(SupportedDatabaseTypes dbType)

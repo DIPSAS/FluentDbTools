@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.IO;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,7 @@ namespace Example.FluentDbTools.Config
         public static IConfigurationBuilder AddDbToolsExampleConfiguration(this IConfigurationBuilder configurationBuilder, 
             SupportedDatabaseTypes databaseType)
         {
+            DbProviderExtensions.ConfigureOracleTnsAdminPath(Path.Combine("oracle", "network", "admin"));
             return configurationBuilder
                 .AddJsonFile(BaseConfig.ConfigFilename(databaseType))
                 .AddJsonFileIfTrue(BaseConfig.ConfigDockerFilename(databaseType), () => BaseConfig.InContainer)

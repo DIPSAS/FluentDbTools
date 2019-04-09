@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
@@ -13,14 +13,15 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Example\Example.FluentDbTools.Database\Example.FluentDbTools.Database.csproj" />
+      <ProjectReference Include="..\..\Example\Example.FluentDbTools.MigrationWithVersionTable\Example.FluentDbTools.MigrationWithVersionTable.csproj" />
       <ProjectReference Include="..\..\Example\Example.FluentDbTools.Migration\Example.FluentDbTools.Migration.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="sqlnet.ora">
+      <None Update="oracle\network\admin\sqlnet.ora">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="tnsnames.ora">
+      <None Update="oracle\network\admin\tnsnames.ora">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="xunit.runner.json">

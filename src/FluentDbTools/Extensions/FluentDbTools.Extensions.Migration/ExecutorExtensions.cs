@@ -116,7 +116,7 @@ namespace FluentDbTools.Extensions.Migration
             serviceCollection = serviceCollection ?? new ServiceCollection();
             var serviceProvider = serviceCollection
                 .AddScoped(dbConfig)
-                .ConfigureWithMigration(assembliesWithMigrationModels)
+                .ConfigureWithMigrationAndScanForVersionTable(assembliesWithMigrationModels)
                 .BuildServiceProvider();
             return serviceProvider;
         }
