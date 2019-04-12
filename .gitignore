@@ -51,6 +51,7 @@ __pycache__/
 *.p7b
 *.pfx
 *.p12
+.env
 pw.txt
 apikey.txt
 PKCS7/
