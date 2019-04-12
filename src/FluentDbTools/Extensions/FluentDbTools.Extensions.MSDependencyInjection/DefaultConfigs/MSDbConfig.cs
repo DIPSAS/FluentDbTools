@@ -1,5 +1,4 @@
-﻿using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Extensions.DbProvider;
+﻿using FluentDbTools.Extensions.DbProvider;
 using Microsoft.Extensions.Configuration;
 
 namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs

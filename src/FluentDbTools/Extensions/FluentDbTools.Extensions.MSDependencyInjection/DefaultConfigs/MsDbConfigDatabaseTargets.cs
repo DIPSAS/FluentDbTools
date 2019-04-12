@@ -1,7 +1,4 @@
-﻿using System.Security;
-using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Contracts;
-using FluentDbTools.Extensions.DbProvider;
+﻿using FluentDbTools.Contracts;
 using Microsoft.Extensions.Configuration;
 
 namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
