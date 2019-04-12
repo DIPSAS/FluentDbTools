@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FluentDbTools.Extensions.MSDependencyInjection;
-using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
-using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.Migration.DefaultConfigs;
 using FluentDbTools.Migration.Abstractions;
 using FluentMigrator.Runner.VersionTableInfo;
@@ -55,7 +52,6 @@ namespace FluentDbTools.Extensions.Migration
                     continue;
                 }
 
-                serviceCollection.Remove<IVersionTableMetaData>();
                 serviceCollection.AddScoped(serviceType, implementationType);
                 return serviceCollection;
             }
@@ -65,9 +61,9 @@ namespace FluentDbTools.Extensions.Migration
 
         public static IServiceCollection AddDefaultDbMigrationConfig(this IServiceCollection serviceCollection)
         {
-            return serviceCollection
-                .AddDefultDbConfig()
-                .AddScopedIfNotExists<IDbMigrationConfig, MsDbMigrationConfig>();
+            serviceCollection.AddDefaultDbConfig();
+            serviceCollection.TryAddScoped<IDbMigrationConfig, MsDbMigrationConfig>();
+            return serviceCollection;
         }
 
 

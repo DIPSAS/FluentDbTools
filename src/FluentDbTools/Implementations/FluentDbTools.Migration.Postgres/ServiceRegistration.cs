@@ -6,6 +6,7 @@ using FluentMigrator.Runner;
 using FluentMigrator.Runner.Generators.Generic;
 using FluentMigrator.Runner.Generators.Postgres;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace FluentDbTools.Migration.Postgres
 {
@@ -13,9 +14,9 @@ namespace FluentDbTools.Migration.Postgres
     {
         public static IServiceCollection Register(IServiceCollection serviceCollection)
         {
-            return serviceCollection
-                .AddScopedIfNotExists<IExtendedMigrationGenerator<ExtendedPostgresGenerator>, ExtendedPostgresGenerator>()
-                .AddExtendedPostgres();
+            serviceCollection
+                .TryAddScoped<IExtendedMigrationGenerator<ExtendedPostgresGenerator>, ExtendedPostgresGenerator>();
+            return serviceCollection.AddExtendedPostgres();
         }
 
         public static IServiceCollection AddExtendedPostgres(this IServiceCollection serviceCollection)

@@ -121,7 +121,7 @@ namespace Test.FluentDbTools.DbProvider
 
             return new ServiceCollection()
                 .UseExampleConfiguration(SupportedDatabaseTypes.Postgres, overrideConfig)
-                .AddDefultDbConfig()
+                .AddDefaultDbConfig()
                 .AddPostgresDbProvider()
                 .BuildServiceProvider()
                 .GetDbConfig() as MsDbConfig;

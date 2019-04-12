@@ -10,6 +10,7 @@ using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.Oracle;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -19,9 +20,10 @@ namespace FluentDbTools.Migration.Oracle
     {
         public static IServiceCollection Register(IServiceCollection serviceCollection)
         {
-            return serviceCollection
-                .AddScopedIfNotExists<IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator>, ExtendedOracleMigrationGenerator>()
-                .AddExtendedOracleManaged();
+            serviceCollection
+                .TryAddScoped<IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator>,
+                    ExtendedOracleMigrationGenerator>();
+            return serviceCollection.AddExtendedOracleManaged();
         }
 
         private static IServiceCollection AddExtendedOracleManaged(this IServiceCollection serviceCollection)

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.DbProvider;
-using FluentDbTools.Extensions.MSDependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -4,6 +4,7 @@ using Example.FluentDbTools.Config;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Example.FluentDbTools.Database
 {
@@ -14,12 +15,14 @@ namespace Example.FluentDbTools.Database
             bool useDbProviderFactory,
             Dictionary<string, string> overrideConfig = null)
         {
-            return new ServiceCollection()
-                .Register(services => ServiceRegistration.Register(services, useDbProviderFactory))
+            var services = new ServiceCollection();
+            ServiceRegistration.Register(services, useDbProviderFactory);
+            return services
                 .UseExampleConfiguration(
                     databaseType,
-                    overrideConfig)
-                .UseDefaultLogging()
+                    overrideConfig)                
+                .AddLogging(configure => configure
+                    .AddConsole())
                 .BuildServiceProvider();
         }
     }

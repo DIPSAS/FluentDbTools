@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.1.8 2019-04-12
+ - Removed MSDepencenyInjection unecessary extensions.
+
 ### Version 1.1.7 2019-04-09
  - Added support for scanning for VersionTableMetaData
  - Added extension method ConfigureOracleTnsAdminPath to configure TNS_ADMIN path
