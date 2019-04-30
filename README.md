@@ -54,15 +54,19 @@ using (var scope = serviceProvider.CreateScope())
     "password": "dbpassword",
     "adminUser": "admin",
     "adminPassword": "admin",
-    "schema": "dbuser", // If not set, then it equals to 'database:user'
-    "databaseName": "dbuser", // If not set, then it equals to 'database:schema'
+    "schema": "dbuser", 
+    "databaseName": "dbuser", 
     "hostname": "localhost",
     "port": 5433,
     "pooling": true,
     "migration": {
-        "schemaPassword": "dbpassword" // If not set, then it equals to 'database:password'
+        "schemaPassword": "dbpassword" 
     }
 }
+
+// If database:schema not set, then it equals to 'database:user'
+// If database:databaseName not set, then it equals to 'database:schema'
+// If database:schemaPassword not set, then it equals to 'database:password'
 ```
 
 ### Build SQL Query Fluently
