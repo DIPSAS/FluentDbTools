@@ -14,7 +14,7 @@
     "password": "dbpassword",
     "adminUser": "admin",
     "adminPassword": "admin",
-    "schema": "dbuser", // If not set, then it equals to ':databaseuser'
+    "schema": "dbuser", // If not set, then it equals to 'database:user'
     "databaseName": "dbuser", // If not set, then it equals to 'database:schema'
     "hostname": "localhost",
     "port": 5433,

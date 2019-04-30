@@ -3,18 +3,18 @@ using FluentMigrator.Runner.VersionTableInfo;
 
 #pragma warning disable 618
 
-namespace Example.FluentDbTools.MigrationWithVersionTable
+namespace Example.FluentDbTools.Migration
 {
-    public class ExampleVersionTableMetaData : DefaultVersionTableMetaData
+    public class ExampleVersionTable : DefaultVersionTableMetaData
     {
         private readonly IDbMigrationConfig DbMigrationConfig;
-
-        public ExampleVersionTableMetaData(IDbMigrationConfig dbMigrationConfig) 
+        
+        public ExampleVersionTable(IDbMigrationConfig dbMigrationConfig) 
         {
             DbMigrationConfig = dbMigrationConfig;
         }
 
-        public override string UniqueIndexName => "UC_" + nameof(ExampleVersionTable);
+        public override string UniqueIndexName => "UC_" + TableName;
         public override string TableName => nameof(ExampleVersionTable);
         public override string SchemaName => DbMigrationConfig.Schema;
     }

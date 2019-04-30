@@ -23,8 +23,46 @@ It provides a simple interface for providing which database type to use, and oth
 
 ### Create a Database Connection
 ```csharp
-IDbConfig dbConfig = new DbConfig(..)
+IDbConfig dbConfig = new DbConfig(..) // Implementantion of IDbConfig requested
+OracleClientFactory.Instance.Register(SupportedDatabaseTypes.Oracle); // Register the database factories you see fit
+NpgsqlFactory.Instance.Register(SupportedDatabaseTypes.Postgres);
 var dbConnection = dbConfig.CreateDbConnection();
+```
+
+### Register Database Providers with MSDependencyInjection
+```csharp     
+var serviceCollection = new ServiceCollection();       
+var serviceProvider = serviceCollection
+    .AddScoped<IConfiguration>(serviceProvider => new ConfigurationBuilder()
+        .AddJsonFile("config.json"))
+    .AddOracleDbProvider()
+    .AddPostgresDbProvider()
+    .BuildServiceProvider();
+
+using (var scope = serviceProvider.CreateScope())
+{
+    var dbFactory = scope.ServiceProvider.GetService<DbProviderFactory>();
+    var dbConnection = scope.ServiceProvider.GetService<IDbConnection>();
+}
+```
+
+### Typical Json Configuration with MSDependencyInjection
+```json
+"database": {
+    "type": "postgres",
+    "user": "dbuser",
+    "password": "dbpassword",
+    "adminUser": "admin",
+    "adminPassword": "admin",
+    "schema": "dbuser", // If not set, then it equals to 'database:user'
+    "databaseName": "dbuser", // If not set, then it equals to 'database:schema'
+    "hostname": "localhost",
+    "port": 5433,
+    "pooling": true,
+    "migration": {
+        "schemaPassword": "dbpassword" // If not set, then it equals to 'database:password'
+    }
+}
 ```
 
 ### Build SQL Query Fluently
@@ -40,7 +78,23 @@ var sql = dbConfig.CreateSqlBuilder().Select()
             .Build();
 ```
 
-### Migrate the Database With Extended FluentMigrator
+### Register Migration With MSDependencyInjection & Migrate the Database With Extended FluentMigrator
+```csharp
+IEnumerable<Assembly> migrationAssemblies => new[] { typeof(AddPersonTable).Assembly };
+var serviceProvider = new ServiceCollection()
+    .AddScoped<IConfiguration>(serviceProvider => new ConfigurationBuilder()
+        .AddJsonFile("config.json"))
+    .ConfigureWithMigrationAndScanForVersionTable(migrationAssemblies)
+    .BuildServiceProvider();
+
+using (var scope = provider.CreateScope())
+{
+    var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
+
+    migrationRunner.MigrateUp();
+}
+```
+
 ```csharp
 [Migration(1, "Migration Example")]
 public class AddPersonTable : MigrationModel

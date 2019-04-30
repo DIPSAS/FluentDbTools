@@ -13,7 +13,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Example\Example.FluentDbTools.Database\Example.FluentDbTools.Database.csproj" />
-      <ProjectReference Include="..\..\Example\Example.FluentDbTools.MigrationWithVersionTable\Example.FluentDbTools.MigrationWithVersionTable.csproj" />
       <ProjectReference Include="..\..\Example\Example.FluentDbTools.Migration\Example.FluentDbTools.Migration.csproj" />
     </ItemGroup>
 

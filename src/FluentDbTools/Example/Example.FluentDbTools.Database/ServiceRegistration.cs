@@ -8,7 +8,7 @@ namespace Example.FluentDbTools.Database
 {
     public static class ServiceRegistration
     {
-        public static IServiceCollection Register(IServiceCollection serviceCollection, bool useDbProviderFactory)
+        public static IServiceCollection Register(IServiceCollection serviceCollection)
         {
             return serviceCollection
                 .AddDbProvider<MsDbConfig>()

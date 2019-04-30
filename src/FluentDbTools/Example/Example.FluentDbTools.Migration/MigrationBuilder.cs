@@ -17,8 +17,7 @@ namespace Example.FluentDbTools.Migration
 
         public static IServiceCollection BuildMigrationServiceCollection(
             SupportedDatabaseTypes databaseType,
-            Dictionary<string, string> overrideConfig = null,
-            Func<IServiceCollection, IServiceCollection> additionalRegistration = null)
+            Dictionary<string, string> overrideConfig = null)
         {
             return new ServiceCollection()
                 .ConfigureWithMigrationAndScanForVersionTable(MigrationAssemblies)

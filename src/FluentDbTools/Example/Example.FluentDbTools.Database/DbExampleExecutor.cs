@@ -15,12 +15,10 @@ namespace Example.FluentDbTools.Database
     {
         public static async Task ExecuteDbExample(
             SupportedDatabaseTypes databaseType,
-            bool useDbProviderFactory,
             Dictionary<string, string> overrideConfig = null)
         {
             var provider = DbExampleBuilder.BuildDbExample(
                 databaseType,
-                useDbProviderFactory,
                 overrideConfig);
 
             var persons = CreatePersons(10).ToArray();

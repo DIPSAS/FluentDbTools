@@ -12,11 +12,10 @@ namespace Example.FluentDbTools.Database
     {
         public static IServiceProvider BuildDbExample(
             SupportedDatabaseTypes databaseType,
-            bool useDbProviderFactory,
             Dictionary<string, string> overrideConfig = null)
         {
             var services = new ServiceCollection();
-            ServiceRegistration.Register(services, useDbProviderFactory);
+            ServiceRegistration.Register(services);
             return services
                 .UseExampleConfiguration(
                     databaseType,

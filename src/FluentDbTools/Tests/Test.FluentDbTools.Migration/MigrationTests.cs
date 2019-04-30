@@ -5,14 +5,10 @@ using Dapper;
 using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Config;
 using Example.FluentDbTools.Migration;
-using Example.FluentDbTools.MigrationWithVersionTable;
 using FluentAssertions;
-using FluentDbTools.DbProviders;
 using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Extensions.Migration;
-using FluentDbTools.Extensions.Migration.DefaultConfigs;
 using FluentDbTools.Extensions.MSDependencyInjection;
-using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
 using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using FluentDbTools.Migration;
@@ -48,38 +44,6 @@ namespace Test.FluentDbTools.Migration
                 migrationRunner.MigrateDown(0);
 
                 migrationRunner.DropSchema(versionTable);
-            }
-        }
-
-        [Theory]
-        [MemberData(nameof(TestParameters.DbParameters), MemberType = typeof(TestParameters))]
-        public void MigrationWithExecutorExtensionWithoutVersionInfo_Success(SupportedDatabaseTypes databaseType)
-        {
-            var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
-            var configuration = new ConfigurationBuilder()
-                .AddDbToolsExampleConfiguration(databaseType)
-                .AddInMemoryCollection(inMemoryOverrideConfig)
-                .Build();
-
-            var serviceProvider = new ServiceCollection()
-                .AddScoped<IConfiguration>(provider => configuration)
-                .AddDefaultDbMigrationConfig()
-                .AddOracleDbProvider()
-                .AddPostgresDbProvider()
-                .BuildServiceProvider();
-
-            var dbConfig = serviceProvider.GetService<IDbMigrationConfig>();
-
-            var runner = dbConfig.GetMigrationRunner(MigrationBuilder.MigrationAssemblies);
-
-            try
-            {
-                runner.MigrateUp();
-                VerifyExpectedVersionInfoTable(serviceProvider, nameof(VersionInfo));
-            }
-            finally
-            {
-                dbConfig.DropSchema(MigrationBuilder.MigrationAssemblies);
             }
         }
 
@@ -230,9 +194,16 @@ namespace Test.FluentDbTools.Migration
                 .ServiceProvider
                 .GetRequiredService<IDbConnection>())
             {
-                var version = connection.Query<ExampleVersionTable>($"select * from {versionTable}");
+                var version = connection.Query<QueryExampleVersionTable>($"select * from {versionTable}");
                 version.Should().NotBeNull();
             }
+        }
+
+        private class QueryExampleVersionTable
+        {
+            public string Version { get; set; }
+            public DateTimeOffset AppliedOn { get; set; }
+            public string Description { get; set; }
         }
     }
 }

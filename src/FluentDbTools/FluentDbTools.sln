@@ -71,8 +71,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.FluentDbTools.SqlBuild
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Contracts", "Contracts\FluentDbTools.Contracts\FluentDbTools.Contracts.csproj", "{CF582DD2-A038-4487-A3D3-3451B3800523}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.FluentDbTools.MigrationWithVersionTable", "Example\Example.FluentDbTools.MigrationWithVersionTable\Example.FluentDbTools.MigrationWithVersionTable.csproj", "{781A9B0F-D926-4DB4-930A-8B0DF1588575}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,10 +181,6 @@ Global
 		{CF582DD2-A038-4487-A3D3-3451B3800523}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF582DD2-A038-4487-A3D3-3451B3800523}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF582DD2-A038-4487-A3D3-3451B3800523}.Release|Any CPU.Build.0 = Release|Any CPU
-		{781A9B0F-D926-4DB4-930A-8B0DF1588575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{781A9B0F-D926-4DB4-930A-8B0DF1588575}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{781A9B0F-D926-4DB4-930A-8B0DF1588575}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{781A9B0F-D926-4DB4-930A-8B0DF1588575}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -219,7 +213,6 @@ Global
 		{7102F129-7912-4C06-8026-52C7875AB871} = {C43702A5-E00A-4CFF-8D62-931A2A762FD7}
 		{CC341E1A-C5EA-4925-B0F6-04152C59270F} = {65B7029A-534B-446A-90A8-64DC2E75D487}
 		{CF582DD2-A038-4487-A3D3-3451B3800523} = {0672E194-A96C-4F5C-8AD6-BF36CC1EE875}
-		{781A9B0F-D926-4DB4-930A-8B0DF1588575} = {B0C57E4F-7A8C-4A5A-B680-63938380A853}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {456583DA-E724-4868-A195-2FE2F14160A6}
