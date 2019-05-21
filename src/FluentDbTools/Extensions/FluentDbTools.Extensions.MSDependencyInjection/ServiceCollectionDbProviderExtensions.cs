@@ -21,7 +21,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         public static IServiceCollection AddDbProvider(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddDbConfigDatabaseTargets();
-            serviceCollection.TryAddSingleton(sp => sp.GetRequiredService<IDbConfig>().GetDbProviderFactory());
+            serviceCollection.TryAddScoped(sp => sp.GetRequiredService<IDbConfig>().GetDbProviderFactory());
             serviceCollection.IfExistThen<DbConnection>(() => serviceCollection.TryAddScoped<IDbConnection>(sp => sp.GetRequiredService<DbConnection>()));
             serviceCollection.TryAddScoped<IDbConnection>(sp =>
             {
