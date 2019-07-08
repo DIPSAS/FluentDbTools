@@ -129,9 +129,27 @@ namespace FluentDbTools.Extensions.DbProvider
                 var environmentPath = (Environment.GetEnvironmentVariable("PATH") ?? string.Empty).Split(Path.PathSeparator);
                 foreach (var pathToCheck in environmentPath)
                 {
-                    if (File.Exists(Path.Combine(pathToCheck, "tnsnames.ora")))
+                    if (PathHasTnsNamesOra(pathToCheck))
                     {
                         path = pathToCheck;
+                        break;
+                    }
+
+                    if (pathToCheck.IndexOf("oracle", StringComparison.CurrentCultureIgnoreCase) <= -1)
+                    {
+                        continue;
+                    }
+
+                    if (!pathToCheck.EndsWith("bin", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        continue;
+                    }
+
+                    var adminPath = Path.Combine(pathToCheck, "..", "network", "admin");
+                    if (PathHasTnsNamesOra(adminPath))
+                    {
+                        path = pathToCheck;
+                        break;
                     }
                 }
             }
@@ -157,6 +175,11 @@ namespace FluentDbTools.Extensions.DbProvider
             {
                 throw new NotImplementedException(string.Format(ErrorMsg, dbType.ToString(), nameof(DbProviderFactory)));
             }
+        }
+
+        private static bool PathHasTnsNamesOra(string pathToCheck)
+        {
+            return Directory.Exists(pathToCheck) && File.Exists(Path.Combine(pathToCheck, "tnsnames.ora"));
         }
     }
 }
