@@ -134,9 +134,12 @@ namespace FluentDbTools.Migration.Oracle
                         return;
                     }
 
+                    var stopwatch = new StopWatch();
+                    
                     Logger.LogSay($"Dropping Oracle schema(user) '{expression.SchemaName}'...");
-                    Process(ExtendedGenerator.Generate(expression));
+                    stopwatch.Time(() => Process(ExtendedGenerator.Generate(expression)));
                     Logger.LogSay($"Dropped Oracle schema(user) '{expression.SchemaName}'...");
+                    Logger.LogElapsedTime(stopwatch.ElapsedTime());
                 },
                 ex => Logger.LogError(ex,$"Dropping Oracle schema(user) '{expression.SchemaName}' failed with exception :-("));
 

@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.1.16 2019-07-10
+- Improved Migration-logging configuration
+
 ### Version 1.1.15 2019-07-10
 - Improved Migration-logging configuration
 

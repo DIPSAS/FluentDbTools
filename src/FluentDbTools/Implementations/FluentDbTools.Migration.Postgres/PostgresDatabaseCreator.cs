@@ -28,59 +28,71 @@ namespace FluentDbTools.Migration.Postgres
         private const string ConnectionStringWithoutDatabaseTemplate = "User ID={0};Password={1};Host={2};Port={3};Pooling={4};";
 
 
-        public static void CreateDatabase(IDbMigrationConfig dbMigrationConfig)
+        public static void CreateDatabase(IDbMigrationConfig dbMigrationConfig, Action before = null, Action<string> after = null)
         {
             using (var dbConnection = CreateDbConnection(GetConnecionStringWithoutDatabase(dbMigrationConfig)))
             {
                 dbConnection.Open();
                 try
                 {
-                    CreateDatabase(dbMigrationConfig, dbConnection);
+                    CreateDatabase(dbMigrationConfig, dbConnection, before, after);
                 }
-                finally 
-                {
-                    dbConnection.Close();
-                }
-            }
-        }
-        
-        public static void DropDatabase(IDbMigrationConfig dbMigrationConfig)
-        {
-            using (var dbConnection = CreateDbConnection(GetConnecionStringWithoutDatabase(dbMigrationConfig)))
-            {
-                dbConnection.Open();
-                try
-                {
-                    DropDatabase(dbMigrationConfig, dbConnection);
-                }
-                finally 
+                finally
                 {
                     dbConnection.Close();
                 }
             }
         }
 
-        private static void CreateDatabase(IDbMigrationConfig dbMigrationConfig, IDbConnection dbConnection)
+        public static void DropDatabase(IDbMigrationConfig dbMigrationConfig, Action before = null, Action<string> after = null)
+        {
+            using (var dbConnection = CreateDbConnection(GetConnecionStringWithoutDatabase(dbMigrationConfig)))
+            {
+                dbConnection.Open();
+                try
+                {
+                    DropDatabase(dbMigrationConfig, dbConnection, before, after);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+        }
+
+        private static void CreateDatabase(IDbMigrationConfig dbMigrationConfig, IDbConnection dbConnection, Action before = null, Action<string> after = null)
         {
             if (!dbConnection.Exists(string.Format(DatabaseExistsSqlTemplate, dbMigrationConfig.DatabaseName.ToLower())))
             {
+                before?.Invoke();
                 var sqlCreateDatabase = string.Format(DatabaseCreateSqlTemplate, dbMigrationConfig.DatabaseName.ToLower(), dbMigrationConfig.DatabaseOwner.ToLower());
                 dbConnection.ExecuteWithCommand(sqlCreateDatabase);
+                after?.Invoke(sqlCreateDatabase);
             }
         }
 
-        private static void DropDatabase(IDbMigrationConfig dbMigrationConfig, IDbConnection dbConnection)
+        private static void DropDatabase(IDbMigrationConfig dbMigrationConfig, IDbConnection dbConnection, Action before = null, Action<string> after = null)
         {
             var maxTries = 5;
+            var dropped = false;
+            var sqlDropDatabase = string.Format(DatabaseDropSqlTemplate, dbMigrationConfig.DatabaseName.ToLower());
             while (dbConnection.Exists(string.Format(DatabaseExistsSqlTemplate, dbMigrationConfig.DatabaseName.ToLower())))
             {
+                before?.Invoke();
+                before = null;
                 KillAllDatabaseConnections(dbMigrationConfig, dbConnection);
-                var sqlDropDatabase = string.Format(DatabaseDropSqlTemplate, dbMigrationConfig.DatabaseName.ToLower());
                 dbConnection.ExecuteWithCommand(sqlDropDatabase);
                 if (--maxTries < 0)
                 {
                     break;
                 }
+
+                dropped = true;
+            }
+
+            if (dropped)
+            {
+                after?.Invoke(sqlDropDatabase);
             }
         }
 
