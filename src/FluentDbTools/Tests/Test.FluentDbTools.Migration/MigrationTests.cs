@@ -45,7 +45,8 @@ namespace Test.FluentDbTools.Migration
             var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
             inMemoryOverrideConfig.TryGetValue("database:schema", out var schema);
             var logFile = $"Migration_Success_{schema}_{databaseType}.sql";
-            inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "true");
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
             inMemoryOverrideConfig.Add("Logging:Migration:File", logFile);
             var provider = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig);
 

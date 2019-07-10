@@ -1,4 +1,5 @@
-﻿using FluentDbTools.Common.Abstractions;
+﻿using System;
+using FluentDbTools.Common.Abstractions;
 using Microsoft.Extensions.Configuration;
 
 namespace FluentDbTools.Extensions.MSDependencyInjection
@@ -55,8 +56,14 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         /// <returns></returns>
         public static bool IsConsoleLogEnabled(this IConfiguration configuration)
         {
-            var consoleLogEnabled = configuration.GetConfigValue("ConsoleLog").WithDefault("false") == "true";
-            return consoleLogEnabled || configuration.GetConfigValue("Logging:Console:LogLevel", "Logging:LogLevel:Console").WithDefault("Information") != "None";
+            var consoleLogEnabled = configuration.GetConfigValue("ConsoleLog")
+                .WithDefault(false.ToString().ToLower())
+                .Equals(true.ToString(), StringComparison.CurrentCultureIgnoreCase);
+
+            return consoleLogEnabled || !configuration
+                                            .GetConfigValue("Logging:Console:LogLevel", "Logging:LogLevel:Console")
+                                            .WithDefault("Information")
+                                            .Equals("None", StringComparison.CurrentCultureIgnoreCase);
         }
 
         /// <summary>
@@ -67,7 +74,9 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         /// <returns></returns>
         public static bool IsMigrationLogShowSqlEnabled(this IConfiguration configuration)
         {
-            return configuration.GetConfigValue("Logging:Migration:ShowSql" ,"LogShowSql").WithDefault("false") != "false";
+            return configuration.GetConfigValue("Logging:Migration:ShowSql", "LogShowSql")
+                .WithDefault(false.ToString().ToLower())
+                .Equals(true.ToString(), StringComparison.CurrentCultureIgnoreCase);
         }
 
         /// <summary>
@@ -100,7 +109,9 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         /// <returns></returns>
         public static bool IsMigrationLogShowElapsedTimeEnabled(this IConfiguration configuration)
         {
-            return configuration.GetConfigValue("Logging:Migration:ShowElapsedTime", "LogShowElapsedTime").WithDefault("false") != "false";
+            return configuration.GetConfigValue("Logging:Migration:ShowElapsedTime", "LogShowElapsedTime")
+                .WithDefault(false.ToString().ToLower())
+                .Equals(true.ToString(), StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }

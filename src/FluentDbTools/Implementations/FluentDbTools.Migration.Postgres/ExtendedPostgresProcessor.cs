@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.IO;
 using FluentDbTools.Common.Abstractions;
@@ -35,7 +35,22 @@ namespace FluentDbTools.Migration.Postgres
 
             if (dbMigrationConfig.ProcessorId == ProcessorIds.PostgresProcessorId)
             {
-                PostgresDatabaseCreator.CreateDatabase(dbMigrationConfig);
+                var stopWatch = new StopWatch();
+
+                PostgresDatabaseCreator.CreateDatabase(
+                    dbMigrationConfig,
+                    () =>
+                    {
+                        Logger.LogSay($"Creating Postgres database '{dbMigrationConfig.DatabaseName.ToLower()}'...");
+                        stopWatch.Start();
+                    },
+                    sql =>
+                    {
+                        stopWatch.Stop();
+                        Logger.LogSql(sql);
+                        Logger.LogSay($"Created Postgres database '{dbMigrationConfig.DatabaseName.ToLower()}'...");
+                        Logger.LogElapsedTime(stopWatch.ElapsedTime());
+                    });
             }
 
             this.SetPrivateFieldValue<PostgresProcessor>("_quoter", quoter);
@@ -235,9 +250,7 @@ namespace FluentDbTools.Migration.Postgres
                 }
                 return;
             }
-
             Logger.LogSay($"Creating Postgres schema '{expression.SchemaName}'...");
-            Debug($"Postgress-Process(CreateSchemaExpression): Sql={ExtendedGeneratorField.Generate(expression)}");
             Process(ExtendedGeneratorField.Generate(expression));
             Logger.LogSay($"Created Postgres schema '{expression.SchemaName}'...");
         }
@@ -256,12 +269,27 @@ namespace FluentDbTools.Migration.Postgres
                     return;
                 }
 
-                Logger.LogSay($"Dropping Postgres schema(user) '{expression.SchemaName}'...");
-                Process(ExtendedGeneratorField.Generate(expression));
-                Logger.LogSay($"Dropped Postgres schema(user) '{expression.SchemaName}'...");
+                var stopwatch = new StopWatch();
+                Logger.LogSay($"Dropping Postgres schema '{expression.SchemaName}'...");
+                stopwatch.Time(() => Process(ExtendedGeneratorField.Generate(expression)));
+                Logger.LogSay($"Dropped Postgres schema '{expression.SchemaName}'...");
+                Logger.LogElapsedTime(stopwatch.ElapsedTime());
 
                 Process(new DeleteUserExpression(expression));
-                PostgresDatabaseCreator.DropDatabase(DbMigrationConfig);
+                PostgresDatabaseCreator.DropDatabase(
+                    DbMigrationConfig,
+                    () => 
+                    {
+                        stopwatch.Start();
+                        Logger.LogSay($"Dropping Postgres database '{DbMigrationConfig.DatabaseName.ToLower()}'...");
+                    },
+                    sql =>
+                    {
+                        stopwatch.Stop();
+                        Logger.LogSql(sql);
+                        Logger.LogSay($"Dropped Postgres database '{DbMigrationConfig.DatabaseName.ToLower()}'...");
+                        Logger.LogElapsedTime(stopwatch.ElapsedTime());
+                    });
             },
                 ex => Logger.LogError(ex, $"Dropping Postgres schema(user) '{expression.SchemaName}' failed with exception :-("));
         }
@@ -273,11 +301,11 @@ namespace FluentDbTools.Migration.Postgres
                 return;
             }
 
-            Logger.LogSay($"Creating Postgres user '{expression.SchemaName}'...");
-            Debug($"Postgress-Process(CreateUserExpression): Sql={ExtendedGeneratorField.Generate(expression)}");
-            Process(ExtendedGeneratorField.Generate(expression));
-            Logger.LogSay($"Created Postgres user '{expression.SchemaName}'...");
-
+            var stopwatch = new StopWatch();
+            Logger.LogSay($"Creating Postgres user/role '{expression.SchemaName}'...");
+            stopwatch.Time(() => Process(ExtendedGeneratorField.Generate(expression)));
+            Logger.LogSay($"Created Postgres user/role '{expression.SchemaName}'...");
+            Logger.LogElapsedTime(stopwatch.ElapsedTime());
         }
 
         private void Process(DeleteUserExpression expression)
@@ -287,9 +315,11 @@ namespace FluentDbTools.Migration.Postgres
                 return;
             }
 
-            Logger.LogSay($"Dropping Postgres user '{expression.SchemaName}'...");
-            Process(ExtendedGeneratorField.Generate(expression));
-            Logger.LogSay($"Dropping Postgres user '{expression.SchemaName}'...");
+            var stopwatch = new StopWatch();
+            Logger.LogSay($"Dropping Postgres user/role '{expression.SchemaName}'...");
+            stopwatch.Time(() => Process(ExtendedGeneratorField.Generate(expression)));
+            Logger.LogSay($"Dropping Postgres user/role '{expression.SchemaName}'...");
+            Logger.LogElapsedTime(stopwatch.ElapsedTime());
         }
 
         protected override void Process(string sql)
