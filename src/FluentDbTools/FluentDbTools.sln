@@ -71,6 +71,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.FluentDbTools.SqlBuild
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Contracts", "Contracts\FluentDbTools.Contracts\FluentDbTools.Contracts.csproj", "{CF582DD2-A038-4487-A3D3-3451B3800523}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7367735B-8D2F-4073-A270-42A27FFE4E44}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\build-management.yml = ..\..\build-management.yml
+		..\..\CHANGELOG.md = ..\..\CHANGELOG.md
+		..\..\README.md = ..\..\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
