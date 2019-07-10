@@ -23,7 +23,7 @@ namespace Example.FluentDbTools.Config
         public static IConfigurationBuilder AddDbToolsExampleConfiguration(this IConfigurationBuilder configurationBuilder, 
             SupportedDatabaseTypes databaseType)
         {
-            DbProviderExtensions.ConfigureOracleTnsAdminPath(Path.Combine("oracle", "network", "admin"));
+            DbProviderExtensions.ConfigureOracleTnsAdminPath(Path.Combine("oracle", "product", "client", "bin"));
             return configurationBuilder
                 .AddJsonFile(BaseConfig.ConfigFilename(databaseType))
                 .AddJsonFileIfTrue(BaseConfig.ConfigDockerFilename(databaseType), () => BaseConfig.InContainer)

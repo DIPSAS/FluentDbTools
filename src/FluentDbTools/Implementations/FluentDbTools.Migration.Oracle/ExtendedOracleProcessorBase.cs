@@ -164,7 +164,7 @@ namespace FluentDbTools.Migration.Oracle
                     using (var command = CreateCommand(batch))
                     {
                         command.ExecuteNonQuery();
-                        Logger.LogDebug(batch);
+                        Logger.LogSql(batch);
                     }
                 }
 

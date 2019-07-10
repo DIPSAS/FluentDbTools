@@ -118,47 +118,69 @@ namespace FluentDbTools.Extensions.DbProvider
 
         /// <summary>
         /// To support TnsName lookup you can use this function to configure then path containing tnsnames.ora and sqlnet.ora
-        /// If path is null or empty, the function wil try to resolve the path containing tnsnames.ora from Environment::Path 
+        /// If path is null or empty, the function wil try to resolve the path containing tnsnames.ora from environmentPath or Environment::Path 
         /// </summary>
         /// <param name="path"></param>
+        /// <param name="environmentPath"></param>
         /// <returns></returns>
-        public static void ConfigureOracleTnsAdminPath(string path)
+        public static string ConfigureOracleTnsAdminPath(string path, string environmentPath = null)
         {
+            var resolvedPath = string.Empty;
             if (string.IsNullOrEmpty(path))
             {
-                var environmentPath = (Environment.GetEnvironmentVariable("PATH") ?? string.Empty).Split(Path.PathSeparator);
-                foreach (var pathToCheck in environmentPath)
+                
+                var environmentPaths = (environmentPath ?? Environment.GetEnvironmentVariable("PATH") ?? string.Empty).Split(Path.PathSeparator);
+                foreach (var pathToCheck in environmentPaths)
                 {
-                    if (PathHasTnsNamesOra(pathToCheck))
-                    {
-                        path = pathToCheck;
-                        break;
-                    }
+                    resolvedPath = ResolveTnsNamesOraPath(pathToCheck);
 
-                    if (pathToCheck.IndexOf("oracle", StringComparison.CurrentCultureIgnoreCase) <= -1)
+                    if (!resolvedPath.IsEmpty())
                     {
-                        continue;
-                    }
-
-                    if (!pathToCheck.EndsWith("bin", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        continue;
-                    }
-
-                    var adminPath = Path.Combine(pathToCheck, "..", "network", "admin");
-                    if (PathHasTnsNamesOra(adminPath))
-                    {
-                        path = pathToCheck;
                         break;
                     }
                 }
             }
-
-            if (string.IsNullOrEmpty(path))
+            else
             {
-                return;
+                resolvedPath = ResolveTnsNamesOraPath(path);
             }
-            Environment.SetEnvironmentVariable("TNS_ADMIN", path, EnvironmentVariableTarget.Process);
+
+            if (string.IsNullOrEmpty(resolvedPath))
+            {
+                return string.Empty;
+            }
+
+            Environment.SetEnvironmentVariable("TNS_ADMIN", resolvedPath, EnvironmentVariableTarget.Process);
+            return resolvedPath;
+        }
+
+        private static string ResolveTnsNamesOraPath(string pathToCheck)
+        {
+            if (PathHasTnsNamesOra(pathToCheck))
+            {
+                return new DirectoryInfo(pathToCheck).FullName;
+            }
+
+            if (!pathToCheck.ContainsIgnoreCase("oracle"))
+            {
+                return string.Empty;
+            }
+
+            if (!pathToCheck.EndsWithIgnoreCase("bin"))
+            {
+                return string.Empty;
+            }
+
+            var adminPath = Path.Combine(pathToCheck, "..", "network", "admin");
+
+            if (!PathHasTnsNamesOra(adminPath))
+            {
+                return string.Empty;
+            }
+
+            adminPath = new DirectoryInfo(adminPath).FullName;
+            return adminPath;
+
         }
 
         private static void AssertDbConnectionImplemented(SupportedDatabaseTypes dbType)

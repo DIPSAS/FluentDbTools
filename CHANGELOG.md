@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.1.14 2019-07-10
+- Rebuilded version 1.1.3
+
+### Version 1.1.13 2019-07-10
+ - Improved tnsname.ora detection
+ - Added migration-logging configuration
+
 ### Version 1.1.12 2019-07-08
  - Improved tnsname.ora detection
 

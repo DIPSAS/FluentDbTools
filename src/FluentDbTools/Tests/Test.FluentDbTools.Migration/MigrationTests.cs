@@ -1,6 +1,8 @@
 using System;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Net;
 using Dapper;
 using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Config;
@@ -21,17 +23,30 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Oracle.ManagedDataAccess.Client;
 using Xunit;
+using Xunit.Abstractions;
+
 // ReSharper disable PossibleNullReferenceException
 
 namespace Test.FluentDbTools.Migration
 {
     public class MigrationTests
     {
+        private readonly ITestOutputHelper TestOutputHelper;
+
+        public MigrationTests(ITestOutputHelper testOutputHelper)
+        {
+            TestOutputHelper = testOutputHelper;
+        }
+
         [Theory]
         [MemberData(nameof(TestParameters.DbParameters), MemberType = typeof(TestParameters))]
         public void Migration_Success(SupportedDatabaseTypes databaseType)
         {
             var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
+            inMemoryOverrideConfig.TryGetValue("database:schema", out var schema);
+            var logFile = $"Migration_Success_{schema}_{databaseType}.sql";
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "true");
+            inMemoryOverrideConfig.Add("Logging:Migration:File", logFile);
             var provider = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig);
 
             using (var scope = provider.CreateScope())
@@ -45,6 +60,37 @@ namespace Test.FluentDbTools.Migration
 
                 migrationRunner.DropSchema(versionTable);
             }
+
+            if (!logFile.IsEmpty() && File.Exists(logFile))
+            {
+                var tmpFile = logFile + ".tmp";
+                if (File.Exists(tmpFile))
+                {
+                    File.Delete(tmpFile);
+                }
+                File.Copy(logFile, tmpFile);
+                var logContent = File.ReadAllText(logFile + ".tmp");
+                var s = $"************* LogContent {logFile} **************";
+                WriteLine($"\n{s}");
+                WriteLine($"{"".PadRight(s.Length, '*')}");
+                WriteLine(logContent);
+
+                if (File.Exists(tmpFile))
+                {
+                    File.Delete(tmpFile);
+                }
+            }
+        }
+
+        private void WriteLine(string message)
+        {
+            if (BaseConfig.InContainer)
+            {
+                Console.WriteLine(message);
+                return;
+            }
+
+            TestOutputHelper.WriteLine(message);
         }
 
         [Theory]
