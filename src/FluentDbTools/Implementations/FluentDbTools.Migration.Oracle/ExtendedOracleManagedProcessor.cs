@@ -33,6 +33,10 @@ namespace FluentDbTools.Migration.Oracle
         public override IList<string> DatabaseTypeAliases => new List<string> { ProcessorIds.OracleProcessorId };
         public override string DatabaseType => ProcessorIds.OracleProcessorId;
 
+        public override bool Exists(string template, params object[] args)
+        {
+            return ExtendedMigrationProcessor.Exists(template, args);
+        }
 
         public override void Process(CreateTableExpression expression)
         {
@@ -55,11 +59,6 @@ namespace FluentDbTools.Migration.Oracle
             ExtendedMigrationProcessor.Process(expression);
         }
 
-        public void ProcessSql(string sql)
-        {
-            ExtendedMigrationProcessor.ProcessSql(sql);
-        }
-
         public override void Process(CreateSchemaExpression expression)
         {
             ExtendedMigrationProcessor.Process(expression);
@@ -80,14 +79,19 @@ namespace FluentDbTools.Migration.Oracle
             ExtendedMigrationProcessor.Process(expression);
         }
 
-        public IDbConnection GetMigrationDbConnection()
-        {
-            return Connection;
-        }
-
         protected override void Process(string sql)
         {
             ProcessSql(sql);
+        }
+
+        public void ProcessSql(string sql)
+        {
+            ExtendedMigrationProcessor.ProcessSql(sql);
+        }
+
+        public IDbConnection GetMigrationDbConnection()
+        {
+            return Connection;
         }
     }
 }

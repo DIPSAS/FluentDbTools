@@ -30,6 +30,22 @@ namespace FluentDbTools.Migration.Oracle
             ExtendedGenerator = extendedGenerator;
         }
 
+        public override bool Exists(string template, params object[] args)
+        {
+            if (template == null)
+            {
+                throw new ArgumentNullException(nameof(template));
+            }
+
+            EnsureConnectionIsOpen();
+
+            using (var command = CreateCommand(string.Format(template, args)))
+            using (var reader = command.ExecuteReader())
+            {
+                return reader.Read();
+            }
+        }
+
         public override void Process(DeleteDataExpression expression)
         {
             if (!SchemaExists(expression.SchemaName))

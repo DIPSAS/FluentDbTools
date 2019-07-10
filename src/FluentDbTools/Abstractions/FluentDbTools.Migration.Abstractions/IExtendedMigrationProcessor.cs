@@ -16,6 +16,7 @@ namespace FluentDbTools.Migration.Abstractions
 
         IDbConnection GetMigrationDbConnection();
         void ProcessSql(string sql);
+        bool Exists(string template, params object[] args);
 
     }
 
