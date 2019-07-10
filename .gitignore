@@ -58,5 +58,6 @@ PKCS7/
 X509/
 CodeSign/
 
+private.env
 docker-compose.build.*.yml
 docker-compose.publish.*.yml

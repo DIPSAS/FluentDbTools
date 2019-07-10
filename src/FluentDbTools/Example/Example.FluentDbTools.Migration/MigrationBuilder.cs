@@ -7,6 +7,7 @@ using Example.FluentDbTools.Migration.MigrationModels;
 using FluentDbTools.Extensions.Migration;
 using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
 using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
+using FluentDbTools.Migration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Example.FluentDbTools.Migration
@@ -23,7 +24,9 @@ namespace Example.FluentDbTools.Migration
                 .ConfigureWithMigrationAndScanForVersionTable(MigrationAssemblies)
                 .UseExampleConfiguration(
                     databaseType,
-                    overrideConfig);
+                    overrideConfig)
+                .AddLogging(x => x.AddFluentMigratorConsole(null)
+                                 .AddFluentMigratorFileLogger());
         }
 
         public static IServiceProvider BuildMigration(

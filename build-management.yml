@@ -1,3 +1,7 @@
+env_files:
+    - src/private.env
+    - src/.env
+
 changelog:
     file: CHANGELOG.md
     envKey: VERSION

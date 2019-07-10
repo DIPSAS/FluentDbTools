@@ -17,10 +17,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="oracle\network\admin\sqlnet.ora">
+      <None Update="oracle\product\client\network\admin\sqlnet.ora">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="oracle\network\admin\tnsnames.ora">
+      <None Update="oracle\product\client\network\admin\tnsnames.ora">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="xunit.runner.json">

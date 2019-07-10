@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.IO;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Common;
@@ -290,5 +292,34 @@ namespace FluentDbTools.Migration.Postgres
             Logger.LogSay($"Dropping Postgres user '{expression.SchemaName}'...");
         }
 
+        protected override void Process(string sql)
+        {
+            if (Options.PreviewOnly || string.IsNullOrEmpty(sql))
+            {
+                return;
+            }
+
+            EnsureConnectionIsOpen();
+
+            using (var command = CreateCommand(sql))
+            {
+                try
+                {
+                    command.ExecuteNonQuery();
+                    Logger.LogSql(sql);
+                }
+                catch (Exception ex)
+                {
+                    using (var message = new StringWriter())
+                    {
+                        message.WriteLine("An error occurred executing the following sql:");
+                        message.WriteLine(sql);
+                        message.WriteLine("The error was {0}", ex.Message);
+
+                        throw new Exception(message.ToString(), ex);
+                    }
+                }
+            }
+        }
     }
 }
