@@ -25,7 +25,7 @@ namespace Example.FluentDbTools.Migration
                 .UseExampleConfiguration(
                     databaseType,
                     overrideConfig)
-                .AddLogging(x => x.AddFluentMigratorConsole(null)
+                .AddLogging(x => x.AddFluentMigratorConsoleLogger(null)
                                  .AddFluentMigratorFileLogger());
         }
 
