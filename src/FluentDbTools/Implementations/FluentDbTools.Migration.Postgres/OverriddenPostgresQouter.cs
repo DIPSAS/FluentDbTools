@@ -1,9 +1,14 @@
 ﻿using FluentMigrator.Runner.Generators.Postgres;
+using FluentMigrator.Runner.Processors.Postgres;
 
 namespace FluentDbTools.Migration.Postgres
 {
     internal class OverriddenPostgresQouter : PostgresQuoter
     {
+        public OverriddenPostgresQouter(PostgresOptions options) : base(options)
+        {
+        }
+
         public override string QuoteColumnName(string columnName)
         {
             columnName = columnName.ToLower();

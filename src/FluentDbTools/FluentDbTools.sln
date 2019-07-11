@@ -75,7 +75,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7367735B
 	ProjectSection(SolutionItems) = preProject
 		..\..\build-management.yml = ..\..\build-management.yml
 		..\..\CHANGELOG.md = ..\..\CHANGELOG.md
+		icon.png = icon.png
 		..\..\README.md = ..\..\README.md
+		SolutionInfo.proj = SolutionInfo.proj
 	EndProjectSection
 EndProject
 Global

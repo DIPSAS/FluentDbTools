@@ -168,6 +168,10 @@ namespace FluentDbTools.Migration.Oracle
             {
                 if (Options.PreviewOnly || string.IsNullOrEmpty(sql))
                 {
+                    if (sql.IsNotEmpty())
+                    {
+                        Logger.LogSql(sql);
+                    }
                     return;
                 }
 

@@ -6,6 +6,12 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
 {
     public static class ConfigurationExtensions
     {
+        /// <summary>
+        /// Return the first valid(non empty) configuration value
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="keys">Configuration keys to resolve</param>
+        /// <returns></returns>
         public static string GetConfigValue(this IConfiguration configuration, params string[] keys)
         {
             if (configuration == null)
@@ -16,7 +22,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
             foreach (var key in keys)
             {
                 var value = configuration[key];
-                if (!value.IsEmpty())
+                if (value.IsNotEmpty())
                 {
                     return value;
                 }
@@ -35,7 +41,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                 foreach (var key in keys)
                 {
                     var value = dbSection[key];
-                    if (!value.IsEmpty())
+                    if (value.IsNotEmpty())
                     {
                         return value;
                     }
@@ -56,62 +62,95 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         /// <returns></returns>
         public static bool IsConsoleLogEnabled(this IConfiguration configuration)
         {
-            var consoleLogEnabled = configuration.GetConfigValue("ConsoleLog")
-                .WithDefault(false.ToString().ToLower())
-                .Equals(true.ToString(), StringComparison.CurrentCultureIgnoreCase);
+            var consoleLogEnabled = configuration
+                .GetConfigValue("ConsoleLog")
+                .WithDefault(false)
+                .IsTrue();
 
             return consoleLogEnabled || !configuration
                                             .GetConfigValue("Logging:Console:LogLevel", "Logging:LogLevel:Console")
                                             .WithDefault("Information")
-                                            .Equals("None", StringComparison.CurrentCultureIgnoreCase);
+                                            .EqualsIgnoreCase("None");
         }
 
         /// <summary>
+        /// MigrationLogging with Console logging can be enabled from configuration key(s):
+        ///     [Logging:Migration:Console | LogMigrationConsole ]= true
+        ///     OR
+        ///     [Logging:Migration:LogLevel |Logging:LogLevel:Migration] != None
+        ///     When both Logging:Console:LogLevel and Logging:LogLevel:Console is null, Console logging will be enabled.
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static bool IsMigrationConsoleLogEnabled(this IConfiguration configuration)
+        {
+            var consoleLogEnabled = configuration
+                .GetConfigValue("Logging:Migration:Console", "LogMigrationConsole")
+                .WithDefault(false)
+                .IsTrue();
+
+            return consoleLogEnabled || !configuration
+                       .GetConfigValue("Logging:Migration:LogLevel", "Logging:LogLevel:Migration")
+                       .WithDefault("Information")
+                       .EqualsIgnoreCase("None");
+        }
+
+
+        /// <summary>
         /// MigrationLogging with Sql logging can be enabled from configuration key(s):
-        ///     [Logging:Migration:ShowSql | Logging:LogShowSql] = true
+        ///     [Logging:Migration:ShowSql | Logging:LogMigrationShowSql | LogMigrationShowSql] = true
         /// </summary>
         /// <param name="configuration"></param>
         /// <returns></returns>
         public static bool IsMigrationLogShowSqlEnabled(this IConfiguration configuration)
         {
-            return configuration.GetConfigValue("Logging:Migration:ShowSql", "LogShowSql")
-                .WithDefault(false.ToString().ToLower())
-                .Equals(true.ToString(), StringComparison.CurrentCultureIgnoreCase);
+            return configuration
+                .GetConfigValue("Logging:Migration:ShowSql", "LogMigrationShowSql")
+                .WithDefault(false)
+                .IsTrue();
         }
 
         /// <summary>
-        /// MigrationLogging with File logging can be enabled from configuration key(s):
-        ///     [Logging:Migration:File | Logging:LogFile] 
+        /// MigrationLogging with File location can be configured from configuration key(s):
+        ///     [Logging:Migration:File | Logging:LogMigrationFile | LogMigrationFile] != null
+        ///     If set, IsMigrationLogFileEnabled() will be true
         /// </summary>
         /// <param name="configuration"></param>
         /// <returns></returns>
         public static string GetMigrationLogFile(this IConfiguration configuration)
         {
-            return configuration.GetConfigValue("Logging:Migration:File", "LogFile");
+            return configuration.GetConfigValue("Logging:Migration:File", "LogMigrationFile");
         }
 
         /// <summary>
         /// MigrationLogging with File logging can be enabled from configuration key(s):
-        ///     [Logging:Migration:File | Logging:LogFile] 
+        ///     [Logging:Migration:FileEnabled | Logging:LogMigrationFileEnabled | LogMigrationFileEnabled ] == true
+        ///     OR
+        ///     [Logging:Migration:File | Logging:LogMigrationFile | LogMigrationFile] != null
         /// </summary>
         /// <param name="configuration"></param>
         /// <returns></returns>
         public static bool IsMigrationLogFileEnabled(this IConfiguration configuration)
         {
-            return !configuration.GetMigrationLogFile().IsEmpty();
+            var enabled = configuration
+                .GetConfigValue("Logging:Migration:FileEnabled", "LogMigrationFileEnabled")
+                .WithDefault(false)
+                .IsTrue();
+
+            return enabled || configuration.GetMigrationLogFile().IsNotEmpty();
         }
 
         /// <summary>
         /// MigrationLogging with ElapsedTime can be enabled from configuration key(s):
-        ///     [Logging:Migration:ShowElapsedTime | Logging:LogShowElapsedTime] = true
+        ///     [Logging:Migration:ShowElapsedTime | Logging:LogMigrationShowElapsedTime | LogMigrationShowElapsedTime] == true
         /// </summary>
         /// <param name="configuration"></param>
         /// <returns></returns>
         public static bool IsMigrationLogShowElapsedTimeEnabled(this IConfiguration configuration)
         {
-            return configuration.GetConfigValue("Logging:Migration:ShowElapsedTime", "LogShowElapsedTime")
-                .WithDefault(false.ToString().ToLower())
-                .Equals(true.ToString(), StringComparison.CurrentCultureIgnoreCase);
+            return configuration.GetConfigValue("Logging:Migration:ShowElapsedTime", "LogMigrationShowElapsedTime")
+                .WithDefault(false)
+                .IsTrue();
         }
     }
 }

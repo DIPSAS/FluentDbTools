@@ -1,7 +1,13 @@
 namespace FluentDbTools.Common.Abstractions
 {
+    /// <summary>
+    /// Database Connection targets
+    /// </summary>
     public interface IDbConfigDatabaseTargets 
     {
+        /// <summary>
+        /// Current Database type
+        /// </summary>
         SupportedDatabaseTypes DbType { get; }
 
         /// <summary>

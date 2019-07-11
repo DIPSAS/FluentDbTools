@@ -17,6 +17,7 @@
         <Description>FluentDbTools provides a fluent SQL abstraction layer for creating database connections, building sql queries and migrating your database.</Description>
         <PackageTags>database,sql,sqlbuilder,migrator,fluentmigrator</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <DocumentationFile>$(TargetDir)\$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup> 
 
 </Project>
