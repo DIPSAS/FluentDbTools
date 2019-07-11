@@ -4,15 +4,22 @@ using System.Data;
 using System.Data.Common;
 using System.IO;
 using FluentDbTools.Common.Abstractions;
+// ReSharper disable UnusedMember.Global
 
 namespace FluentDbTools.Extensions.DbProvider
 {
+    /// <summary>
+    /// DbProviderExtensions functions
+    /// </summary>
     public static class DbProviderExtensions
     {
         private const string ErrorMsg = "Database type {0} is not implemented. " +
                                         "Please register a database provider implementing the '{1}' interface, " +
                                         "and register with 'Register'.";
        
+        /// <summary>
+        /// All registered IDbConnectionStringBuilders
+        /// </summary>
         public static readonly ConcurrentDictionary<SupportedDatabaseTypes, IDbConnectionStringBuilder> DbConnectionProviders =
             new ConcurrentDictionary<SupportedDatabaseTypes, IDbConnectionStringBuilder>
             {
@@ -20,18 +27,31 @@ namespace FluentDbTools.Extensions.DbProvider
                 [SupportedDatabaseTypes.Postgres] = new DbProviders.PostgresConnectionStringBuilder()
             };
 
+        /// <summary>
+        /// All registered DbProviderFactories 
+        /// </summary>
         public static readonly ConcurrentDictionary<SupportedDatabaseTypes, DbProviderFactory> DbProviderFactories =
             new ConcurrentDictionary<SupportedDatabaseTypes, DbProviderFactory>();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dbType"></param>
+        /// <returns></returns>
         public static IDbConnectionStringBuilder GetConnectionStringProvider(this SupportedDatabaseTypes dbType)
         {
             AssertDbConnectionImplemented(dbType);
             return DbConnectionProviders[dbType];
         }
 
+        /// <summary>
+        /// Return dbConfig.ConnectionString if set, elsewhere ConnectionString is build from dbConfig settings 
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <returns></returns>
         public static string GetConnectionString(this IDbConfig dbConfig)
         {
-            if (!string.IsNullOrEmpty(dbConfig.ConnectionString))
+            if (dbConfig.ConnectionString.IsNotEmpty())
             {
                 return dbConfig.ConnectionString;
             }
@@ -42,6 +62,11 @@ namespace FluentDbTools.Extensions.DbProvider
         }
 
 
+        /// <summary>
+        /// Return dbConfig.AdminConnectionString if set, elsewhere AdminConnectionString is build from dbConfig settings 
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <returns></returns>
         public static string GetAdminConnectionString(this IDbConfig dbConfig)
         {
             if (!string.IsNullOrEmpty(dbConfig.AdminConnectionString))
@@ -54,6 +79,12 @@ namespace FluentDbTools.Extensions.DbProvider
             return dbType.GetConnectionStringProvider().BuildAdminConnectionString(dbConfig);
         }
         
+        /// <summary>
+        /// Return a new instance of DbProviderFactory created from dbConfig settings 
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <param name="withAdminPrivileges">If true, a DbProviderFactory with AdminConnectionString is build</param>
+        /// <returns></returns>
         public static DbProviderFactory GetDbProviderFactory(this IDbConfig dbConfig, bool withAdminPrivileges = false)
         {
             var dbType = dbConfig.DbType;
@@ -64,6 +95,12 @@ namespace FluentDbTools.Extensions.DbProvider
             return dbProviderFactory;
         }
 
+        /// <summary>
+        /// Return a new instance if IDbConnection created from dbConfig settings 
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <param name="withAdminPrivileges">If true, a IDbConnection with AdminConnectionString is created</param>
+        /// <returns></returns>
         public static IDbConnection CreateDbConnection(this IDbConfig dbConfig, bool withAdminPrivileges = false)
         {
             var dbType = dbConfig.DbType;
@@ -72,6 +109,12 @@ namespace FluentDbTools.Extensions.DbProvider
             return dbConfig.GetDbProviderFactory(withAdminPrivileges).CreateConnection();
         }
 
+        /// <summary>
+        /// Return a new instance if IDbConnection with ConnectionString configured from 'connectionString' parameter
+        /// </summary>
+        /// <param name="dbType"></param>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
         public static IDbConnection CreateDbConnection(this SupportedDatabaseTypes dbType, string connectionString)
         {
             AssertDbConnectionImplemented(dbType);
@@ -81,6 +124,12 @@ namespace FluentDbTools.Extensions.DbProvider
         }
 
 
+        /// <summary>
+        /// Add/Register dbConnectionStringBuilder to DbConnectionProviders
+        /// </summary>
+        /// <param name="dbConnectionStringBuilder"></param>
+        /// <param name="skipIfAlreadyRegistered"></param>
+        /// <returns></returns>
         public static IDbConnectionStringBuilder Register(this IDbConnectionStringBuilder dbConnectionStringBuilder, bool skipIfAlreadyRegistered = false)
         {
             if (skipIfAlreadyRegistered && DbConnectionProviders.ContainsKey(dbConnectionStringBuilder.DatabaseType))
@@ -92,6 +141,13 @@ namespace FluentDbTools.Extensions.DbProvider
             return dbConnectionStringBuilder;
         }
         
+        /// <summary>
+        /// Add/Register dbProviderFactory to DbProviderFactories
+        /// </summary>
+        /// <param name="dbProviderFactory"></param>
+        /// <param name="databaseType"></param>
+        /// <param name="skipIfAlreadyRegistered"></param>
+        /// <returns></returns>
         public static DbProviderFactory Register(this DbProviderFactory dbProviderFactory, SupportedDatabaseTypes databaseType, bool skipIfAlreadyRegistered = false)
         {
             if (skipIfAlreadyRegistered && DbProviderFactories.ContainsKey(databaseType))
@@ -134,7 +190,7 @@ namespace FluentDbTools.Extensions.DbProvider
                 {
                     resolvedPath = ResolveTnsNamesOraPath(pathToCheck);
 
-                    if (!resolvedPath.IsEmpty())
+                    if (resolvedPath.IsNotEmpty())
                     {
                         break;
                     }
@@ -145,7 +201,7 @@ namespace FluentDbTools.Extensions.DbProvider
                 resolvedPath = ResolveTnsNamesOraPath(path);
             }
 
-            if (string.IsNullOrEmpty(resolvedPath))
+            if (resolvedPath.IsEmpty())
             {
                 return string.Empty;
             }

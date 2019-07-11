@@ -62,7 +62,7 @@ namespace Test.FluentDbTools.Migration
                 migrationRunner.DropSchema(versionTable);
             }
 
-            if (!logFile.IsEmpty() && File.Exists(logFile))
+            if (logFile.IsNotEmpty() && File.Exists(logFile))
             {
                 var tmpFile = logFile + ".tmp";
                 if (File.Exists(tmpFile))

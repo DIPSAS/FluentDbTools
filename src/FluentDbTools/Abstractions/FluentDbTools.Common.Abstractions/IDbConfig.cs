@@ -1,5 +1,8 @@
 namespace FluentDbTools.Common.Abstractions
 {
+    /// <summary>
+    /// Database ConnectionStrings properties
+    /// </summary>
     public interface IDbConfig : IDbConnectionStringBuilderConfig
     {
         /// <summary>

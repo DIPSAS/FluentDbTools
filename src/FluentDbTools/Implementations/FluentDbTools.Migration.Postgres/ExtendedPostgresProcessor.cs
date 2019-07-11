@@ -27,8 +27,9 @@ namespace FluentDbTools.Migration.Postgres
             ILogger<ExtendedPostgresProcessor> logger,
             IOptionsSnapshot<ProcessorOptions> options,
             IConnectionStringAccessor connectionStringAccessor,
-            IExtendedMigrationGenerator<ExtendedPostgresGenerator> extendedGenerator)
-            : base(factory, generator, logger, options, connectionStringAccessor)
+            IExtendedMigrationGenerator<ExtendedPostgresGenerator> extendedGenerator,
+            PostgresOptions pgOptions)
+            : base(factory, generator, logger, options, connectionStringAccessor, pgOptions)
         {
             ExtendedGeneratorField = extendedGenerator;
             DbMigrationConfig = dbMigrationConfig;
@@ -326,6 +327,10 @@ namespace FluentDbTools.Migration.Postgres
         {
             if (Options.PreviewOnly || string.IsNullOrEmpty(sql))
             {
+                if (sql.IsNotEmpty())
+                {
+                    Logger.LogSql(sql);
+                }
                 return;
             }
 

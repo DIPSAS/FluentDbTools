@@ -13,16 +13,21 @@ namespace FluentDbTools.Migration
 {
     public static class FluentMigrationLoggingExtensions
     {
+        /// <summary>
+        /// Remove all log-providers and add FluentMigratorConsoleLoggerProvider if enabled by configuration
+        /// </summary>
+        /// <param name="loggingBuilder"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static ILoggingBuilder AddFluentMigratorConsoleLogger(
           this ILoggingBuilder loggingBuilder,
           IConfiguration configuration = null)
         {
             configuration = GetConfiguration(loggingBuilder, configuration);
-            if (configuration == null || !configuration.IsConsoleLogEnabled())
+            if (configuration == null || !configuration.IsMigrationConsoleLogEnabled())
             {
                 return loggingBuilder;
             }
-            loggingBuilder.ClearProviders();
 
             var options = new FluentMigratorLoggerOptions
             {
@@ -30,24 +35,38 @@ namespace FluentDbTools.Migration
                 ShowElapsedTime = configuration.IsMigrationLogShowElapsedTimeEnabled()
             };
 
-            loggingBuilder.Services.AddSingleton<IOptions<FluentMigratorLoggerOptions>>(new OptionsWrapper<FluentMigratorLoggerOptions>(options));
-
-            return loggingBuilder.AddFluentMigratorConsoleLogger(options);
+            return loggingBuilder.AddFluentMigratorConsoleLogger(options, true);
         }
 
+        /// <summary>
+        /// Add FluentMigratorConsoleLoggerProvider with setting in 'options' parameter
+        /// </summary>
+        /// <param name="loggingBuilder"></param>
+        /// <param name="options"></param>
+        /// <param name="clearLoggingProviders">If true, all log-providers is first removed</param>
+        /// <returns></returns>
         public static ILoggingBuilder AddFluentMigratorConsoleLogger(
           this ILoggingBuilder loggingBuilder,
           FluentMigratorLoggerOptions options,
-          bool clearProviders = false)
+          bool clearLoggingProviders = false)
         {
-            if (clearProviders)
+            if (clearLoggingProviders)
             {
                 loggingBuilder.ClearProviders();
             }
 
-            return loggingBuilder.AddProvider(new FluentMigratorConsoleLoggerProvider(new OptionsWrapper<FluentMigratorLoggerOptions>(options)));
+            loggingBuilder.Services.AddSingleton<IOptions<FluentMigratorLoggerOptions>>(new OptionsWrapper<FluentMigratorLoggerOptions>(options));
+            loggingBuilder.Services.AddSingleton<ILoggerProvider, FluentMigratorConsoleLoggerProvider>();
+
+            return loggingBuilder;
         }
 
+        /// <summary>
+        /// Add LogFileFluentMigratorLoggerProvider if enabled by configuration
+        /// </summary>
+        /// <param name="loggingBuilder"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static ILoggingBuilder AddFluentMigratorFileLogger(
           this ILoggingBuilder loggingBuilder,
           IConfiguration configuration = null)
@@ -69,33 +88,26 @@ namespace FluentDbTools.Migration
             return loggingBuilder.AddFluentMigratorFileLogger(options);
         }
 
+        /// <summary>
+        /// Add LogFileFluentMigratorLoggerProvider with setting in 'options' parameter
+        /// </summary>
+        /// <param name="loggingBuilder"></param>
+        /// <param name="options"></param>
+        /// <param name="clearLoggingProviders">If true, all log-providers is first removed</param>
+        /// <returns></returns>
         public static ILoggingBuilder AddFluentMigratorFileLogger(
           this ILoggingBuilder loggingBuilder,
           LogFileFluentMigratorLoggerOptions options,
-          bool clearProviders = false)
+          bool clearLoggingProviders = false)
         {
-            if (clearProviders)
+            if (clearLoggingProviders)
             {
                 loggingBuilder.ClearProviders();
             }
 
-            var assembly = loggingBuilder.Services
-                                    .GetFirstServiceDescriptor<IMigrationSourceItem>()
-                                    .GetImplementation<IMigrationSourceItem>()
-                                    ?.MigrationTypeCandidates?.FirstOrDefault()?.Assembly;
-
-            var assemblySourceItem = assembly == null
-                ? new AssemblySourceItem()
-                : new AssemblySourceItem(assembly);
-
-            var optionsManager = new OptionsManager<AssemblySourceOptions>(
-                new OptionsFactory<AssemblySourceOptions>(
-                    Enumerable.Empty<IConfigureOptions<AssemblySourceOptions>>(),
-                    Enumerable.Empty<IPostConfigureOptions<AssemblySourceOptions>>()));
-
-            var assemblySource = new AssemblySource(optionsManager, new List<IAssemblyLoadEngine>(), new[] { assemblySourceItem });
-
-            return loggingBuilder.AddProvider(new LogFileFluentMigratorLoggerProvider(assemblySource, new OptionsWrapper<LogFileFluentMigratorLoggerOptions>(options)));
+            loggingBuilder.Services.AddSingleton<IOptions<LogFileFluentMigratorLoggerOptions>>(new OptionsWrapper<LogFileFluentMigratorLoggerOptions>(options));
+            loggingBuilder.Services.AddSingleton<ILoggerProvider, LogFileFluentMigratorLoggerProvider>();
+            return loggingBuilder;
         }
 
         private static IConfiguration GetConfiguration(

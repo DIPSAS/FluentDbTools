@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Version 1.1.17 2019-07-10
 - Improved Migration-logging configuration
 - Removed logging of "SELECT 1" statement for Oracle
+- Upgraded FluentMigrator 
+- Added some documentation
 
 ### Version 1.1.16 2019-07-10
 - Improved Migration-logging configuration
