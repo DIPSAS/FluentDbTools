@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
 using Microsoft.Extensions.Configuration;
@@ -179,5 +180,40 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 
             return value;
         }
+
+        public static IDictionary<string, string> GetDbAllConfigValues(
+            this IConfigurationSection sections)
+        {
+            var dictionary = new Dictionary<string, string>();
+            if (sections == null)
+            {
+                return dictionary;
+            }
+
+            foreach (var section in sections.GetChildren())
+            {
+                if (section.Value == null && sections.GetSection(section.Key).Exists())
+                {
+                    var values = GetDbAllConfigValues(sections.GetSection(section.Key));
+                    foreach (var value in values)
+                    {
+                        var key = $"{section.Key}:{value.Key}";
+                        if (!dictionary.ContainsKey(key))
+                        {
+                            dictionary.Add(key, value.Value);
+                        }
+                        
+                    }
+                    continue;
+                }
+                if (!dictionary.ContainsKey(section.Key))
+                {
+                    dictionary.Add(section.Key, section.Value);
+                }
+            }
+
+            return dictionary;
+        }
+
     }
 }

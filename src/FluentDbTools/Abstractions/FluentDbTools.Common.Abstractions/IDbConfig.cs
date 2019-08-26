@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace FluentDbTools.Common.Abstractions
 {
     /// <summary>
@@ -14,5 +16,11 @@ namespace FluentDbTools.Common.Abstractions
         /// If set, overrides all other config values related to the admin connection string.
         /// </summary>
         string AdminConnectionString { get; }
+
+        /// <summary>
+        /// GetAllMigrationConfigValues() : Get al values and subValues from configuration "database:migration". 
+        /// </summary>
+        IDictionary<string, string> GetAllDatabaseConfigValues();
+
     }
 }

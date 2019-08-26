@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Contracts;
 
@@ -25,5 +26,7 @@ namespace FluentDbTools.Extensions.DbProvider
             get => AdminConnectionStringField ?? Defaults.GetDefaultAdminConnectionString();
             set => AdminConnectionStringField = value;
         }
+
+        public virtual IDictionary<string, string> GetAllDatabaseConfigValues() => new Dictionary<string, string>();
     }
 }

@@ -1,4 +1,6 @@
-﻿using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using Microsoft.Extensions.Configuration;
 
 namespace FluentDbTools.Extensions.Migration.DefaultConfigs
@@ -31,7 +33,12 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         {
             return configuration?.GetMigrationSection().GetSectionStringValue("databaseOwner");
         }
-        
+
+        public static IDictionary<string, string> GetDbAllMigrationConfigValues(this IConfiguration configuration)
+        {
+            return configuration.GetMigrationSection().GetDbAllConfigValues();
+        }
+
         internal static IConfigurationSection GetMigrationSection(this IConfiguration configuration)
         {
             return configuration?.GetDbSection()?.GetSection("migration");

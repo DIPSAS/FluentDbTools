@@ -4,6 +4,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
 
+### Version 1.1.19 2019-08-26
+- Renamed AdditionalConfigValues to GetAllMigrationConfigValues() function in IDbMigrationConfig
+- Removed TableRoleName and CodeRoleName from IDbMigrationConfig
+- Added GetAllDatabaseConfigValues() function to IDbConfig
+
+### Version 1.1.18 2019-08-23
+- Added AdditionalConfigValues, TableRoleName and CodeRoleName to IDbMigrationConfig
+- Added UnitTest for new IDbMigrationConfig properties
+
 ### Version 1.1.17 2019-07-10
 - Improved Migration-logging configuration
 - Removed logging of "SELECT 1" statement for Oracle

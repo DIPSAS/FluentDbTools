@@ -73,9 +73,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Contracts", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7367735B-8D2F-4073-A270-42A27FFE4E44}"
 	ProjectSection(SolutionItems) = preProject
+		..\.env = ..\.env
+		..\..\.gitignore = ..\..\.gitignore
 		..\..\build-management.yml = ..\..\build-management.yml
 		..\..\CHANGELOG.md = ..\..\CHANGELOG.md
 		icon.png = icon.png
+		..\private-example.env = ..\private-example.env
+		..\private.env = ..\private.env
 		..\..\README.md = ..\..\README.md
 		SolutionInfo.proj = SolutionInfo.proj
 	EndProjectSection

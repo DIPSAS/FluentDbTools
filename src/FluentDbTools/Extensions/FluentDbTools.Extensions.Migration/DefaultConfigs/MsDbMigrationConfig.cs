@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
@@ -37,11 +38,13 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         }
 
         private string TempTablespaceField;
+
         public virtual string TempTablespace
         {
             get => TempTablespaceField ?? Configuration.GetDbTempTablespace();
             set => TempTablespaceField = value;
         }
+
 
         public SupportedDatabaseTypes DbType => GetDbConfig().DbType;
         public string Schema => GetDbConfig().Schema;
@@ -51,5 +54,8 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         public string DatabaseOwner => Configuration.GetMigrationDatabaseOwner() ?? GetDbConfig().AdminUser;
         public string ConnectionString => GetDbConfig().GetAdminConnectionString();
         public string ProcessorId => DbType.GetProcessorId();
+
+        public IDictionary<string, string> GetAllMigrationConfigValues() => Configuration.GetDbAllMigrationConfigValues();
+
     }
 }
