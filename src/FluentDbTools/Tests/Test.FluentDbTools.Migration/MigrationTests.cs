@@ -2,7 +2,6 @@ using System;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Net;
 using Dapper;
 using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Config;
@@ -17,7 +16,6 @@ using FluentDbTools.Migration;
 using FluentDbTools.Migration.Abstractions;
 using TestUtilities.FluentDbTools;
 using FluentMigrator.Runner;
-using FluentMigrator.Runner.Versioning;
 using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -160,6 +158,57 @@ namespace Test.FluentDbTools.Migration
                 migrationRunner.MigrateDown(0);
 
                 migrationRunner.DropSchema(versionTable);
+            }
+        }
+
+        [Fact]
+        public void OracleMigration_AllMigrationConfigValuesShouldHaveExpectedValues()
+        {
+
+            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle);
+
+            using (var scope = provider.CreateScope())
+            {
+                var allValues = scope.ServiceProvider.GetService<IDbMigrationConfig>().GetAllMigrationConfigValues();
+                
+                allValues.Should().NotBeNull();
+                allValues.Should().NotBeEmpty();
+                allValues["customMigrationValue1"].Should().Be("TEST:customMigrationValue1");
+                allValues["customMigrationValue2"].Should().Be("TEST:customMigrationValue2");
+                allValues["productXYValues:tableRoleName"].Should().Be("TEST:tableRoleName");
+                allValues["productXYValues:codeRoleName"].Should().Be("TEST:codeRoleName");
+                allValues["productXYValues:prefix"].Should().Be("XY");
+                allValues["productXYValues:subsection:subconfig"].Should().Be("TEST:subconfig");
+            }
+        }
+
+        [Fact]
+        public void OracleMigration_AllDatabaseConfigValuesShouldHaveExpectedValues()
+        {
+
+            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle);
+
+            using (var scope = provider.CreateScope())
+            {
+                var dbConfig = scope.ServiceProvider.GetService<IDbMigrationConfig>().GetDbConfig();
+                var allValues = dbConfig
+                    .GetAllDatabaseConfigValues();
+                
+                allValues.Should().NotBeNull();
+                allValues.Should().NotBeEmpty();
+                allValues["type"].Should().Be("Oracle");
+                allValues["user"].Should().Be(dbConfig.User);
+                allValues["adminUser"].Should().Be(dbConfig.AdminUser);
+                allValues["hostname"].Should().Be(dbConfig.Hostname);
+                allValues["port"].Should().Be(dbConfig.Port);
+
+                allValues["migration:customMigrationValue1"].Should().Be("TEST:customMigrationValue1");
+                allValues["migration:customMigrationValue2"].Should().Be("TEST:customMigrationValue2");
+                allValues["migration:productXYValues:tableRoleName"].Should().Be("TEST:tableRoleName");
+                allValues["migration:productXYValues:codeRoleName"].Should().Be("TEST:codeRoleName");
+                allValues["migration:productXYValues:prefix"].Should().Be("XY");
+                allValues["migration:productXYValues:subsection:subconfig"].Should().Be("TEST:subconfig");
+
             }
         }
 

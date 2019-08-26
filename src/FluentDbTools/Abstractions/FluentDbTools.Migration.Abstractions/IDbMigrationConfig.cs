@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
 
 namespace FluentDbTools.Migration.Abstractions
@@ -6,7 +7,7 @@ namespace FluentDbTools.Migration.Abstractions
     public interface IDbMigrationConfig : IDbConfigDatabaseTargets
     {
         /// <summary>
-        /// Used to select other database specifig configurations
+        /// Used to select other database specific configurations
         /// </summary>
         Func<IDbConfig> GetDbConfig { get; }
 
@@ -48,6 +49,11 @@ namespace FluentDbTools.Migration.Abstractions
         /// - Value is always selected from GetDbConfig().GetAdminConnectionString()
         /// </summary>
         string ConnectionString { get; }
+
+        /// <summary>
+        /// GetAllMigrationConfigValues() : Get al values and subValues from configuration "database:migration". 
+        /// </summary>
+        IDictionary<string, string> GetAllMigrationConfigValues();
 
     }
 }
