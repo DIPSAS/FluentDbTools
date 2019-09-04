@@ -201,7 +201,12 @@ namespace FluentDbTools.Migration.Oracle
 
         private bool TableSpaceExists(TableSpaceType tableSpaceType)
         {
-            return Exists(ExtendedGenerator.GenerateTableSpaceExistsSql(tableSpaceType));
+            var sql = ExtendedGenerator.GenerateTableSpaceExistsSql(tableSpaceType);
+            if (string.IsNullOrEmpty(sql))
+            {
+                return true;
+            }
+            return Exists(sql);
         }
 
         private void SetupTableSpace(TableSpaceType tableSpaceType)

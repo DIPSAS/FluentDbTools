@@ -7,8 +7,8 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
 {
     public static class MsDbMigrationConfigExtension
     {
-        private const string DefaultDbDefaultTablespace = "FLUENT_DATA";
-        private const string DefaultDbTempTablespace = "FLUENT_TEMP";
+        private const string DefaultDbDefaultTablespace = null;
+        private const string DefaultDbTempTablespace = null;
         public static string GetMigrationSchemaPassword(this IConfiguration configuration)
         {
             return configuration?.GetMigrationSection()?.GetSectionStringValue("schemaPassword");
@@ -19,14 +19,14 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         {
             return (configuration?.GetMigrationSection()?.GetSectionStringValue("defaultTablespace") ??
                    configuration?.GetDbSection().GetSectionStringValue("defaultTablespace") ??
-                   DefaultDbDefaultTablespace).ToUpper();
+                   DefaultDbDefaultTablespace)?.ToUpper();
         }
 
         public static string GetDbTempTablespace(this IConfiguration configuration)
         {
             return (configuration?.GetMigrationSection()?.GetSectionStringValue("tempTablespace") ??
                    configuration?.GetDbSection().GetSectionStringValue("tempTablespace") ??
-                    DefaultDbTempTablespace).ToUpper();
+                    DefaultDbTempTablespace)?.ToUpper();
         }
 
         public static string GetMigrationDatabaseOwner(this IConfiguration configuration)

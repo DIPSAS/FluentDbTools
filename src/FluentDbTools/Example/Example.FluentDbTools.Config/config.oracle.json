@@ -21,8 +21,8 @@
     "pooling": true,
     "migration": {
       "schemaPassword": "dbpassword", // If not set, then it equals to 'database:password'
-      "defaultTablespace": "FLUENT_DATA",
-      "tempTablespace": "FLUENT_TEMP",
+      //"defaultTablespace": "FLUENT_DATA",
+      //"tempTablespace": "FLUENT_TEMP",
       "customMigrationValue1": "TEST:customMigrationValue1",
       "customMigrationValue2": "TEST:customMigrationValue2",
       "productXYValues": {

@@ -22,6 +22,7 @@ namespace FluentDbTools.Migration.Oracle
         private const string CreateTempTableSpaceSqlTemplate = "CREATE TEMPORARY TABLESPACE {0} TEMPFILE '{0}.dbf' SIZE 50m autoextend on next 2m maxsize unlimited";
 
         private const string SchemaExistsSqlTemplate = "SELECT 1 FROM ALL_USERS WHERE USERNAME = '{0}'";
+        private const string CreatePlainSchemaSqlTemplate = "CREATE USER {0} IDENTIFIED BY {1}";
         private const string CreateSchemaSqlTemplate = "CREATE USER {0} IDENTIFIED BY {1} DEFAULT TABLESPACE {2} TEMPORARY TABLESPACE {3}";
         private const string DropSchemaSqlTemplate =
 @"DECLARE
@@ -148,11 +149,22 @@ END;";
 
             using (var writer = new StringWriter())
             {
-                writer.WriteLine(CreateSchemaSqlTemplate,
-                    Quoter.QuoteSchemaName(expression.SchemaName),
-                    Quoter.QuoteSchemaName(schemaPassword),
-                    Quoter.QuoteSchemaName(DbMigrationConfig.DefaultTablespace),
-                    Quoter.QuoteSchemaName(DbMigrationConfig.TempTablespace));
+                if (string.IsNullOrEmpty(DbMigrationConfig.DefaultTablespace) ||
+                    string.IsNullOrEmpty(DbMigrationConfig.TempTablespace))
+                {
+                    writer.WriteLine(CreatePlainSchemaSqlTemplate,
+                        Quoter.QuoteSchemaName(expression.SchemaName),
+                        Quoter.QuoteSchemaName(schemaPassword));
+                }
+                else
+                {
+                    writer.WriteLine(CreateSchemaSqlTemplate,
+                        Quoter.QuoteSchemaName(expression.SchemaName),
+                        Quoter.QuoteSchemaName(schemaPassword),
+                        Quoter.QuoteSchemaName(DbMigrationConfig.DefaultTablespace),
+                        Quoter.QuoteSchemaName(DbMigrationConfig.TempTablespace));
+
+                }
                 writer.WriteLine(";");
                 writer.WriteLine(GrantTableSpaceAccess(expression.SchemaName));
                 writer.WriteLine(";");
@@ -175,12 +187,22 @@ END;";
 
         public string GenerateTableSpaceExistsSql(TableSpaceType tableSpaceType)
         {
-            return string.Format(TableSpaceExistsSqlTemplate, GetTableSpaceName(tableSpaceType));
+            var tableSpaceName = GetTableSpaceName(tableSpaceType);
+            if (string.IsNullOrEmpty(tableSpaceName))
+            {
+                return null;
+            }
+            return string.Format(TableSpaceExistsSqlTemplate, tableSpaceName);
         }
 
         public string GenerateCreateTableSpaceSql(TableSpaceType tableSpaceType)
         {
-            return string.Format(GetCreateTableSpaceSqlTemplate(tableSpaceType), GetTableSpaceName(tableSpaceType));
+            var tableSpaceName = GetTableSpaceName(tableSpaceType);
+            if (string.IsNullOrEmpty(tableSpaceName))
+            {
+                return null;
+            }
+            return string.Format(GetCreateTableSpaceSqlTemplate(tableSpaceType), tableSpaceName);
         }
 
         public string GetTableSpaceName(TableSpaceType tableSpaceType)

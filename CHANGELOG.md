@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
 
+### Version 1.1.20 2019-09-04
+- database:migration:defaultTablespace and database:migration:tempTablespace must be specified
+  to create oracle user with specific tablespaces
+
 ### Version 1.1.19 2019-08-26
 - Renamed AdditionalConfigValues to GetAllMigrationConfigValues() function in IDbMigrationConfig
 - Removed TableRoleName and CodeRoleName from IDbMigrationConfig
