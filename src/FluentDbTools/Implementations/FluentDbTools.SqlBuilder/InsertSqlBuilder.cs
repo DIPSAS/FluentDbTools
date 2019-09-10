@@ -33,7 +33,7 @@ namespace FluentDbTools.SqlBuilder
             public override string Build()
             {
                 return
-                    $"INSERT INTO {GetTableNameWithSchemaNamePrefix}({string.Join(", ", FieldsList.Select(x => x.FieldName))}) VALUES({string.Join(", ", FieldsList.Select(CreateFieldValue))})";
+                    $"INSERT INTO {TableNameWithSchemaName}({string.Join(", ", FieldsList.Select(x => x.FieldName))}) VALUES({string.Join(", ", FieldsList.Select(CreateFieldValue))})";
             }
 
             private string CreateFieldValue(Field field)

@@ -29,5 +29,7 @@ namespace FluentDbTools.Contracts
         public Func<string> GetDefaultConnectionString = () => null;
         public Func<string> GetDefaultAdminConnectionString = () => null;
 
+        public Func<string> GetDefaultSchemaPrefixIdString = () => string.Empty;
+
     }
 }

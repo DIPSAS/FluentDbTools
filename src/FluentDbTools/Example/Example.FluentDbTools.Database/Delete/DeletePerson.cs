@@ -17,7 +17,7 @@ namespace Example.FluentDbTools.Database.Delete
         {
             var sql = dbConfig.BuildSql();
             var @params = new DynamicParameters();
-            @params.Add(nameof(Person.Id), dbConfig.CreateParameterResolver().WithGuidParameterValue(id));
+            @params.Add(nameof(Person.PersonId), dbConfig.CreateParameterResolver().WithGuidParameterValue(id));
             return dbConnection.ExecuteAsync(sql, @params);
         }
         
@@ -25,7 +25,7 @@ namespace Example.FluentDbTools.Database.Delete
         {
             var sql = dbConfig.CreateSqlBuilder().Delete<Person>()
                 .OnSchema()
-                .Where(x => x.WP(item => item.Id))
+                .Where(x => x.WP(item => item.PersonId))
                 .Build();
             return sql;
         }

@@ -214,6 +214,15 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 
             return dictionary;
         }
+        public static string GetValue(this IDictionary<string, string> dictionary, string key)
+        {
+            string value = null;
+            if (dictionary?.TryGetValue(key, out value) ?? false)
+            {
+                return value;
+            }
 
+            return null;
+        }
     }
 }

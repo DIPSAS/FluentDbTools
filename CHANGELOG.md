@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.1.21 2019-09-10
+- Implemented ICustomMigrationProcessor for ChangeLog, Adding DefaultColumns, and hooks method running after schema is created or after schema is removed
 
 ### Version 1.1.20 2019-09-04
 - database:migration:defaultTablespace and database:migration:tempTablespace must be specified

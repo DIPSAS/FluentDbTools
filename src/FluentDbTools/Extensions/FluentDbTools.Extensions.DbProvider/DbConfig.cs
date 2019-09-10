@@ -7,6 +7,7 @@ namespace FluentDbTools.Extensions.DbProvider
 {
     public class DbConfig : DbConnectionStringBuilderConfig, IDbConfig
     {
+        protected IDictionary<string, string> AllConfigValuesField;
         public DbConfig(DefaultDbConfigValues defaultDbConfigValues = null)
             : base(defaultDbConfigValues)
         {
@@ -27,6 +28,19 @@ namespace FluentDbTools.Extensions.DbProvider
             set => AdminConnectionStringField = value;
         }
 
-        public virtual IDictionary<string, string> GetAllDatabaseConfigValues() => new Dictionary<string, string>();
+        public virtual IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false)
+        {
+            if (AllConfigValuesField == null || reload)
+            {
+                AllConfigValuesField = new Dictionary<string, string>();
+            }
+
+            return AllConfigValuesField;
+        }
+
+        public virtual string GetSchemaPrefixUniqueId()
+        {
+            return null;
+        }
     }
 }

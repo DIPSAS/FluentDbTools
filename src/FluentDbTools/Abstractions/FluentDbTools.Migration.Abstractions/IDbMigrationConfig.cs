@@ -53,7 +53,12 @@ namespace FluentDbTools.Migration.Abstractions
         /// <summary>
         /// GetAllMigrationConfigValues() : Get al values and subValues from configuration "database:migration". 
         /// </summary>
-        IDictionary<string, string> GetAllMigrationConfigValues();
+        IDictionary<string, string> GetAllMigrationConfigValues(bool reload = false);
 
+        /// <summary>
+        /// Can be used to specifying a unique Id for the <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId"/>
+        /// </summary>
+        /// <returns></returns>
+        string GetSchemaPrefixUniqueId();
     }
 }

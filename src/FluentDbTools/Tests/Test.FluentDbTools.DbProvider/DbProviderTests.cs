@@ -14,6 +14,8 @@ namespace Test.FluentDbTools.DbProvider
         public async Task DbProvider_ExampleRepository_Success(SupportedDatabaseTypes databaseType)
         {
             var overrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType);
+            overrideConfig.Add("database:schemaprefix:id", "EX");
+            overrideConfig.Add("database:migration:schemaprefix:id", "EX");
             await DbExampleExecutor.ExecuteDbExample(databaseType, overrideConfig);
         }
 

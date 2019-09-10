@@ -25,15 +25,15 @@ namespace Example.FluentDbTools.Database.Select
         private static string BuildSql(this IDbConfigDatabaseTargets dbConfig, Guid[] ids, out DynamicParameters @params)
         {
             @params = new DynamicParameters();
-            var inSelections = dbConfig.CreateParameterResolver().AddArrayParameter(@params, nameof(Person.Id), ids);
+            var inSelections = dbConfig.CreateParameterResolver().AddArrayParameter(@params, nameof(Person.PersonId), ids);
             var sql = dbConfig.CreateSqlBuilder().Select()
                 .OnSchema()
-                .Fields<Person>(x => x.F(item => item.Id))
+                .Fields<Person>(x => x.F(item => item.PersonId))
                 .Fields<Person>(x => x.F(item => item.SequenceNumber))
                 .Fields<Person>(x => x.F(item => item.Alive))
                 .Fields<Person>(x => x.F(item => item.Username))
                 .Fields<Person>(x => x.F(item => item.Password))
-                .Where<Person>(x => x.WP(item => item.Id, inSelections))
+                .Where<Person>(x => x.WP(item => item.PersonId, inSelections))
                 .Build();
                 
             return sql;

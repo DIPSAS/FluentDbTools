@@ -52,7 +52,8 @@ namespace FluentDbTools.Migration.Oracle
                 sp.GetRequiredService<ILogger<ExtendedOracleManagedProcessor>>(),
                 sp.GetRequiredService<IOptionsSnapshot<ProcessorOptions>>(),
                 sp.GetRequiredService<IConnectionStringAccessor>(),
-                sp.GetRequiredService<IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator>>());
+                sp.GetRequiredService<IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator>>(),
+                sp.GetService<IDbMigrationConfig>(), sp.GetService<ICustomMigrationProcessor<OracleProcessor>>());
         }
     }
 }

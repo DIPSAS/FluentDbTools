@@ -20,7 +20,7 @@ namespace FluentDbTools.Common.Abstractions
         /// <summary>
         /// GetAllMigrationConfigValues() : Get al values and subValues from configuration "database:migration". 
         /// </summary>
-        IDictionary<string, string> GetAllDatabaseConfigValues();
+        IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false);
 
     }
 }

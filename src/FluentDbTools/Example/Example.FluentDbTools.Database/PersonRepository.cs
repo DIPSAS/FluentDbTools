@@ -23,7 +23,7 @@ namespace Example.FluentDbTools.Database
         
         public Task InsertPerson(Person person, IDbConnection dbConnection)
         {
-            Logger.LogDebug($"Inserting person with id: {person.Id}");
+            Logger.LogDebug($"Inserting person with id: {person.PersonId}");
             return Insert.InsertPerson.Execute(
                 dbConnection,
                 DbConfig,
@@ -58,7 +58,7 @@ namespace Example.FluentDbTools.Database
 
         public Task UpdatePerson(Person person, IDbConnection dbConnection)
         {
-            Logger.LogDebug($"Updating person with id: {person.Id}");
+            Logger.LogDebug($"Updating person with id: {person.PersonId}");
             return Update.UpdatePerson.Execute(
                 dbConnection,
                 DbConfig,

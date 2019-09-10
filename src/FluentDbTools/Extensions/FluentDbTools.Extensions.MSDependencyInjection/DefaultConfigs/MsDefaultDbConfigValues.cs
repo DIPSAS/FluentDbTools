@@ -11,6 +11,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             GetDefaultDbType = configuration.GetDbType;
             GetDefaultSchema = configuration.GetDbSchema;
             GetDefaulDatabaseName = configuration.GetDbDatabaseName;
+            GetDefaultSchemaPrefixIdString = () => string.Empty;
 
             // DbConfigCredentials defaults
             GetDefaultUser = configuration.GetDbUser;

@@ -34,20 +34,20 @@ namespace Example.FluentDbTools.Database
                 }
                 
                 (await repository.CountAlivePersons(dbConnection)).Should().BeInRange(10,20); // using range because of parallell test runs...
-                (await repository.SelectPerson(persons.First().Id, dbConnection)).Id.Should().Be(persons.First().Id);
+                (await repository.SelectPerson(persons.First().PersonId, dbConnection)).PersonId.Should().Be(persons.First().PersonId);
 
                 var subsetPersons = persons.Take(persons.Length / 2).ToArray();
-                var selectedPersons = (await repository.SelectPersons(subsetPersons.Select(x => x.Id).ToArray(), dbConnection)).Select(x => x.Id).ToArray();
+                var selectedPersons = (await repository.SelectPersons(subsetPersons.Select(x => x.PersonId).ToArray(), dbConnection)).Select(x => x.PersonId).ToArray();
                 selectedPersons.Length.Should().Be(subsetPersons.Length);
-                selectedPersons.Should().Contain(subsetPersons.Select(x => x.Id));
+                selectedPersons.Should().Contain(subsetPersons.Select(x => x.PersonId));
 
                 persons.First().Alive = false;
                 persons.First().Username = "New Name";
                 await repository.UpdatePerson(persons.First(), dbConnection);
-                (await repository.SelectPerson(persons.First().Id, dbConnection)).Id.Should().Be(persons.First().Id);
+                (await repository.SelectPerson(persons.First().PersonId, dbConnection)).PersonId.Should().Be(persons.First().PersonId);
 
-                await repository.DeletePerson(persons.First().Id, dbConnection);
-                (await repository.SelectPersons(persons.Select(x => x.Id).ToArray(), dbConnection)).Should().NotContain(persons.First());
+                await repository.DeletePerson(persons.First().PersonId, dbConnection);
+                (await repository.SelectPersons(persons.Select(x => x.PersonId).ToArray(), dbConnection)).Should().NotContain(persons.First());
             }
             
         }

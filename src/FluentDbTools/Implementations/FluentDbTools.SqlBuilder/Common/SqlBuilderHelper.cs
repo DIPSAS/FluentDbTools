@@ -4,8 +4,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions.Common;
-using FluentDbTools.SqlBuilder.Abstractions.Parameters;
 using FluentDbTools.SqlBuilder.Parameters;
 
 namespace FluentDbTools.SqlBuilder.Common
@@ -46,12 +46,21 @@ namespace FluentDbTools.SqlBuilder.Common
         {
             return GetTableName(typeof(T).Name, schemaNamePrefix);
         }
-        
-        public static string GetTableName(string tableName, string schemaNamePrefix)
+
+        public static string SchemaNamePrefixCorrectionFunc(this string schemaNamePrefix)
         {
-            if (!string.IsNullOrEmpty(schemaNamePrefix) && !schemaNamePrefix.EndsWith("."))
+            if (schemaNamePrefix.IsNotEmpty() && !schemaNamePrefix.Contains("."))
             {
                 schemaNamePrefix = $"{schemaNamePrefix}.";
+            }
+            return schemaNamePrefix ?? string.Empty;
+        }
+        
+        public static string GetTableName(string tableName, string schemaNamePrefix, Func<string,string> schemaNamePrefixCorrectionFunc = null)
+        {
+            if (schemaNamePrefixCorrectionFunc != null)
+            {
+                schemaNamePrefix = schemaNamePrefixCorrectionFunc(schemaNamePrefix);
             }
 
             schemaNamePrefix = schemaNamePrefix ?? string.Empty;

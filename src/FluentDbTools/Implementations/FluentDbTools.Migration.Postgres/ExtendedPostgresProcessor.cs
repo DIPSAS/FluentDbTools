@@ -12,6 +12,7 @@ using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.Postgres;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Npgsql;
 
 namespace FluentDbTools.Migration.Postgres
 {

@@ -1,4 +1,5 @@
-﻿using FluentDbTools.Extensions.SqlBuilder;
+﻿using System.Collections.Generic;
+using FluentDbTools.Extensions.SqlBuilder;
 using FluentDbTools.Common.Abstractions;
 using TestUtilities.FluentDbTools;
 using FluentAssertions;
@@ -11,16 +12,21 @@ namespace Test.FluentDbTools.SqlBuilder
     public class QueryBuilderDeleteTest
     {      
         [Theory]
-        [InlineData(SupportedDatabaseTypes.Oracle, false, "DELETE FROM Entity WHERE Id = :IdParam AND Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Postgres, false, "DELETE FROM Entity WHERE Id = @IdParam AND Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Oracle, true, "DELETE FROM {0}.Entity WHERE Id = :IdParam AND Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Postgres, true, "DELETE FROM {0}.Entity WHERE Id = @IdParam AND Name = 'Arild'")]
-        public void DeleteTest1(SupportedDatabaseTypes databaseTypes, bool useSchema, string expectedSql)
+        [InlineData(SupportedDatabaseTypes.Oracle, false, null, "DELETE FROM {1}Entity WHERE Id = :IdParam AND Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, false, null, "DELETE FROM {1}Entity WHERE Id = @IdParam AND Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, true, null, "DELETE FROM {0}.{1}Entity WHERE Id = :IdParam AND Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, true, null, "DELETE FROM {0}.{1}Entity WHERE Id = @IdParam AND Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, false, "PR", "DELETE FROM {1}Entity WHERE Id = :IdParam AND Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, false, "PR", "DELETE FROM {1}Entity WHERE Id = @IdParam AND Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, true, "PR", "DELETE FROM {0}.{1}Entity WHERE Id = :IdParam AND Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, true, "PR", "DELETE FROM {0}.{1}Entity WHERE Id = @IdParam AND Name = 'Arild'")]
+        public void DeleteTest1(SupportedDatabaseTypes databaseTypes, bool useSchema, string schemaPrefixId, string expectedSql)
         {
-            using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes).CreateScope())
+            var addDictionary = new Dictionary<string, string> {{"database:schemaPrefix:Id", schemaPrefixId}};
+            using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes, addDictionary).CreateScope())
             {
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
-                expectedSql = string.Format(expectedSql, dbConfig.Schema);
+                expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
                 
                 var builder = dbConfig.CreateSqlBuilder();
                 var delete = builder.Delete<Entity>();
