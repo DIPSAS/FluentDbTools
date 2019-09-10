@@ -38,6 +38,5 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         {
             return serviceProvider.GetRequiredService<IDbConfig>();
         }
-
     }
 }

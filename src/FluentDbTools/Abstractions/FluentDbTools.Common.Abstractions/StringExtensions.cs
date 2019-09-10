@@ -108,7 +108,7 @@ namespace FluentDbTools.Common.Abstractions
         {
             return value?.Equals(searchValue, StringComparison.CurrentCultureIgnoreCase) ?? false;
         }
-        
+
         /// <summary>
         /// Contains(searchValue) with StringComparison
         /// </summary>
@@ -157,5 +157,45 @@ namespace FluentDbTools.Common.Abstractions
             return double.TryParse(value, out var parsedValue) ? parsedValue : defaultValue;
         }
 
+        /// <summary>
+        /// return prefix == null ? name : $"{prefix}{name}"; 
+        /// </summary>
+        /// <param name="name">
+        /// name of the object to add prefix to.<br/>
+        /// If name start with value of {<paramref name="prefix"/>}, the value of <paramref name="name"/> will be returned
+        /// </param>
+        /// <param name="prefix">if <paramref name="prefix"/> is NULL, the value will be defaulted to <paramref name="defaultPrefix'"/></param>
+        /// <param name="defaultPrefix"></param>
+        /// <returns></returns>
+        public static string GetPrefixedName(this string name, string prefix, string defaultPrefix = null)
+        {
+            prefix = prefix ?? defaultPrefix ?? string.Empty;
+
+            if (prefix.IsEmpty() || name.IsEmpty())
+            {
+                return name;
+            }
+
+            return name.StartsWith(prefix, StringComparison.Ordinal) ? name : $"{prefix}{name}";
+        }
+
+
+        /// <summary>
+        /// remove {prefix} if name start with {prefix}
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="prefix">if <paramref name="prefix"/> is NULL, the value will be defaulted to <paramref name="defaultPrefix'"/></param>
+        /// <param name="defaultPrefix"></param>
+        /// <returns></returns>
+        public static string TrimPrefixName(this string name, string prefix, string defaultPrefix = null)
+        {
+            prefix = prefix ?? defaultPrefix ?? string.Empty;
+            if (prefix.IsEmpty() || name.IsEmpty())
+            {
+                return name;
+            }
+
+            return name.StartsWith(prefix, StringComparison.Ordinal) ? name.Substring(prefix.Length) : name;
+        }
     }
 }

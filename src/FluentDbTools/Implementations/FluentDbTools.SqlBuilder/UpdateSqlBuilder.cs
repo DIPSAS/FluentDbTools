@@ -15,7 +15,14 @@ namespace FluentDbTools.SqlBuilder
         private readonly UpdateFieldSelector<TClass> UpdateFieldSelector;
         private readonly IDbConfigDatabaseTargets DbConfig;
         private string TableName;
-        private string SchemaName;
+
+        private string SchemaNameField;
+        private string SchemaName
+        {
+            //get => (SchemaNameField = SchemaNameField ?? DbConfig?.Schema);
+            get => SchemaNameField;
+            set => SchemaNameField = value;
+        }
 
         public UpdateSqlBuilder(IDbConfigDatabaseTargets dbConfig)
         {
@@ -34,7 +41,6 @@ namespace FluentDbTools.SqlBuilder
             selector(UpdateFieldSelector);
 
             UpdateTableWith = UpdateFieldSelector.Build();
-
             return this;
         }
 

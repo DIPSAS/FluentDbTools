@@ -12,16 +12,21 @@ namespace Test.FluentDbTools.SqlBuilder
     public class QueryBuilderSelectTest
     {
         [Theory]
-        [InlineData(SupportedDatabaseTypes.Oracle, false, "SELECT e.Name, e.Description FROM Entity e WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Postgres, false, "SELECT e.Name, e.Description FROM Entity e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Oracle, true, "SELECT e.Name, e.Description FROM {0}.Entity e WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Postgres, true, "SELECT e.Name, e.Description FROM {0}.Entity e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
-        public void SelectTestOneTableOnly(SupportedDatabaseTypes databaseTypes, bool useSchema, string expectedSql)
+        [InlineData(SupportedDatabaseTypes.Oracle, false, null, "SELECT e.Name, e.Description FROM {1}Entity e WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, false, null, "SELECT e.Name, e.Description FROM {1}Entity e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, true, null, "SELECT e.Name, e.Description FROM {0}.{1}Entity e WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, true, null, "SELECT e.Name, e.Description FROM {0}.{1}Entity e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, false, "XY", "SELECT e.Name, e.Description FROM {1}Entity e WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, false, "XY", "SELECT e.Name, e.Description FROM {1}Entity e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, true, "XY", "SELECT e.Name, e.Description FROM {0}.{1}Entity e WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, true, "XY", "SELECT e.Name, e.Description FROM {0}.{1}Entity e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        public void SelectTestOneTableOnly(SupportedDatabaseTypes databaseTypes, bool useSchema,string schemaPrefixId, string expectedSql)
         {
-            using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes).CreateScope())
+            var addDictionary = new Dictionary<string, string> {{"database:schemaPrefix:Id", schemaPrefixId}};
+            using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes, addDictionary).CreateScope())
             {
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
-                expectedSql = string.Format(expectedSql, dbConfig.Schema);
+                expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
                 
                 var builder = dbConfig.CreateSqlBuilder();
                 var select = builder.Select();
@@ -51,16 +56,21 @@ namespace Test.FluentDbTools.SqlBuilder
         }
 
         [Theory]
-        [InlineData(SupportedDatabaseTypes.Oracle, false, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM Entity e INNER JOIN ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Postgres, false, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM Entity e INNER JOIN ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Oracle, true, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {0}.Entity e INNER JOIN {0}.ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Postgres, true, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {0}.Entity e INNER JOIN {0}.ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
-        public void SelectTestWithJoins(SupportedDatabaseTypes databaseTypes, bool useSchema, string expectedSql)
+        [InlineData(SupportedDatabaseTypes.Oracle, false, null, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM Entity e INNER JOIN ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, false, null, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM Entity e INNER JOIN ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, true, null, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {0}.Entity e INNER JOIN {0}.ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, true, null, "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {0}.Entity e INNER JOIN {0}.ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, false, "XY", "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {1}Entity e INNER JOIN {1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, false, "XY", "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {1}Entity e INNER JOIN {1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, true, "XY", "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {0}.{1}Entity e INNER JOIN {0}.{1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.{1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, true, "XY", "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {0}.{1}Entity e INNER JOIN {0}.{1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.{1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        public void SelectTestWithJoins(SupportedDatabaseTypes databaseTypes, bool useSchema,string schemaPrefixId, string expectedSql)
         {
-            using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes).CreateScope())
+            var addDictionary = new Dictionary<string, string> {{"database:schemaPrefix:Id", schemaPrefixId}};
+            using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes, addDictionary).CreateScope())
             {
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
-                expectedSql = string.Format(expectedSql, dbConfig.Schema);
+                expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
                 
                 var builder = dbConfig.CreateSqlBuilder();
                 var select = builder.Select();
@@ -111,16 +121,21 @@ namespace Test.FluentDbTools.SqlBuilder
         }
 
         [Theory]
-        [InlineData(SupportedDatabaseTypes.Oracle, false, "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM Entity e INNER JOIN ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Postgres, false, "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM Entity e INNER JOIN ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Oracle, true, "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {0}.Entity e INNER JOIN {0}.ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
-        [InlineData(SupportedDatabaseTypes.Postgres, true, "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {0}.Entity e INNER JOIN {0}.ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
-        public void SelectTest2WithJoins(SupportedDatabaseTypes databaseTypes, bool useSchema, string expectedSql)
+        [InlineData(SupportedDatabaseTypes.Oracle, false, null, "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {1}Entity e INNER JOIN {1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, false, null, "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {1}Entity e INNER JOIN {1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, true, null, "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {0}.{1}Entity e INNER JOIN {0}.{1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.{1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, true, null, "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {0}.{1}Entity e INNER JOIN {0}.{1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.{1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, false, "XY", "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {1}Entity e INNER JOIN {1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, false, "XY", "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {1}Entity e INNER JOIN {1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Oracle, true, "XY", "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {0}.{1}Entity e INNER JOIN {0}.{1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.{1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = :IdParam AND e.Name = 'Arild'")]
+        [InlineData(SupportedDatabaseTypes.Postgres, true, "XY", "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {0}.{1}Entity e INNER JOIN {0}.{1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.{1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
+        public void SelectTest2WithJoins(SupportedDatabaseTypes databaseTypes, bool useSchema, string schemaPrefixId, string expectedSql)
         {
-            using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes).CreateScope())
+            var addDictionary = new Dictionary<string, string> {{"database:schemaPrefix:Id", schemaPrefixId}};
+            using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes, addDictionary).CreateScope())
             {
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
-                expectedSql = string.Format(expectedSql, dbConfig.Schema);
+                expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
                 
                 var builder = dbConfig.CreateSqlBuilder();
                 var select = builder.Select();
@@ -201,6 +216,7 @@ namespace Test.FluentDbTools.SqlBuilder
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider().CreateScope())
             {
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
+                expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
                 var builder = dbConfig.CreateSqlBuilder();
                 var sql =
                     builder.Select()

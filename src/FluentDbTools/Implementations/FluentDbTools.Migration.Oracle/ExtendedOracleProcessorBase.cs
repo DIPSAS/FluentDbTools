@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
+using FluentDbTools.Migration.Abstractions.ExtendedExpressions;
 using FluentDbTools.Migration.Common;
+using FluentDbTools.Migration.Contracts.MigrationExpressions;
 using FluentMigrator;
 using FluentMigrator.Expressions;
 using FluentMigrator.Runner;
@@ -18,16 +20,25 @@ namespace FluentDbTools.Migration.Oracle
 {
     internal class ExtendedOracleProcessorBase : OracleProcessorBase, IExtendedMigrationProcessor<ExtendedOracleProcessorBase>
     {
+        private readonly IDbMigrationConfig MigrationConfig;
         private readonly IExtendedMigrationGenerator ExtendedGenerator;
+        private readonly ICustomMigrationProcessor CustomMigrationProcessor;
+        protected string SchemaPrefix => MigrationConfig?.GetSchemaPrefixId();
+        protected string SchemaPrefixUniqueId => MigrationConfig?.GetSchemaPrefixUniqueId();
 
         public ExtendedOracleProcessorBase(OracleBaseDbFactory factory,
             IMigrationGenerator generator,
             ILogger logger,
             IOptionsSnapshot<ProcessorOptions> options,
             IConnectionStringAccessor connectionStringAccessor,
-            IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator> extendedGenerator) : base(ProcessorIds.OracleProcessorId, factory, generator, logger, options, connectionStringAccessor)
+            IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator> extendedGenerator,
+            IDbMigrationConfig migrationConfig,
+            ICustomMigrationProcessor<OracleProcessor> customMigrationProcessor = null) : base(ProcessorIds.OracleProcessorId, factory, generator, logger, options, connectionStringAccessor)
         {
+            MigrationConfig = migrationConfig;
             ExtendedGenerator = extendedGenerator;
+            CustomMigrationProcessor = customMigrationProcessor;
+            RunCustomAction(() => CustomMigrationProcessor?.ConfigureSqlExecuteAction(ProcessSql));
         }
 
         public override bool Exists(string template, params object[] args)
@@ -44,6 +55,24 @@ namespace FluentDbTools.Migration.Oracle
             {
                 return reader.Read();
             }
+        }
+
+        public override void Process(PerformDBOperationExpression expression)
+        {
+            if (expression is ILinkedExpression)
+            {
+                if (expression is DefaultColumnsLinkedExpression defaultColumnsDependedExpression)
+                {
+                    AddDefaultColumns(defaultColumnsDependedExpression.Expression);
+                }
+                if (expression is ChangeLogLinkedExpression changeLogDependedExpression)
+                {
+                    ProcessChangeLogExpression(changeLogDependedExpression);
+                }
+                return;
+            }
+
+            base.Process(expression);
         }
 
         public override void Process(DeleteDataExpression expression)
@@ -73,8 +102,55 @@ namespace FluentDbTools.Migration.Oracle
             {
                 return;
             }
+
             base.Process(expression);
         }
+
+        private void AddDefaultColumns(CreateTableExpression expression)
+        {
+            var defaultColumns =
+                RunCustomFunc(() => CustomMigrationProcessor?.GetDefaultColumns(expression.TableName));
+
+            if ((defaultColumns?.Any() ?? false) == false)
+            {
+                return;
+            }
+
+            var columnDefinitions = expression.Columns;
+            foreach (var column in defaultColumns)
+            {
+                if (columnDefinitions.Any(x => (string.IsNullOrEmpty(column.TableName) || x.TableName == column.TableName) && x.Name == column.Name))
+                {
+                    continue;
+                }
+
+                if (string.IsNullOrEmpty(column.TableName))
+                {
+                    column.TableName = expression.TableName;
+                }
+
+                columnDefinitions.Add(column);
+                Logger.LogSay($"Added Default Column:{column.Name} Table:{column.TableName}, Type: {column.Type}, Description: {column.ColumnDescription}");
+            }
+
+            expression.Columns = columnDefinitions;
+        }
+
+        private void ProcessChangeLogExpression(IChangeLogTabledExpression expressionExt)
+        {
+            if (CustomMigrationProcessor == null || expressionExt == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(expressionExt.DbOperation))
+            {
+                expressionExt.DbOperation = expressionExt.Expression.GetDbOperation();
+            }
+
+            RunCustomAction(() => CustomMigrationProcessor.Process(expressionExt));
+        }
+
 
         public override bool SequenceExists(string schemaName, string sequenceName)
         {
@@ -128,8 +204,23 @@ namespace FluentDbTools.Migration.Oracle
             SetupTableSpace(TableSpaceType.Temp);
 
             Logger.LogSay($"Creating Oracle schema(user) '{expression.SchemaName}'...");
-            Process(ExtendedGenerator.Generate(expression));
+            Process(GetCreateSchemaSql(expression));
+
+            if (!SchemaExists(expression.SchemaName))
+            {
+                Process(GetCreateSchemaSql(expression, true));
+            }
+
             Logger.LogSay($"Created Oracle schema(user) '{expression.SchemaName}'...");
+
+            RunCustomAction(
+                () => CustomMigrationProcessor?.ProcessAfter(
+                    new CreateSchemaWithPrefixExpression
+                    {
+                        SchemaName = expression.SchemaName,
+                        SchemaPrefix = SchemaPrefix,
+                        SchemaPrefixUniqueId = SchemaPrefixUniqueId
+                    }));
         }
 
         public override void Process(DeleteTableExpression expression)
@@ -151,15 +242,24 @@ namespace FluentDbTools.Migration.Oracle
                     }
 
                     var stopwatch = new StopWatch();
-                    
+
                     Logger.LogSay($"Dropping Oracle schema(user) '{expression.SchemaName}'...");
                     stopwatch.Time(() => Process(ExtendedGenerator.Generate(expression)));
                     Logger.LogSay($"Dropped Oracle schema(user) '{expression.SchemaName}'...");
                     Logger.LogElapsedTime(stopwatch.ElapsedTime());
+
+                    RunCustomAction(() =>
+                        CustomMigrationProcessor?.ProcessAfter(new DropSchemaWithPrefixExpression
+                        {
+                            SchemaName = expression.SchemaName,
+                            SchemaPrefix = SchemaPrefix,
+                            SchemaPrefixUniqueId = SchemaPrefixUniqueId
+                        }));
                 },
-                ex => Logger.LogError(ex,$"Dropping Oracle schema(user) '{expression.SchemaName}' failed with exception :-("));
+                ex => Logger.LogError(ex, $"Dropping Oracle schema(user) '{expression.SchemaName}' failed with exception :-("));
 
         }
+
 
         protected override void Process(string sql)
         {
@@ -218,6 +318,46 @@ namespace FluentDbTools.Migration.Oracle
             Logger.LogSay($"Creating Oracle {tableSpaceType} tablespace: {ExtendedGenerator.GetTableSpaceName(tableSpaceType)}...");
             Process(ExtendedGenerator.GenerateCreateTableSpaceSql(tableSpaceType));
             Logger.LogSay($"Created Oracle {tableSpaceType} tablespace: {ExtendedGenerator.GetTableSpaceName(tableSpaceType)}...");
+        }
+
+        private string GetCreateSchemaSql(CreateSchemaExpression expression, bool forceDefault = false)
+        {
+            var sql = forceDefault ? null : RunCustomFunc(
+                () => CustomMigrationProcessor?.GenerateSql(
+                    new CreateSchemaWithPrefixExpression
+                    {
+                        SchemaName = expression.SchemaName,
+                        SchemaPrefix = SchemaPrefix,
+                        SchemaPrefixUniqueId = SchemaPrefixUniqueId
+                    }));
+
+            return !string.IsNullOrEmpty(sql) ? sql : ExtendedGenerator.Generate(expression);
+        }
+
+        private static void RunCustomAction(Action action)
+        {
+            try
+            {
+                action.Invoke();
+            }
+            catch (NotImplementedException)
+            {
+                //
+            }
+        }
+
+        private static T RunCustomFunc<T>(Func<T> func)
+        {
+            try
+            {
+                return func.Invoke();
+            }
+            catch (NotImplementedException)
+            {
+                //
+            }
+
+            return default;
         }
 
     }

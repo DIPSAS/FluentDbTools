@@ -13,6 +13,7 @@ namespace FluentDbTools.Migration.Abstractions
         void Process(CreateTableExpression expression);
         void Process(CreateSequenceExpression expression);
         void Process(DeleteTableExpression expression);
+        void Process(PerformDBOperationExpression expression);
 
         IDbConnection GetMigrationDbConnection();
         void ProcessSql(string sql);

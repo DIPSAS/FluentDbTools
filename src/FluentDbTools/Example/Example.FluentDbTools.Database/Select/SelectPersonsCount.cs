@@ -26,7 +26,7 @@ namespace Example.FluentDbTools.Database.Select
             var sql = dbConfig.CreateSqlBuilder().Select()
                 .OnSchema()
                 .Count()
-                .Fields<Person>(x => x.F(item => item.Id))
+                .Fields<Person>(x => x.F(item => item.PersonId))
                 .Where<Person>(x => x.WP(item => item.Alive))
                 .Build();
                 

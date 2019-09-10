@@ -1,11 +1,13 @@
-﻿using FluentDbTools.Common.Abstractions;
+﻿using System.Dynamic;
+using FluentDbTools.Common.Abstractions;
 
 namespace FluentDbTools.Contracts
 {
     public class DbConfigDatabaseTargets : IDbConfigDatabaseTargets
     {
-        protected DefaultDbConfigValues Defaults;
+        public DefaultDbConfigValues Defaults { get; protected set; }
 
+        protected string ScemaPrefixIdField { get; set; }
         public DbConfigDatabaseTargets(DefaultDbConfigValues defaultDbConfigValues = null)
         {
             Defaults = defaultDbConfigValues ?? new DefaultDbConfigValues();
@@ -33,14 +35,20 @@ namespace FluentDbTools.Contracts
             set => DatabaseConnectionNameField = value;
         }
 
-        public static DbConfigDatabaseTargets Create(SupportedDatabaseTypes dbType, string schema,
-            string databaseName = null)
+        public virtual string GetSchemaPrefixId() => ScemaPrefixIdField ?? Defaults.GetDefaultSchemaPrefixIdString();
+
+        public static DbConfigDatabaseTargets Create(
+            SupportedDatabaseTypes dbType, 
+            string schema,
+            string databaseName = null,
+            string schemaPrefixId = null)
         {
             return new DbConfigDatabaseTargets()
             {
                 DbType = dbType,
                 Schema = schema,
-                DatabaseName = databaseName
+                DatabaseName = databaseName,
+                ScemaPrefixIdField = schemaPrefixId
             };
         }
     }

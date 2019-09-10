@@ -2,6 +2,7 @@
 using FluentDbTools.Extensions.SqlBuilder;
 using FluentAssertions;
 using FluentDbTools.Contracts;
+using Microsoft.VisualBasic;
 using Test.FluentDbTools.SqlBuilder.MinimumDependencies.TestEntities;
 using Xunit;
 
@@ -10,16 +11,20 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
     public class StaticQueryBuilderInsertTest
     {
         [Theory]
-        [InlineData(SupportedDatabaseTypes.Oracle, null, "INSERT INTO Entity(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
-        [InlineData(SupportedDatabaseTypes.Postgres, null, "INSERT INTO Entity(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
-        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "INSERT INTO {0}.Entity(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
-        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "INSERT INTO {0}.Entity(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
-        public void InsertTest(SupportedDatabaseTypes databaseTypes, string schema, string expectedSql)
+        [InlineData(SupportedDatabaseTypes.Oracle, null, null, "INSERT INTO {1}Entity(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, null, "INSERT INTO {1}Entity(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", null, "INSERT INTO {0}.{1}Entity(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", null, "INSERT INTO {0}.{1}Entity(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, null, "En", "INSERT INTO {1}Entity(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, "En", "INSERT INTO {1}Entity(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "En", "INSERT INTO {0}.{1}Entity(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "En", "INSERT INTO {0}.{1}Entity(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        public void InsertTest(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema);
-            expectedSql = string.Format(expectedSql, dbConfig.Schema);
+            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema, schemaPrefixId: schemaPrefixId);
+            expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
             var builder = dbConfig.CreateSqlBuilder();
             var insert = builder.Insert<Entity>();
@@ -33,19 +38,23 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
 
             sql.Should().Be(expectedSql);
         }
-        
+
         [Theory]
-        [InlineData(SupportedDatabaseTypes.Oracle, null, "INSERT INTO EntityTable(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
-        [InlineData(SupportedDatabaseTypes.Postgres, null, "INSERT INTO EntityTable(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
-        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "INSERT INTO {0}.EntityTable(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
-        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "INSERT INTO {0}.EntityTable(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
-        public void InsertTest_WithTableNameSet(SupportedDatabaseTypes databaseTypes, string schema, string expectedSql)
+        [InlineData(SupportedDatabaseTypes.Oracle, null, null, "INSERT INTO {1}EntityTable(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, null, "INSERT INTO {1}EntityTable(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", null, "INSERT INTO {0}.{1}EntityTable(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", null, "INSERT INTO {0}.{1}EntityTable(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, null, "En", "INSERT INTO {1}EntityTable(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, "En", "INSERT INTO {1}EntityTable(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "En", "INSERT INTO {0}.{1}EntityTable(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "En", "INSERT INTO {0}.{1}EntityTable(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        public void InsertTest_WithTableNameSet(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
             const string tableName = "EntityTable";
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema);
-            expectedSql = string.Format(expectedSql, dbConfig.Schema);
+            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema, schemaPrefixId: schemaPrefixId);
+            expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
             var builder = dbConfig.CreateSqlBuilder();
             var insert = builder.Insert<Entity>();
@@ -62,16 +71,20 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         }
 
         [Theory]
-        [InlineData(SupportedDatabaseTypes.Oracle, null, "INSERT INTO Entity(Id, Name, Description) VALUES(seq.nextval, 'Arild', :Description)")]
-        [InlineData(SupportedDatabaseTypes.Postgres, null, "INSERT INTO Entity(Id, Name, Description) VALUES(nextval('seq'), 'Arild', @Description)")]
-        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "INSERT INTO {0}.Entity(Id, Name, Description) VALUES(seq.nextval, 'Arild', :Description)")]
-        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "INSERT INTO {0}.Entity(Id, Name, Description) VALUES(nextval('seq'), 'Arild', @Description)")]
-        public void InsertTest_WithSequence(SupportedDatabaseTypes databaseTypes, string schema, string expectedSql)
+        [InlineData(SupportedDatabaseTypes.Oracle, null, null, "INSERT INTO {1}Entity(Id, Name, Description) VALUES(seq.nextval, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, null, "INSERT INTO {1}Entity(Id, Name, Description) VALUES(nextval('seq'), 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", null, "INSERT INTO {0}.{1}Entity(Id, Name, Description) VALUES(seq.nextval, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", null, "INSERT INTO {0}.{1}Entity(Id, Name, Description) VALUES(nextval('seq'), 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, null, "pr1", "INSERT INTO {1}Entity(Id, Name, Description) VALUES(seq.nextval, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, "pr1", "INSERT INTO {1}Entity(Id, Name, Description) VALUES(nextval('seq'), 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "pr1", "INSERT INTO {0}.{1}Entity(Id, Name, Description) VALUES(seq.nextval, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "pr1", "INSERT INTO {0}.{1}Entity(Id, Name, Description) VALUES(nextval('seq'), 'Arild', @Description)")]
+        public void InsertTest_WithSequence(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema);
-            expectedSql = string.Format(expectedSql, dbConfig.Schema);
+            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema, schemaPrefixId: schemaPrefixId);
+            expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
             var builder = dbConfig.CreateSqlBuilder();
             var resolver = dbConfig.CreateParameterResolver();
@@ -87,15 +100,19 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         }
 
         [Theory]
-        [InlineData(SupportedDatabaseTypes.Oracle, null, "INSERT INTO Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(seq.nextval, 'Arild', :Description, :EntityEnum, :SomeProperty)")]
-        [InlineData(SupportedDatabaseTypes.Postgres, null, "INSERT INTO Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(nextval('seq'), 'Arild', @Description, @EntityEnum, @SomeProperty)")]
-        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "INSERT INTO {0}.Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(seq.nextval, 'Arild', :Description, :EntityEnum, :SomeProperty)")]
-        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "INSERT INTO {0}.Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(nextval('seq'), 'Arild', @Description, @EntityEnum, @SomeProperty)")]
-        public void InsertTest_WithEnumAndDirectProperty(SupportedDatabaseTypes databaseTypes, string schema, string expectedSql)
+        [InlineData(SupportedDatabaseTypes.Oracle, null, null, "INSERT INTO {1}Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(seq.nextval, 'Arild', :Description, :EntityEnum, :SomeProperty)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, null, "INSERT INTO {1}Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(nextval('seq'), 'Arild', @Description, @EntityEnum, @SomeProperty)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", null, "INSERT INTO {0}.{1}Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(seq.nextval, 'Arild', :Description, :EntityEnum, :SomeProperty)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", null, "INSERT INTO {0}.{1}Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(nextval('seq'), 'Arild', @Description, @EntityEnum, @SomeProperty)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, null, "pr", "INSERT INTO {1}Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(seq.nextval, 'Arild', :Description, :EntityEnum, :SomeProperty)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, "pr", "INSERT INTO {1}Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(nextval('seq'), 'Arild', @Description, @EntityEnum, @SomeProperty)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "pr", "INSERT INTO {0}.{1}Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(seq.nextval, 'Arild', :Description, :EntityEnum, :SomeProperty)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "pr", "INSERT INTO {0}.{1}Entity(Id, Name, Description, EntityEnum, SomeProperty) VALUES(nextval('seq'), 'Arild', @Description, @EntityEnum, @SomeProperty)")]
+        public void InsertTest_WithEnumAndDirectProperty(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
             var useSchema = !string.IsNullOrEmpty(schema);
-            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema);
-            expectedSql = string.Format(expectedSql, dbConfig.Schema);
+            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema, schemaPrefixId: schemaPrefixId);
+            expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
             var builder = dbConfig.CreateSqlBuilder();
             var resolver = dbConfig.CreateParameterResolver();
             var insert = builder.Insert<Entity>();

@@ -22,8 +22,10 @@ namespace FluentDbTools.Migration.Postgres
         private const string SchemaExistsSqlTemplate = "SELECT 1 FROM pg_namespace WHERE nspname = '{0}';";
 
         private const string CreateUserSqlTemplate = "CREATE ROLE {0} WITH LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOREPLICATION CONNECTION LIMIT -1 PASSWORD '{1}';";
+
         private const string CreateSchemaSqlTemplate = "CREATE SCHEMA {0} AUTHORIZATION {1};" +
-                                                       "GRANT ALL ON SCHEMA {0} TO PUBLIC;";
+                                                       "GRANT ALL ON SCHEMA {0} TO PUBLIC;"; //+
+                                                       //"CREATE EXTENSION \"uuid-oosp\" SCHEMA PUBLIC;";
 
         private const string DropSchemaSqlTemplate = "DROP SCHEMA IF EXISTS {0} CASCADE;";
         private const string DropUserSqlTemplate = "DROP ROLE IF EXISTS {0};";

@@ -105,12 +105,20 @@ public class AddPersonTable : MigrationModel
 {
     public override void Up()
     {
+        var personChangeLogContext = new ChangeLogContext
+        {
+             GlobalId = "per",
+             ShortName = "PER".GetPrefixedName(SchemaPrefixId)
+        };
+
         Create.Table(Table.Person)
             .InSchema(SchemaName)
             .WithColumn(Column.Id).AsGuid().PrimaryKey()
             .WithColumn(Column.SequenceNumber).AsInt32().NotNullable()
             .WithColumn(Column.Username).AsString()
             .WithColumn(Column.Password).AsString()
+            .WithDefaultColumns()
+            .WithChangeLog(personChangeLogContext)
             .WithTableSequence(this);
     }
 

@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Abstractions\FluentDbTools.Common.Abstractions\FluentDbTools.Common.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Contracts\FluentDbTools.Migration.Contracts\FluentDbTools.Migration.Contracts.csproj" />
       <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.MSDependencyInjection.Oracle\FluentDbTools.Extensions.MSDependencyInjection.Oracle.csproj" />
       <ProjectReference Include="..\FluentDbTools.Migration.Common\FluentDbTools.Migration.Common.csproj" />
     </ItemGroup>

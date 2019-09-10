@@ -38,6 +38,11 @@ namespace FluentDbTools.Migration.Oracle
             return ExtendedMigrationProcessor.Exists(template, args);
         }
 
+        public override void Process(PerformDBOperationExpression expression)
+        {
+            ExtendedMigrationProcessor.Process(expression);
+        }
+
         public override void Process(CreateTableExpression expression)
         {
             ExtendedMigrationProcessor.Process(expression);
@@ -77,6 +82,11 @@ namespace FluentDbTools.Migration.Oracle
         public override void Process(DeleteTableExpression expression)
         {
             ExtendedMigrationProcessor.Process(expression);
+        }
+
+        public override void Process(AlterColumnExpression expression)
+        {
+            base.Process(expression);
         }
 
         protected override void Process(string sql)

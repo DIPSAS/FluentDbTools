@@ -22,8 +22,8 @@ namespace FluentDbTools.SqlBuilder
         private string SchemaName;
         private bool SelectCount = false;
 
-        private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? string.Empty : $"{SchemaName}.";
-
+        private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? SchemaPrefixId : $"{SchemaName}.{SchemaPrefixId}";
+        private string SchemaPrefixId => DbConfig?.GetSchemaPrefixId() ?? string.Empty;
 
         public SelectSqlBuilder(IDbConfigDatabaseTargets dbConfig)
         {
@@ -56,12 +56,12 @@ namespace FluentDbTools.SqlBuilder
             SetTableName<T>(
                 () =>
                    {
-                       if (string.IsNullOrEmpty(TableName) || 
+                       if (string.IsNullOrEmpty(TableName) ||
                            !string.Equals(TableName, SqlBuilderHelper.GetTableName<T>(SchemaNamePrefix, tableName), StringComparison.OrdinalIgnoreCase))
                        {
                            return;
                        }
-                       
+
                        var alias = fieldSelector.GetFirstTableAlias(typeof(T));
                        if (!string.IsNullOrEmpty(alias))
                        {
@@ -81,7 +81,7 @@ namespace FluentDbTools.SqlBuilder
                 additionAction?.Invoke();
                 return;
             }
-            
+
             TableName = SqlBuilderHelper.GetTableName<T>(SchemaNamePrefix, originalTableName);
             TableAlias = SqlBuilderHelper.GetAliasForType<T>();
 

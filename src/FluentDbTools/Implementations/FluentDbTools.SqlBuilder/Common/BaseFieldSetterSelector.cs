@@ -29,12 +29,14 @@ namespace FluentDbTools.SqlBuilder.Common
         protected BaseFieldSetterSelector(IDbConfigDatabaseTargets dbConfig)
         {
             DbConfig = dbConfig;
+            SchemaPrefixId = dbConfig?.GetSchemaPrefixId() ?? string.Empty;
         }
 
         protected readonly List<Field> FieldsList = new List<Field>();
 
-        public string TableName { get; set; }
-        public string SchemaName { get; set; }
+        public string TableName { get; private set; }
+        public string SchemaName { get; private set; }
+        public string SchemaPrefixId { get; }
         
         public IFieldSetterSelector<TClass> OnTable(string tableName)
         {
@@ -48,9 +50,11 @@ namespace FluentDbTools.SqlBuilder.Common
             return this;
         }
 
-        protected string GetTableNameWithSchemaNamePrefix => SqlBuilderHelper.GetTableName<TClass>(SchemaNamePrefix, TableName);
 
-        protected string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? string.Empty : $"{SchemaName}.";
+
+        protected string TableNameWithSchemaName => SqlBuilderHelper.GetTableName<TClass>(SchemaNamePrefix, TableName);
+
+        protected string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? SchemaPrefixId : $"{SchemaName}.{SchemaPrefixId}";
 
         public IFieldSetterSelector<TClass> FP<T>(Expression<Func<TClass, T>> field, string param = null)
         {

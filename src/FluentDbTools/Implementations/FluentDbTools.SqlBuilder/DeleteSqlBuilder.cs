@@ -15,7 +15,8 @@ namespace FluentDbTools.SqlBuilder
         private string TableName;
         private string SchemaName;
 
-        private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? string.Empty : $"{SchemaName}.";
+        private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? SchemaPrefixId : $"{SchemaName}.{SchemaPrefixId}";
+        private string SchemaPrefixId => DbConfig?.GetSchemaPrefixId() ?? string.Empty;
 
         public DeleteSqlBuilder(IDbConfigDatabaseTargets dbConfig)
         {

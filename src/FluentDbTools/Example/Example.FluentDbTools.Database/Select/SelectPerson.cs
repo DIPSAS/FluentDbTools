@@ -17,7 +17,7 @@ namespace Example.FluentDbTools.Database.Select
         {
             var sql = dbConfig.BuildSql();
             var @params = new DynamicParameters();
-            @params.Add(nameof(Person.Id), dbConfig.CreateParameterResolver().WithGuidParameterValue(id));
+            @params.Add(nameof(Person.PersonId), dbConfig.CreateParameterResolver().WithGuidParameterValue(id));
             return dbConnection.QuerySingleAsync<Person>(sql, @params);
         }
         
@@ -25,12 +25,12 @@ namespace Example.FluentDbTools.Database.Select
         {
             var sql = dbConfig.CreateSqlBuilder().Select()
                 .OnSchema()
-                .Fields<Person>(x => x.F(item => item.Id))
+                .Fields<Person>(x => x.F(item => item.PersonId))
                 .Fields<Person>(x => x.F(item => item.SequenceNumber))
                 .Fields<Person>(x => x.F(item => item.Alive))
                 .Fields<Person>(x => x.F(item => item.Username))
                 .Fields<Person>(x => x.F(item => item.Password))
-                .Where<Person>(x => x.WP(item => item.Id))
+                .Where<Person>(x => x.WP(item => item.PersonId))
                 .Build();
             
             return sql;

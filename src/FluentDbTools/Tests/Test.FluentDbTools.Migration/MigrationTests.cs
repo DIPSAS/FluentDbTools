@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using Dapper;
 using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Config;
+using Example.FluentDbTools.Database;
 using Example.FluentDbTools.Migration;
+using Example.FluentDbTools.Migration.MigrationModels;
 using FluentAssertions;
 using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Extensions.Migration;
@@ -14,8 +17,10 @@ using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
 using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using FluentDbTools.Migration;
 using FluentDbTools.Migration.Abstractions;
+using FluentDbTools.Migration.Oracle;
 using TestUtilities.FluentDbTools;
 using FluentMigrator.Runner;
+using FluentMigrator.Runner.Processors.Oracle;
 using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -60,25 +65,7 @@ namespace Test.FluentDbTools.Migration
                 migrationRunner.DropSchema(versionTable);
             }
 
-            if (logFile.IsNotEmpty() && File.Exists(logFile))
-            {
-                var tmpFile = logFile + ".tmp";
-                if (File.Exists(tmpFile))
-                {
-                    File.Delete(tmpFile);
-                }
-                File.Copy(logFile, tmpFile);
-                var logContent = File.ReadAllText(logFile + ".tmp");
-                var s = $"************* LogContent {logFile} **************";
-                WriteLine($"\n{s}");
-                WriteLine($"{"".PadRight(s.Length, '*')}");
-                WriteLine(logContent);
-
-                if (File.Exists(tmpFile))
-                {
-                    File.Delete(tmpFile);
-                }
-            }
+            ShowLogFileContent(logFile);
         }
 
         private void WriteLine(string message)
@@ -108,9 +95,9 @@ namespace Test.FluentDbTools.Migration
                 .AddOracleDbProvider()
                 .AddPostgresDbProvider()
                 .BuildServiceProvider();
-
-            var dbConfig = serviceProvider.GetService<IDbMigrationConfig>();
             
+            var dbConfig = serviceProvider.GetService<IDbMigrationConfig>();
+
             var assemblies = MigrationBuilder.MigrationAssemblies.ToList();
             assemblies.Add(typeof(ExampleVersionTable).Assembly);
 
@@ -123,6 +110,7 @@ namespace Test.FluentDbTools.Migration
             }
             finally
             {
+                //runner.MigrateDown(0);
                 dbConfig.DropSchema(assemblies);
             }
         }
@@ -170,7 +158,7 @@ namespace Test.FluentDbTools.Migration
             using (var scope = provider.CreateScope())
             {
                 var allValues = scope.ServiceProvider.GetService<IDbMigrationConfig>().GetAllMigrationConfigValues();
-                
+
                 allValues.Should().NotBeNull();
                 allValues.Should().NotBeEmpty();
                 allValues["customMigrationValue1"].Should().Be("TEST:customMigrationValue1");
@@ -183,6 +171,46 @@ namespace Test.FluentDbTools.Migration
         }
 
         [Fact]
+        public void OracleMigration_SchemaPrefixHasExpectedValueAndMigrationSucceed()
+        {
+            var databaseType = SupportedDatabaseTypes.Oracle;
+            var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
+            inMemoryOverrideConfig.TryGetValue("database:schema", out var schema);
+            var logFile = $"Migration_Success_{schema}_{databaseType}.sql";
+
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:File", logFile);
+            inMemoryOverrideConfig.Add("database:migration:schemaPrefix:Id", "EX");
+            inMemoryOverrideConfig.Add("database:migration:schemaPrefix:UniqueId", "exabcd-0000000001000");
+
+            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, inMemoryOverrideConfig, sc =>
+            {
+                sc.AddSingleton<ICustomMigrationProcessor<OracleProcessor>,TestOracleCustomMigrationProcessor>();
+                return sc;
+            });
+
+            using (var scope = provider.CreateScope())
+            {
+                var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
+                var dbMigrationConfig = scope.ServiceProvider.GetDbMigrationConfig();
+                dbMigrationConfig.GetSchemaPrefixId().Should().Be("EX");
+                dbMigrationConfig.GetSchemaPrefixUniqueId().Should().Be("exabcd-0000000001000");
+
+                migrationRunner.MigrateUp();
+                var oracleProcessor = scope.ServiceProvider.GetService<OracleProcessorBase>();
+                oracleProcessor.TableExists(dbMigrationConfig.Schema, Table.Person.GetPrefixedName("EX"));
+                oracleProcessor.SequenceExists(dbMigrationConfig.Schema, $"{Table.Person.GetPrefixedName("EX")}_seq");
+
+                migrationRunner.MigrateDown(0);
+                migrationRunner.DropSchema(scope.ServiceProvider.GetVersionTableMetaData());
+            }
+
+            ShowLogFileContent(logFile);
+        }
+
+
+        [Fact]
         public void OracleMigration_AllDatabaseConfigValuesShouldHaveExpectedValues()
         {
 
@@ -193,7 +221,7 @@ namespace Test.FluentDbTools.Migration
                 var dbConfig = scope.ServiceProvider.GetService<IDbMigrationConfig>().GetDbConfig();
                 var allValues = dbConfig
                     .GetAllDatabaseConfigValues();
-                
+
                 allValues.Should().NotBeNull();
                 allValues.Should().NotBeEmpty();
                 allValues["type"].Should().Be("Oracle");
@@ -252,6 +280,12 @@ namespace Test.FluentDbTools.Migration
             var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
             inMemoryOverrideConfig["database:dataSource"] = "InvalidTnsAlias";
             inMemoryOverrideConfig["database:connectionTimeoutInSecs"] = "5";
+            inMemoryOverrideConfig.TryGetValue("database:schema", out var schema);
+            var logFile = $"Migration_Success_{schema}_{databaseType}.sql";
+
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:File", logFile);
 
             var expectedDataSource = inMemoryOverrideConfig["database:dataSource"];
             var provider = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig, sp => sp.AddOracleDbProvider());
@@ -266,7 +300,7 @@ namespace Test.FluentDbTools.Migration
                 dbconfig
                     .GetDbProviderFactory(true).CreateConnection()
                     .DataSource.Should().Be(expectedDataSource);
-                
+
                 Action action = () =>
                 {
                     migrationRunner.MigrateUp();
@@ -281,7 +315,34 @@ namespace Test.FluentDbTools.Migration
                 action.Should().Throw<OracleException>().Which.Number.Should().Be(12154);
 
             }
+
+            ShowLogFileContent(logFile);
         }
+
+        private void ShowLogFileContent(string logFile)
+        {
+            if (logFile.IsNotEmpty() && File.Exists(logFile))
+            {
+                var tmpFile = logFile + ".tmp";
+                if (File.Exists(tmpFile))
+                {
+                    File.Delete(tmpFile);
+                }
+
+                File.Copy(logFile, tmpFile);
+                var logContent = File.ReadAllText(logFile + ".tmp");
+                var s = $"************* LogContent {logFile} **************";
+                WriteLine($"\n{s}");
+                WriteLine($"{"".PadRight(s.Length, '*')}");
+                WriteLine(logContent);
+
+                if (File.Exists(tmpFile))
+                {
+                    File.Delete(tmpFile);
+                }
+            }
+        }
+
 
         private static void VerifyExpectedVersionInfoTable(IServiceProvider serviceProvider, string versionTable)
         {
