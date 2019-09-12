@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.1.22 2019-09-12
+- Improved how external oracle sql statements is executed
+
 ### Version 1.1.21 2019-09-10
 - Implemented ICustomMigrationProcessor for ChangeLog, Adding DefaultColumns, and hooks method running after schema is created or after schema is removed
 
