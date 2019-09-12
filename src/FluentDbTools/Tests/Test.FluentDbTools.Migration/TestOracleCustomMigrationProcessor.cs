@@ -71,7 +71,27 @@ namespace Test.FluentDbTools.Migration
 
         public string GenerateSql(ICreateSchemaWithPrefixExpression expression)
         {
-            throw new NotImplementedException();
+            var sqlAll = @"
+            create user {SchemaName} identified by ""{SchemaName}""
+            enable editions account lock;
+
+            -- hei hei
+            -- aho
+            /* drop role {SchemaPrefix}_TABLE_ROLE;
+            create role {SchemaPrefix}_TABLE_ROLE; */
+
+            /*
+            drop role {SchemaPrefix}_TABLE_ROLE;
+            create role {SchemaPrefix}_TABLE_ROLE; 
+            */
+
+            grant connect, resource to {SchemaName};
+            grant unlimited tablespace to {SchemaName};
+";
+            sqlAll = sqlAll.Replace("{SchemaName}", expression.SchemaName);
+            sqlAll = sqlAll.Replace("{SchemaPrefixUniqueId}", expression.SchemaPrefixUniqueId);
+            sqlAll = sqlAll.Replace("{SchemaPrefix}", expression.SchemaPrefix);
+            return sqlAll;
         }
 
         public IList<ColumnDefinition> GetDefaultColumns(string tableName = null)

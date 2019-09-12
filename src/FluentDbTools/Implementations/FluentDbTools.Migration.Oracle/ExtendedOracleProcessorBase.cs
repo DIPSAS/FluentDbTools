@@ -38,7 +38,7 @@ namespace FluentDbTools.Migration.Oracle
             MigrationConfig = migrationConfig;
             ExtendedGenerator = extendedGenerator;
             CustomMigrationProcessor = customMigrationProcessor;
-            RunCustomAction(() => CustomMigrationProcessor?.ConfigureSqlExecuteAction(ProcessSql));
+            RunCustomAction(() => CustomMigrationProcessor?.ConfigureSqlExecuteAction(sql => Process(new SqlStatement { Sql = sql, IsExternal = true })));
         }
 
         public override bool Exists(string template, params object[] args)
@@ -263,40 +263,7 @@ namespace FluentDbTools.Migration.Oracle
 
         protected override void Process(string sql)
         {
-            var runningSql = string.Empty;
-            try
-            {
-                if (Options.PreviewOnly || string.IsNullOrEmpty(sql))
-                {
-                    if (sql.IsNotEmpty())
-                    {
-                        Logger.LogSql(sql);
-                    }
-                    return;
-                }
-
-                EnsureConnectionIsOpen();
-
-                var batches = Regex.Split(sql, @"^\s*;\s*$", RegexOptions.Multiline)
-                    .Select(x => x.Trim())
-                    .Where(x => !string.IsNullOrEmpty(x));
-
-                foreach (var batch in batches)
-                {
-                    runningSql = batch;
-                    using (var command = CreateCommand(batch))
-                    {
-                        command.ExecuteNonQuery();
-                        Logger.LogSql(batch);
-                    }
-                }
-
-            }
-            catch (Exception exception)
-            {
-                Logger.LogError(exception, $"Fail executing sql \"{runningSql}\"");
-                throw;
-            }
+            Process(new SqlStatement { Sql = sql });
         }
 
         private bool TableSpaceExists(TableSpaceType tableSpaceType)
@@ -320,7 +287,7 @@ namespace FluentDbTools.Migration.Oracle
             Logger.LogSay($"Created Oracle {tableSpaceType} tablespace: {ExtendedGenerator.GetTableSpaceName(tableSpaceType)}...");
         }
 
-        private string GetCreateSchemaSql(CreateSchemaExpression expression, bool forceDefault = false)
+        private SqlStatement GetCreateSchemaSql(CreateSchemaExpression expression, bool forceDefault = false)
         {
             var sql = forceDefault ? null : RunCustomFunc(
                 () => CustomMigrationProcessor?.GenerateSql(
@@ -330,8 +297,12 @@ namespace FluentDbTools.Migration.Oracle
                         SchemaPrefix = SchemaPrefix,
                         SchemaPrefixUniqueId = SchemaPrefixUniqueId
                     }));
-
-            return !string.IsNullOrEmpty(sql) ? sql : ExtendedGenerator.Generate(expression);
+            var statement = new SqlStatement
+            {
+                IsExternal = !string.IsNullOrEmpty(sql),
+                Sql = !string.IsNullOrEmpty(sql) ? sql : ExtendedGenerator.Generate(expression)
+            };
+            return statement;
         }
 
         private static void RunCustomAction(Action action)
@@ -358,6 +329,71 @@ namespace FluentDbTools.Migration.Oracle
             }
 
             return default;
+        }
+
+        private void Process(SqlStatement sqlStatement)
+        {
+            var sql = sqlStatement.Sql;
+            var runningSql = string.Empty;
+            try
+            {
+                if (Options.PreviewOnly || string.IsNullOrEmpty(sql))
+                {
+                    if (sql.IsNotEmpty())
+                    {
+                        Logger.LogSql(sql);
+                    }
+                    return;
+                }
+
+                EnsureConnectionIsOpen();
+
+                var statementsSql = Regex.Split(sql, @"^\s*;\s*$", RegexOptions.Multiline)
+                    .Select(x => x.Trim())
+                    .Where(x => !string.IsNullOrEmpty(x)).ToArray();
+
+                if (!sqlStatement.IsExternal)
+                {
+                    foreach (var commandText in statementsSql)
+                    {
+                        ExecuteCommand(runningSql = commandText);
+                    }
+                    return;
+                }
+
+                foreach (var statement in statementsSql)
+                {
+                    foreach (var commandText in statement.ExtractSqlStatements())
+                    {
+                        ExecuteCommand(runningSql = commandText);
+                    }
+                }
+
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception, $"Fail executing sql \"{runningSql}\"");
+                throw;
+            }
+
+        }
+
+        private void ExecuteCommand(string commandText)
+        {
+            using (var command = CreateCommand(commandText))
+            {
+                if (!commandText.IsSqlComment())
+                {
+                    command.ExecuteNonQuery();
+                }
+                Logger.LogSql(commandText);
+            }
+        }
+
+        private class SqlStatement
+        {
+            public string Sql { get; set; }
+            public bool IsExternal { get; set; }
         }
 
     }
