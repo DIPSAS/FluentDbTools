@@ -31,7 +31,6 @@ namespace FluentDbTools.Migration.Abstractions
         /// <param name="expression"></param>
         void Process(IChangeLogTabledExpression expression);
 
-
         /// <summary>
         /// Will be called just after the Schema is created<br/>
         /// Can be used to execute custom grants or other database operations.

@@ -1,21 +1,176 @@
 ﻿using System;
+using System.Collections.Generic;
+using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Migration.Abstractions.ExtendedExpressions;
 
 namespace FluentDbTools.Migration.Abstractions
 {
+    /// <summary>
+    /// Specify Change Log information for ChangeLog operation <see cref="ICustomMigrationProcessor.Process(IChangeLogTabledExpression)"/>
+    /// </summary>
     public class ChangeLogContext
     {
+        /// <summary>
+        /// Can be used to specify the Global Id of the changed resource (mostly a table)<br/>
+        /// i.e: "abc", "lmn", "xyz" 
+        /// </summary>
         public string GlobalId { get; set; }
+
+        /// <summary>
+        /// Can be used to specify what kind og key the changed resource have<br/>
+        /// i.e "Guid", "Gid" or "Id"
+        /// </summary>
         public string KeyType { get; set; }
+
+        /// <summary>
+        /// Can be used to specify the short name of the changed resource<br/>
+        /// i.e "DWDELINSTI" for table "DWDELINSTITUSJON", or "DWDSVERDI" for the "DWDATASETTVERDIER" table
+        /// </summary>
         public string ShortName { get; set; }
+
+        /// <summary>
+        /// Can be used to specify witch Anonymous operation the changed resource should have<br/>
+        /// i.e "NOOP" (Default), "ALTER", "EXTERNAL" or "TRUNCATE"
+        /// </summary>
         public string AnonymousOperation { get; set; }
-        public string SchemaPrefix { get; set; }
 
-        public string[] AdditionalContext { get; }
+        /// <summary>
+        /// Can be used to specifying a short-name (prefix) for the Schema. <br/>
+        /// i.e: Then Schema "Example" can use "EX" as <see cref="SchemaPrefixId"/><br/>
+        ///      EX => Tables will be prefixed with EX. <br/>
+        ///      Entity Person will result in the EXPerson table in the database.
+        /// </summary>
+        public string SchemaPrefixId { get; set; }
 
+        /// <summary>
+        /// Can be used to specifying a unique-name for the Schema. <br/>
+        /// </summary>
+        public string SchemaPrefixUniqueId { get; set; }
+
+
+        /// <summary>
+        /// Can be used for customized properties on this <see cref="ChangeLogContext"/> class
+        /// </summary>
+        public Dictionary<string,object> AdditionalContext { get; }
+
+        /// <summary>
+        /// Default constructor<br/>
+        /// AnonymousOperation is assigned with "NOOP"
+        /// </summary>
         public ChangeLogContext()
         {
             AnonymousOperation = "NOOP";
-            AdditionalContext = Array.Empty<string>();
+            AdditionalContext = new Dictionary<string, object>();
+        }
+
+        /// <summary>
+        /// Constructor<br/>
+        /// -------------<br/>
+        /// AnonymousOperation is assigned with "NOOP"<br/>
+        /// SchemaPrefixId is assigned with value from parameter <paramref name="migrationConfig"/> - property <see cref="IMigrationModel.SchemaPrefixId"/><br/>
+        /// SchemaPrefixUniqueId is assigned with value from parameter <paramref name="migrationConfig"/> - property <see cref="IMigrationModel.SchemaPrefixUniqueId"/><br/>
+        /// <br/>
+        /// i.e:<br/>
+        /// When configuration have database:migration:schemaPrefix:Id = "PR" and database:migration:schemaPrefix:UniqueId = "abode" <br/>
+        /// SchemaPrefixId will be resolved to "PR"<br/>
+        /// SchemaPrefixUniqueId will be resolved to "abode"<br/>
+        /// </summary>
+        /// <param name="migrationConfig"></param>
+        public ChangeLogContext(IDbMigrationConfig migrationConfig)
+            :this()
+        {
+            SchemaPrefixId = migrationConfig?.GetSchemaPrefixId();
+            SchemaPrefixUniqueId = migrationConfig?.GetSchemaPrefixUniqueId();
+        }
+
+
+        /// <summary>
+        /// Constructor<br/>
+        /// -------------<br/>
+        /// AnonymousOperation is assigned with "NOOP"<br/>
+        /// SchemaPrefixId is assigned with value from parameter <paramref name="migrationConfig"/> - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/><br/> 
+        /// SchemaPrefixUniqueId is assigned with value from parameter <paramref name="migrationConfig"/> - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId()"/><br/> 
+        /// ShortName is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:ShortName or database:schemaPrefix:tables:{tableName}:ShortName<br/>
+        /// GlobalId is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:GlobalId or database:schemaPrefix:tables:{tableName}:GlobalId<br/>
+        /// <br/>
+        /// i.e:<br/>
+        /// When configuration have database:migration:schemaPrefix:Id = "PR" and database:migration:schemaPrefix:UniqueId = "abode" <br/>
+        /// SchemaPrefixId will be resolved to "PR"<br/>
+        /// SchemaPrefixUniqueId will be resolved to "abode"<br/>
+        /// <br/>
+        /// When <paramref name="tableName"/> is "testing", <br/>
+        /// ShortName is fetched from database:migration:schemaPrefix:tables:testing:ShortName or database:schemaPrefix:tables:testing:ShortName<br/>
+        /// GlobalId is fetched from database:migration:schemaPrefix:tables:testing:GlobalId or database:schemaPrefix:tables:testing:GlobalId<br/>
+        /// </summary>
+        /// <param name="migrationConfig"></param>
+        /// <param name="tableName"></param>
+        public ChangeLogContext(IDbMigrationConfig migrationConfig, string tableName)
+            :this(migrationConfig)
+        {
+            ShortName = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:shortName");
+            GlobalId = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:globalId");
+
+            if (!string.IsNullOrEmpty(ShortName) && migrationConfig != null)
+            {
+                ShortName = ShortName.GetPrefixedName(SchemaPrefixId);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Constructor<br/>
+        /// -------------<br/>
+        /// Inherited from constructor <see cref="ChangeLogContext(IDbMigrationConfig)"/><br/>
+        /// AnonymousOperation is assigned with "NOOP"<br/>
+        /// SchemaPrefixId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/><br/> 
+        /// SchemaPrefixUniqueId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId()"/><br/> 
+        /// <br/>
+        /// i.e:<br/>
+        /// When configuration have database:migration:schemaPrefix:Id = "PR" and database:migration:schemaPrefix:UniqueId = "abode" <br/>
+        /// SchemaPrefixId will be resolved to "PR"<br/>
+        /// SchemaPrefixUniqueId will be resolved to "abode"<br/>
+        /// </summary>
+        /// <param name="model"></param>
+        public ChangeLogContext(IMigrationModel model)
+            :this(model.GetMigrationConfig())
+        {
+        }
+
+        /// <summary>
+        /// Constructor<br/>
+        /// -------------<br/>
+        /// Inherited from constructor <see cref="ChangeLogContext(IDbMigrationConfig,string)"/><br/>
+        /// SchemaPrefixId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/><br/> 
+        /// SchemaPrefixUniqueId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId()"/><br/> 
+        /// ShortName is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:ShortName or database:schemaPrefix:tables:{tableName}:ShortName<br/>
+        /// GlobalId is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:GlobalId or database:schemaPrefix:tables:{tableName}:GlobalId<br/>
+        /// <br/>
+        /// i.e:<br/>
+        /// When configuration have database:migration:schemaPrefix:Id = "PR" and database:migration:schemaPrefix:UniqueId = "abode" <br/>
+        /// SchemaPrefixId will be resolved to "PR"<br/>
+        /// SchemaPrefixUniqueId will be resolved to "abode"<br/>
+        /// <br/>
+        /// When <paramref name="tableName"/> is "testing", <br/>
+        /// ShortName is fetched from database:migration:schemaPrefix:tables:testing:ShortName or database:schemaPrefix:tables:testing:ShortName<br/>
+        /// GlobalId is fetched from database:migration:schemaPrefix:tables:testing:GlobalId or database:schemaPrefix:tables:testing:GlobalId<br/>
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="tableName"></param>
+        public ChangeLogContext(IMigrationModel model, string tableName)
+            :this(model?.GetMigrationConfig(), tableName)
+        {
+        }
+
+        private string GetConfigValue(IDbMigrationConfig migrationConfig, string key)
+        {
+            if (migrationConfig == null)
+            {
+                return null;
+            }
+
+            return migrationConfig.GetAllMigrationConfigValues()?.GetValue(key) ??
+                   migrationConfig.GetDbConfig().GetAllDatabaseConfigValues()?.GetValue(key);
         }
     }
 }

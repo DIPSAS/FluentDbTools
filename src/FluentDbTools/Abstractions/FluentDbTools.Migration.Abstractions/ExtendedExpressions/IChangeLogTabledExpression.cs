@@ -34,7 +34,7 @@ namespace FluentDbTools.Migration.Abstractions.ExtendedExpressions
         IList<ColumnDefinition> Columns { get; }
 
         /// <summary>
-        /// The Table columns (if any) for this Table-Change-Log operation
+        /// The context information for this Table-Change-Log operation
         /// </summary>
         ChangeLogContext ChangeLogContext { get; }
 

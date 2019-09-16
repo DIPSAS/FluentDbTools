@@ -132,6 +132,32 @@ namespace FluentDbTools.Common.Abstractions
             return sql.Trim().StartsWith("-- ") || sql.Trim().StartsWith("/*");
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dictionary"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string GetValue(this IDictionary<string, string> dictionary, string key)
+        {
+            if (dictionary == null)
+            {
+                return null;
+            }
+
+            if (dictionary.TryGetValue(key, out var value))
+            {
+                return value;
+            }
+
+            if ((dictionary as Dictionary<string, string>)?.Comparer != null)
+            {
+                return null;
+            }
+            var e = dictionary.FirstOrDefault(x => StringExtensions.EqualsIgnoreCase(x.Key, key));
+            return e.Value;
+        }
     }
 
     

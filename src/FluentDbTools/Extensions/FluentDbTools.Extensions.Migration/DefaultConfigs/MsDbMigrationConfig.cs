@@ -83,7 +83,9 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         public string DatabaseName => GetDbConfig().DatabaseName;
 
         /// <inheritdoc />
-        public string GetSchemaPrefixId() => GetAllMigrationConfigValues().GetValue("schemaPrefix:Id") ?? Defaults?.GetDefaultSchemaPrefixIdString.Invoke() ?? string.Empty;
+        public string GetSchemaPrefixId() => GetAllMigrationConfigValues().GetValue("schemaPrefix:Id") ?? 
+                                             GetDbConfig().GetSchemaPrefixId() ??   
+                                             Defaults?.GetDefaultSchemaPrefixIdString.Invoke() ?? string.Empty;
 
         /// <inheritdoc />
         public string DatabaseOwner => Configuration.GetMigrationDatabaseOwner() ?? GetDbConfig().AdminUser;
@@ -108,7 +110,9 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         /// <inheritdoc />
         public string GetSchemaPrefixUniqueId()
         {
-            return GetAllMigrationConfigValues().GetValue("schemaPrefix:UniqueId");
+            return GetAllMigrationConfigValues().GetValue("schemaPrefix:UniqueId") ??
+                   GetDbConfig().GetSchemaPrefixUniqueId() ??
+                   Defaults?.GetDefaultSchemaPrefixUniqueIdString.Invoke() ?? string.Empty;;
         }
     }
 }

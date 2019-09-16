@@ -1,22 +1,22 @@
-﻿using FluentDbTools.Common.Abstractions;
+﻿using System.Runtime.CompilerServices;
+using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
-using FluentMigrator.Runner.VersionTableInfo;
+using FluentDbTools.Migration.Common;
 
 #pragma warning disable 618
-
+[assembly:InternalsVisibleTo("Test.FluentDbTools.Migration")]
 namespace Example.FluentDbTools.Migration
 {
-    public class ExampleVersionTable : DefaultVersionTableMetaData
+    /// <inheritdoc />
+    internal class ExampleVersionTableMetaData : VersionTableMetaData
     {
-        private readonly IDbMigrationConfig DbMigrationConfig;
-        
-        public ExampleVersionTable(IDbMigrationConfig dbMigrationConfig) 
+        /// <inheritdoc />
+        public ExampleVersionTableMetaData(IDbMigrationConfig dbMigrationConfig) 
+            : base(dbMigrationConfig)
         {
-            DbMigrationConfig = dbMigrationConfig;
         }
 
-        public override string UniqueIndexName => "UC_" + TableName;
-        public override string TableName => nameof(ExampleVersionTable).GetPrefixedName(DbMigrationConfig.GetSchemaPrefixId());
-        public override string SchemaName => DbMigrationConfig.Schema;
+        /// <inheritdoc />
+        public override string TableName => nameof(ExampleVersionTableMetaData).GetPrefixedName(DbMigrationConfig.GetSchemaPrefixId());
     }
 }

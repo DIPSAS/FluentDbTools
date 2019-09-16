@@ -30,6 +30,7 @@ namespace FluentDbTools.Contracts
         public Func<string> GetDefaultAdminConnectionString = () => null;
 
         public Func<string> GetDefaultSchemaPrefixIdString = () => string.Empty;
+        public Func<string> GetDefaultSchemaPrefixUniqueIdString = () => string.Empty;
 
     }
 }
