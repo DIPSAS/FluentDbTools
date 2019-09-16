@@ -184,7 +184,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         public static IDictionary<string, string> GetDbAllConfigValues(
             this IConfigurationSection sections)
         {
-            var dictionary = new Dictionary<string, string>();
+            var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             if (sections == null)
             {
                 return dictionary;
@@ -213,16 +213,6 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             }
 
             return dictionary;
-        }
-        public static string GetValue(this IDictionary<string, string> dictionary, string key)
-        {
-            string value = null;
-            if (dictionary?.TryGetValue(key, out value) ?? false)
-            {
-                return value;
-            }
-
-            return null;
         }
     }
 }

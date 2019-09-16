@@ -17,9 +17,15 @@ namespace FluentDbTools.Migration.Abstractions
         string SchemaName { get; }
 
         /// <summary>
-        /// SchemaPrefixId from configuration "database:migration:schemaprefix:id"
+        /// SchemaPrefixId - Fetch value from configuration "database:migration:schemaprefix:id" or "database:database:schemaprefix:id"
         /// </summary>
         string SchemaPrefixId { get; }
+
+        /// <summary>
+        /// SchemaPrefixUniqueId - Fetch value from configuration "database:migration:schemaprefix:uniqueid" or "database:database:schemaprefix:uniqueid"
+        /// </summary>
+        string SchemaPrefixUniqueId { get; }
+
 
         /// <summary>
         /// Return the injected MigrationContext or it will be resolved by reflection

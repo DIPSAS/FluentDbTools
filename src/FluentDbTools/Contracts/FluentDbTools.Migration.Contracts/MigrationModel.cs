@@ -19,6 +19,7 @@ namespace FluentDbTools.Migration.Contracts
     {
         private string SchemaNameField;
         private string SchemaPrefixIdField;
+        private string SchemaPrefixUniqueIdField;
         private string ConfiguredDatabaseTypeField;
         private IVersionTableMetaData Version;
         private IMigrationContext MigrationContextField;
@@ -105,6 +106,21 @@ namespace FluentDbTools.Migration.Contracts
 
                 SchemaPrefixIdField = GetMigrationConfig()?.GetSchemaPrefixId();
                 return SchemaPrefixIdField;
+            }
+        }
+
+        /// <inheritdoc />
+        public string SchemaPrefixUniqueId
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(SchemaPrefixUniqueIdField))
+                {
+                    return SchemaPrefixUniqueIdField;
+                }
+
+                SchemaPrefixUniqueIdField = GetMigrationConfig()?.GetSchemaPrefixUniqueId();
+                return SchemaPrefixUniqueIdField;
             }
         }
 

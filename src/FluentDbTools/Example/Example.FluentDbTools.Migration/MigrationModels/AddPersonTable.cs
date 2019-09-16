@@ -8,7 +8,7 @@ using FluentMigrator;
 namespace Example.FluentDbTools.Migration.MigrationModels
 {
     /// <inheritdoc />
-    [Migration(1, "Migration Example")]
+    [Migration(1, "Migration Example with SchemaPrefix")]
     public class AddPersonTable : MigrationModel
     {
         private ChangeLogContext PersonLogContextField;
@@ -16,35 +16,33 @@ namespace Example.FluentDbTools.Migration.MigrationModels
         private string PersonTableName => Table.Person.GetPrefixedName(SchemaPrefixId);
 
         private ChangeLogContext PersonLogContext => PersonLogContextField ??
-                                                           (PersonLogContextField = new ChangeLogContext
-                                                           {
-                                                               GlobalId = "per",
-                                                               ShortName = "PAR".GetPrefixedName(SchemaPrefixId),
-                                                               SchemaPrefix = SchemaPrefixId
-                                                           });
+                                                           (PersonLogContextField = new ChangeLogContext(this, Table.Person));
 
         private ChangeLogContext ParentLogContext => ParentLogContextField ??
-                                                           (ParentLogContextField = new ChangeLogContext
-                                                           {
-                                                               GlobalId = "par",
-                                                               ShortName = "PER".GetPrefixedName(SchemaPrefixId),
-                                                               SchemaPrefix = SchemaPrefixId
-                                                           });
-
+                                                           (ParentLogContextField = new ChangeLogContext(this, Table.Parent));
         /// <inheritdoc />
         public override void Up()
         {
-
-            var testChangeLogContext = new ChangeLogContext
-            {
-                GlobalId = "tes",
-                ShortName = "TES".GetPrefixedName(SchemaPrefixId)
-            };
+            // Create the ChangeLogContext with values from this.GetMigrationConfig()
+            // -
+            // SchemaPrefixId is fetched from database:migration:schemaPrefix:id or database:schemaPrefix:id<br/>
+            // SchemaPrefixUniqueId is fetched from database:migration:schemaPrefix:UniqueId or database:schemaPrefix:UniqueId<br/>
+            // -
+            // GlobalId is fetched from database:migration:schemaPrefix:tables:testing:GlobalId or database:schemaPrefix:tables:testing:GlobalId<br/>
+            // ShortName is fetched from database:migration:schemaPrefix:tables:testing:ShortName or database:schemaPrefix:tables:testing:ShortName<br/>
+            var testChangeLogContext = new ChangeLogContext(this, Table.Testing);
 
             CreateParent();
-
+            
+            // If "database:schemaPrefix:Id" or "database:migration:schemaPrefix:Id" have a value,
+            // the tableName Person will be created as {SchemaPrefixId}Person.
+            //
+            // i.e: "database:schemaPrefix:Id" = "EX" => will create table EXPerson
+            // If both "database:schemaPrefix:Id" and "database:migration:schemaPrefix:Id" is missing,
+            // the tableName Person will be created.
             var syntax = Create
-                .Table(Table.Person, this).InSchema(SchemaName)
+                .Table(Table.Person.GetPrefixedName(SchemaPrefixId)).InSchema(SchemaName)
+                .WithChangeLog(PersonLogContext)
                 .WithColumn(Table.Person + "Id").AsGuid().PrimaryKey().WithColumnDescription("Unique id.");
 
             if (IsOracle())
@@ -57,12 +55,14 @@ namespace Example.FluentDbTools.Migration.MigrationModels
             }
 
             syntax
+                .WithChangeLog(PersonLogContext) // ChangeLog activation for Create.Table(..)
                 .WithColumn(Column.SequenceNumber).AsInt32().NotNullable().WithColumnDescription("sequence number.")
                 .WithColumn(Column.Alive).AsBoolean().NotNullable().WithColumnDescription("Alive flag.")
                 .WithColumn(Column.Username).AsString().WithColumnDescription("username.")
                 .WithColumn("TestCol").AsGuid().WithColumnDescription("TestCol Guid")
-                .WithColumn(Column.Password).AsString().WithColumnDescription("password.")
-                .WithDefaultColumns()
+                .WithColumn(Column.Password).AsString().WithChangeLog(PersonLogContext).WithColumnDescription("password.")
+                .WithDefaultColumns() // Enable DefaultColumns functionality
+                .WithChangeLog(PersonLogContext)
                 .WithForeignKeyColumn("Parent".GetPrefixedName(SchemaPrefixId), this, "ParentId_FK", "ParentId").AsGuid().Nullable()
                 .WithDefaultColumns()
                 .WithChangeLog(PersonLogContext)
@@ -84,11 +84,12 @@ namespace Example.FluentDbTools.Migration.MigrationModels
                 .WithChangeLog(testChangeLogContext);
 
             Rename.Table("Test", this)
-                .ToTable("Testing", this)
+                .WithChangeLog(testChangeLogContext, this)
+                .ToTable(Table.Testing, this)
                 .WithChangeLog(testChangeLogContext, this);
 
             Rename
-                .Column("TestDescription").OnTable("Testing", this)
+                .Column("TestDescription").OnTable(Table.Testing, this)
                 .To("TestIngDescription", this)
                 .WithChangeLog(testChangeLogContext, this);
 
@@ -124,18 +125,15 @@ namespace Example.FluentDbTools.Migration.MigrationModels
         /// <inheritdoc />
         public override void Down()
         {
-            var testChangeLogContext = new ChangeLogContext
-            {
-                GlobalId = "tes",
-                ShortName = "TES".GetPrefixedName(SchemaPrefixId)
-            };
-            Delete.Table(Table.Person,this)
-                .WithChangeLog(PersonLogContext,this);
+            var testChangeLogContext = new ChangeLogContext(this, Table.Testing);
+            Delete.Table(GetPrefixedName(Table.Person))
+                .WithChangeLog(PersonLogContext,this)
+                .InSchema(SchemaName);
 
             Delete.Table(Table.Parent, this)
                 .WithChangeLog(ParentLogContext, this);
 
-            Delete.Table("Testing", this)
+            Delete.Table(Table.Testing, this)
                 .WithChangeLog(testChangeLogContext, this);
         }
     }

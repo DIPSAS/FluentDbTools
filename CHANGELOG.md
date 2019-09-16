@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.1.23 2019-09-16
+- Improved Configuration-dictionary lookup to be case-independent
+- VersionTable will now consider whether SchemPrefixId is defined in the configuration 
+-  i.e: SchemPrefixId = EX => VersionTable will be EXVersion
+-  i.e: SchemPrefixId is unspicified => VersionTable will be Version
+- SchemaPrefixId is fetched from database:migration:schemaPrefix:id OR database:schemaPrefix:id
+- SchemaPrefixUniqueId is fetched from database:migration:schemaPrefix:UniqueId OR database:schemaPrefix:UniqueId
+- Improved how data in ChangeLogContext initialized.
+- Added LogFileAppendFluentMigratorLoggerProvider. Sql log can be added to the end of a existing file
+
 ### Version 1.1.22 2019-09-12
 - Improved how external oracle sql statements is executed
 

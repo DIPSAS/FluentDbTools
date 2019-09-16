@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentMigrator.Runner;
-using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +11,14 @@ namespace FluentDbTools.Migration
 {
     public static class FluentMigrationLoggingExtensions
     {
+        public static bool UseLogFileAppendFluentMigratorLoggerProvider { get; set; }
+        public static IServiceCollection AddLogFileAppendFluentMigratorLoggerProvider(this IServiceCollection sc)
+        {
+            sc.Remove(new ServiceDescriptor(typeof(ILoggerProvider), typeof(LogFileFluentMigratorLoggerProvider)));
+            sc.AddScoped<ILoggerProvider, LogFileAppendFluentMigratorLoggerProvider>();
+            return sc;
+        }
+
         /// <summary>
         /// Remove all log-providers and add FluentMigratorConsoleLoggerProvider if enabled by configuration
         /// </summary>
@@ -56,7 +62,7 @@ namespace FluentDbTools.Migration
             }
 
             loggingBuilder.Services.AddSingleton<IOptions<FluentMigratorLoggerOptions>>(new OptionsWrapper<FluentMigratorLoggerOptions>(options));
-            loggingBuilder.Services.AddSingleton<ILoggerProvider, FluentMigratorConsoleLoggerProvider>();
+            loggingBuilder.Services.AddScoped<ILoggerProvider, FluentMigratorConsoleLoggerProvider>();
 
             return loggingBuilder;
         }
@@ -106,7 +112,16 @@ namespace FluentDbTools.Migration
             }
 
             loggingBuilder.Services.AddSingleton<IOptions<LogFileFluentMigratorLoggerOptions>>(new OptionsWrapper<LogFileFluentMigratorLoggerOptions>(options));
-            loggingBuilder.Services.AddSingleton<ILoggerProvider, LogFileFluentMigratorLoggerProvider>();
+            if (UseLogFileAppendFluentMigratorLoggerProvider)
+            {
+                loggingBuilder.Services.AddLogFileAppendFluentMigratorLoggerProvider();
+
+            }
+            else
+            {
+                loggingBuilder.Services.AddScoped<ILoggerProvider, LogFileFluentMigratorLoggerProvider>();
+
+            }
             return loggingBuilder;
         }
 

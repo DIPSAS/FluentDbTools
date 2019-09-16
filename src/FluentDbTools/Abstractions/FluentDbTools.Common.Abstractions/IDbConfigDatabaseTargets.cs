@@ -27,5 +27,12 @@ namespace FluentDbTools.Common.Abstractions
         /// </summary>
         /// <returns></returns>
         string GetSchemaPrefixId();
+
+        /// <summary>
+        /// Can be used to specifying a unique Id for the <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId"/>
+        /// </summary>
+        /// <returns></returns>
+        string GetSchemaPrefixUniqueId();
+
     }
 }

@@ -1,11 +1,7 @@
-using System.ComponentModel.Design.Serialization;
 using System.Data;
-using System.Diagnostics;
-using System.Dynamic;
-using System.Linq.Expressions;
-using System.Reflection;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
+using FluentDbTools.Migration.Abstractions.ExtendedExpressions;
 using FluentDbTools.Migration.Contracts.MigrationExpressions;
 using FluentMigrator.Builders;
 using FluentMigrator.Builders.Alter;
@@ -22,6 +18,7 @@ using FluentMigrator.Builders.Rename.Column;
 using FluentMigrator.Builders.Rename.Table;
 using FluentMigrator.Infrastructure;
 using FluentMigrator.Runner.Processors.Oracle;
+using Microsoft.Extensions.DependencyInjection;
 
 // ReSharper disable InvertIf
 
@@ -183,9 +180,11 @@ namespace FluentDbTools.Migration.Contracts
 
         /// <summary>
         /// Enable DefaultColumns functionality.<br/>
-        /// It will be possible to add custom columns when creating table.
+        /// ----------------------------------------<br/>
+        /// It will be possible to add custom columns when creating table.<br/>
         /// The interface <see cref="ICustomMigrationProcessor{T}"/> must be implemented and registered in the IoC container<br/>
         /// Method <see cref="ICustomMigrationProcessor.GetDefaultColumns"/> must be implemented to return all columns <br/>
+        /// <br/>
         /// i.e:<br/>
         /// ServiceProvider.AddSingleton&lt;<see cref="ICustomMigrationProcessor"/>&lt;<see cref="OracleProcessor"/>>,MyCustomMigrationUtilities>()
         /// </summary>
@@ -204,79 +203,210 @@ namespace FluentDbTools.Migration.Contracts
             return syntax;
         }
 
+
         /// <summary>
-        /// Enable ChangeLog functionality.<br/>
-        /// It will be possible to do custom stuff (i.e Write to a custom log table) for all table and columns operations
+        /// ChangeLog activation for Rename.Column(..) syntax <br/>
+        /// ----------------------------------------------------<br/>
+        /// It will be possible to add custom logging on all table operations.<br/>
+        /// The interface <see cref="ICustomMigrationProcessor{T}"/> must be implemented and registered in the IoC container (<see cref="IServiceCollection"/> )<br/>
+        /// Method <see cref="ICustomMigrationProcessor.Process(IChangeLogTabledExpression)"/><br/>
+        /// can be used to implementing your preferred custom logging <br/>
+        /// <br/>
+        /// See the example of a implementation of <see cref="ICustomMigrationProcessor{T}"/>:<br/> 
+        /// <a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br/>
+        /// <br/>
+        /// Can be registered like this:<br/>
+        /// <code type="csharp">
+        ///     <see cref="IServiceCollection">serviceCollection</see>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor&gt;,TestOracleCustomMigrationProcessor&gt;();
+        /// </code>
         /// </summary>
-        /// <param name="syntax">RenameColumn syntax</param>
-        /// <param name="changeLog">ChangeLog context object</param>
-        /// <param name="migration"><see cref="IMigrationModel"/></param>
-        /// <returns></returns>
+        /// <param name="syntax"></param>
+        /// <param name="changeLog"></param>
+        /// <param name="migration"></param>
+        /// <returns><see cref="IRenameColumnToSyntax"/></returns>
         public static IRenameColumnToSyntax WithChangeLog(this IRenameColumnToSyntax syntax, ChangeLogContext changeLog, IMigrationModel migration)
         {
             return AddChangeLogDynamicSyntax(syntax, changeLog, migration);
         }
 
-        public static ICreateColumnAsTypeOrInSchemaSyntax WithChangeLog(
-            this ICreateColumnAsTypeOrInSchemaSyntax syntax, ChangeLogContext changeLog)
-        {
-            return AddChangeLogCreateColumnSyntax(syntax, changeLog);
-        }
+        /// <summary>
+        /// ChangeLog activation for Create.Column(..) syntax <br/>
+        /// -------------------------------------------------<br/>
+        /// It will be possible to add custom logging on all table operations.<br/>
+        /// The interface <see cref="ICustomMigrationProcessor{T}"/> must be implemented and registered in the IoC container (<see cref="IServiceCollection"/> )<br/>
+        /// Method <see cref="ICustomMigrationProcessor.Process(IChangeLogTabledExpression)"/><br/>
+        /// can be used to implementing your preferred custom logging <br/>
+        /// <br/>
+        /// See the example of a implementation of <see cref="ICustomMigrationProcessor{T}"/>:<br/> 
+        /// <a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br/>
+        /// <br/>
+        /// Can be registered like this:<br/>
+        /// <code type="csharp">
+        ///     <see cref="IServiceCollection">serviceCollection</see>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor&gt;,TestOracleCustomMigrationProcessor&gt;();
+        /// </code>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="changeLog"></param>
+        /// <returns><see cref="ICreateColumnOptionSyntax"/></returns>
         public static ICreateColumnOptionSyntax WithChangeLog(
             this ICreateColumnOptionSyntax syntax, ChangeLogContext changeLog)
         {
             return AddChangeLogCreateColumnSyntax(syntax, changeLog);
         }
-
-        public static IColumnTypeSyntax<ICreateColumnOptionSyntax> WithChangeLog(
-            this IColumnTypeSyntax<ICreateColumnOptionSyntax> syntax,
-            ChangeLogContext changeLog)
-        {
-            return AddChangeLogCreateColumnSyntax(syntax, changeLog);
-        }
-
+        
+        /// <summary>
+        /// ChangeLog activation for Create.Table(..) syntax or Create.Column(..) syntax <br/>
+        /// -------------------------------------------------<br/>
+        /// It will be possible to add custom logging on all table operations.<br/>
+        /// The interface <see cref="ICustomMigrationProcessor{T}"/> must be implemented and registered in the IoC container (<see cref="IServiceCollection"/> )<br/>
+        /// Method <see cref="ICustomMigrationProcessor.Process(IChangeLogTabledExpression)"/><br/>
+        /// can be used to implementing your preferred custom logging <br/>
+        /// <br/>
+        /// See the example of a implementation of <see cref="ICustomMigrationProcessor{T}"/>:<br/> 
+        /// <a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br/>
+        /// <br/>
+        /// Can be registered like this:<br/>
+        /// <code type="csharp">
+        ///     <see cref="IServiceCollection">serviceCollection</see>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor&gt;,TestOracleCustomMigrationProcessor&gt;();
+        /// </code>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="changeLog"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns><typeparamref name="T"/></returns>
         public static T WithChangeLog<T>(this T syntax, ChangeLogContext changeLog) where T : ICreateTableWithColumnSyntax
         {
             return AddChangeLogCreateTableSyntax(syntax, changeLog);
         }
 
-        public static IRenameTableToSyntax WithChangeLog(this IRenameTableToSyntax syntax, ChangeLogContext changeLog, IMigrationModel migration)
+        /// <summary>
+        /// ChangeLog activation for Rename.Table(..) syntax <br/>
+        /// ----------------------------------------------------<br/>
+        /// It will be possible to add custom logging on all table operations.<br/>
+        /// The interface <see cref="ICustomMigrationProcessor{T}"/> must be implemented and registered in the IoC container (<see cref="IServiceCollection"/> )<br/>
+        /// Method <see cref="ICustomMigrationProcessor.Process(IChangeLogTabledExpression)"/><br/>
+        /// can be used to implementing your preferred custom logging <br/>
+        /// <br/>
+        /// See the example of a implementation of <see cref="ICustomMigrationProcessor{T}"/>:<br/> 
+        /// <a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br/>
+        /// <br/>
+        /// Can be registered like this:<br/>
+        /// <code type="csharp">
+        ///     <see cref="IServiceCollection">serviceCollection</see>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor&gt;,TestOracleCustomMigrationProcessor&gt;();
+        /// </code>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="changeLog"></param>
+        /// <param name="migration"></param>
+        /// <returns><see cref="IRenameTableToSyntax"/></returns>
+        public static T WithChangeLog<T>(this T syntax, ChangeLogContext changeLog, IMigrationModel migration) where T:IRenameTableToSyntax
         {
             return AddChangeLogDynamicSyntax(syntax, changeLog, migration);
         }
 
+        /// <summary>
+        /// ChangeLog activation for Delete.Table(..) syntax <br/>
+        /// ----------------------------------------------------<br/>
+        /// It will be possible to add custom logging on all table operations.<br/>
+        /// The interface <see cref="ICustomMigrationProcessor{T}"/> must be implemented and registered in the IoC container (<see cref="IServiceCollection"/> )<br/>
+        /// Method <see cref="ICustomMigrationProcessor.Process(IChangeLogTabledExpression)"/><br/>
+        /// can be used to implementing your preferred custom logging <br/>
+        /// <br/>
+        /// See the example of a implementation of <see cref="ICustomMigrationProcessor{T}"/>:<br/> 
+        /// <a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br/>
+        /// <br/>
+        /// Can be registered like this:<br/>
+        /// <code type="csharp">
+        ///     <see cref="IServiceCollection">serviceCollection</see>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor&gt;,TestOracleCustomMigrationProcessor&gt;();
+        /// </code>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="changeLog"></param>
+        /// <param name="migration"></param>
+        /// <returns><see cref="IInSchemaSyntax"/></returns>
         public static IInSchemaSyntax WithChangeLog(this IInSchemaSyntax syntax, ChangeLogContext changeLog, IMigrationModel migration)
         {
             return AddChangeLogDynamicSyntax(syntax, changeLog, migration);
         }
 
+        /// <summary>
+        /// ChangeLog activation for Alter.Table(..) syntax <br/>
+        /// -------------------------------------------------<br/>
+        /// It will be possible to add custom logging on all table operations.<br/>
+        /// The interface <see cref="ICustomMigrationProcessor{T}"/> must be implemented and registered in the IoC container (<see cref="IServiceCollection"/> )<br/>
+        /// Method <see cref="ICustomMigrationProcessor.Process(IChangeLogTabledExpression)"/><br/>
+        /// can be used to implementing your preferred custom logging <br/>
+        /// <br/>
+        /// See the example of a implementation of <see cref="ICustomMigrationProcessor{T}"/>:<br/> 
+        /// <a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br/>
+        /// <br/>
+        /// Can be registered like this:<br/>
+        /// <code type="csharp">
+        ///     <see cref="IServiceCollection">serviceCollection</see>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor&gt;,TestOracleCustomMigrationProcessor&gt;();
+        /// </code>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="changeLog"></param>
+        /// <returns><see cref="IAlterTableAddColumnOrAlterColumnSyntax"/></returns>
         public static IAlterTableAddColumnOrAlterColumnSyntax WithChangeLog(this IAlterTableAddColumnOrAlterColumnSyntax syntax, ChangeLogContext changeLog)
         {
             return AddChangeLogAlterTableSyntax(syntax, changeLog);
         }
 
-        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AddForeignKey(this IAlterTableAddColumnOrAlterColumnSyntax table, string primaryTableName, MigrationModel migration)
+        /// <summary>
+        /// Add foreign column on table specified in <paramref name="syntax"/>. Referenced table will be <paramref name="primaryTableName"/><br/>
+        /// If SchemaPrefixId is defined in <paramref name="migration"/>, the referenced table will be computed to {SchemaPrefixId}{<see cref="primaryTableName"/>}
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="primaryTableName"></param>
+        /// <param name="migration"></param>
+        /// <returns><see cref="IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax"/></returns>
+        // ReSharper disable once UnusedMember.Global
+        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AddForeignKey(this IAlterTableAddColumnOrAlterColumnSyntax syntax, string primaryTableName, MigrationModel migration)
         {
-            return table.AddForeignKey(primaryTableName, migration, migration.SchemaPrefixId);
+            return syntax.AddForeignKey(primaryTableName, migration, migration.SchemaPrefixId);
         }
 
-        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AddForeignKey(this IAlterTableAddColumnOrAlterColumnSyntax table, string primaryTableName, FluentMigrator.Migration migration, string schemaPrefix = null)
+        /// <summary>
+        /// Add foreign column on table specified in <paramref name="syntax"/>. Referenced table will be <paramref name="primaryTableName"/><br/>
+        /// If <paramref name="schemaPrefix"/> is defined, the referenced table will be computed to {<paramref name="schemaPrefix"/>}{<paramref name="primaryTableName"/>}
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="primaryTableName"></param>
+        /// <param name="migration"></param>
+        /// <param name="schemaPrefix"></param>
+        /// <returns></returns>
+        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AddForeignKey(this IAlterTableAddColumnOrAlterColumnSyntax syntax, string primaryTableName, FluentMigrator.Migration migration, string schemaPrefix = null)
         {
-            var expression = ((AlterTableExpressionBuilder)table).Expression;
+            var expression = ((AlterTableExpressionBuilder)syntax).Expression;
             var fromTableName = expression.TableName;
 
             var fkName = migration.GenerateFkName(primaryTableName, fromTableName, schemaPrefix);
 
-            return table
+            return syntax
                     .AddColumn(primaryTableName + ColumnName.Id).AsGuid()
                     .ForeignKey(fkName, primaryTableName, ColumnName.Id);
         }
 
+        /// <summary>
+        /// Alter a column named {<paramref name="primaryTableName"/>}{ColumnName.Id}<br/>
+        /// i.e: With  primaryTableName = "Test" => A column named "TestId" will be created.
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="primaryTableName"></param>
+        /// <returns></returns>
+        // ReSharper disable once UnusedMember.Global
         public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AlterForeignKeyColumn(this IAlterTableAddColumnOrAlterColumnSyntax syntax, string primaryTableName)
         {
-            return syntax.AlterColumn(primaryTableName + ColumnName.Id).AsGuid();
+            return syntax.AlterColumn($"{primaryTableName}{ColumnName.Id}").AsGuid();
         }
-
+        /// <summary>
+        /// Make <paramref name="columnName"/> Nullable
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
+        // ReSharper disable once UnusedMember.Global
         public static ICreateTableColumnAsTypeSyntax WithNullableColumn(this ICreateTableWithColumnSyntax syntax, string columnName)
         {
             var column = syntax.WithColumn(columnName);
@@ -288,6 +418,13 @@ namespace FluentDbTools.Migration.Contracts
             return column;
         }
 
+        /// <summary>
+        /// Alter table described in <paramref name="syntax"/> with nullable column <paramref name="columnName"/>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
+        // ReSharper disable once UnusedMember.Global
         public static IAlterTableColumnAsTypeSyntax AddNullableColumn(this IAlterTableAddColumnOrAlterColumnSyntax syntax, string columnName)
         {
             var column = syntax.AddColumn(columnName);
@@ -301,6 +438,14 @@ namespace FluentDbTools.Migration.Contracts
         }
 
 
+        /// <summary>
+        /// Set datetime dataType (depended of type of database)
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="model"></param>
+        /// <typeparam name="TNext"></typeparam>
+        /// <returns></returns>
+        // ReSharper disable once UnusedMember.Global
         public static TNext AsDatabaseDateTime<TNext>(this IColumnTypeSyntax<TNext> syntax, MigrationModel model)
             where TNext : IFluentSyntax
         {
@@ -308,15 +453,30 @@ namespace FluentDbTools.Migration.Contracts
         }
 
 
+        /// <summary>
+        /// Set BLOB dataType (depended of type of database)
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="model"></param>
+        /// <typeparam name="TNext"></typeparam>
+        /// <returns></returns>
+        // ReSharper disable once UnusedMember.Global
         public static TNext AsDatabaseBlob<TNext>(this IColumnTypeSyntax<TNext> syntax, MigrationModel model)
             where TNext : IFluentSyntax
         {
             return model.AsDatabaseBlob(syntax);
         }
-        public static ICreateTableColumnAsTypeSyntax WithIdColumn(this ICreateTableWithColumnSyntax tableWithColumnSyntax, FluentMigrator.Migration migration)
+
+        /// <summary>
+        /// Add Id column to table specified in <paramref name="syntax"/>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="migration"></param>
+        /// <returns></returns>
+        public static ICreateTableColumnAsTypeSyntax WithIdColumn(this ICreateTableWithColumnSyntax syntax, FluentMigrator.Migration migration)
         {
-            var expression = ((CreateTableExpressionBuilder)tableWithColumnSyntax).Expression;
-            var syntax = tableWithColumnSyntax
+            var expression = ((CreateTableExpressionBuilder)syntax).Expression;
+            var tableColumnAsTypeSyntax = syntax
                 .WithColumn(ColumnName.Id);
 
             migration.Create
@@ -324,18 +484,40 @@ namespace FluentDbTools.Migration.Contracts
                 .OnTable(expression.TableName)
                 .WithSchema(expression.SchemaName)
                 .Column(ColumnName.Id);
-            return syntax;
+            return tableColumnAsTypeSyntax;
         }
 
+        // ReSharper disable once UnusedMember.Global
+        /// <summary>
+        /// Add Guid Id column to table specified in <paramref name="syntax"/>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="migration"></param>
+        /// <returns></returns>
         public static ICreateTableColumnOptionOrWithColumnSyntax WithIdAsGuidColumn(this ICreateTableWithColumnSyntax syntax, FluentMigrator.Migration migration)
         {
             return syntax.WithIdColumn(migration).AsGuid().NotNullable();
         }
+
+        // ReSharper disable once UnusedMember.Global
+        /// <summary>
+        /// Add Int32(Number 10) Id column to table specified in <paramref name="syntax"/>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="migration"></param>
+        /// <returns></returns>
         public static ICreateTableColumnOptionOrWithColumnSyntax WithIdAsInt32Column(this ICreateTableWithColumnSyntax syntax, FluentMigrator.Migration migration)
         {
             return syntax.WithIdColumn(migration).AsInt32().NotNullable();
         }
 
+        /// <summary>
+        /// Create a Sequence with name {syntax.TableName}_seq <br/>
+        /// If SchemaPrefix is defined in <paramref name="migration"/>, the name will be {SchemaPrefix}{syntax.TableName}_seq
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="migration"></param>
+        /// <returns></returns>
         public static ICreateSequenceSyntax WithTableSequence(
             this ICreateTableColumnOptionOrWithColumnSyntax syntax, MigrationModel migration)
         {
@@ -343,6 +525,14 @@ namespace FluentDbTools.Migration.Contracts
         }
 
 
+        /// <summary>
+        /// Create a Sequence with name {syntax.TableName}_seq <br/>
+        /// If <paramref name="schemaPrefix"/> is defined, the name will be {schemaPrefix}{syntax.TableName}_seq
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="migration"></param>
+        /// <param name="schemaPrefix"></param>
+        /// <returns></returns>
         public static ICreateSequenceSyntax WithTableSequence(
             this ICreateTableColumnOptionOrWithColumnSyntax syntax,
             FluentMigrator.Migration migration,
@@ -359,6 +549,26 @@ namespace FluentDbTools.Migration.Contracts
                 .MaxValue(int.MaxValue).IncrementBy(1);
         }
 
+        /// <summary>
+        /// Create a foreign columnName to the table <paramref name="primaryTableName"/><br/>
+        /// ------------------------------------------------------------------ <br/>
+        /// If <paramref name="columnName"/> is specified, the new column-name will follow that value<br/>
+        /// If <paramref name="columnName"/> is unspecified, the new column-name will be computed<br/>
+        /// <br/>
+        /// If <paramref name="primaryColumnName"/> is specified, the primary-table-column will follow that value<br/>
+        /// If <paramref name="primaryColumnName"/> is unspecified, the primary-table-column will be computed<br/>
+        /// <br/>
+        /// i.e:<br/>
+        /// <paramref name="columnName"/> is unspecified and <paramref name="primaryTableName"/> is "Parent" => column-name will be computed to "ParentId"<br/>
+        /// <br/>
+        /// <paramref name="primaryColumnName"/> is unspecified => the primary-table-column will be "Id"<br/>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="primaryTableName"></param>
+        /// <param name="migration"></param>
+        /// <param name="columnName"></param>
+        /// <param name="primaryColumnName"></param>
+        /// <returns></returns>
         public static ICreateTableColumnAsTypeSyntax WithForeignKeyColumn(
             this ICreateTableWithColumnSyntax syntax,
             string primaryTableName,
@@ -370,6 +580,27 @@ namespace FluentDbTools.Migration.Contracts
 
         }
 
+        /// <summary>
+        /// Create a foreign columnName to the table <paramref name="primaryTableName"/><br/>
+        /// ------------------------------------------------------------------ <br/>
+        /// If <paramref name="columnName"/> is specified, the new column-name will follow that value<br/>
+        /// If <paramref name="columnName"/> is unspecified, the new column-name will be computed<br/>
+        /// <br/>
+        /// If <paramref name="primaryColumnName"/> is specified, the primary-table-column will follow that value<br/>
+        /// If <paramref name="primaryColumnName"/> is unspecified, the primary-table-column will be computed<br/>
+        /// <br/>
+        /// i.e:<br/>
+        /// <paramref name="columnName"/> is unspecified and <paramref name="primaryTableName"/> is "Parent" => column-name will be computed to "ParentId"<br/>
+        /// <br/>
+        /// <paramref name="primaryColumnName"/> is unspecified => the primary-table-column will be "Id"<br/>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="primaryTableName"></param>
+        /// <param name="migration"></param>
+        /// <param name="schemaPrefix"></param>
+        /// <param name="columnName"></param>
+        /// <param name="primaryColumnName"></param>
+        /// <returns></returns>
         public static ICreateTableColumnAsTypeSyntax WithForeignKeyColumn(
             this ICreateTableWithColumnSyntax syntax,
             string primaryTableName,
@@ -406,6 +637,14 @@ namespace FluentDbTools.Migration.Contracts
             return syntaxWithColumn;
         }
 
+        /// <summary>
+        /// return Foreign Key name
+        /// </summary>
+        /// <param name="migrationModel"></param>
+        /// <param name="primaryTableName"></param>
+        /// <param name="fromTableName"></param>
+        /// <param name="schemaPrefix"></param>
+        /// <returns></returns>
         public static string GenerateFkName(this FluentMigrator.Migration migrationModel, string primaryTableName, string fromTableName, string schemaPrefix = null)
         {
             const string prefix = "FK_";
@@ -421,12 +660,28 @@ namespace FluentDbTools.Migration.Contracts
             return fkName;
         }
 
+        // ReSharper disable once UnusedMember.Global
+        /// <summary>
+        /// return Primary Key name
+        /// </summary>
+        /// <param name="migration"></param>
+        /// <param name="primaryTableName"></param>
+        /// <param name="idColumn"></param>
+        /// <returns></returns>
         public static string GeneratePkName(this MigrationModel migration, string primaryTableName,
             string idColumn)
         {
             return migration.GeneratePkName(primaryTableName, idColumn, migration.SchemaPrefixId);
         }
 
+        /// <summary>
+        /// return Primary Key name
+        /// </summary>
+        /// <param name="migration"></param>
+        /// <param name="primaryTableName"></param>
+        /// <param name="idColumn"></param>
+        /// <param name="schemaPrefix"></param>
+        /// <returns></returns>
         public static string GeneratePkName(this FluentMigrator.Migration migration, string primaryTableName, string idColumn, string schemaPrefix = null)
         {
             const string prefix = "";
@@ -442,11 +697,11 @@ namespace FluentDbTools.Migration.Contracts
             return pkName;
         }
 
-        private static string GetShortNameOfTableName(string currentTableName, int length = 13)
-        {
-            return currentTableName.Substring(0, currentTableName.Length > length ? length : currentTableName.Length);
-        }
-
+        /// <summary>
+        /// Get DatabaseType from <paramref name="migration"/>
+        /// </summary>
+        /// <param name="migration"></param>
+        /// <returns></returns>
         public static string GetConfigurtedDatabaseType(this FluentMigrator.Migration migration)
         {
             var configuredDatabaseType = string.Empty;
@@ -458,6 +713,12 @@ namespace FluentDbTools.Migration.Contracts
 
             return configuredDatabaseType;
         }
+
+        private static string GetShortNameOfTableName(string currentTableName, int length = 13)
+        {
+            return currentTableName.Substring(0, currentTableName.Length > length ? length : currentTableName.Length);
+        }
+
         private static T AddChangeLogCreateTableSyntax<T>(T syntax, ChangeLogContext changeLog) where T : ICreateTableWithColumnSyntax
         {
             if (syntax is CreateTableExpressionBuilder createTableBuilder)

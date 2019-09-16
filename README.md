@@ -59,6 +59,19 @@ using (var scope = serviceProvider.CreateScope())
     "hostname": "localhost",
     "port": 5433,
     "pooling": true,
+	// If you want all tables should be prefixed with EX 
+	// i.e. Person will give tablename EXPerson in the database
+	"schemaPrefix": {
+        "Id": "EX", 
+		"UniqueId": "excv", 
+		"tables": {
+			// ChangeLogContext for table "Person"
+			"person": {
+				"GlobalId": "abcd",
+				"ShortName": "EXTST"
+			}
+		}
+    }
     "migration": {
         "schemaPassword": "dbpassword" 
     }
@@ -100,31 +113,43 @@ using (var scope = provider.CreateScope())
 ```
 
 ```csharp
-[Migration(1, "Migration Example")]
+[Migration(1, "Migration Example With SchemaPrefix")]
 public class AddPersonTable : MigrationModel
 {
     public override void Up()
     {
-        var personChangeLogContext = new ChangeLogContext
-        {
-             GlobalId = "per",
-             ShortName = "PER".GetPrefixedName(SchemaPrefixId)
-        };
+        // Create the ChangeLogContext with values from this.GetMigrationConfig()
+        // -
+        // SchemaPrefixId is fetched from database:migration:schemaPrefix:id or database:schemaPrefix:id<br/>
+        // SchemaPrefixUniqueId is fetched from database:migration:schemaPrefix:UniqueId or database:schemaPrefix:UniqueId<br/>
+        // -
+        // GlobalId is fetched from database:migration:schemaPrefix:tables:person:GlobalId or database:schemaPrefix:tables:person:GlobalId<br/>
+        // ShortName is fetched from database:migration:schemaPrefix:tables:person:ShortName or database:schemaPrefix:tables:person:ShortName<br/>
+        var personChangeLogContext = new ChangeLogContext(this, Table.Person);
 
-        Create.Table(Table.Person)
-            .InSchema(SchemaName)
+        // When "database:schemaPrefix:Id" or "database:migration:schemaPrefix:Id" have a value,
+        // the tableName Person will be created as {SchemaPrefixId}Person.
+		//
+        // i.e: "database:schemaPrefix:Id" = "EX" => a table with name EXPerson will be created.
+        // If both "database:schemaPrefix:Id" and "database:migration:schemaPrefix:Id" is missing,
+        // a table with name Person will be created.
+        Create.Table(Table.Person.GetPrefixedName(SchemaPrefixId)).InSchema(personChangeLogContext)
+            .WithChangeLog(PersonLogContext) // ChangeLog activation for Create.Table(..)
             .WithColumn(Column.Id).AsGuid().PrimaryKey()
             .WithColumn(Column.SequenceNumber).AsInt32().NotNullable()
             .WithColumn(Column.Username).AsString()
             .WithColumn(Column.Password).AsString()
-            .WithDefaultColumns()
-            .WithChangeLog(personChangeLogContext)
+            .WithDefaultColumns() // Enable DefaultColumns functionality
             .WithTableSequence(this);
     }
 
     public override void Down()
     {
-        Delete.Table(Table.Person).InSchema(SchemaName);
+        var personChangeLogContext = new ChangeLogContext(this, Table.Person);
+        Delete.Table(GetPrefixedName(Table.Person))
+            .WithChangeLog(personChangeLogContext,this)
+            .InSchema(SchemaName);
+
     }
 }
 ```

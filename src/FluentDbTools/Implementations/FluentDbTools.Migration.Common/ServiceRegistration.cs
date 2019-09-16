@@ -1,4 +1,5 @@
-﻿using FluentMigrator.Runner.VersionTableInfo;
+﻿using FluentDbTools.Migration.Abstractions;
+using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FluentDbTools.Migration.Common
@@ -8,7 +9,8 @@ namespace FluentDbTools.Migration.Common
         public static IServiceCollection Register(IServiceCollection serviceCollection)
         {
             return serviceCollection
-                .AddScoped<IVersionTableMetaData, VersionTable>();
+                .AddScoped<IFluentDbToolsVersionTableMetaData, VersionTableMetaData>()
+                .AddScoped<IVersionTableMetaData>(sp => sp.GetRequiredService<IFluentDbToolsVersionTableMetaData>());
         }
     }
 }
