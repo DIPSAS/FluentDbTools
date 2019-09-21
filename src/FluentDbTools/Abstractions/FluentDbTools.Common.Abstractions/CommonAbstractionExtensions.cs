@@ -134,29 +134,44 @@ namespace FluentDbTools.Common.Abstractions
 
 
         /// <summary>
-        /// 
+        /// Get config value by keys.
         /// </summary>
         /// <param name="dictionary"></param>
-        /// <param name="key"></param>
+        /// <param name="keys"></param>
         /// <returns></returns>
-        public static string GetValue(this IDictionary<string, string> dictionary, string key)
+        public static string GetValue(this IDictionary<string, string> dictionary, params string[] keys)
         {
             if (dictionary == null)
             {
                 return null;
             }
-
-            if (dictionary.TryGetValue(key, out var value))
+            var hasComparer = new bool?();
+            foreach (var key in keys)
             {
-                return value;
+                if (dictionary.TryGetValue(key, out var value))
+                {
+                    return value;
+                }
+
+                if (hasComparer == null)
+                {
+                    hasComparer = (dictionary as Dictionary<string, string>)?.Comparer != null;
+                }
+
+                if (hasComparer.Value)
+                {
+                    continue;
+                }
+
+                var e = dictionary.FirstOrDefault(x => x.Key.EqualsIgnoreCase(key));
+                if (e.Value != null)
+                {
+                    return e.Value;
+                }
             }
 
-            if ((dictionary as Dictionary<string, string>)?.Comparer != null)
-            {
-                return null;
-            }
-            var e = dictionary.FirstOrDefault(x => StringExtensions.EqualsIgnoreCase(x.Key, key));
-            return e.Value;
+            return null;
+
         }
     }
 

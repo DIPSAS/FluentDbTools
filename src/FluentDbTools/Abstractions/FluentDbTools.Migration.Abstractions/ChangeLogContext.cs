@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions.ExtendedExpressions;
 
@@ -8,8 +10,9 @@ namespace FluentDbTools.Migration.Abstractions
     /// <summary>
     /// Specify Change Log information for ChangeLog operation <see cref="ICustomMigrationProcessor.Process(IChangeLogTabledExpression)"/>
     /// </summary>
-    public class ChangeLogContext
+    public class ChangeLogContext : MigrationMetadata
     {
+
         /// <summary>
         /// Can be used to specify the Global Id of the changed resource (mostly a table)<br/>
         /// i.e: "abc", "lmn", "xyz" 
@@ -57,7 +60,7 @@ namespace FluentDbTools.Migration.Abstractions
         /// Default constructor<br/>
         /// AnonymousOperation is assigned with "NOOP"
         /// </summary>
-        public ChangeLogContext()
+        public ChangeLogContext() : base()
         {
             AnonymousOperation = "NOOP";
             AdditionalContext = new Dictionary<string, object>();
@@ -81,6 +84,7 @@ namespace FluentDbTools.Migration.Abstractions
         {
             SchemaPrefixId = migrationConfig?.GetSchemaPrefixId();
             SchemaPrefixUniqueId = migrationConfig?.GetSchemaPrefixUniqueId();
+            InitMetadata(migrationConfig);
         }
 
 
@@ -132,9 +136,11 @@ namespace FluentDbTools.Migration.Abstractions
         /// SchemaPrefixUniqueId will be resolved to "abode"<br/>
         /// </summary>
         /// <param name="model"></param>
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public ChangeLogContext(IMigrationModel model)
             :this(model.GetMigrationConfig())
         {
+            InitMetadata(model);
         }
 
         /// <summary>
@@ -160,17 +166,6 @@ namespace FluentDbTools.Migration.Abstractions
         public ChangeLogContext(IMigrationModel model, string tableName)
             :this(model?.GetMigrationConfig(), tableName)
         {
-        }
-
-        private string GetConfigValue(IDbMigrationConfig migrationConfig, string key)
-        {
-            if (migrationConfig == null)
-            {
-                return null;
-            }
-
-            return migrationConfig.GetAllMigrationConfigValues()?.GetValue(key) ??
-                   migrationConfig.GetDbConfig().GetAllDatabaseConfigValues()?.GetValue(key);
         }
     }
 }

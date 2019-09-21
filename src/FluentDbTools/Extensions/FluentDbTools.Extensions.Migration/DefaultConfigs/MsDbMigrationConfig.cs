@@ -108,6 +108,12 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         }
 
         /// <inheritdoc />
+        public string GetMigrationName()
+        {
+            return GetAllMigrationConfigValues().GetValue("migrationName", "name");
+        }
+
+        /// <inheritdoc />
         public string GetSchemaPrefixUniqueId()
         {
             return GetAllMigrationConfigValues().GetValue("schemaPrefix:UniqueId") ??
