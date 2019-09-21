@@ -177,6 +177,8 @@ namespace FluentDbTools.Migration.Contracts.MigrationExpressions
             TableDescription = builder.Expression.TableDescription;
         }
 
+
+        /// <inheritdoc />
         public override string ToString()
         {
             return $"ChangeLog Expression is linked to [{Expression}] expression";

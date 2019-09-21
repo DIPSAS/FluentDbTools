@@ -1,7 +1,5 @@
 ﻿using FluentDbTools.Migration.Abstractions.ExtendedExpressions;
-using FluentMigrator.Builders.Execute;
 using FluentMigrator.Expressions;
-using FluentMigrator.Infrastructure;
 
 namespace FluentDbTools.Migration.Contracts.MigrationExpressions
 {
@@ -16,7 +14,7 @@ namespace FluentDbTools.Migration.Contracts.MigrationExpressions
         public CreateTableExpression Expression { get;}
 
         /// <summary>
-        /// Constru
+        /// Constructor
         /// </summary>
         /// <param name="dependedExpression"></param>
         public DefaultColumnsLinkedExpression(CreateTableExpression dependedExpression)
@@ -40,26 +38,12 @@ namespace FluentDbTools.Migration.Contracts.MigrationExpressions
         {
             return Expression.GetHashCode();
         }
+
+        /// <inheritdoc />
         public override string ToString()
         {
             return $"DefaultColumn Expression is linked to [{Expression}] expression";
         }
-    }
-
-    public class SchemaWithPrefixExpression : ISchemaWithPrefixExpression
-    {
-        public string SchemaName { get; set; }
-        public string SchemaPrefix { get; set; }
-        public string SchemaPrefixUniqueId { get; set; }
-    }
-
-    public class DropSchemaWithPrefixExpression : SchemaWithPrefixExpression, IDropSchemaWithPrefixExpression
-    {
-    }
-
-    public class CreateSchemaWithPrefixExpression : SchemaWithPrefixExpression, ICreateSchemaWithPrefixExpression
-    {
-
     }
 }
 

@@ -65,6 +65,6 @@ namespace FluentDbTools.Migration.Abstractions
         /// Reset fields 
         /// </summary>
         /// <param name="context"></param>
-        void Reset(IMigrationContext context);
+        IMigrationContext Reset(IMigrationContext context);
     }
 }

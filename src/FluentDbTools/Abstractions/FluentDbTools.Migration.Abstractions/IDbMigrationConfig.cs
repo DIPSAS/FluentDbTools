@@ -4,6 +4,9 @@ using FluentDbTools.Common.Abstractions;
 
 namespace FluentDbTools.Migration.Abstractions
 {
+    /// <summary>
+    /// Contains important Migration config values
+    /// </summary>
     public interface IDbMigrationConfig : IDbConfigDatabaseTargets
     {
         /// <summary>
@@ -54,5 +57,12 @@ namespace FluentDbTools.Migration.Abstractions
         /// GetAllMigrationConfigValues() : Get al values and subValues from configuration "database:migration". 
         /// </summary>
         IDictionary<string, string> GetAllMigrationConfigValues(bool reload = false);
+
+        /// <summary>
+        /// Can be used to specify the custom MigrationName <br/>
+        /// Will follow configuration parameter "database:migration:migrationName" or "database:migration:name". 
+        /// </summary>
+        /// <returns></returns>
+        string GetMigrationName();
     }
 }

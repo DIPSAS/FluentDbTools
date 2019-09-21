@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
+using FluentDbTools.Migration.Contracts.MigrationExpressions;
 using FluentMigrator.Builders;
 using FluentMigrator.Builders.Delete;
 using FluentMigrator.Expressions;
@@ -26,6 +29,7 @@ namespace FluentDbTools.Migration.Contracts
         private IDbMigrationConfig MigrationConfigField;
         private IServiceProvider ServiceProviderField;
         private IList<IMigrationExpression> MigrationExpressionsField;
+        private static Assembly CurrentMigrationAssembly;
 
         /// <inheritdoc />
         public ICreateOrReplaceExpressionRoot CreateOrReplace => new CreateOrReplaceExpressionRoot(GetMigrationContext());
@@ -147,9 +151,7 @@ namespace FluentDbTools.Migration.Contracts
                 return MigrationContextField;
             }
 
-            MigrationContextField = this.GetMigrationContextFromObject(typeof(FluentMigrator.Migration));
-
-            return MigrationContextField;
+            return Reset(this.GetMigrationContextFromObject(typeof(FluentMigrator.Migration)));
         }
 
         /// <inheritdoc />
@@ -170,27 +172,37 @@ namespace FluentDbTools.Migration.Contracts
         }
 
         /// <inheritdoc />
-        public void Reset(IMigrationContext context)
+        public IMigrationContext Reset(IMigrationContext context)
         {
             MigrationExpressionsField = null;
             MigrationContextField = context;
+            var assembly = GetType().Assembly;
+            if (!Equals(assembly, CurrentMigrationAssembly))
+            {
+                CurrentMigrationAssembly = assembly;
+                GetExpressions()?.Add(new MigrationMetadataChangedExpression(new MigrationMetadata(this).InitMetadata(GetMigrationConfig())));
+            }
+            return context;
         }
 
         /// <inheritdoc />
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         protected MigrationModel()
         {
         }
 
         /// <inheritdoc />
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         protected MigrationModel(IVersionTableMetaData version)
         {
             Version = version;
         }
 
         /// <inheritdoc />
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         protected MigrationModel(IMigrationContext context)
         {
-            MigrationContextField = context;
+            Reset(context);
         }
         /// <summary>
         /// Return true if ConfiguredDatabaseType == "oracle"
@@ -205,6 +217,7 @@ namespace FluentDbTools.Migration.Contracts
         /// Return true if ConfiguredDatabaseType == "postgres"
         /// </summary>
         /// <returns></returns>
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public bool IsPostgres()
         {
             return IsPostgres(this.GetConfigurtedDatabaseType());

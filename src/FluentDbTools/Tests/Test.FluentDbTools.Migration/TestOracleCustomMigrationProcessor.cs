@@ -20,6 +20,11 @@ namespace Test.FluentDbTools.Migration
             Logger = logger;
         }
 
+        public void MigrationMetadataChanged(IMigrationMetadata migrationMetadata)
+        {
+            Logger.LogInformation(migrationMetadata.ToString());
+        }
+
         public void ConfigureSqlExecuteAction(Action<string> executeSqlAction)
         {
             Execute = executeSqlAction;
@@ -55,7 +60,7 @@ namespace Test.FluentDbTools.Migration
         /// <param name="expression"></param>
         public void ProcessAfter(ICreateSchemaWithPrefixExpression expression)
         {
-            Logger.LogInformation($"ProcessAfter Schema:{expression.SchemaName} SchemaPrefix:{expression.SchemaPrefix}");
+            Logger.LogInformation($"ProcessAfter Schema:{expression.SchemaName} SchemaPrefix:{expression.SchemaPrefixId}");
         }
 
         /// <summary>
@@ -65,7 +70,7 @@ namespace Test.FluentDbTools.Migration
         /// <param name="expression"></param>
         public void ProcessAfter(IDropSchemaWithPrefixExpression expression)
         {
-            Logger.LogInformation($"ProcessAfter Schema:{expression.SchemaName} SchemaPrefix:{expression.SchemaPrefix}");
+            Logger.LogInformation($"ProcessAfter Schema:{expression.SchemaName} SchemaPrefix:{expression.SchemaPrefixId}");
 
         }
 
@@ -90,7 +95,7 @@ namespace Test.FluentDbTools.Migration
 ";
             sqlAll = sqlAll.Replace("{SchemaName}", expression.SchemaName);
             sqlAll = sqlAll.Replace("{SchemaPrefixUniqueId}", expression.SchemaPrefixUniqueId);
-            sqlAll = sqlAll.Replace("{SchemaPrefix}", expression.SchemaPrefix);
+            sqlAll = sqlAll.Replace("{SchemaPrefix}", expression.SchemaPrefixId);
             return sqlAll;
         }
 

@@ -205,6 +205,8 @@ namespace Test.FluentDbTools.Migration
 
             inMemoryOverrideConfig.Add("database:schemaprefix:tables:person:shortName", "sn");
             inMemoryOverrideConfig.Add("database:schemaprefix:tables:person:globalId", "glob");
+            //inMemoryOverrideConfig.Add("database:migration:migrationName", "migrationName");
+            inMemoryOverrideConfig.Add("database:migration:name", "name");
 
 
             File.Delete(logFile);
