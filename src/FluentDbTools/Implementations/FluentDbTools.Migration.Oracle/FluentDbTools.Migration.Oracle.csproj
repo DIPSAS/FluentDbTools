@@ -7,26 +7,22 @@
     <Import Project="..\..\SolutionInfo.proj" />
 
     <ItemGroup>
+      <None Remove="CustomProcessor\Resources\CreateSchemaSql.sql" />
+      <None Remove="CustomProcessor\Resources\LogonScriptSql.sql" />
+      <None Remove="CustomProcessor\Resources\SchemaPrefixSql.sql" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="CustomProcessor\Resources\CreateSchemaSql.sql" />
+      <EmbeddedResource Include="CustomProcessor\Resources\LogonScriptSql.sql" />
+      <EmbeddedResource Include="CustomProcessor\Resources\SchemaPrefixSql.sql" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\..\Abstractions\FluentDbTools.Common.Abstractions\FluentDbTools.Common.Abstractions.csproj" />
       <ProjectReference Include="..\..\Contracts\FluentDbTools.Migration.Contracts\FluentDbTools.Migration.Contracts.csproj" />
       <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.MSDependencyInjection.Oracle\FluentDbTools.Extensions.MSDependencyInjection.Oracle.csproj" />
       <ProjectReference Include="..\FluentDbTools.Migration.Common\FluentDbTools.Migration.Common.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="CustomProcessor\SqlResources.Designer.cs">
-        <DependentUpon>SqlResources.resx</DependentUpon>
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Update="CustomProcessor\SqlResources.resx">
-        <SubType>Designer</SubType>
-        <LastGenOutput>SqlResources.Designer.cs</LastGenOutput>
-        <Generator>PublicResXFileCodeGenerator</Generator>
-      </EmbeddedResource>
     </ItemGroup>
 
 </Project>
