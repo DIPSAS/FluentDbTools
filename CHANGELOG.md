@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.1.27 2019-09-23
+- Fixed SqlResource for netstandard2.0
+
 ### Version 1.1.26 2019-09-23
 - Improved implementation of DefaultOracleCustomMigrationProcessor
 
