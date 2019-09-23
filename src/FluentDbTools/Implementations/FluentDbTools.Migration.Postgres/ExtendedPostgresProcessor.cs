@@ -69,6 +69,17 @@ namespace FluentDbTools.Migration.Postgres
         {
             Process(sql);
         }
+
+        public void Initialize(ICustomMigrationProcessor customMigrationProcessor)
+        {
+            
+        }
+
+        public bool IsExists(string template, params object[] args)
+        {
+            return Exists(template, args);
+        }
+
         public override bool TableExists(string schemaName, string tableName)
         {
             return base.TableExists(schemaName, tableName.ToLower());

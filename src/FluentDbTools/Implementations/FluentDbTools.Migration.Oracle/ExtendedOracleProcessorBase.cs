@@ -16,14 +16,15 @@ using FluentMigrator.Runner.Processors.Oracle;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
+
 namespace FluentDbTools.Migration.Oracle
 {
-    internal class ExtendedOracleProcessorBase : OracleProcessorBase, IExtendedMigrationProcessor<ExtendedOracleProcessorBase>
+    internal class ExtendedOracleProcessorBase : OracleProcessorBase, IExtendedMigrationProcessor<ExtendedOracleProcessorBase>, IExtendedMigrationProcessorOracle
     {
         private IMigrationMetadata MigrationMetadata;
         private readonly IDbMigrationConfig MigrationConfig;
         private readonly IExtendedMigrationGenerator ExtendedGenerator;
-        private readonly ICustomMigrationProcessor CustomMigrationProcessor;
+        private ICustomMigrationProcessor CustomMigrationProcessor;
         protected string SchemaPrefix => MigrationConfig?.GetSchemaPrefixId();
         protected string SchemaPrefixUniqueId => MigrationConfig?.GetSchemaPrefixUniqueId();
 
@@ -34,20 +35,11 @@ namespace FluentDbTools.Migration.Oracle
             IConnectionStringAccessor connectionStringAccessor,
             IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator> extendedGenerator,
             IDbMigrationConfig migrationConfig,
-            ICustomMigrationProcessor<OracleProcessor> customMigrationProcessor = null,
             IMigrationSourceItem migrationSourceItem = null) : base(ProcessorIds.OracleProcessorId, factory, generator, logger, options, connectionStringAccessor)
         {
             MigrationConfig = migrationConfig;
             ExtendedGenerator = extendedGenerator;
-            CustomMigrationProcessor = customMigrationProcessor;
             MigrationMetadata = new MigrationMetadata(migrationSourceItem).InitMetadata(MigrationConfig);
-
-            RunCustomAction(() =>
-            {
-                CustomMigrationProcessor?.MigrationMetadataChanged(MigrationMetadata);
-                CustomMigrationProcessor?.ConfigureSqlExecuteAction(sql =>
-                        Process(new SqlStatement { Sql = sql, IsExternal = true }));
-            });
         }
 
         public override bool Exists(string template, params object[] args)
@@ -102,6 +94,23 @@ namespace FluentDbTools.Migration.Oracle
             base.Process(expression);
         }
 
+
+        public void Initialize(ICustomMigrationProcessor customMigrationProcessor)
+        {
+            CustomMigrationProcessor = customMigrationProcessor;
+
+            RunCustomAction(() =>
+            {
+                CustomMigrationProcessor?.ConfigureSqlExecuteAction(sql => Process(new SqlStatement { Sql = sql, IsExternal = true }));
+                CustomMigrationProcessor?.MigrationMetadataChanged(MigrationMetadata, this);
+            });
+
+        }
+
+        public bool IsExists(string template, params object[] args)
+        {
+            return Exists(template, args);
+        }
 
         public override bool SchemaExists(string schemaName)
         {
@@ -184,7 +193,7 @@ namespace FluentDbTools.Migration.Oracle
             {
                 MigrationMetadata = expression.MigrationMetadata;
 
-                CustomMigrationProcessor.MigrationMetadataChanged(MigrationMetadata);
+                CustomMigrationProcessor.MigrationMetadataChanged(MigrationMetadata, this);
             });
         }
 
@@ -398,12 +407,9 @@ namespace FluentDbTools.Migration.Oracle
                     return;
                 }
 
-                foreach (var statement in statementsSql)
+                foreach (var commandText in sqlStatement.Sql.ExtractSqlStatements())
                 {
-                    foreach (var commandText in statement.ExtractSqlStatements())
-                    {
-                        ExecuteCommand(runningSql = commandText);
-                    }
+                    ExecuteCommand(runningSql = commandText);
                 }
 
             }

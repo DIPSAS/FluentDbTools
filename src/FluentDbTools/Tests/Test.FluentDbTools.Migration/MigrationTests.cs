@@ -18,6 +18,7 @@ using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using FluentDbTools.Migration;
 using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Oracle;
+using FluentDbTools.Migration.Oracle.CustomProcessor;
 using TestUtilities.FluentDbTools;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Processors.Oracle;
@@ -211,11 +212,7 @@ namespace Test.FluentDbTools.Migration
 
             File.Delete(logFile);
 
-            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, inMemoryOverrideConfig, sc =>
-            {
-                sc.AddSingleton<ICustomMigrationProcessor<OracleProcessor>,TestOracleCustomMigrationProcessor>();
-                return sc;
-            }) ;
+            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, inMemoryOverrideConfig, sc => sc.RegisterCustomMigrationProcessor()) ;
             using (provider as ServiceProvider)
             using (var scope = provider.CreateScope())
 
@@ -248,11 +245,7 @@ namespace Test.FluentDbTools.Migration
                 migrationRunner.DropSchema(scope.ServiceProvider.GetVersionTableMetaData());
             }
 
-            provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, inMemoryOverrideConfig, sc =>
-            {
-                sc.AddSingleton<ICustomMigrationProcessor<OracleProcessor>,TestOracleCustomMigrationProcessor>();
-                return sc;
-            });
+            provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, inMemoryOverrideConfig, sc => sc.RegisterCustomMigrationProcessor());
 
             using (provider as ServiceProvider)
             using (var scope = provider.CreateScope())
@@ -261,11 +254,7 @@ namespace Test.FluentDbTools.Migration
                 migrationRunner.MigrateDown(0);
             }
 
-            provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, inMemoryOverrideConfig, sc =>
-            {
-                sc.AddSingleton<ICustomMigrationProcessor<OracleProcessor>,TestOracleCustomMigrationProcessor>();
-                return sc;
-            });
+            provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, inMemoryOverrideConfig, sc => sc.RegisterCustomMigrationProcessor());
 
             using (provider as ServiceProvider)
             using (var scope = provider.CreateScope())
@@ -310,7 +299,7 @@ namespace Test.FluentDbTools.Migration
         }
 
         [Fact]
-        public void OracleMigration_WhenDatasSourceIsValidTnsAliastName_Success()
+        public void OracleMigration_WhenDataSourceIsValidTnsAliasName_Success()
         {
             var databaseType = SupportedDatabaseTypes.Oracle;
 
@@ -342,7 +331,7 @@ namespace Test.FluentDbTools.Migration
         }
 
         [Fact]
-        public void OracleMigration_WhenDataSourceIsInvalidTnsAliastName_ShouldFailWithTnsResolvingError()
+        public void OracleMigration_WhenDataSourceIsInvalidTnsAliasName_ShouldFailWithTnsResolvingError()
         {
             var databaseType = SupportedDatabaseTypes.Oracle;
 

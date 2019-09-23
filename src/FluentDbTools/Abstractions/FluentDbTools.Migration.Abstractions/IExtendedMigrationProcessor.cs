@@ -1,12 +1,32 @@
 ﻿using System.Data;
+using FluentMigrator;
 using FluentMigrator.Expressions;
+using FluentMigrator.Runner.Processors.Oracle;
 
 namespace FluentDbTools.Migration.Abstractions
 {
-    public interface IExtendedMigrationProcessor
+    /// <summary>
+    /// Important database Processing methods<br/>
+    /// Important database Exists methods
+    /// </summary>
+    public interface IExtendedMigrationProcessor : IExtendedMigrationProcessorExists
     {
+        /// <summary>
+        /// Create schema Process method
+        /// </summary>
+        /// <param name="expression"></param>
         void Process(CreateSchemaExpression expression);
+
+        /// <summary>
+        /// Delete schema Process method
+        /// </summary>
+        /// <param name="expression"></param>
         void Process(DeleteSchemaExpression expression);
+
+        /// <summary>
+        /// Delete data Process method
+        /// </summary>
+        /// <param name="expression"></param>
         void Process(DeleteDataExpression expression);
         void Process(CreateConstraintExpression expression);
         void Process(CreateIndexExpression expression);
@@ -17,11 +37,16 @@ namespace FluentDbTools.Migration.Abstractions
 
         IDbConnection GetMigrationDbConnection();
         void ProcessSql(string sql);
-        bool Exists(string template, params object[] args);
-
     }
 
     public interface IExtendedMigrationProcessor<T> : IExtendedMigrationProcessor
     {
+        void Initialize(ICustomMigrationProcessor customMigrationProcessor);
     }
+
+
+    public interface IExtendedMigrationProcessorOracle : IExtendedMigrationProcessor, IMigrationProcessor
+    {
+    }
+
 }

@@ -16,7 +16,8 @@ namespace FluentDbTools.Migration.Abstractions
         /// Will be called when Migration running a new assembly<br/>
         /// </summary>
         /// <param name="migrationMetadata"></param>
-        void MigrationMetadataChanged(IMigrationMetadata migrationMetadata);
+        /// <param name="extendedMigrationProcessor"></param>
+        void MigrationMetadataChanged(IMigrationMetadata migrationMetadata, IExtendedMigrationProcessor extendedMigrationProcessor);
         /// <summary>
         /// Can be used to setup a common Sql execute method
         /// </summary>

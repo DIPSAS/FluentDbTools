@@ -98,6 +98,7 @@ namespace Example.FluentDbTools.Migration.MigrationModels
             Create.Column("CreateColumn")
                 .OnTable(Table.Person, this).AsInt16().Nullable()
                 .WithChangeLog(PersonLogContext);
+
         }
 
         private void CreateParent()
