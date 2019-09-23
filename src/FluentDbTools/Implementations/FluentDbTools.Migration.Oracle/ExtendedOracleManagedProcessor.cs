@@ -15,7 +15,7 @@ namespace FluentDbTools.Migration.Oracle
 {
     internal class ExtendedOracleManagedProcessor : OracleManagedProcessor, IExtendedMigrationProcessor<ExtendedOracleManagedProcessor>
     {
-        private readonly IExtendedMigrationProcessor ExtendedMigrationProcessor;
+        private readonly IExtendedMigrationProcessor<ExtendedOracleProcessorBase> ExtendedMigrationProcessor;
 
         public ExtendedOracleManagedProcessor(
             OracleManagedDbFactory factory,
@@ -23,11 +23,13 @@ namespace FluentDbTools.Migration.Oracle
             ILogger<ExtendedOracleManagedProcessor> logger,
             IOptionsSnapshot<ProcessorOptions> options,
             IConnectionStringAccessor connectionStringAccessor,
-            IExtendedMigrationProcessor<ExtendedOracleProcessorBase> extendedMigrationProcessor
+            IExtendedMigrationProcessor<ExtendedOracleProcessorBase> extendedMigrationProcessor,
+            ICustomMigrationProcessor<OracleProcessor> customMigrationProcessor = null
         )
             : base(factory, generator, logger, options, connectionStringAccessor)
         {
             ExtendedMigrationProcessor = extendedMigrationProcessor;
+            Initialize(customMigrationProcessor);
         }
 
         public override IList<string> DatabaseTypeAliases => new List<string> { ProcessorIds.OracleProcessorId };
@@ -35,7 +37,7 @@ namespace FluentDbTools.Migration.Oracle
 
         public override bool Exists(string template, params object[] args)
         {
-            return ExtendedMigrationProcessor.Exists(template, args);
+            return ExtendedMigrationProcessor.IsExists(template, args);
         }
 
         public override void Process(PerformDBOperationExpression expression)
@@ -102,6 +104,16 @@ namespace FluentDbTools.Migration.Oracle
         public IDbConnection GetMigrationDbConnection()
         {
             return Connection;
+        }
+
+        public void Initialize(ICustomMigrationProcessor customMigrationProcessor)
+        {
+            ExtendedMigrationProcessor.Initialize(customMigrationProcessor);
+        }
+
+        public bool IsExists(string template, params object[] args)
+        {
+            return Exists(template, args);
         }
     }
 }

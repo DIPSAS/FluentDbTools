@@ -13,4 +13,20 @@
       <ProjectReference Include="..\FluentDbTools.Migration.Common\FluentDbTools.Migration.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="CustomProcessor\SqlResources.Designer.cs">
+        <DependentUpon>SqlResources.resx</DependentUpon>
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="CustomProcessor\SqlResources.resx">
+        <SubType>Designer</SubType>
+        <LastGenOutput>SqlResources.Designer.cs</LastGenOutput>
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+    </ItemGroup>
+
 </Project>

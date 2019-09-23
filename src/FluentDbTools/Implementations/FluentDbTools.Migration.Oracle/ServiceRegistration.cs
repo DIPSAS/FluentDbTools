@@ -32,29 +32,28 @@ namespace FluentDbTools.Migration.Oracle
                     .IfNotExistThen<OracleQuoterBase>(() => serviceCollection.ConfigureRunner(builder => builder.AddOracleManaged()))
                     .IfNotExistThen<IExtendedMigrationProcessor<ExtendedOracleProcessorBase>>(() =>
                         serviceCollection
-                        .AddScoped<IExtendedMigrationProcessor<ExtendedOracleProcessorBase>>(CreateExtendedOracleProcessorBase)
-                        .AddScoped<ExtendedOracleManagedProcessor>()
+                        .AddScoped(CreateExtendedOracleProcessorBase)
+                        .AddScoped<IExtendedMigrationProcessor<ExtendedOracleProcessorBase>>(sp => sp.GetRequiredService<ExtendedOracleProcessorBase>())
+                        .AddScoped<IExtendedMigrationProcessorOracle>(sp => sp.GetRequiredService<ExtendedOracleProcessorBase>())
                         .AddScoped<IMigrationProcessor>(sp => sp.GetRequiredService<ExtendedOracleManagedProcessor>())
+                        .AddScoped<ExtendedOracleManagedProcessor>()
                         .AddScopedIfNotExists<OracleGenerator>()
                         .AddScopedIfNotExists<OracleManagedDbFactory>()
                         .AddOracleDbProvider()
                 );
 
-
             return serviceCollection;
-
         }
 
         private static ExtendedOracleProcessorBase CreateExtendedOracleProcessorBase(IServiceProvider sp)
         {
             return new ExtendedOracleProcessorBase(sp.GetRequiredService<OracleManagedDbFactory>(),
                 sp.GetRequiredService<OracleGenerator>(),
-                sp.GetRequiredService<ILogger<ExtendedOracleManagedProcessor>>(),
+                sp.GetRequiredService<ILogger<ExtendedOracleProcessorBase>>(),
                 sp.GetRequiredService<IOptionsSnapshot<ProcessorOptions>>(),
                 sp.GetRequiredService<IConnectionStringAccessor>(),
                 sp.GetRequiredService<IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator>>(),
                 sp.GetService<IDbMigrationConfig>(), 
-                sp.GetService<ICustomMigrationProcessor<OracleProcessor>>(),
                                     sp.GetService<IMigrationSourceItem>());
         }
     }

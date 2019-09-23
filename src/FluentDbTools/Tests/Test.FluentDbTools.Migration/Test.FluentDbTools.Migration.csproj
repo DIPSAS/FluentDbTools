@@ -17,4 +17,19 @@
       <ProjectReference Include="..\TestUtilities.FluentDbTools\TestUtilities.FluentDbTools.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="TestSqlResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>TestSqlResources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="TestSqlResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>TestSqlResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
 </Project>
