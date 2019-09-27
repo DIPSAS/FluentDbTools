@@ -7,15 +7,13 @@
     <Import Project="..\..\SolutionInfo.proj" />
 
     <ItemGroup>
-      <None Remove="CustomProcessor\Resources\CreateSchemaSql.sql" />
-      <None Remove="CustomProcessor\Resources\LogonScriptSql.sql" />
-      <None Remove="CustomProcessor\Resources\SchemaPrefixSql.sql" />
+      <None Remove="CustomProcessor\Resources\LogonScriptSql.txt" />
+      <None Remove="CustomProcessor\Resources\SchemaPrefixSql.txt" />
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="CustomProcessor\Resources\CreateSchemaSql.sql" />
-      <EmbeddedResource Include="CustomProcessor\Resources\LogonScriptSql.sql" />
-      <EmbeddedResource Include="CustomProcessor\Resources\SchemaPrefixSql.sql" />
+      <EmbeddedResource Include="CustomProcessor\Resources\LogonScriptSql.txt" />
+      <EmbeddedResource Include="CustomProcessor\Resources\SchemaPrefixSql.txt" />
     </ItemGroup>
 
     <ItemGroup>

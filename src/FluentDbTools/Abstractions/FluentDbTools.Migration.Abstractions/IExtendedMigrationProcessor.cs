@@ -45,7 +45,7 @@ namespace FluentDbTools.Migration.Abstractions
     }
 
 
-    public interface IExtendedMigrationProcessorOracle : IExtendedMigrationProcessor, IMigrationProcessor
+    public interface IExtendedMigrationProcessorOracle : IExtendedMigrationProcessor
     {
     }
 

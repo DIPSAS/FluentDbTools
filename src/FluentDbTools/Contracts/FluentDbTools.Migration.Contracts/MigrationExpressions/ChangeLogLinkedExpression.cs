@@ -75,7 +75,7 @@ namespace FluentDbTools.Migration.Contracts.MigrationExpressions
             Operation = (connection, transaction) => { };
             Expression = expression;
             ChangeLogContext = changeLog;
-            DbOperation = Expression.GetDbOperation();
+            DbOperation = Expression.GetDbOperationFromExpression();
             GetColumns = () => new List<ColumnDefinition>();
         }
 

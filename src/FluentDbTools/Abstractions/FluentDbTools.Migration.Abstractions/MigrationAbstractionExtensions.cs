@@ -1,23 +1,116 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using FluentDbTools.Migration.Abstractions.ExtendedExpressions;
+using FluentDbTools.Common.Abstractions;
 using FluentMigrator.Builders;
-using FluentMigrator.Builders.Create.Table;
 using FluentMigrator.Expressions;
 using FluentMigrator.Infrastructure;
 using FluentMigrator.Model;
 using Microsoft.Extensions.DependencyInjection;
+// ReSharper disable UnusedMember.Global
 
 namespace FluentDbTools.Migration.Abstractions
 {
+    /// <summary>
+    /// Useful extension method for FluentMigration library
+    /// </summary>
     public static class MigrationAbstractionExtensions
     {
+        /// <summary>
+        /// Execute Sql. If Sql contains line-breaks, sql is split into smaller sql statements and execute them separately
+        /// </summary>
+        /// <param name="migration"></param>
+        /// <param name="sql"></param>
+        public static void ExecuteSql(this FluentMigrator.Migration migration, string sql)
+        {
+
+            ExecuteSql(migration.Execute.Sql, sql);
+        }
+
+        /// <summary>
+        /// Execute Sql. If Sql contains line-breaks, sql is split into smaller sql statements and execute them separately
+        /// </summary>
+        /// <param name="processor"></param>
+        /// <param name="sql"></param>
+        public static void ExecuteSql(this IExtendedMigrationProcessor processor, string sql)
+        {
+            ExecuteSql(processor.ProcessSql, sql);
+        }
+
+
+        /// <summary>
+        /// Execute Sql. If Sql contains line-breaks, sql is split into smaller sql statements and execute them separately
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="sql"></param>
+        public static void ExecuteSql(this Action<string> action, string sql)
+        {
+            if (action == null)
+            {
+                return;
+            }
+
+            if (!sql.Contains("\n") && 
+                !sql.Contains("\r") && 
+                !sql.Contains(";"))
+            {
+                action(sql);
+                return;
+            }
+
+            foreach (var sqlStatement in sql.ExtractSqlStatements())
+            {
+                action(sqlStatement);
+            }
+        }
+
+
+        /// <summary>
+        /// Replace elements by conventions<br/>
+        /// Replace {SchemaName} with <paramref name="schemaName"/> or <see cref="IDbConfigDatabaseTargets.Schema"/><br/>
+        /// Replace {SchemaPrefixId} with <paramref name="schemaPrefixId"/> or  <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/><br/>
+        /// Replace {SchemaPrefixUniqueId} with <paramref name="schemaPrefixUniqueId"/> or  <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId()"/><br/>
+        /// Replace {MigrationName} with <paramref name="migrationName"/> or  <see cref="IDbMigrationConfig.GetMigrationName()"/><br/>
+        /// Replace {User} with <paramref name="migrationName"/> or  <see cref="IDbMigrationConfig.GetMigrationName()"/><br/>
+        /// </summary>
+        /// <param name="migrationConfig"></param>
+        /// <param name="sql"></param>
+        /// <param name="schemaName"></param>
+        /// <param name="schemaPrefixId"></param>
+        /// <param name="schemaPrefixUniqueId"></param>
+        /// <param name="migrationName"></param>
+        /// <returns></returns>
+        public static string PrepareSql(this IDbMigrationConfig migrationConfig, string sql, string schemaName = null, string schemaPrefixId = null, string schemaPrefixUniqueId = null, string migrationName = null)
+        {
+            if (sql == null)
+            {
+                return null;
+            }
+
+            schemaName = schemaName ?? migrationConfig.Schema;
+            schemaPrefixId = schemaPrefixId ?? migrationConfig.GetSchemaPrefixId();
+            schemaPrefixUniqueId = schemaPrefixUniqueId ?? migrationConfig.GetSchemaPrefixUniqueId();
+            migrationName = migrationName ?? migrationConfig.GetMigrationName();
+            return sql
+                .ReplaceIgnoreCase("{MigrationName}", migrationName)
+                .ReplaceIgnoreCase("{User}", migrationName)
+                .ReplaceIgnoreCase("{SchemaName}", schemaName?.ToUpper())
+                .ReplaceIgnoreCase("{SchemaPrefixId}", schemaPrefixId)
+                .ReplaceIgnoreCase("{SchemaPrefixUniqueId}", schemaPrefixUniqueId);
+        }
+
+
+
+        /// <summary>
+        /// Resolve all <see cref="IMigrationExpression"/>'s from a <see cref="ExpressionBuilderBase&lt;T&gt;"/><br/>
+        /// <br/>
+        /// Exception <see cref="FieldAccessException"/> wil be thrown if <see cref="ExpressionBuilderBase&lt;T&gt;"/> is missing the <see cref="IMigrationContext"/>
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="FieldAccessException"></exception>
         public static IList<IMigrationExpression> GetMigrationExpressions<T>(
             this ExpressionBuilderBase<T> builder) where T : class, IMigrationExpression
         {
@@ -25,6 +118,13 @@ namespace FluentDbTools.Migration.Abstractions
             return context?.Expressions as IList<IMigrationExpression> ?? throw new FieldAccessException($" Field of type 'IMigrationContext' not found in type[{builder.GetType().Name}]");
         }
 
+        /// <summary>
+        /// Replace a <see cref="IMigrationExpression"/> in the list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="itemToBeReplaced"></param>
+        /// <param name="newItem"></param>
+        /// <returns></returns>
         public static IList<IMigrationExpression> Replace(this IList<IMigrationExpression> list,
             IMigrationExpression itemToBeReplaced,
             IMigrationExpression newItem)
@@ -42,6 +142,14 @@ namespace FluentDbTools.Migration.Abstractions
             return list;
         }
 
+        /// <summary>
+        /// Insert a <see cref="IMigrationExpression"/> into the list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="indexItem"></param>
+        /// <param name="newItemToInsert"></param>
+        /// <param name="after"></param>
+        /// <returns></returns>
         public static IList<IMigrationExpression> Insert(this IList<IMigrationExpression> list,
             IMigrationExpression indexItem,
             IMigrationExpression newItemToInsert,
@@ -69,6 +177,12 @@ namespace FluentDbTools.Migration.Abstractions
             return list;
         }
 
+        /// <summary>
+        /// Return all <see cref="AlterColumnExpression"/> from the collection
+        /// </summary>
+        /// <param name="migrationExpressions"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
         public static IList<ColumnDefinition> GetAlterColumns(
             this ICollection<IMigrationExpression> migrationExpressions, string tableName)
         {
@@ -78,12 +192,25 @@ namespace FluentDbTools.Migration.Abstractions
                 .Select(x => x.Column).ToList();
         }
 
+        /// <summary>
+        /// Return true if <paramref name="type"/>(<see cref="FieldInfo.FieldType"/> )is of type specified by <paramref name="fieldType"/> argument
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="fieldType"></param>
+        /// <returns></returns>
         public static bool IsFieldType(this FieldInfo type, Type fieldType)
         {
             return type?.FieldType == fieldType;
         }
 
-        public static string GetDbOperation(this IMigrationExpression expression)
+        /// <summary>
+        /// Resolve Database operation from <paramref name="expression"/><br/>
+        /// <br/>
+        /// i.e: AlterColumnExpression => AlterColumn, CreateTableExpression => CreateTable, AlterTableExpression => AlterTable
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public static string GetDbOperationFromExpression(this IMigrationExpression expression)
         {
             var dbOperation = expression.GetType().Name;
             var index = dbOperation.IndexOf("Expression", StringComparison.CurrentCultureIgnoreCase);
@@ -95,6 +222,11 @@ namespace FluentDbTools.Migration.Abstractions
             return dbOperation;
         }
 
+        /// <summary>
+        /// Resolve <see cref="IDbMigrationConfig"/> from <paramref name="serviceProvider"/>
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <returns></returns>
         public static IDbMigrationConfig GetDbMigrationConfig(this IServiceProvider serviceProvider)
         {
             return serviceProvider.GetRequiredService<IDbMigrationConfig>();

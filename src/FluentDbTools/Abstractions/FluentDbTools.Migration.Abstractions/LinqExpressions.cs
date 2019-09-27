@@ -95,7 +95,17 @@ namespace FluentDbTools.Migration.Abstractions
                 var funcType = Expression.GetFuncType(typeof(object), fieldType);
                 var getFieldValueLambda  = Expression.Lambda(funcType, fieldMemberExpression, parameters);
                 getter = getFieldValueLambda.Compile() as Func<object,object>;
-                ObjectGetterDictionary.Add(key, getter);
+                try
+                {
+                    ObjectGetterDictionary.Add(key, getter);
+                }
+                catch
+                {
+                    if (ObjectGetterDictionary.ContainsKey(key))
+                    {
+                        ObjectGetterDictionary[key] = getter;
+                    }
+                }
             }
 
             var fieldValue = getter?.Invoke(objectHavingField);

@@ -31,19 +31,71 @@ namespace Test.FluentDbTools.Migration
         }
 
         [Fact]
-        public void ExtractSqlStatements_CreateSchemaSql_ShouldHaveCount1()
+        public void ExtractSqlStatements_SmallScriptSql_ShouldHaveCount110()
         {
-            var sqls = SqlResources.CreateSchemaSql.ExtractSqlStatements().ToArray();
-            sqls.Should().HaveCount(9);
-            sqls[1].StartsWithIgnoreCase("declare").Should().BeTrue();
-            sqls[1].EndsWithIgnoreCase("end;").Should().BeTrue();
+            var sql = TestSqlResources.SmallScriptSql.ExtractSqlStatements().ToArray();
+            sql.Should().HaveCount(9);
+            sql[1].StartsWithIgnoreCase("declare").Should().BeTrue();
+            sql[1].EndsWithIgnoreCase("end;").Should().BeTrue();
         }
 
         [Fact]
-        public void ExtractSqlStatements_LogonScriptSql_ShouldHaveCount1()
+        public void ExtractSqlStatements_LargeScriptSql_ShouldHaveCount1()
         {
-            var sqls = SqlResources.LogonScriptSql.ExtractSqlStatements();
-            sqls.Should().HaveCount(2);
+            var sql = TestSqlResources.LargeScriptSql.ExtractSqlStatements().ToArray();
+            sql.Should().HaveCount(110);
+            sql[1].StartsWithIgnoreCase("create or replace").Should().BeTrue();
+            sql[1].EndsWithIgnoreCase("dipscoredb.cpfelles").Should().BeTrue();
+        }
+
+
+        [Fact]
+        public void ExtractSqlStatements_LogonScriptSql_ShouldHaveCount2()
+        {
+            var sql = SqlResources.LogonScriptSql.ExtractSqlStatements();
+            sql.Should().HaveCount(2);
+        }
+
+        [Fact]
+        public void ExtractSqlStatements_OneLineSql_ShouldHaveCount1()
+        {
+            var sql = "select 1 from dual".ExtractSqlStatements();
+            sql.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void ExtractSqlStatements_TwoLineSqlWithoutSemicolon_ShouldHaveCount1()
+        {
+            var sql = "select 1 \nfrom dual".ExtractSqlStatements();
+            sql.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void ExtractSqlStatements_TwoLineSqlWithSemicolon_ShouldHaveCount1()
+        {
+            var sql = "select 1 \nfrom dual;".ExtractSqlStatements();
+            sql.Should().HaveCount(1);
+        }
+
+
+        [Fact]
+        public void CheckThat_LargeScriptSql_IsFullyExecuted()
+        {
+            var schema = "DIPSEXAMPLEDB";
+            var dataSource = BaseConfig.InContainer ? null : "vt-tp-db-demo.dips.local/DIPS";
+
+            Migrate(DoTheTest, dataSource, schema);
+
+            void DoTheTest(IServiceProvider serviceProvider)
+            {
+                if (!BaseConfig.InContainer)
+                {
+                    var processor = serviceProvider.GetRequiredService<IExtendedMigrationProcessorOracle>();
+                    var sql = serviceProvider.GetDbMigrationConfig().PrepareSql(TestSqlResources.LargeScriptSql);
+
+                    processor.ExecuteSql(sql);
+                }
+            }
         }
 
 
@@ -108,6 +160,8 @@ namespace Test.FluentDbTools.Migration
 
             {
                 var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
+                
+                migrationRunner.DropSchema(scope.ServiceProvider.GetVersionTableMetaData());
 
                 migrationRunner.MigrateUp();
                 try
