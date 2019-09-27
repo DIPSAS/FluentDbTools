@@ -18,6 +18,15 @@ namespace FluentDbTools.Migration.Abstractions
         bool IsExists(string template, params object[] args);
 
         /// <summary>
+        /// Generic Exists function <br/>
+        /// i.e: SELECT 1 FROM ALL_USERS WHERE USERNAME = '{0}'
+        /// </summary>
+        /// <param name="template"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        bool Exists(string template, params object[] args);
+
+        /// <summary>
         /// Return true if schema specified in '<paramref name="schemaName"/>' exists in the database
         /// </summary>
         /// <param name="schemaName"></param>

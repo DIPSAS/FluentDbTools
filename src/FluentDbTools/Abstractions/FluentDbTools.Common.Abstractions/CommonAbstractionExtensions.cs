@@ -1,30 +1,69 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace FluentDbTools.Common.Abstractions
 {
+    /// <summary>
+    /// Useful extension
+    /// </summary>
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public static class Extensions
     {
 
+        /// <summary>
+        /// return prefix == null ? name : $"{prefix}{name}"; 
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <param name="name">
+        /// The object to add prefix to.<br/>
+        /// If name start with value of {<see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/>}, the value of <paramref name="name"/> will be returned
+        /// </param>
+        /// <returns></returns>
         public static string GetPrefixedName(this IDbConfig dbConfig, string name)
         {
             return name.GetPrefixedName(dbConfig.GetSchemaPrefixId());
         }
 
+        /// <summary>
+        /// Parse sql into smaller sql statements - especial for oracle where OracleClient is not found of multiple statements in same sql
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public static IEnumerable<string> ExtractSqlStatements(this string sql)
         {
+            string latestStatement = null;
+            var previousStatement = string.Empty;
+
+            string RegisterStatement(string statement)
+            {
+                return latestStatement = statement.ConvertSimpleSqlComment();
+            }
+
+            if (sql.IsEmpty())
+            {
+                yield break;
+            }
+
             var allLines = sql.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            if (allLines.Length == 1 || !sql.Contains(";"))
+            {
+                yield return RegisterStatement(sql);
+                yield break;
+            }
+
+
             var builder = new StringBuilder();
-            var sqlStatements = new List<string>();
             var nestedSqlStatements = new List<string>();
             var nestedCommentStatements = new List<string>();
             var createOrReplaceStatements = new List<string>();
 
             var nestedCommentStatementsCount = 0;
             var nestedSqlStatementsControl = new Stack<string>();
-            var previousStatement = string.Empty;
             foreach (var line in allLines)
             {
                 var trimmed = line.TrimEnd();
@@ -35,6 +74,11 @@ namespace FluentDbTools.Common.Abstractions
 
                 if (trimmed.StartsWithIgnoreCase("CREATE OR REPLACE"))
                 {
+                    if (trimmed.EndsWithIgnoreCase(";"))
+                    {
+                        yield return RegisterStatement(trimmed.TrimEnd(';'));
+                        continue;
+                    }
                     createOrReplaceStatements.Add(trimmed);
                     continue;
                 }
@@ -44,11 +88,10 @@ namespace FluentDbTools.Common.Abstractions
                     createOrReplaceStatements.Add(trimmed);
                     if (trimmed.StartsWithIgnoreCase("end "))
                     {
-                        var name  = trimmed.Substring(4).Trim().TrimEnd(';');
+                        var name = trimmed.Substring(4).Trim().TrimEnd(';');
                         if (createOrReplaceStatements.FirstOrDefault().ContainsIgnoreCase(name))
                         {
-                            var sqlStatement = string.Join("\n", createOrReplaceStatements);
-                            sqlStatements.Add(sqlStatement);
+                            yield return RegisterStatement(string.Join("\n", createOrReplaceStatements));
                             createOrReplaceStatements.Clear();
                         }
                     }
@@ -57,7 +100,7 @@ namespace FluentDbTools.Common.Abstractions
 
                 if (trimmed.Trim().StartsWith("-- "))
                 {
-                    sqlStatements.Add($"{trimmed.Replace("-- ","/* ")} */");
+                    yield return RegisterStatement(trimmed);
                     continue;
                 }
 
@@ -78,7 +121,7 @@ namespace FluentDbTools.Common.Abstractions
                         nestedCommentStatements.Add(trimmed);
                         nestedCommentStatementsCount = 0;
                         var sqlStatement = string.Join("\n", nestedCommentStatements);
-                        sqlStatements.Add(sqlStatement);
+                        yield return RegisterStatement(sqlStatement);
                         continue;
                     }
                 }
@@ -94,7 +137,7 @@ namespace FluentDbTools.Common.Abstractions
                     trimmed.StartsWithIgnoreCase("begin "))
                 {
                     nestedSqlStatementsControl.Push(trimmed);
-                    previousStatement = sqlStatements.LastOrDefault();
+                    previousStatement = latestStatement;
                 }
 
                 if (nestedSqlStatementsControl.Any() &&
@@ -110,7 +153,7 @@ namespace FluentDbTools.Common.Abstractions
                     if (item.StartsWithIgnoreCase("begin"))
                     {
                         var firstControl = nestedSqlStatementsControl.Count > 0 ? nestedSqlStatementsControl.Peek() : string.Empty;
-                        if (nestedSqlStatementsControl.Count == 1 && 
+                        if (nestedSqlStatementsControl.Count == 1 &&
                             firstControl.StartsWithIgnoreCase("declare"))
                         {
                             nestedSqlStatementsControl.Pop();
@@ -122,8 +165,7 @@ namespace FluentDbTools.Common.Abstractions
                         {
                             nestedSqlStatements.Add(trimmed);
                         }
-                        var sqlStatement = string.Join("\n", nestedSqlStatements);
-                        sqlStatements.Add(sqlStatement);
+                        yield return RegisterStatement(string.Join("\n", nestedSqlStatements));
                         continue;
                     }
                 }
@@ -133,37 +175,50 @@ namespace FluentDbTools.Common.Abstractions
                     nestedSqlStatements.Add(trimmed);
                     continue;
                 }
-                
+
                 var isEndStatement = trimmed.Last() == ';';
                 if (isEndStatement)
                 {
                     trimmed = trimmed.TrimEnd(';');
                     if (!string.IsNullOrWhiteSpace(trimmed.Trim()))
                     {
-                        builder.AppendLine(trimmed.Trim().StartsWith("-- ") ? $"/* {trimmed} */" : trimmed);
+                        builder.AppendLine(trimmed);
                     }
 
                     var sqlStatement = builder.ToString().Trim();
                     if (sqlStatement.IsNotEmpty())
                     {
-                        sqlStatements.Add(sqlStatement);
+                        yield return RegisterStatement(sqlStatement);
                     }
                     builder.Clear();
                 }
                 else
                 {
-                    builder.AppendLine(line.Trim().StartsWith("-- ") ? $"/* {line} */" : line);
+                    builder.AppendLine(line.ConvertSimpleSqlComment());
                 }
             }
-
-            return sqlStatements;
         }
 
+        /// <summary>
+        /// return true if sql start with "--" or "/*"
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public static bool IsSqlComment(this string sql)
         {
-            return sql.Trim().StartsWith("-- ") || sql.Trim().StartsWith("/*");
+            return sql.IsSimpleSqlComment() || (sql?.Trim().StartsWith("/*") ?? false);
         }
 
+        /// <summary>
+        /// Convert sql to format /* <paramref name="statement"/> */ if <paramref name="statement"/> starts with "--".<br/>
+        /// Return original <paramref name="statement"/> if NOT.
+        /// </summary>
+        /// <param name="statement"></param>
+        /// <returns></returns>
+        public static string ConvertSimpleSqlComment(this string statement)
+        {
+            return statement.IsSimpleSqlComment() ? $"/* {statement.TrimStart('-').TrimStart()} */" : statement;
+        }
 
         /// <summary>
         /// Get config value by keys.
@@ -205,7 +260,48 @@ namespace FluentDbTools.Common.Abstractions
             return null;
 
         }
+
+
+        /// <summary>
+        /// Load string from Embedded resource from <paramref name="assembly"/> at location <paramref name="location"/>
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public static string GetStringFromEmbeddedResource(this Assembly assembly, string location)
+        {
+            string content;
+
+            using (var stream = assembly.GetManifestResourceStream(location))
+            {
+                if (stream == null)
+                {
+                    return null;
+                }
+                using (var reader = new StreamReader(stream))
+                {
+                    content = reader.ReadToEnd();
+                }
+            }
+            return content;
+        }
+
+        /// <summary>
+        /// Load string from Embedded resource from <paramref name="type"/>.Assembly at location <paramref name="location"/>
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public static string GetStringFromEmbeddedResource(Type type, string location)
+        {
+            return type.Assembly.GetStringFromEmbeddedResource(location);
+        }
+
+        private static bool IsSimpleSqlComment(this string sql)
+        {
+            return sql?.Trim().StartsWith("--") ?? false;
+        }
     }
 
-    
+
 }

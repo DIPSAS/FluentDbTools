@@ -7,6 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Resources\LargeScriptSql.txt" />
+      <None Remove="Resources\SmallScriptSql.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
         <PackageReference Include="xunit" Version="2.3.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
@@ -14,22 +19,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="Resources\LargeScriptSql.txt" />
+      <EmbeddedResource Include="Resources\SmallScriptSql.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\TestUtilities.FluentDbTools\TestUtilities.FluentDbTools.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="TestSqlResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>TestSqlResources.resx</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Update="TestSqlResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>TestSqlResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
     </ItemGroup>
 
 </Project>

@@ -171,7 +171,7 @@ namespace FluentDbTools.Migration.Oracle
 
             if (string.IsNullOrEmpty(expressionExt.DbOperation))
             {
-                expressionExt.DbOperation = expressionExt.Expression.GetDbOperation();
+                expressionExt.DbOperation = expressionExt.Expression.GetDbOperationFromExpression();
             }
 
             RunCustomAction(() => CustomMigrationProcessor.Process(expressionExt));
@@ -402,7 +402,7 @@ namespace FluentDbTools.Migration.Oracle
                 {
                     foreach (var commandText in statementsSql)
                     {
-                        ExecuteCommand(runningSql = commandText);
+                        ExecuteCommand(runningSql = commandText.ConvertSimpleSqlComment());
                     }
                     return;
                 }

@@ -1,12 +1,12 @@
 
 -- required synonym:
 
-create or replace synonym {SchemaName}.cpfelles for {CommonSchemaName}.cpfelles;
+create or replace synonym {SchemaName}.cpfelles for dipscoredb.cpfelles;
 
 
--- Title Create sequence {SchemaName}.{SchemaPrefix}CHANGElogTABLE_SEQ 
+-- Title Create sequence {SchemaName}.{SchemaPrefixId}CHANGElogTABLE_SEQ 
 -- ErrorFilter = 955
-create sequence {SchemaName}.{SchemaPrefix}CHANGElogTABLE_SEQ 
+create sequence {SchemaName}.{SchemaPrefixId}CHANGElogTABLE_SEQ 
 minvalue 1 
   maxvalue 999999999999999999999999999 
   start with 1000000 
@@ -14,9 +14,9 @@ minvalue 1
   cache 20;
 
 
--- Title Create table {SchemaName}.{SchemaPrefix}CHANGElogTABLE
+-- Title Create table {SchemaName}.{SchemaPrefixId}CHANGElogTABLE
 -- ErrorFilter = 955
-create table {SchemaName}.{SchemaPrefix}CHANGELOGTABLE
+create table {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE
 (
   transactionid            NUMBER(10) not null,
   globaltableid            CHAR(3) not null,
@@ -33,47 +33,47 @@ tablespace DIPS_LOGG
  ;
 
 -- Add comments to the table 
-comment on table {SchemaName}.{SchemaPrefix}CHANGELOGTABLE
+comment on table {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE
   is 'Changelog for changes to data within the DIPS Database.';
 -- Add comments to the columns 
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGTABLE.transactionid
-  is 'Primary key for table {SchemaName}.{SchemaPrefix}CHANGElogTable';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGTABLE.globaltableid
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE.transactionid
+  is 'Primary key for table {SchemaName}.{SchemaPrefixId}CHANGElogTable';
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE.globaltableid
   is 'Identifies which table was changed during this transaction';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGTABLE.dmlperformed
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE.dmlperformed
   is '1: new row, 2: modified row, 3: deleted row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGTABLE.storagetype
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE.storagetype
   is '1= temporary, deletable log, 2= logg which is not to be deleted';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGTABLE.changedrowversion
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE.changedrowversion
   is 'Identifies the version of the row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGTABLE.changedrowdipsid
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE.changedrowdipsid
   is 'Identifies uniquely which row was changed.  Links to the field DIPSID.';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGTABLE.loggedby
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE.loggedby
   is 'Who/what script this transaction was performed and logged by';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGTABLE.loggtime
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE.loggtime
   is 'When did the change occur';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGTABLE.previousversioncreatedby
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE.previousversioncreatedby
   is 'Who/what script created the previous version of this row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGTABLE.previousversiontime
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE.previousversiontime
   is 'When was the previous version stored';
 
 -- Create/Recreate indexes 
 -- ErrorFilter = 955, 1408 
-create index {SchemaName}.DWCHLOGTAB_IDX on {SchemaName}.{SchemaPrefix}CHANGELOGTABLE (CHANGEDROWDIPSID, GLOBALTABLEID, CHANGEDROWVERSION, DMLPERFORMED)
+create index {SchemaName}.DWCHLOGTAB_IDX on {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE (CHANGEDROWDIPSID, GLOBALTABLEID, CHANGEDROWVERSION, DMLPERFORMED)
   tablespace DIPS_INDX
  ;
 -- Create/Recreate primary, unique and foreign key constraints 
 -- ErrorFilter = 2360, 2260
-alter table {SchemaName}.{SchemaPrefix}CHANGELOGTABLE
-  add constraint {SchemaPrefix}CHANGElogTable_PK primary key (TRANSACTIONID)
+alter table {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE
+  add constraint {SchemaPrefixId}CHANGElogTable_PK primary key (TRANSACTIONID)
   using index 
   tablespace DIPS_INDX
  ;
 
--- Title Create table {SchemaName}.{SchemaPrefix}CHANGElogXML
+-- Title Create table {SchemaName}.{SchemaPrefixId}CHANGElogXML
 -- ErrorFilter = 955
 
-create table {SchemaName}.{SchemaPrefix}CHANGElogXML
+create table {SchemaName}.{SchemaPrefixId}CHANGElogXML
 (
   globalcolumnid           CHAR(7) not null,
   changedrowversion        NUMBER(10) not null,
@@ -89,44 +89,44 @@ create table {SchemaName}.{SchemaPrefix}CHANGElogXML
 tablespace DIPS_LOGG
 ;
 -- Add comments to the table 
-comment on table {SchemaName}.{SchemaPrefix}CHANGElogXML
+comment on table {SchemaName}.{SchemaPrefixId}CHANGElogXML
   is 'Changelog for changes to data stored in XMLTYPE fields, within the DIPS Database.';
 -- Add comments to the columns 
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogXML.globalcolumnid
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogXML.globalcolumnid
   is 'Identifies which column this row is related to';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogXML.changedrowversion
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogXML.changedrowversion
   is 'Identifies the version of the row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogXML.changedrowdipsid
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogXML.changedrowdipsid
   is 'Identifies uniquely which row was changed.  Links to the field DIPSID.';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogXML.dmlperformed
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogXML.dmlperformed
   is '1: new row, 2: modified row, 3: deleted row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogXML.storagetype
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogXML.storagetype
   is '1= temporary, deletable log, 2= logg which is not to be deleted';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogXML.oldvalue
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogXML.oldvalue
   is 'The previous value of the column identified by GlobalColumnId.';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogXML.loggedby
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogXML.loggedby
   is 'Who/what script this transaction was performed and logged by';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogXML.loggtime
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogXML.loggtime
   is 'When did the change occur';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogXML.previousversioncreatedby
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogXML.previousversioncreatedby
   is 'Who/what script created the previous version of this row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogXML.previousversiontime
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogXML.previousversiontime
   is 'When was the previous version stored';
 
 -- Create/Recreate indexes 
 -- ErrorFilter = 955, 1408 
-create index {SchemaName}.{SchemaPrefix}CHANGElogXML_IDX on {SchemaName}.{SchemaPrefix}CHANGElogXML (CHANGEDROWDIPSID, GLOBALCOLUMNID, CHANGEDROWVERSION)
+create index {SchemaName}.{SchemaPrefixId}CHANGElogXML_IDX on {SchemaName}.{SchemaPrefixId}CHANGElogXML (CHANGEDROWDIPSID, GLOBALCOLUMNID, CHANGEDROWVERSION)
   tablespace DIPS_INDX
 ;
 -- ErrorFilter = 955, 1408 
-create index {SchemaName}.COCHLOGXML_COLID_I on {SchemaName}.{SchemaPrefix}CHANGElogXML (GLOBALCOLUMNID)
+create index {SchemaName}.COCHLOGXML_COLID_I on {SchemaName}.{SchemaPrefixId}CHANGElogXML (GLOBALCOLUMNID)
   tablespace DIPS_INDX
 ;
 
--- Title Create table {SchemaName}.{SchemaPrefix}CHANGElogBLOB
+-- Title Create table {SchemaName}.{SchemaPrefixId}CHANGElogBLOB
 -- ErrorFilter = 955
 
-create table {SchemaName}.{SchemaPrefix}CHANGElogBLOB
+create table {SchemaName}.{SchemaPrefixId}CHANGElogBLOB
 (
   globalcolumnid           CHAR(7) not null,
   changedrowversion        NUMBER(10) not null,
@@ -142,45 +142,45 @@ create table {SchemaName}.{SchemaPrefix}CHANGElogBLOB
 tablespace DIPS_LOGG
 ;
 -- Add comments to the table 
-comment on table {SchemaName}.{SchemaPrefix}CHANGElogBLOB
+comment on table {SchemaName}.{SchemaPrefixId}CHANGElogBLOB
   is 'Changelog for changes to data stored in BLOB fields, within the DIPS Database.';
 -- Add comments to the columns 
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogBLOB.globalcolumnid
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogBLOB.globalcolumnid
   is 'Identifies which column this row is related to';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogBLOB.changedrowversion
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogBLOB.changedrowversion
   is 'Identifies the version of the row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogBLOB.changedrowdipsid
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogBLOB.changedrowdipsid
   is 'Identifies uniquely which row was changed.  Links to the field DIPSID.';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogBLOB.dmlperformed
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogBLOB.dmlperformed
   is '1: new row, 2: modified row, 3: deleted row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogBLOB.storagetype
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogBLOB.storagetype
   is '1= temporary, deletable log, 2= logg which is not to be deleted';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogBLOB.oldvalue
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogBLOB.oldvalue
   is 'The previous value of the column identified by GlobalColumnId.';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogBLOB.loggedby
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogBLOB.loggedby
   is 'Who/what script this transaction was performed and logged by';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogBLOB.loggtime
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogBLOB.loggtime
   is 'When did the change occur';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogBLOB.previousversioncreatedby
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogBLOB.previousversioncreatedby
   is 'Who/what script created the previous version of this row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGElogBLOB.previousversiontime
+comment on column {SchemaName}.{SchemaPrefixId}CHANGElogBLOB.previousversiontime
   is 'When was the previous version stored';
 
 
 -- Create/Recreate indexes 
 -- ErrorFilter = 955, 1408 
-create index {SchemaName}.{SchemaPrefix}CHANGElogBLOB_IDX on {SchemaName}.{SchemaPrefix}CHANGElogBLOB (CHANGEDROWDIPSID, GLOBALCOLUMNID, CHANGEDROWVERSION)
+create index {SchemaName}.{SchemaPrefixId}CHANGElogBLOB_IDX on {SchemaName}.{SchemaPrefixId}CHANGElogBLOB (CHANGEDROWDIPSID, GLOBALCOLUMNID, CHANGEDROWVERSION)
   tablespace DIPS_INDX
 ;
 -- ErrorFilter = 955, 1408 
-create index {SchemaName}.COCHLOGBLO_COLID_I on {SchemaName}.{SchemaPrefix}CHANGElogBLOB (GLOBALCOLUMNID)
+create index {SchemaName}.COCHLOGBLO_COLID_I on {SchemaName}.{SchemaPrefixId}CHANGElogBLOB (GLOBALCOLUMNID)
   tablespace DIPS_INDX
 ;
 
--- Title Create table {SchemaName}.{SchemaPrefix}CHANGElogCLOB
+-- Title Create table {SchemaName}.{SchemaPrefixId}CHANGElogCLOB
 -- ErrorFilter = 955
 
-create table {SchemaName}.{SchemaPrefix}CHANGELOGCLOB
+create table {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB
 (
   globalcolumnid           CHAR(7) not null,
   changedrowversion        NUMBER(10) not null,
@@ -196,44 +196,44 @@ create table {SchemaName}.{SchemaPrefix}CHANGELOGCLOB
 tablespace DIPS_LOGG
 ;
 -- Add comments to the table 
-comment on table {SchemaName}.{SchemaPrefix}CHANGELOGCLOB
+comment on table {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB
   is 'Changelog for changes to data stored in CLOB fields, within the DIPS Database.';
 -- Add comments to the columns 
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCLOB.globalcolumnid
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB.globalcolumnid
   is 'Identifies which column this row is related to';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCLOB.changedrowversion
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB.changedrowversion
   is 'Identifies the version of the row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCLOB.changedrowdipsid
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB.changedrowdipsid
   is 'Identifies uniquely which row was changed.  Links to the field DIPSID.';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCLOB.dmlperformed
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB.dmlperformed
   is '1: new row, 2: modified row, 3: deleted row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCLOB.storagetype
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB.storagetype
   is '1= temporary, deletable log, 2= logg which is not to be deleted';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCLOB.oldvalue
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB.oldvalue
   is 'The previous value of the column identified by GlobalColumnId.';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCLOB.loggedby
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB.loggedby
   is 'Who/what script this transaction was performed and logged by';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCLOB.loggtime
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB.loggtime
   is 'When did the change occur';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCLOB.previousversioncreatedby
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB.previousversioncreatedby
   is 'Who/what script created the previous version of this row';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCLOB.previousversiontime
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB.previousversiontime
   is 'When was the previous version stored';
 -- Create/Recreate indexes 
 -- ErrorFilter = 955, 1408 
-create index {SchemaName}.COCHLOGCLO_COLID_I on {SchemaName}.{SchemaPrefix}CHANGELOGCLOB (GLOBALCOLUMNID)
+create index {SchemaName}.COCHLOGCLO_COLID_I on {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB (GLOBALCOLUMNID)
   tablespace DIPS_INDX
 ;
 -- ErrorFilter = 955, 1408 
-create index {SchemaName}.{SchemaPrefix}CHANGELOGCLOB_IDX on {SchemaName}.{SchemaPrefix}CHANGELOGCLOB (CHANGEDROWDIPSID, GLOBALCOLUMNID, CHANGEDROWVERSION)
+create index {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB_IDX on {SchemaName}.{SchemaPrefixId}CHANGELOGCLOB (CHANGEDROWDIPSID, GLOBALCOLUMNID, CHANGEDROWVERSION)
   tablespace DIPS_INDX
 ;
 
 
 
--- Title Create table {SchemaName}.{SchemaPrefix}CHANGElogCOLUMN
+-- Title Create table {SchemaName}.{SchemaPrefixId}CHANGElogCOLUMN
 -- ErrorFilter = 955
-create table {SchemaName}.{SchemaPrefix}CHANGELOGCOLUMN
+create table {SchemaName}.{SchemaPrefixId}CHANGELOGCOLUMN
 (
   transactionid  NUMBER(10) not null,
   globalcolumnid CHAR(7) not null,
@@ -243,38 +243,38 @@ create table {SchemaName}.{SchemaPrefix}CHANGELOGCOLUMN
 tablespace DIPS_LOGG
  ;
 -- Add comments to the table 
-comment on table {SchemaName}.{SchemaPrefix}CHANGELOGCOLUMN
+comment on table {SchemaName}.{SchemaPrefixId}CHANGELOGCOLUMN
   is 'Changelog for changes to data within the DIPS database.  The previous value for one particular field is stored in each row of this table.';
 -- Add comments to the columns 
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCOLUMN.transactionid
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCOLUMN.transactionid
   is 'TransactionId links to the corresponding row in the dwChangelogTable table.';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCOLUMN.globalcolumnid
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCOLUMN.globalcolumnid
   is 'Identifies which column this row is related to';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCOLUMN.storagetype
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCOLUMN.storagetype
   is '1= temporary, deletable log, 2= logg which is not to be deleted';
-comment on column {SchemaName}.{SchemaPrefix}CHANGELOGCOLUMN.oldvalue
+comment on column {SchemaName}.{SchemaPrefixId}CHANGELOGCOLUMN.oldvalue
   is 'The previous value of the column identified by GlobalColumnId.';
 -- Create/Recreate indexes 
 -- ErrorFilter = 955, 1408 
-create index {SchemaName}.COCHLOGCOL_COCHLOGTAB_FK_I on {SchemaName}.{SchemaPrefix}CHANGELOGCOLUMN (TRANSACTIONID, GLOBALCOLUMNID)
+create index {SchemaName}.COCHLOGCOL_COCHLOGTAB_FK_I on {SchemaName}.{SchemaPrefixId}CHANGELOGCOLUMN (TRANSACTIONID, GLOBALCOLUMNID)
   tablespace DIPS_INDX
  ;
 -- ErrorFilter = 955, 1408 
-create index {SchemaName}.COCHLOGCOL_DWTABELLFE_FK_I on {SchemaName}.{SchemaPrefix}CHANGELOGCOLUMN (GLOBALCOLUMNID)
+create index {SchemaName}.COCHLOGCOL_DWTABELLFE_FK_I on {SchemaName}.{SchemaPrefixId}CHANGELOGCOLUMN (GLOBALCOLUMNID)
   tablespace DIPS_INDX
  ;
 -- Create/Recreate primary, unique and foreign key constraints 
 -- ErrorFilter = 2275    
-alter table {SchemaName}.{SchemaPrefix}CHANGELOGCOLUMN
+alter table {SchemaName}.{SchemaPrefixId}CHANGELOGCOLUMN
   add constraint COCHLOGCOL_COCHLOGTAB_FK foreign key (TRANSACTIONID)
-  references {SchemaName}.{SchemaPrefix}CHANGELOGTABLE (TRANSACTIONID);
+  references {SchemaName}.{SchemaPrefixId}CHANGELOGTABLE (TRANSACTIONID);
 
 CREATE OR REPLACE Package {SchemaName}.mcChangeLog Is
 
   -- $Header: /dw2-Kos1/project/DB/Pkg/ModuleCommon/mcChangeLog.pkg 7     30.01.06 11:39 Hbh $
   -- *************************************************************************************
   -- ************ PACKAGE mcChangeLog - deklarasjoner: *************************************
-  -- {CommonSchemaName} skal ha tilgang til denne pakken i de ulike modulskjemaene.
+  -- DIPSCOREDB skal ha tilgang til denne pakken i de ulike modulskjemaene.
   -- Pakken må være implementert i ethvert modulskjema, inklusive CORE (den skal også være i CORE
   -- for å slippe å spesialbehandle dette skjemaet i kode som kaller denne pakken).
   -- Før utsending må prefix på tabellnavn endres ihht skjemaets prefix, og pakkenavnet prefixes
@@ -460,17 +460,17 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
 
     Cursor c_FinnLogLevel Is
       Select t.LoggNivaaUpd, t.LoggNivaaDel
-        From {CommonSchemaName}.dwTabeller t
+        From dipscoredb.dwTabeller t
        Where t.GlobalTabellId = p_globalTableId;
 
     Cursor c_FinnLogLevelFelt Is
       Select f.LoggNivaaupd
-        From {CommonSchemaName}.dwTabellfelt f
+        From DIPSCOREDB.dwTabellfelt f
        Where f.GlobalColumnId = p_GlobalColumnId;
   Begin
 
 	-- Sjekker om stort script kjøres, i så fall skal det ikke lagres til endringslogg
-    If {CommonSchemaName}.cpSesjon.dwf_ErIStortSkript Then
+    If dipscoredb.cpSesjon.dwf_ErIStortSkript Then
       Return 1;
     End If;
 
@@ -521,16 +521,16 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
       v_StorageType := c_StorageType_Keep;
     End If;
 
-    If {CommonSchemaName}.cpSesjon.dwf_ErIStortSkript And p_LogLevel = c_DeletableLog Then
+    If dipscoredb.cpSesjon.dwf_ErIStortSkript And p_LogLevel = c_DeletableLog Then
       Return - 1;
     End If;
 
-    Select {SchemaName}.{SchemaPrefix}CHANGElogTABLE_SEQ.Nextval
+    Select {SchemaName}.{SchemaPrefixId}CHANGElogTABLE_SEQ.Nextval
       Into v_TransId
       From DUAL;
 
     -- lagre i ChangelogTable:
-    Insert Into {SchemaPrefix}CHANGElogTable
+    Insert Into {SchemaPrefixId}CHANGElogTable
       (TransactionId,
        globalTableId,
        DMLPerformed,
@@ -584,7 +584,7 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
       -- dette feltet skal logges selv om det ikke er endret siden sist.
       v_DoLogColumnValue := True;
     Else
-      v_DoLogColumnValue := {CommonSchemaName}.cpFelles.dwf_endretvarchar(p_OldValue,
+      v_DoLogColumnValue := dipscoredb.cpFelles.dwf_endretvarchar(p_OldValue,
                                                        p_NewValue); -- logges hvis endret.
 
       If p_OldValue Is Null And p_NewValue Is Null Then
@@ -602,7 +602,7 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
         V_StorageType := c_StorageType_Keep;
       End If;
 
-      Insert Into {SchemaPrefix}CHANGElogColumn
+      Insert Into {SchemaPrefixId}CHANGElogColumn
         (TransactionId, GlobalColumnId, OldValue, StorageType)
       Values
         (p_TransactionId, p_GlobalColumnId, p_OldValue, V_StorageType);
@@ -648,7 +648,7 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
     end if;
 
     if v_DoLogColumnValue then
-      Insert into {SchemaPrefix}CHANGElogBlob
+      Insert into {SchemaPrefixId}CHANGElogBlob
         (globalcolumnid,
          changedrowversion,
          changedrowdipsid,
@@ -666,7 +666,7 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
          p_dmlperformed,
          v_storagetype,
          p_oldvalue,
-         {CommonSchemaName}.cpSesjon.dwf_Brukerid,
+         dipscoredb.cpSesjon.dwf_Brukerid,
          sysdate,
          p_previousversioncreatedby,
          p_previousversiontime);
@@ -710,7 +710,7 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
     end if;
 
     if v_DoLogColumnValue then
-      Insert into {SchemaPrefix}CHANGElogClob
+      Insert into {SchemaPrefixId}CHANGElogClob
         (globalcolumnid,
          changedrowversion,
          changedrowdipsid,
@@ -728,7 +728,7 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
          p_dmlperformed,
          v_storagetype,
          p_oldvalue,
-         {CommonSchemaName}.cpSesjon.dwf_Brukerid,
+         dipscoredb.cpSesjon.dwf_Brukerid,
          sysdate,
          p_previousversioncreatedby,
          p_previousversiontime);
@@ -778,7 +778,7 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
     end if;
 
     if v_DoLogColumnValue then
-      Insert into {SchemaPrefix}CHANGElogXML
+      Insert into {SchemaPrefixId}CHANGElogXML
         (globalcolumnid,
          changedrowversion,
          changedrowdipsid,
@@ -796,7 +796,7 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
          p_dmlperformed,
          v_storagetype,
          p_oldvalue,
-         {CommonSchemaName}.cpSesjon.dwf_Brukerid,
+         dipscoredb.cpSesjon.dwf_Brukerid,
          sysdate,
          p_previousversioncreatedby,
          p_previousversiontime);
@@ -812,7 +812,7 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
     -- en endring!  21.02.01 HBH (JEB)
 
     -- if not p_ActuallyLogged then
-    --    delete {SchemaPrefix}CHANGElogTable where TransactionId = p_transactionid ;
+    --    delete {SchemaPrefixId}CHANGElogTable where TransactionId = p_transactionid ;
     -- end if;
 
     Null;
@@ -829,15 +829,15 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
     funnet        Boolean;
     v_Antall      Binary_Integer;
     v_FeilId      Integer;
-    V_expMess     {CommonSchemaName}.dwFeillogg.exceptionMessage%Type;
+    V_expMess     dipscoredb.dwFeillogg.exceptionMessage%Type;
     v_SqlCode     Number;
     v_dummy       Boolean;
-    v_PrevTransId {SchemaPrefix}CHANGElogTable.TransactionId%Type;
+    v_PrevTransId {SchemaPrefixId}CHANGElogTable.TransactionId%Type;
 
     Cursor c(nbr_months Binary_Integer) Is
       Select t.transactionid
-        From {SchemaPrefix}CHANGElogTable t,
-             {SchemaPrefix}CHANGElogColumn c
+        From {SchemaPrefixId}CHANGElogTable t,
+             {SchemaPrefixId}CHANGElogColumn c
        Where c.StorageType = 1 -- Temporary log
          and t.storagetype = 1 -- Temporary log
          and c.transactionId = t.transactionId
@@ -848,8 +848,8 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
     latest_running_ts Date;
   Begin
 
-    {CommonSchemaName}.cpSesjon.dwp_logginn('tom_tempendringslog');
-    {CommonSchemaName}.cpSesjon.dwp_stortskript(True, 'Tøm temporær endringslogg');
+    dipscoredb.cpSesjon.dwp_logginn('tom_tempendringslog');
+    dipscoredb.cpSesjon.dwp_stortskript(True, 'Tøm temporær endringslogg');
 
     -- beregn siste kjøretidspunkt før den må avbryte seg selv
     If aTest And antall_timer Is Not Null Then
@@ -862,7 +862,7 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
     End If;
 
     -- oppsettparameter for antall måneder lagring før sletting av endringslogger
-    v := {CommonSchemaName}.cpSesjon.dwf_oppsettverdi(p_parameter       => parameterid,
+    v := dipscoredb.cpSesjon.dwf_oppsettverdi(p_parameter       => parameterid,
                                    p_brukerrolleid   => -1,
                                    p_sykehusid       => -1,
                                    p_avdid           => -1,
@@ -881,17 +881,17 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
       FOR c_rec in c(v) Loop
         funnet := True;
         if v_PrevTransId != c_rec.transactionid then
-          Delete From {SchemaPrefix}CHANGElogColumn
+          Delete From {SchemaPrefixId}CHANGElogColumn
            Where transactionid = c_rec.transactionid
              And Storagetype = 1; -- Temporær logg ;
 
           Select Count(transactionid)
             Into v_Antall
-            From {SchemaPrefix}CHANGElogColumn
+            From {SchemaPrefixId}CHANGElogColumn
            Where transactionid = c_rec.transactionid;
 
           If v_Antall = 0 Then
-            Delete From {SchemaPrefix}CHANGElogTable
+            Delete From {SchemaPrefixId}CHANGElogTable
              Where transactionid = c_rec.transactionid;
           End If;
         end if;
@@ -915,8 +915,8 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
     -- Viktig: vi skal IKKE slette fra dwBlobEndringsLogg!  Dette er tatt ut 24.5.04/ HBH.
     -- (Helt essensielt for AHUS).
 
-    {CommonSchemaName}.cpSesjon.dwp_stortskript(False, 'Tøm temporær endringslogg');
-    {CommonSchemaName}.cpSesjon.dwp_logginn('');
+    dipscoredb.cpSesjon.dwp_stortskript(False, 'Tøm temporær endringslogg');
+    dipscoredb.cpSesjon.dwp_logginn('');
     Commit;
 
   Exception
@@ -925,9 +925,9 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
 
       V_expMess := substr(Sqlerrm, 1, 4000);
       v_SqlCode := Sqlcode;
-      v_FeilId  := {CommonSchemaName}.cpSesjon.dwf_SekvensVerdi('dwFeillogg', 'NEXT');
+      v_FeilId  := dipscoredb.cpSesjon.dwf_SekvensVerdi('dwFeillogg', 'NEXT');
 
-      Insert Into {CommonSchemaName}.dwFeilLogg
+      Insert Into dipscoredb.dwFeilLogg
         (FeilId,
          Tid,
          FeilNr,
@@ -944,8 +944,8 @@ CREATE OR REPLACE Package Body {SchemaName}.mcChangeLog Is
          V_expMess,
          v_FeilId);
 
-      If {CommonSchemaName}.cpSesjon.dwf_ErIStortSkript Then
-        {CommonSchemaName}.cpSesjon.dwp_stortskript(False,
+      If dipscoredb.cpSesjon.dwf_ErIStortSkript Then
+        dipscoredb.cpSesjon.dwp_stortskript(False,
                                  'Tøm temporær endringslogg - feilet.');
 
       End If;

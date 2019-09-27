@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.1.28 2019-09-27
+- Fixed  FluentDbTools.Common.Abstractions.Extensions.ExtractSqlStatements
+- Added test to verify that ExtractSqlStatements do the work
+- Improved Embedded resource handling
+
 ### Version 1.1.27 2019-09-23
 - Fixed SqlResource for netstandard2.0
 
