@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.1.29 2019-10-24
+- Improved LogFileAppendFluentMigratorLoggerProvider
+  Will try 10 times with wait of 250ms to create StreamWriter if IOException is thrown 
 ### Version 1.1.28 2019-09-27
 - Fixed  FluentDbTools.Common.Abstractions.Extensions.ExtractSqlStatements
 - Added test to verify that ExtractSqlStatements do the work

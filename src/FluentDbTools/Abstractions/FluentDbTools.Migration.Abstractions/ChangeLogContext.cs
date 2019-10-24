@@ -91,11 +91,12 @@ namespace FluentDbTools.Migration.Abstractions
         /// <summary>
         /// Constructor<br/>
         /// -------------<br/>
-        /// AnonymousOperation is assigned with "NOOP"<br/>
         /// SchemaPrefixId is assigned with value from parameter <paramref name="migrationConfig"/> - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/><br/> 
         /// SchemaPrefixUniqueId is assigned with value from parameter <paramref name="migrationConfig"/> - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId()"/><br/> 
         /// ShortName is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:ShortName or database:schemaPrefix:tables:{tableName}:ShortName<br/>
         /// GlobalId is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:GlobalId or database:schemaPrefix:tables:{tableName}:GlobalId<br/>
+        /// KeyType is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:KeyType or database:schemaPrefix:tables:{tableName}:KeyType<br/>
+        /// AnonymousOperation is assigned to "NOOP" OR value from configuration database:migration:schemaPrefix:tables:{tableName}:AnonymousOperation or database:schemaPrefix:tables:{tableName}:AnonymousOperation<br/>
         /// <br/>
         /// i.e:<br/>
         /// When configuration have database:migration:schemaPrefix:Id = "PR" and database:migration:schemaPrefix:UniqueId = "abode" <br/>
@@ -111,8 +112,10 @@ namespace FluentDbTools.Migration.Abstractions
         public ChangeLogContext(IDbMigrationConfig migrationConfig, string tableName)
             :this(migrationConfig)
         {
-            ShortName = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:shortName");
-            GlobalId = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:globalId");
+            ShortName = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:shortName") ?? ShortName;
+            GlobalId = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:globalId") ?? GlobalId;
+            KeyType = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:keyType") ?? KeyType;
+            AnonymousOperation = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:anonymousOperation") ?? AnonymousOperation; 
 
             if (!string.IsNullOrEmpty(ShortName) && migrationConfig != null)
             {

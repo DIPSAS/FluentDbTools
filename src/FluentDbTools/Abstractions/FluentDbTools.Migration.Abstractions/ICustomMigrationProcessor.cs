@@ -18,6 +18,7 @@ namespace FluentDbTools.Migration.Abstractions
         /// <param name="migrationMetadata"></param>
         /// <param name="extendedMigrationProcessor"></param>
         void MigrationMetadataChanged(IMigrationMetadata migrationMetadata, IExtendedMigrationProcessor extendedMigrationProcessor);
+
         /// <summary>
         /// Can be used to setup a common Sql execute method
         /// </summary>
