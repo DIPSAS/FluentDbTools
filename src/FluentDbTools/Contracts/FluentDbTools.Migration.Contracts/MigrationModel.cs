@@ -6,8 +6,10 @@ using System.Reflection;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Contracts.MigrationExpressions;
+using FluentDbTools.Migration.Contracts.MigrationExpressions.Execute;
 using FluentMigrator.Builders;
 using FluentMigrator.Builders.Delete;
+using FluentMigrator.Builders.Execute;
 using FluentMigrator.Expressions;
 using FluentMigrator.Infrastructure;
 using FluentMigrator.Runner.VersionTableInfo;
@@ -277,9 +279,15 @@ namespace FluentDbTools.Migration.Contracts
 
             return IsPostgres(ConfiguredDatabaseType) ? column.AsCustom(MigrationConsts.BlobTypeForPostgres) : column.AsBinary();
         }
-    }
 
-    
+
+        /// <summary>
+        /// Gets the starting point for SQL execution
+        /// </summary>
+        public new IExecuteExpressionRoot Execute => new InternalExecuteExpressionRoot(GetMigrationContext());
+
+        //public IExecuteExpressionRoot Execute { get; } = new ExecuteExpressionRoot(GetMigrationContext());
+    }
 
 
     /// <summary>
@@ -293,7 +301,4 @@ namespace FluentDbTools.Migration.Contracts
         public const string Id = "Id";
 
     }
-
-
-
 }

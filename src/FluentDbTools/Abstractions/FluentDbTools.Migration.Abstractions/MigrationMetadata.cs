@@ -17,7 +17,7 @@ namespace FluentDbTools.Migration.Abstractions
 
 
         /// <inheritdoc />
-        public string MigrationName { get; private set; }
+        public string MigrationName { get; set; }
 
 
         /// <summary>

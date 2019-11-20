@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Contracts;
 using FluentDbTools.Extensions.DbProvider;
@@ -7,19 +8,30 @@ using Microsoft.Extensions.Configuration;
 namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 {
     /// <inheritdoc />
-    public class MsDbConfig : DbConfig
+    internal class MsDbConfig : DbConfig
     {
-        private readonly IConfiguration Configuration;
+        internal readonly IConfiguration Configuration;
 
         /// <inheritdoc />
         public MsDbConfig(
-            IConfiguration configuration, 
-            MsDefaultDbConfigValues defaultDbConfigValues = null) :
-            base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration))
+            IConfiguration configuration,
+            IConfigurationChangedHandler configurationChangedHandler = null,
+            DefaultDbConfigValues defaultDbConfigValues = null,
+            DbConfigCredentials dbConfigCredentials = null) :
+            base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration), dbConfigCredentials)
         {
             Configuration = configuration;
+            configurationChangedHandler?.RegisterConfigurationChangedCallback(OnConfigurationChanged);
         }
 
+        /// <inheritdoc />
+        protected override void OnConfigurationChanged(Func<string[], string> getValueFunc)
+        {
+            GetAllDatabaseConfigValues(true);
+            base.OnConfigurationChanged(getValueFunc);
+        }
+
+        /// <inheritdoc />
         public override IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false)
         {
             if (AllConfigValuesField == null || reload)
@@ -44,6 +56,5 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             return GetAllDatabaseConfigValues().GetValue("schemaPrefix:UniqueId") ??
                    Defaults.GetDefaultSchemaPrefixUniqueIdString?.Invoke() ?? string.Empty;
         }
-
     }
 }

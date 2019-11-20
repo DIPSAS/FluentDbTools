@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
+using FluentDbTools.Migration.Abstractions;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FluentDbTools.Extensions.Migration.DefaultConfigs
 {
@@ -44,6 +48,18 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
             return configuration?.GetDbSection()?.GetSection("migration");
         }
 
-
+        /// <summary>
+        /// Resolve underlying <see cref="IConfiguration"/> to the implemented class of <see cref="IDbMigrationConfig"/> 
+        /// </summary>
+        /// <param name="dbMigrationConfig"></param>
+        /// <returns></returns>
+        public static IConfiguration GetConfiguration(this IDbMigrationConfig dbMigrationConfig)
+        {
+            if (dbMigrationConfig != null && dbMigrationConfig is MsDbMigrationConfig msDbMigrationConfig)
+            {
+                return msDbMigrationConfig.Configuration;
+            }
+            return dbMigrationConfig?.GetDbConfig()?.GetConfiguration();
+        }
     }
 }

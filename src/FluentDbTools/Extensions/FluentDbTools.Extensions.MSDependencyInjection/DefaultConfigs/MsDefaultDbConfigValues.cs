@@ -3,14 +3,19 @@ using Microsoft.Extensions.Configuration;
 
 namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 {
-    public class MsDefaultDbConfigValues : DefaultDbConfigValues
+    /// <inheritdoc />
+    internal class MsDefaultDbConfigValues : DefaultDbConfigValues
     {
+        /// <summary>
+        /// Overrides all default functions in <see cref="DefaultDbConfigValues"/> by <paramref name="configuration"/> extension methods
+        /// </summary>
+        /// <param name="configuration"></param>
         public MsDefaultDbConfigValues(IConfiguration configuration)
         {
             // DbConfigDatabaseTargets defaults
             GetDefaultDbType = configuration.GetDbType;
             GetDefaultSchema = configuration.GetDbSchema;
-            GetDefaulDatabaseName = configuration.GetDbDatabaseName;
+            GetDefaultDatabaseName = configuration.GetDbDatabaseName;
             GetDefaultSchemaPrefixIdString = () => string.Empty;
 
             // DbConfigCredentials defaults
@@ -22,7 +27,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             // DbConnectionStringBuilderConfig defaults
             GetDefaultHostName = configuration.GetDbHostname;
             GetDefaultPort = configuration.GetDbPort;
-            GetDefaultDatasource = configuration.GetDbDataSource;
+            GetDefaultDataSource = configuration.GetDbDataSource;
             GetDefaultConnectionTimeoutInSecs = configuration.GetDbConnectionTimeout;
             GetDefaultPooling = configuration.GetDbPooling;
 

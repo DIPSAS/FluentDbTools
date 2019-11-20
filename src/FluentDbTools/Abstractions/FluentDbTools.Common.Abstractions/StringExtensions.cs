@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
+
 // ReSharper disable UnusedMember.Global
 
 namespace FluentDbTools.Common.Abstractions
@@ -245,5 +249,325 @@ namespace FluentDbTools.Common.Abstractions
             var pos = value.IndexOf(to, StringComparison.CurrentCultureIgnoreCase);
             return pos > -1 ? value.Substring(0, pos) : value;
         }
+
+        /// <summary>
+        /// Retrieves a substring from this instance. The substring is from position 0 to the position of <paramref name="to"/> string <br/>
+        /// If position of <paramref name="to"/> is less 0, the incoming string is returned.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public static string SubstringFrom(this string value, string from, params string [] to)
+        {
+            var pos = value.IndexOf(from, StringComparison.CurrentCultureIgnoreCase);
+
+            if (pos <= -1)
+            {
+                return value;
+            }
+
+            var subStr = value.Substring(pos);
+            pos = -1;
+            foreach (var s in to)
+            {
+                var posFount = subStr.IndexOf(s, from.Length - 1,  StringComparison.CurrentCultureIgnoreCase);
+                if (posFount > -1 && (pos == -1 || posFount < pos))
+                {
+                    pos = posFount;
+                }
+            }
+            return pos > -1 ? subStr.Substring(0, pos).Trim() : subStr.Trim();
+        }
+
+
+        /// <summary>
+        /// Strip sql for logging
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="additionalSqlTitleConverterFunc"></param>
+        /// <returns></returns>
+        public static string ConvertToSqlTitle(this string value, Func<string,string> additionalSqlTitleConverterFunc = null)
+        {
+            if (additionalSqlTitleConverterFunc != null)
+            {
+                var newValue = additionalSqlTitleConverterFunc.Invoke(value);
+                if (!newValue.EqualsIgnoreCase(value))
+                {
+                    return newValue;
+                }
+            }
+
+            value = StripForLoggingRemoveCreateStatement(value);
+            if (value.StartsWithIgnoreCase("/*"))
+            {
+                value = value.Replace("/*", "").Replace("*/", "");
+                var strings = value.Split('\n').Select(x => $"-- {x.Trim()}").ToArray();
+                value = string.Join("\n", strings);
+            }
+            return value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveCreateStatement(string value)
+        {
+            value = StripForLoggingRemoveCreateUser(value);
+            value = StripForLoggingRemoveCreatePackageBody(value);
+            value = StripForLoggingRemoveCreatePackage(value);
+            value = StripForLoggingRemoveCreateSequence(value);
+            value = StripForLoggingRemoveCreateSynonyms(value);
+            value = StripForLoggingRemoveCreateProcedure(value);
+            value = StripForLoggingRemoveCreateFunction(value);
+            value = StripForLoggingRemoveCreateIndex(value);
+            value = StripForLoggingRemoveCreateComment(value);
+            value = StripForLoggingRemoveCreateTable(value);
+            value = StripForLoggingRemoveAlterTable(value);
+            return value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveCreateUser(string value)
+        {
+            var org = value;
+            var search = "CREATE USER".ToTitleCase(true);
+            value = value.SubstringFrom(search, "IDENTIFIED" ,"ENABLE", "ACCOUNT", "DEFAULT","TEMPORARY","TABLESPACE", "\n");
+            if (org.EqualsIgnoreCase(value))
+            {
+                return org;
+            }
+            value = $"{search.ReplaceIgnoreCase(search, search)} [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            return value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveCreatePackageBody(string value)
+        {
+            var org = value;
+            var search = "CREATE OR REPLACE PACKAGE BODY".ToTitleCase(true);
+            value = value.SubstringFrom(search, " IS " ," IS\n", " IS"," AS " ," AS\n", " AS", "\n");
+            if (org.EqualsIgnoreCase(value))
+            {
+                return org;
+            }
+
+            value = $"Create Package Body [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            return value;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveCreatePackage(string value)
+        {
+            var org = value;
+            var search = "CREATE OR REPLACE PACKAGE".ToTitleCase(true);
+            value = value.SubstringFrom(search, " IS " ," IS\n", " IS"," AS " ," AS\n", " AS", "\n");
+            if (org.EqualsIgnoreCase(value))
+            {
+                return org;
+            }
+
+            value = $"Create Package [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            return value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveCreateSequence(string value)
+        {
+            var org = value;
+            var search = "CREATE SEQUENCE".ToTitleCase(true);
+            value = value.SubstringFrom(search, "minvalue" ,"\n");
+            if (org.EqualsIgnoreCase(value))
+            {
+                return org;
+            }
+            value = $"{search.ReplaceIgnoreCase(search, search)} [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            return value;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveCreateSynonyms(string value)
+        {
+            var org = value;
+            var search = "CREATE OR REPLACE SYNONYM".ToTitleCase(true);
+            value = value.SubstringFrom(search, ";", "\n");
+            if (org.EqualsIgnoreCase(value) && !org.ContainsIgnoreCase(search))
+            {
+                return org;
+            }
+            value = $"Create Synonym [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            return value;
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveCreateProcedure(string value)
+        {
+            var org = value;
+            var search = "CREATE OR REPLACE PROCEDURE".ToTitleCase(true);
+            value = value.SubstringFrom(search, "(", " IS " ," IS\n", " IS"," AS " ," AS\n", " AS", "\n");
+            if (org.EqualsIgnoreCase(value))
+            {
+                return org;
+            }
+
+            value = $"Create Procedure [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            return value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveCreateFunction(string value)
+        {
+            var org = value;
+            var search = "CREATE OR REPLACE FUNCTION".ToTitleCase(true);
+            value = value.SubstringFrom(search, "(", "Return", "\n");
+            if (org.EqualsIgnoreCase(value))
+            {
+                return org;
+            }
+
+            value = $"Create Function [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            return value;
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveCreateIndex(string value)
+        {
+            var org = value;
+            var search = "CREATE INDEX".ToTitleCase(true);
+            value = value.SubstringFrom(search, "(", "TABLESPACE", "\n");
+            if (org.EqualsIgnoreCase(value))
+            {
+                return org;
+            }
+
+            value = $"Create Index [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            return value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveCreateTable(string value)
+        {
+            var org = value;
+            var search = "CREATE TABLE".ToTitleCase(true);
+            value = value.SubstringFrom(search, "(", "\n");
+            if (org.EqualsIgnoreCase(value))
+            {
+                return org;
+            }
+
+            value = $"{search} [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            return value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveAlterTable(string value)
+        {
+            var org = value;
+            var search = "ALTER TABLE".ToTitleCase(true);
+            value = value.SubstringFrom(search, "add", "remove", "\n");
+            if (org.EqualsIgnoreCase(value))
+            {
+                return org;
+            }
+
+            value = $"{search} [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            return value;
+        }
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string StripForLoggingRemoveCreateComment(string value)
+        {
+            var org = value;
+            var search = "comment on column".ToTitleCase(true);
+            value = value.SubstringFrom(search, "is", "\n");
+            if (org.EqualsIgnoreCase(value))
+            {
+                return org;
+            }
+
+            var comment = org.SubstringFrom("is '").Substring(2).Trim();
+            value = $"Add Column Comment [{value.ReplaceIgnoreCase(search, "").Trim()} => {comment}]";
+            return value;
+        }
+
+        public static string[] SplitOnCapitalLetters(this string @string)
+        {
+            var r = new Regex(@"
+                (?<=[A-Z])(?=[A-Z][a-z]) |
+                 (?<=[^A-Z])(?=[A-Z]) |
+                 (?<=[A-Za-z])(?=[^A-Za-z])", RegexOptions.IgnorePatternWhitespace);
+
+            return r.Split(@string);
+        }
+
+        public static string ToTitleCase(this string @string, bool toLower = false)
+        {
+            if (toLower)
+            {
+                @string = @string.ToLower();
+            }
+            return string.Join(" ", 
+                @string
+                    .Split(' ')
+                    .Select(x => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Trim()))
+                    .ToArray());
+        }
+
+
     }
 }

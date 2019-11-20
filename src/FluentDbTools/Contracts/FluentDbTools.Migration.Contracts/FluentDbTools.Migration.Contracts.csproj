@@ -7,6 +7,10 @@
     <Import Project="..\..\SolutionInfo.proj" />
 
     <ItemGroup>
+      <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\..\Abstractions\FluentDbTools.Migration.Abstractions\FluentDbTools.Migration.Abstractions.csproj" />
     </ItemGroup>
 

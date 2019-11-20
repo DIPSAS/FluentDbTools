@@ -84,6 +84,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7367735B
 		SolutionInfo.proj = SolutionInfo.proj
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.FluentDbTools", "Tests\Test.FluentDbTools\Test.FluentDbTools.csproj", "{E410FFB3-FA7F-4905-A14E-A15BD934063C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -194,6 +196,10 @@ Global
 		{CF582DD2-A038-4487-A3D3-3451B3800523}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF582DD2-A038-4487-A3D3-3451B3800523}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF582DD2-A038-4487-A3D3-3451B3800523}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E410FFB3-FA7F-4905-A14E-A15BD934063C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E410FFB3-FA7F-4905-A14E-A15BD934063C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E410FFB3-FA7F-4905-A14E-A15BD934063C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E410FFB3-FA7F-4905-A14E-A15BD934063C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -226,6 +232,7 @@ Global
 		{7102F129-7912-4C06-8026-52C7875AB871} = {C43702A5-E00A-4CFF-8D62-931A2A762FD7}
 		{CC341E1A-C5EA-4925-B0F6-04152C59270F} = {65B7029A-534B-446A-90A8-64DC2E75D487}
 		{CF582DD2-A038-4487-A3D3-3451B3800523} = {0672E194-A96C-4F5C-8AD6-BF36CC1EE875}
+		{E410FFB3-FA7F-4905-A14E-A15BD934063C} = {65B7029A-534B-446A-90A8-64DC2E75D487}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {456583DA-E724-4868-A195-2FE2F14160A6}

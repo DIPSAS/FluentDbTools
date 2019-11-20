@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.Common;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.DbProvider;
+using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -10,11 +11,28 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
 {
     public static class ServiceCollectionDbProviderExtensions
     {
+        public static Type GetDependecyInjectionDbConfigType(this IServiceCollection _)
+        {
+            return GetDependecyInjectionDbConfigType();
+        }
+
+        public static Type GetDependecyInjectionDbConfigType()
+        {
+            return typeof(MsDbConfig);
+        }
+
         public static IServiceCollection AddDbProvider<TDbConfig>(this IServiceCollection serviceCollection)
             where TDbConfig : class, IDbConfig
         {
             return serviceCollection
                 .AddDbConfig<TDbConfig>()
+                .AddDbProvider();
+        }
+
+        public static IServiceCollection AddDbProvider(this IServiceCollection serviceCollection, Type dbConfigType)
+        {
+            return serviceCollection
+                .AddDbConfig(dbConfigType)
                 .AddDbProvider();
         }
 

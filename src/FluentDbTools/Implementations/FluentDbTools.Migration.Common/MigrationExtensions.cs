@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading;
+using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
+using FluentMigrator.Runner;
+using Microsoft.Extensions.Logging;
 
 namespace FluentDbTools.Migration.Common
 {
@@ -31,5 +34,15 @@ namespace FluentDbTools.Migration.Common
             }
         }
 
+        public static void LogSqlInternal(this ILogger logger, string sql)
+        {
+            var forLogging = sql.ConvertToSqlTitle();
+            if (forLogging != sql)
+            {
+                logger.LogSay(forLogging);
+            }
+
+            logger.LogSql(sql);
+        }
     }
 }

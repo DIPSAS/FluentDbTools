@@ -11,7 +11,7 @@ namespace Example.FluentDbTools.Database
         public static IServiceCollection Register(IServiceCollection serviceCollection)
         {
             return serviceCollection
-                .AddDbProvider<MsDbConfig>()
+                .AddDbProvider(serviceCollection.GetDependecyInjectionDbConfigType())
                 .AddScoped<IPersonRepository, PersonRepository>()
                 .AddOracleDbProvider()
                 .AddPostgresDbProvider();

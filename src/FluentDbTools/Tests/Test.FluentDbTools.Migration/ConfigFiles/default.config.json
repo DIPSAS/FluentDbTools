@@ -1,0 +1,27 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug"
+    },
+    "Console":
+    {
+      "IncludeScopes": true
+    }
+  },
+  "database": {
+    "type": "Oracle",
+    "user": "user",
+    "password": "password",
+    "adminUser": "adminUser",
+    "adminPassword": "adminPassword",
+    "schema": "schema", // If not set, then it equals to 'database:user'
+    "serviceName": "serviceName",
+    "hostname": "hostname",
+    "port": 1,
+    "pooling": false,
+    "migration": {
+      "migrationName": "migrationName",
+      "schemaPassword": "schemaPassword" // If not set, then it equals to 'database:password'
+    }
+  }
+}
