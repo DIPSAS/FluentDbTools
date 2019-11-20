@@ -15,7 +15,7 @@ namespace FluentDbTools.Migration
         public static IServiceCollection AddLogFileAppendFluentMigratorLoggerProvider(this IServiceCollection sc)
         {
             sc.Remove(new ServiceDescriptor(typeof(ILoggerProvider), typeof(LogFileFluentMigratorLoggerProvider)));
-            sc.AddScoped<ILoggerProvider, LogFileAppendFluentMigratorLoggerProvider>();
+            sc.AddSingleton<ILoggerProvider, LogFileAppendFluentMigratorLoggerProvider>();
             return sc;
         }
 
@@ -62,7 +62,7 @@ namespace FluentDbTools.Migration
             }
 
             loggingBuilder.Services.AddSingleton<IOptions<FluentMigratorLoggerOptions>>(new OptionsWrapper<FluentMigratorLoggerOptions>(options));
-            loggingBuilder.Services.AddScoped<ILoggerProvider, FluentMigratorConsoleLoggerProvider>();
+            loggingBuilder.Services.AddSingleton<ILoggerProvider, FluentMigratorConsoleLoggerProvider>();
 
             return loggingBuilder;
         }

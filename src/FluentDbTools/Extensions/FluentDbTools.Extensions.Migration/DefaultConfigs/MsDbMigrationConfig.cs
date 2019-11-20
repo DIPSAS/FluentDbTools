@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Contracts;
 using FluentDbTools.Extensions.DbProvider;
+using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using FluentDbTools.Migration.Abstractions;
 using Microsoft.Extensions.Configuration;
 using FluentDbTools.Migration.Common;
+using Microsoft.Extensions.Primitives;
 
 namespace FluentDbTools.Extensions.Migration.DefaultConfigs
 {
@@ -14,7 +17,7 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
     public class MsDbMigrationConfig : IDbMigrationConfig
     {
         private readonly DefaultDbConfigValues Defaults;
-        private readonly IConfiguration Configuration;
+        internal readonly IConfiguration Configuration;
         private IDictionary<string, string> AllConfigValuesField;
 
         /// <inheritdoc />
@@ -27,7 +30,11 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="dbConfig"></param>
-        public MsDbMigrationConfig(IConfiguration configuration, IDbConfig dbConfig = null)
+        /// <param name="configurationChangedHandler"></param>
+        public MsDbMigrationConfig(
+            IConfiguration configuration,
+            IDbConfig dbConfig = null,
+            IConfigurationChangedHandler configurationChangedHandler = null)
         {
             Configuration = configuration;
 
@@ -42,9 +49,12 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
             {
                 Defaults = (dbConfig as MsDbConfig)?.Defaults ?? new MsDefaultDbConfigValues(configuration);
             }
-            
+
             GetDbConfig = () => dbConfig;
+            configurationChangedHandler?.RegisterConfigurationChangedCallback(OnConfigurationChanged);
         }
+
+
 
         private string SchemaPasswordField;
 
@@ -65,6 +75,7 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         }
 
         private string TempTablespaceField;
+
         /// <inheritdoc />
         public virtual string TempTablespace
         {
@@ -83,8 +94,8 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         public string DatabaseName => GetDbConfig().DatabaseName;
 
         /// <inheritdoc />
-        public string GetSchemaPrefixId() => GetAllMigrationConfigValues().GetValue("schemaPrefix:Id") ?? 
-                                             GetDbConfig().GetSchemaPrefixId() ??   
+        public string GetSchemaPrefixId() => GetAllMigrationConfigValues().GetValue("schemaPrefix:Id") ??
+                                             GetDbConfig().GetSchemaPrefixId() ??
                                              Defaults?.GetDefaultSchemaPrefixIdString.Invoke() ?? string.Empty;
 
         /// <inheritdoc />
@@ -118,7 +129,16 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         {
             return GetAllMigrationConfigValues().GetValue("schemaPrefix:UniqueId") ??
                    GetDbConfig().GetSchemaPrefixUniqueId() ??
-                   Defaults?.GetDefaultSchemaPrefixUniqueIdString.Invoke() ?? string.Empty;;
+                   Defaults?.GetDefaultSchemaPrefixUniqueIdString.Invoke() ?? string.Empty; ;
+        }
+
+        private void OnConfigurationChanged(Func<string[], string> getValueFunc)
+        {
+            TempTablespaceField = null;
+            TablespaceField = null;
+            SchemaPasswordField = null;
+
+            GetAllMigrationConfigValues(true);
         }
     }
 }

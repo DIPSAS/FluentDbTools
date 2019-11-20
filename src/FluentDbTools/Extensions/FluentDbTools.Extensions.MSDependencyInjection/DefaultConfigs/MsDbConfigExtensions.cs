@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Extensions.DbProvider;
 using Microsoft.Extensions.Configuration;
 
 [assembly:InternalsVisibleTo("FluentDbTools.Extensions.Migration")]
 namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 {
-    internal static class MsDbConfigExtensions
+    public static class MsDbConfigExtensions
     {
         private const SupportedDatabaseTypes DefaultDatabaseType = SupportedDatabaseTypes.Postgres;
         private const string DefaultDbUser = "user";
@@ -15,7 +16,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         private const bool DefaultDbPooling = true;
 
 
-        public static SupportedDatabaseTypes GetDbType(this IConfiguration configuration)
+        internal static SupportedDatabaseTypes GetDbType(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
             if (!Enum.TryParse(section?["type"], true, out SupportedDatabaseTypes availableDatabaseType))
@@ -25,19 +26,19 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             return availableDatabaseType;
         }
 
-        public static string GetDbUser(this IConfiguration configuration)
+        internal static string GetDbUser(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
             return section.GetSectionStringValue("user", DefaultDbUser);
         }
 
-        public static string GetDbPassword(this IConfiguration configuration)
+        internal static string GetDbPassword(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
             return section.GetSectionStringValue("password", DefaultDbPassword);
         }
 
-        public static string GetDbAdminUser(this IConfiguration configuration)
+        internal static string GetDbAdminUser(this IConfiguration configuration)
         {
             string defaultDbAdminUser;
             switch (configuration.GetDbType())
@@ -55,7 +56,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             return section.GetSectionStringValue("adminUser", defaultDbAdminUser);
         }
 
-        public static string GetDbAdminPassword(this IConfiguration configuration)
+        internal static string GetDbAdminPassword(this IConfiguration configuration)
         {
             string defaultDbAdminPassword;
             switch (configuration.GetDbType())
@@ -73,13 +74,13 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             return section.GetSectionStringValue("adminPassword", defaultDbAdminPassword);
         }
 
-        public static string GetDbHostname(this IConfiguration configuration)
+        internal static string GetDbHostname(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
             return section.GetSectionStringValue("hostname");
         }
 
-        public static string GetDbPort(this IConfiguration configuration)
+        internal static string GetDbPort(this IConfiguration configuration)
         {
             string defaultDbPort;
             switch (configuration.GetDbType())
@@ -97,7 +98,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             return section.GetSectionStringValue("port", defaultDbPort);
         }
 
-        public static string GetDbDatabaseName(this IConfiguration configuration)
+        internal static string GetDbDatabaseName(this IConfiguration configuration)
         {
             string defaultConnectionName;
             switch (configuration.GetDbType())
@@ -118,7 +119,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
                 ?? defaultConnectionName;
         }
 
-        public static bool GetDbPooling(this IConfiguration configuration)
+        internal static bool GetDbPooling(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
             if (!bool.TryParse(section?["pooling"], out var pooling))
@@ -128,32 +129,32 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             return pooling;
         }
 
-        public static string GetDbSchema(this IConfiguration configuration)
+        internal static string GetDbSchema(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
             return section.GetSectionStringValue("schema", configuration.GetDbUser()).ToLower();
         }
         
-        public static string GetDbConnectionString(this IConfiguration configuration)
+        internal static string GetDbConnectionString(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
             return section.GetSectionStringValue("connectionString");
         }
 
-        public static string GetDbAdminConnectionString(this IConfiguration configuration)
+        internal static string GetDbAdminConnectionString(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
             return section.GetSectionStringValue("adminConnectionString");
         }
 
 
-        public static string GetDbConnectionTimeout(this IConfiguration configuration)
+        internal static string GetDbConnectionTimeout(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
             return section.GetSectionStringValue("connectionTimeoutInSecs");
         }
 
-        public static string GetDbDataSource(this IConfiguration configuration)
+        internal static string GetDbDataSource(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
             return section.GetSectionStringValue("dataSource");
@@ -181,7 +182,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             return value;
         }
 
-        public static IDictionary<string, string> GetDbAllConfigValues(
+        internal static IDictionary<string, string> GetDbAllConfigValues(
             this IConfigurationSection sections)
         {
             var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -213,6 +214,31 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             }
 
             return dictionary;
+        }
+
+        /// <summary>
+        /// Resolve underlying <see cref="IConfiguration"/> to the implemented class of <see cref="IDbConfig"/> 
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <returns></returns>
+        public static IConfiguration GetConfiguration(this IDbConfig dbConfig)
+        {
+            if (dbConfig != null && dbConfig is MsDbConfig msDbConfig)
+            {
+                return msDbConfig.Configuration;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Create the DependencyInjection implementing class of <see cref="IDbConfig"/> (strong type Ms<see cref="DbConfig"/>) 
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static DbConfig CreateDbConfig(this IConfiguration configuration)
+        {
+            return new MsDbConfig(configuration);
         }
     }
 }

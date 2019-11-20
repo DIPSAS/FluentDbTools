@@ -14,6 +14,12 @@ namespace FluentDbTools.Migration.Abstractions
     {
 
         /// <summary>
+        /// Can be used to specify generic generation of triggers and views<br/>
+        /// Default is Null, witch indicated that property is not configured
+        /// </summary>
+        public TriggersAndViewsGeneration? EnabledTriggersAndViewsGeneration { get; set; }
+
+        /// <summary>
         /// Can be used to specify the Global Id of the changed resource (mostly a table)<br/>
         /// i.e: "abc", "lmn", "xyz" 
         /// </summary>
@@ -112,14 +118,25 @@ namespace FluentDbTools.Migration.Abstractions
         public ChangeLogContext(IDbMigrationConfig migrationConfig, string tableName)
             :this(migrationConfig)
         {
-            ShortName = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:shortName") ?? ShortName;
-            GlobalId = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:globalId") ?? GlobalId;
-            KeyType = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:keyType") ?? KeyType;
-            AnonymousOperation = GetConfigValue(migrationConfig, $"schemaPrefix:tables:{tableName}:anonymousOperation") ?? AnonymousOperation; 
+            ShortName = migrationConfig.GetTableConfigValue("schemaPrefix:tables:{tableName}:shortName", tableName) ?? ShortName;
+            GlobalId = migrationConfig.GetTableConfigValue("schemaPrefix:tables:{tableName}:globalId", tableName) ?? GlobalId;
+            KeyType = migrationConfig.GetTableConfigValue("schemaPrefix:tables:{tableName}:keyType", tableName) ?? KeyType;
+            AnonymousOperation = migrationConfig.GetTableConfigValue("schemaPrefix:tables:{tableName}:anonymousOperation", tableName) ?? AnonymousOperation;
 
-            if (!string.IsNullOrEmpty(ShortName) && migrationConfig != null)
+            if (ShortName.IsNotEmpty() && migrationConfig != null)
             {
                 ShortName = ShortName.GetPrefixedName(SchemaPrefixId);
+            }
+
+            var skipTriggersAndViews = migrationConfig.GetTableConfigValue( "schemaPrefix:triggersAndViewsGeneration:tables:{tableName}", tableName);
+            if (skipTriggersAndViews.IsEmpty())
+            {
+                return;
+            }
+
+            if (Enum.TryParse(skipTriggersAndViews,true, out TriggersAndViewsGeneration enumValue))
+            {
+                EnabledTriggersAndViewsGeneration = enumValue;
             }
         }
 

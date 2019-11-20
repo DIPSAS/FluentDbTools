@@ -5,15 +5,25 @@ using FluentDbTools.Contracts;
 
 namespace FluentDbTools.Extensions.DbProvider
 {
+    /// <inheritdoc cref="IDbConfig" />
     public class DbConfig : DbConnectionStringBuilderConfig, IDbConfig
     {
+#pragma warning disable 1591
         protected IDictionary<string, string> AllConfigValuesField;
-        public DbConfig(DefaultDbConfigValues defaultDbConfigValues = null)
-            : base(defaultDbConfigValues)
+#pragma warning restore 1591
+
+        /// <inheritdoc />
+        public DbConfig(
+            DefaultDbConfigValues defaultDbConfigValues = null,
+            DbConfigCredentials dbConfigCredentials = null)
+            : base(defaultDbConfigValues, dbConfigCredentials)
         {
-            
+
         }
+
         private string ConnectionStringField;
+
+        /// <inheritdoc />
         public virtual string ConnectionString
         {
             get => ConnectionStringField ?? Defaults.GetDefaultConnectionString();
@@ -22,12 +32,14 @@ namespace FluentDbTools.Extensions.DbProvider
 
         private string AdminConnectionStringField;
 
+        /// <inheritdoc />
         public virtual string AdminConnectionString
         {
             get => AdminConnectionStringField ?? Defaults.GetDefaultAdminConnectionString();
             set => AdminConnectionStringField = value;
         }
 
+        /// <inheritdoc />
         public virtual IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false)
         {
             if (AllConfigValuesField == null || reload)
@@ -38,9 +50,13 @@ namespace FluentDbTools.Extensions.DbProvider
             return AllConfigValuesField;
         }
 
-        public virtual string GetSchemaPrefixUniqueId()
+        /// <inheritdoc />
+        protected override void OnConfigurationChanged(Func<string[], string> getValueFunc)
         {
-            return null;
+            AdminConnectionStringField = null;
+            ConnectionStringField = null;
+            base.OnConfigurationChanged(getValueFunc);
+
         }
     }
 }

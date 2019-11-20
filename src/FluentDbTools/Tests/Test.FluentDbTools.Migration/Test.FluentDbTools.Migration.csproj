@@ -27,4 +27,16 @@
       <ProjectReference Include="..\TestUtilities.FluentDbTools\TestUtilities.FluentDbTools.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="ConfigFiles\changed.config.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="ConfigFiles\test.config.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="ConfigFiles\default.config.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

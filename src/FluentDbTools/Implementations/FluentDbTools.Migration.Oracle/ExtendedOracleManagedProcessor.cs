@@ -40,6 +40,7 @@ namespace FluentDbTools.Migration.Oracle
             return ExtendedMigrationProcessor.IsExists(template, args);
         }
 
+
         public override void Process(PerformDBOperationExpression expression)
         {
             ExtendedMigrationProcessor.Process(expression);
@@ -99,6 +100,11 @@ namespace FluentDbTools.Migration.Oracle
         public void ProcessSql(string sql)
         {
             ExtendedMigrationProcessor.ProcessSql(sql);
+        }
+
+        public void ProcessSql(string sql, string logTitle)
+        {
+            ExtendedMigrationProcessor.ProcessSql(sql, logTitle);
         }
 
         public IDbConnection GetMigrationDbConnection()

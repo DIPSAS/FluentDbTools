@@ -70,6 +70,12 @@ namespace FluentDbTools.Migration.Postgres
             Process(sql);
         }
 
+        public void ProcessSql(string sql, string logTitle)
+        {
+            Logger.LogSay(logTitle);
+            ProcessSql(sql);
+        }
+
         public void Initialize(ICustomMigrationProcessor customMigrationProcessor)
         {
             

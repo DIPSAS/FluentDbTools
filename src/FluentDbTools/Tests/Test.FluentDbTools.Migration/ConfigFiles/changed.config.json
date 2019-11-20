@@ -1,0 +1,29 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug"
+    },
+    "Console":
+    {
+      "IncludeScopes": true
+    }
+  },
+  "database": {
+    "type": "Postgres",
+    "user": "Changed-user",
+    "password": "Changed-password",
+    "adminUser": "Changed-adminUser",
+    "adminPassword": "Changed-adminPassword",
+    "schema": "Changed-schema", // If not set, then it equals to 'database:user'
+    "serviceName": "Changed-serviceName",
+    "dataSource": "Changed-dataSource",
+    "hostname": "Changed-hostname",
+    "port": 2,
+    "pooling": true,
+    "migration": {
+      "migrationName": "Changed-migrationName",
+      "schemaPassword": "Changed-schemaPassword" // If not set, then it equals to 'database:password'
+    }
+    }
+  }
+}
