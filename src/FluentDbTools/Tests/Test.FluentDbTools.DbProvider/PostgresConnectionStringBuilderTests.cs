@@ -111,7 +111,7 @@ namespace Test.FluentDbTools.DbProvider
             action.Should().Throw<SocketException>().Which.SocketErrorCode.Should().Be(SocketError.HostNotFound);
         }
 
-        private static MsDbConfig GetDbConfig(Dictionary<string, string> overrideConfig = null, bool ignoreSettingTimeout = false)
+        private static DbConfig GetDbConfig(Dictionary<string, string> overrideConfig = null, bool ignoreSettingTimeout = false)
         {
             if (!ignoreSettingTimeout)
             {
@@ -124,7 +124,7 @@ namespace Test.FluentDbTools.DbProvider
                 .AddDefaultDbConfig()
                 .AddPostgresDbProvider()
                 .BuildServiceProvider()
-                .GetDbConfig() as MsDbConfig;
+                .GetDbConfig() as DbConfig;
         }
 
     }

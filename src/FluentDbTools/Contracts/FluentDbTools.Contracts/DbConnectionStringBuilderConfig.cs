@@ -1,12 +1,25 @@
-﻿using FluentDbTools.Common.Abstractions;
+﻿using System;
+using FluentDbTools.Common.Abstractions;
 
 namespace FluentDbTools.Contracts
 {
+    /// <inheritdoc cref="DbConfigDatabaseTargets" />
+    /// <inheritdoc cref="IDbConnectionStringBuilderConfig" />
     public class DbConnectionStringBuilderConfig : DbConfigDatabaseTargets, IDbConnectionStringBuilderConfig
     {
+        private string HostnameField;
+        private string PortField;
+        private string DataSourceField;
+        private bool? PoolingField;
+        private string ConnectionTimeoutInSecsField;
+
+        /// <inheritdoc />
         public DbConfigCredentials DbConfigCredentials { get; set; }
 
-        public DbConnectionStringBuilderConfig(DefaultDbConfigValues defaultDbConfigValues = null)
+        /// <inheritdoc />
+        public DbConnectionStringBuilderConfig(
+            DefaultDbConfigValues defaultDbConfigValues = null,
+            DbConfigCredentials dbConfigCredentials = null)
             : base(defaultDbConfigValues)
         {
             if (Defaults.GetDefaultSchema == null)
@@ -14,66 +27,88 @@ namespace FluentDbTools.Contracts
                 Defaults.GetDefaultSchema = () => User;
             }
 
-            DbConfigCredentials = new DbConfigCredentials(Defaults);
+            DbConfigCredentials = dbConfigCredentials ?? new DbConfigCredentials(Defaults);
         }
 
+        /// <inheritdoc />
         public virtual string User
         {
             get => DbConfigCredentials.User;
             set => DbConfigCredentials.User = value;
         }
 
+        /// <inheritdoc />
         public virtual string Password
         {
             get => DbConfigCredentials.Password;
             set => DbConfigCredentials.Password = value;
         }
 
+        /// <inheritdoc />
         public virtual string AdminUser
         {
             get => DbConfigCredentials.AdminUser;
             set => DbConfigCredentials.AdminUser = value;
         }
 
+        /// <inheritdoc />
         public virtual string AdminPassword
         {
             get => DbConfigCredentials.AdminPassword;
             set => DbConfigCredentials.AdminPassword = value;
         }
 
-        private string HostnameField;
+        /// <inheritdoc />
         public virtual string Hostname
         {
             get => HostnameField ?? Defaults.GetDefaultHostName?.Invoke();
             set => HostnameField = value;
         }
 
-        private string PortField;
+        /// <inheritdoc />
         public virtual string Port
         {
             get => PortField ?? Defaults.GetDefaultPort?.Invoke();
             set => PortField = value;
         }
 
-        private bool? PoolingField;
+        /// <inheritdoc />
         public virtual bool Pooling
         {
             get => PoolingField ?? Defaults.GetDefaultPooling?.Invoke() ?? true;
             set => PoolingField = value;
         }
 
-        private string DatasourceField;
+        /// <inheritdoc />
         public virtual string Datasource
         {
-            get => DatasourceField ?? Defaults.GetDefaultDatasource?.Invoke();
-            set => DatasourceField = value;
+            get => DataSourceField ?? Defaults.GetDefaultDataSource?.Invoke();
+            set => DataSourceField = value;
         }
 
-        private string ConnectionTimeoutInSecsField;
+        /// <inheritdoc />
         public virtual string ConnectionTimeoutInSecs
         {
             get => ConnectionTimeoutInSecsField ?? Defaults.GetDefaultConnectionTimeoutInSecs?.Invoke();
             set => ConnectionTimeoutInSecsField = value;
+        }
+
+        /// <inheritdoc />
+        protected override void OnConfigurationChanged(Func<string[], string> getValueFunc)
+        {
+            ConnectionTimeoutInSecsField = null;
+            DataSourceField = null;
+            PoolingField = null;
+            PortField = null;
+            HostnameField = null;
+
+            base.OnConfigurationChanged(getValueFunc);
+
+            if (!DbConfigCredentials.IgnoreManualCallOnConfigurationChanged)
+            {
+                DbConfigCredentials.OnConfigurationChanged(getValueFunc);
+            }
+
         }
     }
 }

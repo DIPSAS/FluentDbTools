@@ -30,7 +30,7 @@ namespace Example.FluentDbTools.Migration.MigrationModels
             // -
             // GlobalId is fetched from database:migration:schemaPrefix:tables:testing:GlobalId or database:schemaPrefix:tables:testing:GlobalId<br/>
             // ShortName is fetched from database:migration:schemaPrefix:tables:testing:ShortName or database:schemaPrefix:tables:testing:ShortName<br/>
-            var testChangeLogContext = new ChangeLogContext(this, Table.Testing);
+            var testChangeLogContext = new ChangeLogContext(this, Table.Testing) { EnabledTriggersAndViewsGeneration = TriggersAndViewsGeneration.Both};
 
             CreateParent();
             
@@ -99,6 +99,10 @@ namespace Example.FluentDbTools.Migration.MigrationModels
                 .OnTable(Table.Person, this).AsInt16().Nullable()
                 .WithChangeLog(PersonLogContext);
 
+            if (IsOracle())
+            {
+                Execute.Sql($"create or replace synonym {SchemaName}.{Table.Testing}1 for {SchemaName}.{Table.Testing.GetPrefixedName(SchemaPrefixId)}");
+            }
         }
 
         private void CreateParent()

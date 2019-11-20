@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using FluentDbTools.Common.Abstractions;
@@ -51,8 +52,8 @@ namespace FluentDbTools.Migration.Abstractions
                 return;
             }
 
-            if (!sql.Contains("\n") && 
-                !sql.Contains("\r") && 
+            if (!sql.Contains("\n") &&
+                !sql.Contains("\r") &&
                 !sql.Contains(";"))
             {
                 action(sql);
@@ -223,7 +224,7 @@ namespace FluentDbTools.Migration.Abstractions
         }
 
         /// <summary>
-        /// Resolve <see cref="IDbMigrationConfig"/> from <paramref name="serviceProvider"/>
+        /// Resolve the registered implementation of <see cref="IDbMigrationConfig"/> from the DependencyInjection container <see cref="IServiceProvider"/>
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <returns></returns>
@@ -231,5 +232,49 @@ namespace FluentDbTools.Migration.Abstractions
         {
             return serviceProvider.GetRequiredService<IDbMigrationConfig>();
         }
+
+
+        /// <summary>
+        /// Resolve table-value by <paramref name="template"/> and <paramref name="tableName"/><br/>
+        /// i.e: With <paramref name="template"/> equal to "tables:{<paramref name="tableName"/>}:globalId" and <paramref name="tableName"/> equal to "Person" (and ie. <paramref name="migrationConfig"/>.GetSchemaPrefixId() (<see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/>) returns "EX" <br/>
+        /// => Will search configuration:<br/>
+        /// - "database:migration:tables:Person:globalId"<br/>
+        /// - "database:migration:tables:EXPerson:globalId"<br/> 
+        /// - "database:tables:Person:globalId"<br/> 
+        /// - "database:tables:EXPerson:globalId"<br/> 
+        /// </summary>
+        /// <param name="migrationConfig"></param>
+        /// <param name="template">string template containing {tableName}</param>
+        /// <param name="tableName"></param>
+        /// <param name="fallbackTemplates"></param>
+        /// <returns></returns>
+        [SuppressMessage("ReSharper", "LoopCanBeConvertedToQuery")]
+        public static string GetTableConfigValue(this IDbMigrationConfig migrationConfig, string template, string tableName, params string[] fallbackTemplates)
+        {
+            if (migrationConfig == null)
+            {
+                return null;
+            }
+            var defaultKey = template.ReplaceIgnoreCase("{tableName}", tableName);
+            var alternativeKey = template.ReplaceIgnoreCase("{tableName}", tableName.TrimPrefixName(migrationConfig.GetSchemaPrefixId()));
+            var alternativeKey2 = template.ReplaceIgnoreCase("{tableName}", tableName.GetPrefixedName(migrationConfig.GetSchemaPrefixId()));
+
+            var list = new List<string>(new[] { defaultKey, alternativeKey, alternativeKey2 }.Distinct())  ;
+            if (fallbackTemplates.Any())
+            {
+                list.AddRange(fallbackTemplates.SelectMany(x => new[]
+                {
+                    x.ReplaceIgnoreCase("{tableName}", tableName),
+                    x.ReplaceIgnoreCase("{tableName}", tableName.TrimPrefixName(migrationConfig.GetSchemaPrefixId())),
+                    x.ReplaceIgnoreCase("{tableName}", tableName.GetPrefixedName(migrationConfig.GetSchemaPrefixId())),
+                }.Distinct()));
+            }
+
+            var keys = list.Distinct().ToArray();
+
+            return migrationConfig.GetAllMigrationConfigValues()?.GetValue(keys) ??
+                    migrationConfig.GetDbConfig().GetAllDatabaseConfigValues()?.GetValue(keys);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Dynamic;
+﻿using System;
+using System.Dynamic;
 using FluentDbTools.Common.Abstractions;
 
 namespace FluentDbTools.Contracts
@@ -44,7 +45,7 @@ namespace FluentDbTools.Contracts
         /// <inheritdoc />
         public virtual string DatabaseName
         {
-            get => DatabaseConnectionNameField ?? Defaults.GetDefaulDatabaseName?.Invoke();
+            get => DatabaseConnectionNameField ?? Defaults.GetDefaultDatabaseName?.Invoke();
             set => DatabaseConnectionNameField = value;
         }
 
@@ -70,5 +71,19 @@ namespace FluentDbTools.Contracts
                 SchemaPrefixUniqueIdField =  schemaPrefixUniqueId
             };
         }
+
+        /// <summary>
+        /// Can be called when configuration is changed/reloaded
+        /// </summary>
+        /// <param name="getValueFunc"></param>
+        protected virtual void OnConfigurationChanged(Func<string[], string> getValueFunc)
+        {
+            DbTypeField = null;
+            SchemaField = null;
+            DatabaseConnectionNameField = null;
+            ScemaPrefixIdField = null;
+            SchemaPrefixUniqueIdField = null;
+        }
+
     }
 }

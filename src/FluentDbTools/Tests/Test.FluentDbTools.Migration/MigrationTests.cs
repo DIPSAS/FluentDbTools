@@ -17,8 +17,10 @@ using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
 using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using FluentDbTools.Migration;
 using FluentDbTools.Migration.Abstractions;
+using FluentDbTools.Migration.Contracts.MigrationExpressions.Execute;
 using FluentDbTools.Migration.Oracle;
 using FluentDbTools.Migration.Oracle.CustomProcessor;
+using FluentMigrator.Expressions;
 using TestUtilities.FluentDbTools;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Processors.Oracle;
@@ -43,6 +45,23 @@ namespace Test.FluentDbTools.Migration
             TestOutputHelper = testOutputHelper;
         }
 
+        public class CustomSqlTitleConverter1 : ICustomSqlTitleConverter
+        {
+            public string ConvertToTitle(string sql)
+            {
+                return sql;
+            }
+        }
+
+        public class CustomSqlTitleConverter2 : ICustomSqlTitleConverter
+        {
+            public string ConvertToTitle(string sql)
+            {
+                return sql.ConvertToSqlTitle();
+            }
+        }
+
+
         [Theory]
         [MemberData(nameof(TestParameters.DbParameters), MemberType = typeof(TestParameters))]
         public void Migration_Success(SupportedDatabaseTypes databaseType)
@@ -53,22 +72,62 @@ namespace Test.FluentDbTools.Migration
             inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "True");
             inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
             inMemoryOverrideConfig.Add("Logging:Migration:File", logFile);
-            var provider = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig);
+            var provider = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig, 
+                collection => collection
+                    .AddSingleton<ICustomSqlTitleConverter,CustomSqlTitleConverter1>()
+                    .AddSingleton<ICustomSqlTitleConverter,CustomSqlTitleConverter2>());
 
             using (var scope = provider.CreateScope())
             {
-                var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
-                var versionTable = scope.ServiceProvider.GetService<IVersionTableMetaData>();
 
+                var versionTable = scope.ServiceProvider.GetService<IVersionTableMetaData>();
+                var processor = scope.ServiceProvider.GetRequiredService<IExtendedMigrationProcessorOracle>();
+                var prefixId = scope.ServiceProvider.GetDbMigrationConfig().GetSchemaPrefixId();
+
+                var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
+                
                 migrationRunner.MigrateUp();
+
+                if (databaseType == SupportedDatabaseTypes.Oracle)
+                {
+                    processor.ExecuteSql($"create or replace synonym {versionTable.SchemaName}.{Table.Testing}8 for {versionTable.SchemaName}.{Table.Testing.GetPrefixedName(prefixId)}");
+                    processor.ProcessSql($"create or replace synonym {versionTable.SchemaName}.{Table.Testing}9 for {versionTable.SchemaName}.{Table.Testing.GetPrefixedName(prefixId)}", "Sql-title");
+                }
 
                 migrationRunner.MigrateDown(0);
 
                 migrationRunner.DropSchema(versionTable);
+
             }
 
             ShowLogFileContent(logFile);
         }
+
+        [Fact]
+        public void Migration_Logging_Test()
+        {
+            var databaseType = SupportedDatabaseTypes.Oracle;
+            var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
+            
+            var logFile = "Migration_Logging_Test.sql";
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:File", logFile);
+            var provider = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig);
+
+            using (var scope = provider.CreateScope())
+            {
+                var processor = scope.ServiceProvider.GetRequiredService<IExtendedMigrationProcessorOracle>();
+                processor.Process(new PerformDBOperationExpression() {Operation = ((connection, transaction) => connection.Execute("select 0 from dual"))});
+                processor.ProcessSql("select 1 from dual");
+                processor.ProcessSql("select 2 from dual");
+                processor.ProcessSql("select 3 from dual");
+
+            }
+
+            ShowLogFileContent(logFile);
+        }
+
 
         private void WriteLine(string message)
         {
@@ -97,7 +156,7 @@ namespace Test.FluentDbTools.Migration
                 .AddOracleDbProvider()
                 .AddPostgresDbProvider()
                 .BuildServiceProvider();
-            
+
             var dbConfig = serviceProvider.GetService<IDbMigrationConfig>();
 
             var assemblies = MigrationBuilder.MigrationAssemblies.ToList();
@@ -155,7 +214,7 @@ namespace Test.FluentDbTools.Migration
         public void OracleMigration_AllMigrationConfigValuesShouldHaveExpectedValues()
         {
 
-            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, 
+            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle,
                 new Dictionary<string, string>
                 {
                     { "database:migration:schemaPrefix:id", "EX" },
@@ -170,13 +229,13 @@ namespace Test.FluentDbTools.Migration
 
                 Action action = () => allValues["dont:exist"].Should().BeNullOrEmpty();
                 action.Should().Throw<KeyNotFoundException>();
-                
+
                 allValues["schemaprefix:id"].Should().Be("EX");
                 allValues["schemaPrefix:id"].Should().Be("EX");
 
                 allValues["schemaprefix:uniqueid"].Should().Be("EXAbc");
                 allValues["schemaPrefix:uniqueId"].Should().Be("EXAbc");
-                
+
                 allValues["customMigrationValue1"].Should().Be("TEST:customMigrationValue1");
                 allValues["customMigrationValue2"].Should().Be("TEST:customMigrationValue2");
                 allValues["productXYValues:tableRoleName"].Should().Be("TEST:tableRoleName");
@@ -210,9 +269,12 @@ namespace Test.FluentDbTools.Migration
             inMemoryOverrideConfig.Add("database:migration:name", "name");
 
 
+            inMemoryOverrideConfig.Add("database:migration:schemaprefix:triggersAndViewsGeneration:tables:person", "both");
+            inMemoryOverrideConfig.Add("database:migration:schemaprefix:triggersAndViewsGeneration:tables:exparent", "triggers");
+
             File.Delete(logFile);
 
-            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, inMemoryOverrideConfig, sc => sc.RegisterCustomMigrationProcessor()) ;
+            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, inMemoryOverrideConfig, sc => sc.RegisterCustomMigrationProcessor());
             using (provider as ServiceProvider)
             using (var scope = provider.CreateScope())
 
@@ -224,21 +286,46 @@ namespace Test.FluentDbTools.Migration
 
                 var personLog = new ChangeLogContext(dbMigrationConfig, Table.Person);
                 var parentLog = new ChangeLogContext(dbMigrationConfig, Table.Parent);
+                var unknownLog = new ChangeLogContext(dbMigrationConfig, "Unknown") { EnabledTriggersAndViewsGeneration = TriggersAndViewsGeneration.Disabled };
+                var unknown2Log = new ChangeLogContext(dbMigrationConfig, "Unknown2");
+
                 personLog.SchemaPrefixId.Should().Be(schemaPrefixId);
                 personLog.SchemaPrefixUniqueId.Should().Be(schemaPrefixUniqueId);
                 personLog.ShortName.Should().Be($"{schemaPrefixId}sn");
                 personLog.GlobalId.Should().Be("glob");
+                personLog.EnabledTriggersAndViewsGeneration.Should().Be(TriggersAndViewsGeneration.Both);
+
 
                 parentLog.SchemaPrefixId.Should().Be(schemaPrefixId);
                 parentLog.SchemaPrefixUniqueId.Should().Be(schemaPrefixUniqueId);
                 parentLog.ShortName.Should().BeNullOrEmpty();
                 parentLog.GlobalId.Should().BeNullOrEmpty();
+                parentLog.EnabledTriggersAndViewsGeneration.Should().Be(TriggersAndViewsGeneration.Triggers);
+
+                unknownLog.SchemaPrefixId.Should().Be(schemaPrefixId);
+                unknownLog.SchemaPrefixUniqueId.Should().Be(schemaPrefixUniqueId);
+                unknownLog.ShortName.Should().BeNullOrEmpty();
+                unknownLog.GlobalId.Should().BeNullOrEmpty();
+                unknownLog.EnabledTriggersAndViewsGeneration.Should().Be(TriggersAndViewsGeneration.Disabled);
+
+                unknown2Log.SchemaPrefixId.Should().Be(schemaPrefixId);
+                unknown2Log.SchemaPrefixUniqueId.Should().Be(schemaPrefixUniqueId);
+                unknown2Log.ShortName.Should().BeNullOrEmpty();
+                unknown2Log.GlobalId.Should().BeNullOrEmpty();
+                unknown2Log.EnabledTriggersAndViewsGeneration.Should().BeNull();
 
 
                 migrationRunner.MigrateUp();
-                var oracleProcessor = scope.ServiceProvider.GetService<OracleProcessorBase>();
-                oracleProcessor.TableExists(dbMigrationConfig.Schema, Table.Person.GetPrefixedName(schemaPrefixId));
-                oracleProcessor.TableExists(dbMigrationConfig.Schema, Table.Parent.GetPrefixedName(schemaPrefixId));
+
+                var oracleProcessor = scope.ServiceProvider.GetService<IExtendedMigrationProcessorOracle>();
+                oracleProcessor.TableExists(dbMigrationConfig.Schema, Table.Person).Should().BeFalse();
+                oracleProcessor.TableExists(dbMigrationConfig.Schema, Table.Parent).Should().BeFalse();
+                oracleProcessor.TableExists(dbMigrationConfig.Schema, "Unknown").Should().BeFalse();
+
+                oracleProcessor.TableExists(dbMigrationConfig.Schema, Table.Person.GetPrefixedName(schemaPrefixId)).Should().BeTrue();
+                oracleProcessor.TableExists(dbMigrationConfig.Schema, Table.Parent.GetPrefixedName(schemaPrefixId)).Should().BeTrue();
+                oracleProcessor.TableExists(dbMigrationConfig.Schema, "Unknown".GetPrefixedName(schemaPrefixId)).Should().BeFalse();
+
                 oracleProcessor.SequenceExists(dbMigrationConfig.Schema, $"{Table.Person.GetPrefixedName(schemaPrefixId)}_seq");
 
                 migrationRunner.MigrateDown(0);

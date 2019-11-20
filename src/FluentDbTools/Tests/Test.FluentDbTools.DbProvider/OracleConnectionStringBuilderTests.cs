@@ -320,16 +320,17 @@ namespace Test.FluentDbTools.DbProvider
             action.Should().Throw<OracleException>().Which.Number.Should().Be(12514);
         }
 
-        private static MsDbConfig GetDbConfig(Dictionary<string, string> overrideConfig = null)
+        private static DbConfig GetDbConfig(Dictionary<string, string> overrideConfig = null)
         {
             overrideConfig = overrideConfig ?? new Dictionary<string, string>();
             overrideConfig["database:connectionTimeoutInSecs"] = "5";
-            return new ServiceCollection()
+            var sc = new ServiceCollection();
+            return sc
                 .UseExampleConfiguration(SupportedDatabaseTypes.Oracle, overrideConfig)
-                .AddDbProvider<MsDbConfig>()
+                .AddDbProvider(sc.GetDependecyInjectionDbConfigType())
                 .AddOracleDbProvider()
                 .BuildServiceProvider()
-                .GetDbConfig() as MsDbConfig;
+                .GetDbConfig() as DbConfig;
         }
 
     }

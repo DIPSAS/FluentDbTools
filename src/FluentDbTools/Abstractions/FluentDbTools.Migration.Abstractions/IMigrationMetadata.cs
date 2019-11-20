@@ -17,6 +17,6 @@ namespace FluentDbTools.Migration.Abstractions
         /// Can be used to specify the custom MigrationName <br/>
         /// If config database:migration:migrationName OR database:migration:name exists, <see cref="MigrationName"/> will be initialized from that value 
         /// </summary>
-        string MigrationName { get; }
+        string MigrationName { get; set; }
     }
 }

@@ -239,6 +239,12 @@ namespace FluentDbTools.Migration.Oracle
             Process(sql);
         }
 
+        public void ProcessSql(string sql, string logTitle)
+        {
+            Logger.LogSay(logTitle);
+            Process(sql);
+        }
+
         public override void Process(CreateSchemaExpression expression)
         {
             if (SchemaExists(expression.SchemaName))
@@ -387,7 +393,7 @@ namespace FluentDbTools.Migration.Oracle
                 {
                     if (sql.IsNotEmpty())
                     {
-                        Logger.LogSql(sql);
+                        Logger.LogSqlInternal(sql);
                     }
                     return;
                 }
@@ -409,7 +415,7 @@ namespace FluentDbTools.Migration.Oracle
 
                 foreach (var commandText in sqlStatement.Sql.ExtractSqlStatements())
                 {
-                    ExecuteCommand(runningSql = commandText);
+                    ExecuteCommand(runningSql = commandText, true);
                 }
 
             }
@@ -421,13 +427,19 @@ namespace FluentDbTools.Migration.Oracle
 
         }
 
-        private void ExecuteCommand(string commandText)
+        private void ExecuteCommand(string commandText, bool logSqlInternal = false)
         {
             using (var command = CreateCommand(commandText))
             {
                 if (!commandText.IsSqlComment())
                 {
                     command.ExecuteNonQuery();
+                }
+
+                if (logSqlInternal)
+                {
+                    Logger.LogSqlInternal(commandText);
+                    return;
                 }
                 Logger.LogSql(commandText);
             }

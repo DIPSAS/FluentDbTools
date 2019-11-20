@@ -43,7 +43,7 @@ namespace TestUtilities.FluentDbTools
 
         public static IDbConfigDatabaseTargets CreateTestDbConfig(SupportedDatabaseTypes databaseType, string schema = null)
         {
-            return new MsDbConfig(CreateTestConfiguration(databaseType, schema));
+            return CreateTestConfiguration(databaseType, schema).CreateDbConfig();
         }
 
         public static IConfigurationRoot CreateTestConfiguration(SupportedDatabaseTypes databaseType, string schema = null)
