@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.DbProvider;
 using Microsoft.Extensions.Configuration;
@@ -35,7 +36,25 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         internal static string GetDbPassword(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("password", DefaultDbPassword);
+            return section.GetSectionStringValue("password",  configuration.GetSecret(GetDbUser(configuration)).WithDefault(DefaultDbPassword));
+        }
+
+        public static string GetSecret(this IConfiguration configuration, string user, string section = "database:secret")
+        {
+            var secret = configuration.GetSection($"{section}:encrypted").GetConfigValue(user);
+            if (secret.IsNotEmpty())
+            {
+                var sectionConfig = configuration.GetSection($"{section}:encrypted");
+                return Encoding.UTF8.GetString(new SymmetricCryptoProvider(key => sectionConfig?.GetConfigValue(key)).Decrypt(Convert.FromBase64String(secret)));
+            }
+
+            secret = configuration.GetSection($"{section}:encoded").GetConfigValue(user);
+            if (secret.IsNotEmpty())
+            {
+                return Encoding.UTF8.GetString(Convert.FromBase64String(secret));
+            }
+
+            return null;
         }
 
         internal static string GetDbAdminUser(this IConfiguration configuration)
@@ -71,7 +90,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
                     throw new ArgumentOutOfRangeException();
             }
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("adminPassword", defaultDbAdminPassword);
+            return section.GetSectionStringValue("adminPassword", configuration.GetSecret(GetDbAdminUser(configuration)).WithDefault(defaultDbAdminPassword));
         }
 
         internal static string GetDbHostname(this IConfiguration configuration)
@@ -132,7 +151,13 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         internal static string GetDbSchema(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("schema", configuration.GetDbUser()).ToLower();
+
+            var schema = section.GetSectionStringValue("schema", configuration.GetDbUser());
+
+            schema = configuration?.GetDbType() == SupportedDatabaseTypes.Oracle
+                ? schema.ToUpper()
+                : schema.ToLower();
+            return schema;
         }
         
         internal static string GetDbConnectionString(this IConfiguration configuration)

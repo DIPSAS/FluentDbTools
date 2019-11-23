@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
 
+### Version 1.1.33 2019-11-22
+- Added Password secret functionallity
+
 ### Version 1.1.32 2019-11-20
 - Improved Sql-logging
 

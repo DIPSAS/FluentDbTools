@@ -61,7 +61,9 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         /// <inheritdoc />
         public virtual string SchemaPassword
         {
-            get => SchemaPasswordField ?? Configuration.GetMigrationSchemaPassword() ?? GetDbConfig().Password;
+            get => SchemaPasswordField ?? Configuration.GetMigrationSchemaPassword()
+                       .WithDefault(Configuration.GetSecret(Schema))
+                       .WithDefault(GetDbConfig().Password);
             set => SchemaPasswordField = value;
         }
 

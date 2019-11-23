@@ -4,6 +4,16 @@
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="Secrets\IV512Bytes.txt" />
+      <None Remove="Secrets\Key512Bytes.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Secrets\IV512Bytes.txt" />
+      <EmbeddedResource Include="Secrets\Key512Bytes.txt" />
+    </ItemGroup>
+
     <Import Project="..\..\SolutionInfo.proj" />
 
 </Project>

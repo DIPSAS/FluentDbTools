@@ -18,13 +18,15 @@ namespace Example.FluentDbTools.Migration
 
         public static IServiceCollection BuildMigrationServiceCollection(
             SupportedDatabaseTypes databaseType,
-            Dictionary<string, string> overrideConfig = null)
+            Dictionary<string, string> overrideConfig = null,
+            bool loadExampleConfig = true)
         {
             return new ServiceCollection()
                 .ConfigureWithMigrationAndScanForVersionTable(MigrationAssemblies)
                 .UseExampleConfiguration(
                     databaseType,
-                    overrideConfig)
+                    overrideConfig,
+                    loadExampleConfig)
                 .AddLogging(x => x.AddFluentMigratorConsoleLogger(null)
                                  .AddFluentMigratorFileLogger());
         }
@@ -32,9 +34,10 @@ namespace Example.FluentDbTools.Migration
         public static IServiceProvider BuildMigration(
             SupportedDatabaseTypes databaseType,
             Dictionary<string, string> overrideConfig = null,
-            Func<IServiceCollection, IServiceCollection> additionalRegistration = null)
+            Func<IServiceCollection, IServiceCollection> additionalRegistration = null,
+            bool loadExampleConfig = true)
         {
-            var serviceCollection = BuildMigrationServiceCollection(databaseType, overrideConfig);
+            var serviceCollection = BuildMigrationServiceCollection(databaseType, overrideConfig, loadExampleConfig);
             additionalRegistration?.Invoke(serviceCollection);
 
 
