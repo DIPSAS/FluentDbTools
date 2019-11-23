@@ -280,6 +280,39 @@ namespace FluentDbTools.Common.Abstractions
             return pos > -1 ? subStr.Substring(0, pos).Trim() : subStr.Trim();
         }
 
+        /// <summary>
+        /// Retrieves a substring from this instance. The substring is from position 0 to the position of <paramref name="to"/> string <br/>
+        /// If position of <paramref name="to"/> is less 0, the incoming string is returned.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public static string SubstringFromAdnIncludeToString(this string value, string from, params string [] to)
+        {
+            var pos = value.IndexOf(from, StringComparison.CurrentCultureIgnoreCase);
+
+            if (pos <= -1)
+            {
+                return value;
+            }
+
+            var subStr = value.Substring(pos);
+            pos = -1;
+            var toString = string.Empty;
+            foreach (var s in to)
+            {
+                toString = s;
+                var posFount = subStr.IndexOf(s, from.Length - 1,  StringComparison.CurrentCultureIgnoreCase);
+                if (posFount > -1 && (pos == -1 || posFount < pos))
+                {
+                    pos = posFount;
+                }
+            }
+            return pos > -1 ? $"{subStr.Substring(0, pos).Trim()}{toString}" : subStr.Trim();
+        }
+
+
 
         /// <summary>
         /// Strip sql for logging
@@ -289,6 +322,11 @@ namespace FluentDbTools.Common.Abstractions
         /// <returns></returns>
         public static string ConvertToSqlTitle(this string value, Func<string,string> additionalSqlTitleConverterFunc = null)
         {
+            value = StripForLoggingRemoveComment(value, out var isComment);
+            if (isComment)
+            {
+                return value;
+            }
             if (additionalSqlTitleConverterFunc != null)
             {
                 var newValue = additionalSqlTitleConverterFunc.Invoke(value);
@@ -299,12 +337,44 @@ namespace FluentDbTools.Common.Abstractions
             }
 
             value = StripForLoggingRemoveCreateStatement(value);
-            if (value.StartsWithIgnoreCase("/*"))
+            return value;
+        }
+
+        private static string StripForLoggingRemoveComment(string value, out bool isComment)
+        {
+            isComment = false;
+            if (value.Split('\n').Count(IsNotEmpty) == 1)
             {
+                if (value.StartsWith("--"))
+                {
+                    isComment = true;
+                    return value;
+                }
+            } 
+
+            if (value.StartsWith("/*"))
+            {
+                isComment = true;
                 value = value.Replace("/*", "").Replace("*/", "");
                 var strings = value.Split('\n').Select(x => $"-- {x.Trim()}").ToArray();
                 value = string.Join("\n", strings);
+                return value;
             }
+
+            if (value.ContainsIgnoreCase("-- Title "))
+            {
+                isComment = true;
+                if (value.ContainsIgnoreCase("-- EndTitle"))
+                {
+                    value = value.SubstringFrom("-- Title ", "-- EndTitle").TrimEnd(' ','\n');
+                    value = value.ReplaceIgnoreCase("-- Title ", "").Replace("--", "");
+                    value = "-- Title " + value.Trim('\n',' ');
+                    return value;
+                }
+                value = value.SubstringFrom("-- Title ", "\n");
+                return value;
+            }
+
             return value;
         }
 
@@ -480,7 +550,13 @@ namespace FluentDbTools.Common.Abstractions
                 return org;
             }
 
-            value = $"Create Index [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            var trim = value.ReplaceIgnoreCase(search, "").Trim();
+            if (trim.ContainsIgnoreCase(" on ") == false)
+            {
+                return org;
+            }
+
+            value = $"Create Index [{trim.ReplaceIgnoreCase(" on ", " => ")}{org.SubstringFromAdnIncludeToString("(",")")}]";
             return value;
         }
 
@@ -499,7 +575,12 @@ namespace FluentDbTools.Common.Abstractions
                 return org;
             }
 
-            value = $"{search} [{value.ReplaceIgnoreCase(search, "").Trim()}]";
+            var trim = value.ReplaceIgnoreCase(search, "").Trim();
+            if (!org.ContainsIgnoreCase("("))
+            {
+                return org;
+            }
+            value = $"{search} [{trim}]";
             return value;
         }
 
@@ -567,7 +648,5 @@ namespace FluentDbTools.Common.Abstractions
                     .Select(x => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Trim()))
                     .ToArray());
         }
-
-
     }
 }

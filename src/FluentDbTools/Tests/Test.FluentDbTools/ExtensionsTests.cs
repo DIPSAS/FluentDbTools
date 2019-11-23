@@ -32,10 +32,13 @@ namespace Test.FluentDbTools
         [InlineData("create or replace synonym Schema.dest for OtherSchema.source","Create Synonym [Schema.dest for OtherSchema.source]")]
         [InlineData("/* My comment */","-- My comment")]
         [InlineData("/* My comment1 */\n/* My comment2 */","-- My comment1\n-- My comment2")]
-        [InlineData("create index Schema.IndexName_idx on Schema.Table (COL1,COL2)","Create Index [Schema.IndexName_idx on Schema.Table]")]
+        [InlineData("create index Schema.IndexName_idx on Schema.Table (COL1,COL2)","Create Index [Schema.IndexName_idx => Schema.Table(COL1,COL2)]")]
         [InlineData("alter table Schema.Table\nadd constraint ..","Alter Table [Schema.Table]")]
         [InlineData("create table Schema.Table\n(column....","Create Table [Schema.Table]")]
         [InlineData("comment on column Schema.Table.Column\n is 'my comment'","Add Column Comment [Schema.Table.Column => 'my comment']")]
+        [InlineData("-- Create/Recreate indexes","-- Create/Recreate indexes")]
+        [InlineData("-- Title Create table Schema.Table","-- Title Create table Schema.Table")]
+        [InlineData("-- Title Create table Schema.Table\n-- Title Test\n-- EndTitle","-- Title Create table Schema.Table\nTest")]
         public void ConvertToSqlTitle_StringExtensions_ShouldBeOk(string sql, string expected)
         {
             sql.ConvertToSqlTitle().Should().Be(expected);

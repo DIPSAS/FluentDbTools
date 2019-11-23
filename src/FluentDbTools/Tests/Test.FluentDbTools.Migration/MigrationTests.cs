@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Dapper;
 using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Config;
@@ -209,6 +210,36 @@ namespace Test.FluentDbTools.Migration
                 migrationRunner.DropSchema(versionTable);
             }
         }
+        [Fact]
+        public void OracleMigration_PasswordsWithSecrets_HasExpectedValues()
+        {
+
+            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle,
+                new Dictionary<string, string>
+                {
+                    { "database:secret:encoded:SYSTEMUSER", Convert.ToBase64String(Encoding.UTF8.GetBytes("systemPwd")) },
+                    { "database:secret:encrypted:TESTUSER", Convert.ToBase64String( new SymmetricCryptoProvider().Encrypt("testUserPwd")) },
+                    { "database:user", "TestUser" },
+                    { "database:type", "oracle" },
+                    { "database:adminUser", "SystemUser" }
+                },loadExampleConfig:false);
+
+            using (var scope = provider.CreateScope())
+            {
+                var migrationConfig = scope.ServiceProvider.GetService<IDbMigrationConfig>();
+
+                migrationConfig.GetDbConfig().User.Should().Be("TestUser");
+                migrationConfig.GetDbConfig().Password.Should().Be("testUserPwd");
+
+                migrationConfig.GetDbConfig().AdminUser.Should().Be("SystemUser");
+                migrationConfig.GetDbConfig().AdminPassword.Should().Be("systemPwd");
+
+
+                migrationConfig.Schema.Should().Be("TESTUSER");
+                migrationConfig.SchemaPassword.Should().Be("testUserPwd");
+            }
+        }
+
 
         [Fact]
         public void OracleMigration_AllMigrationConfigValuesShouldHaveExpectedValues()

@@ -9,18 +9,27 @@ namespace Example.FluentDbTools.Config
 {
     public static class ExampleConfigurationExtensions
     {
-        public static IServiceCollection UseExampleConfiguration(this IServiceCollection serviceCollection, 
+        public static IServiceCollection UseExampleConfiguration(this IServiceCollection serviceCollection,
             SupportedDatabaseTypes databaseType,
-            Dictionary<string, string> overrideConfig = null)
+            Dictionary<string, string> overrideConfig = null,
+            bool loadExampleConfig = true)
         {
             return serviceCollection
-                .AddScoped<IConfiguration>(serviceProvider => new ConfigurationBuilder()
-                .AddDbToolsExampleConfiguration(databaseType)
-                .AddInMemoryIfTrue(overrideConfig, () => overrideConfig != null)
-                .Build());
+                .AddScoped<IConfiguration>(serviceProvider =>
+                {
+                    var builder = new ConfigurationBuilder();
+                    if (loadExampleConfig)
+                    {
+                        builder.AddDbToolsExampleConfiguration(databaseType);
+                    }
+
+                    return builder
+                        .AddInMemoryIfTrue(overrideConfig, () => overrideConfig != null)
+                        .Build();
+                });
         }
-        
-        public static IConfigurationBuilder AddDbToolsExampleConfiguration(this IConfigurationBuilder configurationBuilder, 
+
+        public static IConfigurationBuilder AddDbToolsExampleConfiguration(this IConfigurationBuilder configurationBuilder,
             SupportedDatabaseTypes databaseType)
         {
             DbProviderExtensions.ConfigureOracleTnsAdminPath(Path.Combine("oracle", "product", "client", "bin"));
