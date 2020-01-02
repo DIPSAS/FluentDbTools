@@ -1,0 +1,1712 @@
+{
+  "homepages": [],
+  "source_base_path": "/project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.Extensions.html",
+          "hash": "UUWpHCRxld8YMcesQTq22w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.IConfigurationChangedHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IConfigurationChangedHandler.html",
+          "hash": "t5YaVuc2tID0b1dinK+VnA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConfig.html",
+          "hash": "Mc+QLUML35AV48p+Qi0kQQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConfigCredentials.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConfigCredentials.html",
+          "hash": "WEZFdhQCO1RrH9+SoeRd7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html",
+          "hash": "0Q5CrOcI+n3N9Lcd+QqS0w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConnectionStringBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConnectionStringBuilder.html",
+          "hash": "81pPwxqWL2ScUC15H6HFhA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html",
+          "hash": "CGbcIXQw89BrdjytuGxaYA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.StringExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.StringExtensions.html",
+          "hash": "qk7EnHh0KNkII1qOweitLQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.SupportedDatabaseTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.SupportedDatabaseTypes.html",
+          "hash": "/dGjBqn21qh1RMN0dEz3+Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.SymmetricCryptoProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.SymmetricCryptoProvider.html",
+          "hash": "fQi5ZkthKqNErIBDiKIA8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.html",
+          "hash": "AqOc6F4B8H2gv/WYqsXa2A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Contracts.DbConfigCredentials.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Contracts.DbConfigCredentials.html",
+          "hash": "ZAYJOKCUcAy6EQYXlzmmMg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Contracts.DbConfigDatabaseTargets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Contracts.DbConfigDatabaseTargets.html",
+          "hash": "6KIQ6EEjlCmjaCv12HLPtQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Contracts.DbConnectionStringBuilderConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Contracts.DbConnectionStringBuilderConfig.html",
+          "hash": "UOEtV1lkkqrxoK4Wiexlgg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Contracts.DefaultDbConfigValues.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Contracts.DefaultDbConfigValues.html",
+          "hash": "J+kTQim2qa+qh/7Q5UC7sw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Contracts.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Contracts.html",
+          "hash": "oWbw88XKkG5r4WpGeiVAFg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.DbProvider.ConfigurationChangedHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.DbProvider.ConfigurationChangedHandler.html",
+          "hash": "14TcSTEQbt6E0NJ9bbDuSw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.DbProvider.DbConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.DbProvider.DbConfig.html",
+          "hash": "ppt1cqDCx0Z/4kYwGFRwaw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.DbProvider.DbProviderExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.DbProvider.DbProviderExtensions.html",
+          "hash": "U/YDsblGPGv2qpXXyy3/tw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.DbProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.DbProvider.html",
+          "hash": "52hTlac6VHgfASt9ppOp6w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ConfigurationExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ConfigurationExtensions.html",
+          "hash": "KfpxW5NrRqr0b71AdJCtpA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs.MsDbConfigExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs.MsDbConfigExtensions.html",
+          "hash": "6uiLL7voKbbtSYtkRqi5LQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs.html",
+          "hash": "by4gdRT6xfIlvM2aZQ4mHQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.Oracle.OracleDbProviderExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.Oracle.OracleDbProviderExtensions.html",
+          "hash": "apwzSn55h5WAKUkQ3fyzkA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.Oracle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.Oracle.html",
+          "hash": "HRu5isgeIa6U8lZfuhQXew=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.Postgres.PostgresDbProviderExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.Postgres.PostgresDbProviderExtensions.html",
+          "hash": "80MtqrmMaYeDcQHJL0dI0A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.Postgres.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.Postgres.html",
+          "hash": "WJUgVyvJCdpdQMwwf9QTLQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ServiceCollectionConfigurationExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ServiceCollectionConfigurationExtensions.html",
+          "hash": "F89Ao049V7Boe9RwM6eK3Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ServiceCollectionDbProviderExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ServiceCollectionDbProviderExtensions.html",
+          "hash": "e9IZlNUADa66ARdvOkrRoQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ServiceCollectionMigrationExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ServiceCollectionMigrationExtensions.html",
+          "hash": "IJVYVlo2bsz2RlCUOIjDEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.html",
+          "hash": "NqyDx53/wut+qcsRCGgSxw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.Migration.ConfigureWithMigrationExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.Migration.ConfigureWithMigrationExtensions.html",
+          "hash": "owXU6SxpvAYVv8OGfLos0w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.html",
+          "hash": "eeyCTvADZPLMCt0Z0YOvHg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfigExtension.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfigExtension.html",
+          "hash": "ugMrZ28+3R36OpQ6Ymcjsw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.Migration.DefaultConfigs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.Migration.DefaultConfigs.html",
+          "hash": "q/13jq0g6nw1KZAmkgYZYw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.Migration.ExecutorExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.Migration.ExecutorExtensions.html",
+          "hash": "4xveJBFbIMwrrqOF4MeiBw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.Migration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.Migration.html",
+          "hash": "xj2F2zlXxFSLnKRr0IeA6w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.SqlBuilder.SqlBuilderExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.SqlBuilder.SqlBuilderExtensions.html",
+          "hash": "TdHyt25mXO8dKjv+oeEFEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.SqlBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Extensions.SqlBuilder.html",
+          "hash": "RoNMtDeiVwkEjnczpUcUmg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ChangeLogContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ChangeLogContext.html",
+          "hash": "T1EB5AwCCvTg9Sf7Hl22AA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.CreateUserExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.CreateUserExpression.html",
+          "hash": "A0X4fUsh0P/TKm08QiMzSg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.DeleteUserExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.DeleteUserExpression.html",
+          "hash": "RDkJyJGCjsEHcx8g+8oAsA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.IChangeLogTabledExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.IChangeLogTabledExpression.html",
+          "hash": "IeS0NuuxenB7Hyy9Aip9Bw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.ICreateSchemaWithPrefixExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.ICreateSchemaWithPrefixExpression.html",
+          "hash": "KieYD6Zm44OsFTuMvZOYtQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.IDropSchemaWithPrefixExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.IDropSchemaWithPrefixExpression.html",
+          "hash": "hs4Jz4ry5ZtwSy46HvboOg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.ILinkedExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.ILinkedExpression.html",
+          "hash": "ms3pT24yrKShFI5f3opLRA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.ISchemaWithPrefixExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.ISchemaWithPrefixExpression.html",
+          "hash": "NDzj9bKoDCU3P8WADxaIaw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.html",
+          "hash": "c1IoqiYq3/7CK3DHg6415g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplaceExpressionRoot.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplaceExpressionRoot.html",
+          "hash": "NyD1bP7XgD7g8sBHDbmpDw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplacePackageSyntax.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplacePackageSyntax.html",
+          "hash": "L7bRv2xkbazY1tyrAc9svw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplaceViewWithColumnSyntax.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplaceViewWithColumnSyntax.html",
+          "hash": "glDSAh15DN6mkzK6HG8S8g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplaceWithSqlScript.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplaceWithSqlScript.html",
+          "hash": "AP6dnmalhdk6K0Hhgq19uQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html",
+          "hash": "L1SwgO8YVl86Kdqg+bX2Ww=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor.html",
+          "hash": "YeZ0Dp7j79kvoaxLecdZNg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IDbMigrationConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IDbMigrationConfig.html",
+          "hash": "rGW/pivMfa25Cvg5sf10ug=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationGenerator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationGenerator-1.html",
+          "hash": "ZX773S4pyfT3Y/j5tHM26A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationGenerator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationGenerator.html",
+          "hash": "Zrwfub//wJgnqhV2Ep6Waw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor-1.html",
+          "hash": "89/YMpGzBmLXGTxYNkqQ2g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.html",
+          "hash": "8j53capr4iFFedn/85BrNg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessorExists.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessorExists.html",
+          "hash": "AJNfwsIRBmosXhlRz/iU+Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessorOracle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessorOracle.html",
+          "hash": "r2Z2+pd/u0woAFBbv7WE6A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IFluentDbToolsVersionTableMetaData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IFluentDbToolsVersionTableMetaData.html",
+          "hash": "ym72VOpMmIQVqMcE3rLdGg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IMigrationMetadata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IMigrationMetadata.html",
+          "hash": "k8yQ4w0Um1jQDkiL3eq+ZA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IMigrationModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IMigrationModel.html",
+          "hash": "edblWHppoqy9LvQH+iQsjA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.MigrationAbstractionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.MigrationAbstractionExtensions.html",
+          "hash": "q8kfWbcHvq16ERYydFf/qw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.MigrationMetadata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.MigrationMetadata.html",
+          "hash": "ssp75lZxyXjkO1rybniLLw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.TableSpaceType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.TableSpaceType.html",
+          "hash": "C0rdCH7fWYFHWxQxZ920hA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.TriggersAndViewsGeneration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.TriggersAndViewsGeneration.html",
+          "hash": "wzvVpM6MAxI5EJ/41VvjUw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.html",
+          "hash": "hJyi/4EdfqkOeBsK0tkTuw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Common.ServiceRegistration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Common.ServiceRegistration.html",
+          "hash": "LalzNbI4rjzp3GVzklMMnQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Common.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Common.html",
+          "hash": "C4Lc8ySsD8+JxJnOHTVl1w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.ColumnName.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.ColumnName.html",
+          "hash": "QJtWqIjDsccwYskoBLppLA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.CreateOrReplaceExpressionRoot.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.CreateOrReplaceExpressionRoot.html",
+          "hash": "77suNHD3YG6njxFnXm5A8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationConsts.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationConsts.html",
+          "hash": "Y6SSAjmGOUv9bZncQtlu6w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.ChangeLogLinkedExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.ChangeLogLinkedExpression.html",
+          "hash": "gKjTj3CMh22iDn+jy1K+Lg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.CreateSchemaWithPrefixExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.CreateSchemaWithPrefixExpression.html",
+          "hash": "xOwcScT3NkwetMnEWNw+lQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.DefaultColumnsLinkedExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.DefaultColumnsLinkedExpression.html",
+          "hash": "hhsgZwY0TpMZwj5DbGDSCg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.DropSchemaWithPrefixExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.DropSchemaWithPrefixExpression.html",
+          "hash": "MartDtT1a5EdCp2Hta/AEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.Execute.ICustomSqlTitleConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.Execute.ICustomSqlTitleConverter.html",
+          "hash": "arS/g6IzIi38Kwv6AGROkA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.Execute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.Execute.html",
+          "hash": "uVWAQ+0z7rDRFEwm2RqXDA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.MigrationMetadataChangedExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.MigrationMetadataChangedExpression.html",
+          "hash": "KSp4wKJkwbeCKwoePj9boA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.SchemaWithPrefixExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.SchemaWithPrefixExpression.html",
+          "hash": "rC+JuaMKxPna8IHkR9a8MQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.html",
+          "hash": "oQmbGnpanHlUt9vA13J3/Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExtensions.html",
+          "hash": "Jz/41xTwjHV3/UnZGAKg8g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationModel.html",
+          "hash": "kt0GfXlPBApydgPOn0kCEA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Contracts.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Contracts.html",
+          "hash": "K7wNjsgZ/3op9m3txzoGvA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.FluentMigrationExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.FluentMigrationExtensions.html",
+          "hash": "Me4Wa8R5bTn2/IUJ+VadWw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.FluentMigrationLoggingExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.FluentMigrationLoggingExtensions.html",
+          "hash": "misZS8qe/L5j4pya5D7dsA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.LogFileAppendFluentMigratorLoggerProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.LogFileAppendFluentMigratorLoggerProvider.html",
+          "hash": "lW+0S3nm7+8THBZ9FcSxbA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Oracle.CustomProcessor.DefaultOracleCustomMigrationProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Oracle.CustomProcessor.DefaultOracleCustomMigrationProcessor.html",
+          "hash": "TKBfTQtgzSDmK8GXuNSGSA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Oracle.CustomProcessor.ServiceRegistration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Oracle.CustomProcessor.ServiceRegistration.html",
+          "hash": "ZRW1ngdtf4XZRrwVIMMSNA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Oracle.CustomProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Oracle.CustomProcessor.html",
+          "hash": "g3Jazz47pnHtg4DyzeBpDw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Oracle.ServiceRegistration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Oracle.ServiceRegistration.html",
+          "hash": "Hbsw29QrEUmVC8r2ezMpGQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Oracle.SqlResources.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Oracle.SqlResources.html",
+          "hash": "aVTvakgWk4LjJjuHM6Ok3A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Oracle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Oracle.html",
+          "hash": "Js+VXaYzCUv0P2V2vRxU0g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Postgres.ServiceRegistration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Postgres.ServiceRegistration.html",
+          "hash": "x2mY3pVLa0deKg5TAvxB6w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Postgres.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Postgres.html",
+          "hash": "ZUNaqXk5WVLLpTJ3X/Hg4g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.ServiceRegistration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.ServiceRegistration.html",
+          "hash": "qERzHKfSCUgUOF2oCSqmlA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.html",
+          "hash": "ppwn3Fu9e9paHhVhCxh0hg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Commands.IBatchUpdateCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Commands.IBatchUpdateCommand.html",
+          "hash": "ZXGEjY+87cw2Jk8Bs4kRsw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Commands.IPlainQueryCommand-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Commands.IPlainQueryCommand-1.html",
+          "hash": "1vm1KPINQxo5QyW6Rg90Lg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Commands.IPlainUpdateCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Commands.IPlainUpdateCommand.html",
+          "hash": "RG4ffS8wxBOkeWSENMz5vQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Commands.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Commands.html",
+          "hash": "/CvnyHFwmtY6qI4l3DSw4g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Common.ISqlBuildOnly.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Common.ISqlBuildOnly.html",
+          "hash": "SgVFAGS/XKCsMkRz7xv7TQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Common.OP.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Common.OP.html",
+          "hash": "hccdY1cqLBma13eYhYzJCw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Common.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Common.html",
+          "hash": "nBrIo9gCcZCB3lT7IhUbFg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.IFieldSetterSelector-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.IFieldSetterSelector-1.html",
+          "hash": "xQ651ICBtz1y5rh8FnjMKQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.ISelectFieldSelector-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.ISelectFieldSelector-1.html",
+          "hash": "2w2THh4ldEBKXYJdy/itYg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.ISqlFieldBuilder-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.ISqlFieldBuilder-1.html",
+          "hash": "xBkQjnCmmgCJ8RGqHY6lsQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.IWhereFieldSelector-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.IWhereFieldSelector-1.html",
+          "hash": "LkYYYoDLHHqbvxZwo6Y1Eg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.html",
+          "hash": "h84rs453nWxiXNDZiWM1ew=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Handlers.IQueryHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Handlers.IQueryHandler.html",
+          "hash": "eOD13mPihgq8Yb9NXNbMnw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Handlers.IUpdateHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Handlers.IUpdateHandler.html",
+          "hash": "rJ6kVufnMUuzUKrWXU6jAg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Handlers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Handlers.html",
+          "hash": "Dy6fwhPKzVsK4d+dJ2Lj/A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.IDeleteSqlBuilder-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.IDeleteSqlBuilder-1.html",
+          "hash": "8dy9SR+gdOifRCZHrGtMZg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.IInsertSqlBuilder-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.IInsertSqlBuilder-1.html",
+          "hash": "ll7EvfLo4TNK0OFjhs2UEw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.ISelectSqlBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.ISelectSqlBuilder.html",
+          "hash": "QYZov+fYAGOMfMKwiymfIQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.ISqlBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.ISqlBuilder.html",
+          "hash": "FTpdpBsHCJyK1aq1pbCF7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.IUpdateSqlBuilder-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.IUpdateSqlBuilder-1.html",
+          "hash": "i4oad0Pva0vXE0+C/CEOCQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDataParameterCollectionExt.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDataParameterCollectionExt.html",
+          "hash": "B2S9ymXLCtn4GokBC3wo9w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDatabaseParameterHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDatabaseParameterHelper.html",
+          "hash": "xk8jeViqSgw7G1M+JoVTVQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDatabaseParameterResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDatabaseParameterResolver.html",
+          "hash": "Z51BxD69493+ygLT6qvivQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDbTypeTranslator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDbTypeTranslator.html",
+          "hash": "859BoxjzK6j0s48OoEBeUg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.html",
+          "hash": "6M0oG7B9eszXI5rTgklKGw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.html",
+          "hash": "Vyvg+acIenE08Q2cJmv00Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.BaseFieldSetterSelector-1.Field.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.BaseFieldSetterSelector-1.Field.html",
+          "hash": "i8sEdviJ0iqQo4W7T1/h7w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.BaseFieldSetterSelector-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.BaseFieldSetterSelector-1.html",
+          "hash": "QinzGPfwy/cGX1HxgdJW+A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.html",
+          "hash": "oEt8epFGpn1uIJr7ctjk6w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.html",
+          "hash": "FHHqy7bBT+W68tuDHYSe2A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Parameters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Parameters.html",
+          "hash": "UDGVSwZLzZg6lTWzy7l6eg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.SqlBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.SqlBuilder.html",
+          "hash": "w3n6OSJr7E1MSt6Lw0Nzjg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.html",
+          "hash": "LSoL7GgZqd2XrkoB/U6VOA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "doc/api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/index.html",
+          "hash": "hBOGxrSmvbPjDCSszLRPVQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "doc/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/toc.html",
+          "hash": "KG8w5m3d04CQqqB/xLZ/9Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "doc/articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "doc/articles/intro.html",
+          "hash": "np6Uzoyf/Gfyvf15P9AawA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "doc/articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/articles/toc.html",
+          "hash": "gB8AESyvNru97tzIZofEEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "doc/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "doc/index.html",
+          "hash": "d0BwcU+3uE4t3kfW2fw3uw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "doc/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/toc.html",
+          "hash": "iyNf1NxK2R695nlnTG+28A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 132,
+          "skipped_file_count": 0
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

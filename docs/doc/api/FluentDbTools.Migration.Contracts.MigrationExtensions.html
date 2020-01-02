@@ -1,0 +1,2268 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class MigrationExtensions
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class MigrationExtensions
+   ">
+    <meta name="generator" content="docfx 2.48.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions">
+  
+  
+  <h1 id="FluentDbTools_Migration_Contracts_MigrationExtensions" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions" class="text-break">Class MigrationExtensions
+  </h1>
+  <div class="markdown level0 summary"><p>FluentDbTools IMigrationSyntax and IFluentSyntax extensions</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">MigrationExtensions</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="FluentDbTools.Migration.Contracts.html">FluentDbTools.Migration.Contracts</a></h6>
+  <h6><strong>Assembly</strong>: FluentDbTools.Migration.Contracts.dll</h6>
+  <h5 id="FluentDbTools_Migration_Contracts_MigrationExtensions_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class MigrationExtensions</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_AddForeignKey_FluentMigrator_Builders_Alter_Table_IAlterTableAddColumnOrAlterColumnSyntax_System_String_FluentDbTools_Migration_Contracts_MigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.AddForeignKey(FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax%2CSystem.String%2CFluentDbTools.Migration.Contracts.MigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L365">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_AddForeignKey_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AddForeignKey*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_AddForeignKey_FluentMigrator_Builders_Alter_Table_IAlterTableAddColumnOrAlterColumnSyntax_System_String_FluentDbTools_Migration_Contracts_MigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AddForeignKey(FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax,System.String,FluentDbTools.Migration.Contracts.MigrationModel)">AddForeignKey(IAlterTableAddColumnOrAlterColumnSyntax, String, MigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Add foreign column on table specified in <code data-dev-comment-type="paramref" class="paramref">syntax</code>. Referenced table will be <code data-dev-comment-type="paramref" class="paramref">primaryTableName</code><br>
+If SchemaPrefixId is defined in <code data-dev-comment-type="paramref" class="paramref">migration</code>, the referenced table will be computed to {SchemaPrefixId}{<see cref="!:primaryTableName"></see>}</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AddForeignKey(this IAlterTableAddColumnOrAlterColumnSyntax syntax, string primaryTableName, MigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">primaryTableName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Contracts.MigrationModel.html">MigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax</span></td>
+        <td><p><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax</span></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_AddForeignKey_FluentMigrator_Builders_Alter_Table_IAlterTableAddColumnOrAlterColumnSyntax_System_String_FluentMigrator_Migration_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.AddForeignKey(FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax%2CSystem.String%2CFluentMigrator.Migration%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L379">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_AddForeignKey_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AddForeignKey*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_AddForeignKey_FluentMigrator_Builders_Alter_Table_IAlterTableAddColumnOrAlterColumnSyntax_System_String_FluentMigrator_Migration_System_String_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AddForeignKey(FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax,System.String,FluentMigrator.Migration,System.String)">AddForeignKey(IAlterTableAddColumnOrAlterColumnSyntax, String, Migration, String)</h4>
+  <div class="markdown level1 summary"><p>Add foreign column on table specified in <code data-dev-comment-type="paramref" class="paramref">syntax</code>. Referenced table will be <code data-dev-comment-type="paramref" class="paramref">primaryTableName</code><br>
+If <code data-dev-comment-type="paramref" class="paramref">schemaPrefix</code> is defined, the referenced table will be computed to {<code data-dev-comment-type="paramref" class="paramref">schemaPrefix</code>}{<code data-dev-comment-type="paramref" class="paramref">primaryTableName</code>}</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AddForeignKey(this IAlterTableAddColumnOrAlterColumnSyntax syntax, string primaryTableName, Migration migration, string schemaPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">primaryTableName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">FluentMigrator.Migration</span></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">schemaPrefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_AddNullableColumn_FluentMigrator_Builders_Alter_Table_IAlterTableAddColumnOrAlterColumnSyntax_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.AddNullableColumn(FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L428">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_AddNullableColumn_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AddNullableColumn*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_AddNullableColumn_FluentMigrator_Builders_Alter_Table_IAlterTableAddColumnOrAlterColumnSyntax_System_String_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AddNullableColumn(FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax,System.String)">AddNullableColumn(IAlterTableAddColumnOrAlterColumnSyntax, String)</h4>
+  <div class="markdown level1 summary"><p>Alter table described in <code data-dev-comment-type="paramref" class="paramref">syntax</code> with nullable column <code data-dev-comment-type="paramref" class="paramref">columnName</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IAlterTableColumnAsTypeSyntax AddNullableColumn(this IAlterTableAddColumnOrAlterColumnSyntax syntax, string columnName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">columnName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableColumnAsTypeSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_AlterForeignKeyColumn_FluentMigrator_Builders_Alter_Table_IAlterTableAddColumnOrAlterColumnSyntax_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.AlterForeignKeyColumn(FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L399">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_AlterForeignKeyColumn_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AlterForeignKeyColumn*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_AlterForeignKeyColumn_FluentMigrator_Builders_Alter_Table_IAlterTableAddColumnOrAlterColumnSyntax_System_String_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AlterForeignKeyColumn(FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax,System.String)">AlterForeignKeyColumn(IAlterTableAddColumnOrAlterColumnSyntax, String)</h4>
+  <div class="markdown level1 summary"><p>Alter a column named {<code data-dev-comment-type="paramref" class="paramref">primaryTableName</code>}{ColumnName.Id}<br>
+i.e: With  primaryTableName = &quot;Test&quot; =&gt; A column named &quot;TestId&quot; will be created.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AlterForeignKeyColumn(this IAlterTableAddColumnOrAlterColumnSyntax syntax, string primaryTableName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">primaryTableName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_AsDatabaseBlob__1_FluentMigrator_Builders_IColumnTypeSyntax___0__FluentDbTools_Migration_Contracts_MigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.AsDatabaseBlob%60%601(FluentMigrator.Builders.IColumnTypeSyntax%7B%60%600%7D%2CFluentDbTools.Migration.Contracts.MigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L464">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_AsDatabaseBlob_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AsDatabaseBlob*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_AsDatabaseBlob__1_FluentMigrator_Builders_IColumnTypeSyntax___0__FluentDbTools_Migration_Contracts_MigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AsDatabaseBlob``1(FluentMigrator.Builders.IColumnTypeSyntax{``0},FluentDbTools.Migration.Contracts.MigrationModel)">AsDatabaseBlob&lt;TNext&gt;(IColumnTypeSyntax&lt;TNext&gt;, MigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Set BLOB dataType (depended of type of database)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TNext AsDatabaseBlob&lt;TNext&gt;(this IColumnTypeSyntax&lt;TNext&gt; syntax, MigrationModel model)
+    where TNext : IFluentSyntax</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.IColumnTypeSyntax</span>&lt;TNext&gt;</td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Contracts.MigrationModel.html">MigrationModel</a></td>
+        <td><span class="parametername">model</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TNext</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TNext</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_AsDatabaseDateTime__1_FluentMigrator_Builders_IColumnTypeSyntax___0__FluentDbTools_Migration_Contracts_MigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.AsDatabaseDateTime%60%601(FluentMigrator.Builders.IColumnTypeSyntax%7B%60%600%7D%2CFluentDbTools.Migration.Contracts.MigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L449">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_AsDatabaseDateTime_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AsDatabaseDateTime*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_AsDatabaseDateTime__1_FluentMigrator_Builders_IColumnTypeSyntax___0__FluentDbTools_Migration_Contracts_MigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.AsDatabaseDateTime``1(FluentMigrator.Builders.IColumnTypeSyntax{``0},FluentDbTools.Migration.Contracts.MigrationModel)">AsDatabaseDateTime&lt;TNext&gt;(IColumnTypeSyntax&lt;TNext&gt;, MigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Set datetime dataType (depended of type of database)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TNext AsDatabaseDateTime&lt;TNext&gt;(this IColumnTypeSyntax&lt;TNext&gt; syntax, MigrationModel model)
+    where TNext : IFluentSyntax</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.IColumnTypeSyntax</span>&lt;TNext&gt;</td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Contracts.MigrationModel.html">MigrationModel</a></td>
+        <td><span class="parametername">model</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TNext</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TNext</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_GenerateFkName_FluentMigrator_Migration_System_String_System_String_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.GenerateFkName(FluentMigrator.Migration%2CSystem.String%2CSystem.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L648">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_GenerateFkName_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.GenerateFkName*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_GenerateFkName_FluentMigrator_Migration_System_String_System_String_System_String_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.GenerateFkName(FluentMigrator.Migration,System.String,System.String,System.String)">GenerateFkName(Migration, String, String, String)</h4>
+  <div class="markdown level1 summary"><p>return Foreign Key name</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GenerateFkName(this Migration migrationModel, string primaryTableName, string fromTableName, string schemaPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Migration</span></td>
+        <td><span class="parametername">migrationModel</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">primaryTableName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">fromTableName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">schemaPrefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_GeneratePkName_FluentDbTools_Migration_Contracts_MigrationModel_System_String_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.GeneratePkName(FluentDbTools.Migration.Contracts.MigrationModel%2CSystem.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L671">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_GeneratePkName_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.GeneratePkName*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_GeneratePkName_FluentDbTools_Migration_Contracts_MigrationModel_System_String_System_String_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.GeneratePkName(FluentDbTools.Migration.Contracts.MigrationModel,System.String,System.String)">GeneratePkName(MigrationModel, String, String)</h4>
+  <div class="markdown level1 summary"><p>return Primary Key name</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GeneratePkName(this MigrationModel migration, string primaryTableName, string idColumn)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Contracts.MigrationModel.html">MigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">primaryTableName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">idColumn</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_GeneratePkName_FluentMigrator_Migration_System_String_System_String_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.GeneratePkName(FluentMigrator.Migration%2CSystem.String%2CSystem.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L685">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_GeneratePkName_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.GeneratePkName*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_GeneratePkName_FluentMigrator_Migration_System_String_System_String_System_String_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.GeneratePkName(FluentMigrator.Migration,System.String,System.String,System.String)">GeneratePkName(Migration, String, String, String)</h4>
+  <div class="markdown level1 summary"><p>return Primary Key name</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GeneratePkName(this Migration migration, string primaryTableName, string idColumn, string schemaPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Migration</span></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">primaryTableName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">idColumn</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">schemaPrefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_GetConfigurtedDatabaseType_FluentMigrator_Migration_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.GetConfigurtedDatabaseType(FluentMigrator.Migration)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L705">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_GetConfigurtedDatabaseType_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.GetConfigurtedDatabaseType*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_GetConfigurtedDatabaseType_FluentMigrator_Migration_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.GetConfigurtedDatabaseType(FluentMigrator.Migration)">GetConfigurtedDatabaseType(Migration)</h4>
+  <div class="markdown level1 summary"><p>Get DatabaseType from <code data-dev-comment-type="paramref" class="paramref">migration</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GetConfigurtedDatabaseType(this Migration migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Migration</span></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_OnTable_FluentMigrator_Builders_Create_Column_ICreateColumnOnTableSyntax_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.OnTable(FluentMigrator.Builders.Create.Column.ICreateColumnOnTableSyntax%2CSystem.String%2CFluentDbTools.Migration.Abstractions.IMigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L121">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_OnTable_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.OnTable*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_OnTable_FluentMigrator_Builders_Create_Column_ICreateColumnOnTableSyntax_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.OnTable(FluentMigrator.Builders.Create.Column.ICreateColumnOnTableSyntax,System.String,FluentDbTools.Migration.Abstractions.IMigrationModel)">OnTable(ICreateColumnOnTableSyntax, String, IMigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Specify the table for the new column<br>
+If <code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix have a value, the Syntax-TableName will be computed to {<code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix}{<code data-dev-comment-type="paramref" class="paramref">tableName</code>}<br>
+If NOT, the Syntax-TableName will be the same as {<code data-dev-comment-type="paramref" class="paramref">tableName</code>}</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICreateColumnAsTypeOrInSchemaSyntax OnTable(this ICreateColumnOnTableSyntax syntax, string tableName, IMigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Column.ICreateColumnOnTableSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td><p>Syntax to extend</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tableName</span></td>
+        <td><p>The table name for the new column <br>
+See summary-section how this parameter is used</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Column.ICreateColumnAsTypeOrInSchemaSyntax</span></td>
+        <td><p>The interface to specify the table schema or column information</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_OnTable_FluentMigrator_Builders_Rename_IRenameColumnTableSyntax_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.OnTable(FluentMigrator.Builders.Rename.IRenameColumnTableSyntax%2CSystem.String%2CFluentDbTools.Migration.Abstractions.IMigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L141">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_OnTable_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.OnTable*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_OnTable_FluentMigrator_Builders_Rename_IRenameColumnTableSyntax_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.OnTable(FluentMigrator.Builders.Rename.IRenameColumnTableSyntax,System.String,FluentDbTools.Migration.Abstractions.IMigrationModel)">OnTable(IRenameColumnTableSyntax, String, IMigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Specify the table for the renaming column<br>
+If <code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix have a value, the Syntax-TableName will be computed to {<code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix}{<code data-dev-comment-type="paramref" class="paramref">tableName</code>}<br>
+If NOT, the Syntax-TableName will be the same as {<code data-dev-comment-type="paramref" class="paramref">tableName</code>}</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IRenameColumnToOrInSchemaSyntax OnTable(this IRenameColumnTableSyntax syntax, string tableName, IMigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Rename.IRenameColumnTableSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td><p>Syntax to extend</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tableName</span></td>
+        <td><p>The table name for the renaming column <br>
+See summary-section how this parameter is used</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Rename.Column.IRenameColumnToOrInSchemaSyntax</span></td>
+        <td><p>The interface to specify the table schema or column information</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_Table_FluentMigrator_Builders_Alter_IAlterExpressionRoot_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.Table(FluentMigrator.Builders.Alter.IAlterExpressionRoot%2CSystem.String%2CFluentDbTools.Migration.Abstractions.IMigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L83">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_Table_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.Table*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_Table_FluentMigrator_Builders_Alter_IAlterExpressionRoot_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.Table(FluentMigrator.Builders.Alter.IAlterExpressionRoot,System.String,FluentDbTools.Migration.Abstractions.IMigrationModel)">Table(IAlterExpressionRoot, String, IMigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Alter the table or its columns/options<br>
+If <code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix have a value, the Syntax-OldName will be computed to {<code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix}{<code data-dev-comment-type="paramref" class="paramref">tableName</code>}<br>
+If NOT, the Syntax-OldName will be the same as {<code data-dev-comment-type="paramref" class="paramref">tableName</code>}</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IAlterTableAddColumnOrAlterColumnOrSchemaOrDescriptionSyntax Table(this IAlterExpressionRoot root, string tableName, IMigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.IAlterExpressionRoot</span></td>
+        <td><span class="parametername">root</span></td>
+        <td><p>Expression root to extend</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tableName</span></td>
+        <td><p>The table name to alter<br>
+See summary-section how this parameter is used</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td><p><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnOrSchemaOrDescriptionSyntax</span></td>
+        <td><p>The interface for the modifications - <span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnOrSchemaOrDescriptionSyntax</span></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_Table_FluentMigrator_Builders_Create_ICreateExpressionRoot_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.Table(FluentMigrator.Builders.Create.ICreateExpressionRoot%2CSystem.String%2CFluentDbTools.Migration.Abstractions.IMigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L44">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_Table_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.Table*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_Table_FluentMigrator_Builders_Create_ICreateExpressionRoot_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.Table(FluentMigrator.Builders.Create.ICreateExpressionRoot,System.String,FluentDbTools.Migration.Abstractions.IMigrationModel)">Table(ICreateExpressionRoot, String, IMigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Creates a table in Schema {<code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaName}<br>
+If {migration.SchemaPrefix} have a value, the Syntax-TableName will be computed to {<code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix}{<code data-dev-comment-type="paramref" class="paramref">tableName</code>}<br>
+If NOT, the Syntax-TableName will be the same as {<code data-dev-comment-type="paramref" class="paramref">tableName</code>}</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICreateTableWithColumnOrSchemaOrDescriptionSyntax Table(this ICreateExpressionRoot root, string tableName, IMigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.ICreateExpressionRoot</span></td>
+        <td><span class="parametername">root</span></td>
+        <td><p>Expression root to extend</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tableName</span></td>
+        <td><p>The table name<br>
+See summary-section how this parameter is used</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableWithColumnOrSchemaOrDescriptionSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_Table_FluentMigrator_Builders_Delete_IDeleteExpressionRoot_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.Table(FluentMigrator.Builders.Delete.IDeleteExpressionRoot%2CSystem.String%2CFluentDbTools.Migration.Abstractions.IMigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L102">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_Table_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.Table*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_Table_FluentMigrator_Builders_Delete_IDeleteExpressionRoot_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.Table(FluentMigrator.Builders.Delete.IDeleteExpressionRoot,System.String,FluentDbTools.Migration.Abstractions.IMigrationModel)">Table(IDeleteExpressionRoot, String, IMigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Specify the table to delete<br>
+If <code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix have a value, the Syntax-OldName will be computed to {<code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix}{<code data-dev-comment-type="paramref" class="paramref">tableName</code>}<br>
+If NOT, the Syntax-OldName will be the same as {<code data-dev-comment-type="paramref" class="paramref">tableName</code>}</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IInSchemaSyntax Table(this IDeleteExpressionRoot root, string tableName, IMigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Delete.IDeleteExpressionRoot</span></td>
+        <td><span class="parametername">root</span></td>
+        <td><p>Expression root to extend</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tableName</span></td>
+        <td><p>The table name to delete<br>
+See summary-section how this parameter is used</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.IInSchemaSyntax</span></td>
+        <td><p>The next step - <span class="xref">FluentMigrator.Builders.IInSchemaSyntax</span></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_Table_FluentMigrator_Builders_Rename_IRenameExpressionRoot_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.Table(FluentMigrator.Builders.Rename.IRenameExpressionRoot%2CSystem.String%2CFluentDbTools.Migration.Abstractions.IMigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L64">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_Table_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.Table*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_Table_FluentMigrator_Builders_Rename_IRenameExpressionRoot_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.Table(FluentMigrator.Builders.Rename.IRenameExpressionRoot,System.String,FluentDbTools.Migration.Abstractions.IMigrationModel)">Table(IRenameExpressionRoot, String, IMigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Renames a table in Schema {<code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaName}<br>
+If <code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix have a value, the Syntax-OldName will be computed to {<code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix}{<code data-dev-comment-type="paramref" class="paramref">oldName</code>}<br>
+If NOT, the Syntax-OldName will be the same as {<code data-dev-comment-type="paramref" class="paramref">oldName</code>}</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IRenameTableToOrInSchemaSyntax Table(this IRenameExpressionRoot root, string oldName, IMigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Rename.IRenameExpressionRoot</span></td>
+        <td><span class="parametername">root</span></td>
+        <td><p>Expression root to extend</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">oldName</span></td>
+        <td><p>The current table name<br>
+See summary-section how this parameter is used</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td><p>FluentDbTools <a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Rename.Table.IRenameTableToOrInSchemaSyntax</span></td>
+        <td><p>The next step</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_To_FluentMigrator_Builders_Rename_Column_IRenameColumnToSyntax_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.To(FluentMigrator.Builders.Rename.Column.IRenameColumnToSyntax%2CSystem.String%2CFluentDbTools.Migration.Abstractions.IMigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L174">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_To_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.To*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_To_FluentMigrator_Builders_Rename_Column_IRenameColumnToSyntax_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.To(FluentMigrator.Builders.Rename.Column.IRenameColumnToSyntax,System.String,FluentDbTools.Migration.Abstractions.IMigrationModel)">To(IRenameColumnToSyntax, String, IMigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Specify the new column name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IRenameColumnToSyntax To(this IRenameColumnToSyntax syntax, string newColumnName, IMigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Rename.Column.IRenameColumnToSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td><p>Rename Column Syntax to extend</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">newColumnName</span></td>
+        <td><p>The new column name</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td><p>null can be used</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Rename.Column.IRenameColumnToSyntax</span></td>
+        <td><p>Return the <code data-dev-comment-type="paramref" class="paramref">syntax</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_ToTable_FluentMigrator_Builders_Rename_Table_IRenameTableToOrInSchemaSyntax_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.ToTable(FluentMigrator.Builders.Rename.Table.IRenameTableToOrInSchemaSyntax%2CSystem.String%2CFluentDbTools.Migration.Abstractions.IMigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L160">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_ToTable_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.ToTable*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_ToTable_FluentMigrator_Builders_Rename_Table_IRenameTableToOrInSchemaSyntax_System_String_FluentDbTools_Migration_Abstractions_IMigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.ToTable(FluentMigrator.Builders.Rename.Table.IRenameTableToOrInSchemaSyntax,System.String,FluentDbTools.Migration.Abstractions.IMigrationModel)">ToTable(IRenameTableToOrInSchemaSyntax, String, IMigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Specify the new name of the table<br>
+If <code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix have a value, the Syntax-TableName will be computed to {<code data-dev-comment-type="paramref" class="paramref">migration</code>.SchemaPrefix}{<code data-dev-comment-type="paramref" class="paramref">tableName</code>}<br>
+If NOT, the Syntax-TableName will be the same as {<code data-dev-comment-type="paramref" class="paramref">tableName</code>}</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IInSchemaSyntax ToTable(this IRenameTableToOrInSchemaSyntax syntax, string tableName, IMigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Rename.Table.IRenameTableToOrInSchemaSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td><p>Syntax to extend</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tableName</span></td>
+        <td><p>The new table name<br>
+See summary-section how this parameter is used</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.IInSchemaSyntax</span></td>
+        <td><p>return <span class="xref">FluentMigrator.Builders.IInSchemaSyntax</span></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_FluentMigrator_Builders_Alter_Table_IAlterTableAddColumnOrAlterColumnSyntax_FluentDbTools_Migration_Abstractions_ChangeLogContext_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog(FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax%2CFluentDbTools.Migration.Abstractions.ChangeLogContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L351">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_FluentMigrator_Builders_Alter_Table_IAlterTableAddColumnOrAlterColumnSyntax_FluentDbTools_Migration_Abstractions_ChangeLogContext_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog(FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax,FluentDbTools.Migration.Abstractions.ChangeLogContext)">WithChangeLog(IAlterTableAddColumnOrAlterColumnSyntax, ChangeLogContext)</h4>
+  <div class="markdown level1 summary"><p>ChangeLog activation for Alter.Table(..) syntax <br>
+-------------------------------------------------<br>
+It will be possible to add custom logging on all table operations.<br>
+The interface <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a> must be implemented and registered in the IoC container (<a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a> )<br>
+Method <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor.html#FluentDbTools_Migration_Abstractions_ICustomMigrationProcessor_Process_FluentDbTools_Migration_Abstractions_ExtendedExpressions_IChangeLogTabledExpression_">Process(IChangeLogTabledExpression)</a><br>
+can be used to implementing your preferred custom logging <br>
+<br>
+See the example of a implementation of <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a>:<br>
+<a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br>
+<br>
+Can be registered like this:<br></p>
+<pre><code><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor>,TestOracleCustomMigrationProcessor>();</code></pre>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IAlterTableAddColumnOrAlterColumnSyntax WithChangeLog(this IAlterTableAddColumnOrAlterColumnSyntax syntax, ChangeLogContext changeLog)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.ChangeLogContext.html">ChangeLogContext</a></td>
+        <td><span class="parametername">changeLog</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax</span></td>
+        <td><p><span class="xref">FluentMigrator.Builders.Alter.Table.IAlterTableAddColumnOrAlterColumnSyntax</span></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_FluentMigrator_Builders_Create_Column_ICreateColumnOptionSyntax_FluentDbTools_Migration_Abstractions_ChangeLogContext_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog(FluentMigrator.Builders.Create.Column.ICreateColumnOptionSyntax%2CFluentDbTools.Migration.Abstractions.ChangeLogContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L251">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_FluentMigrator_Builders_Create_Column_ICreateColumnOptionSyntax_FluentDbTools_Migration_Abstractions_ChangeLogContext_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog(FluentMigrator.Builders.Create.Column.ICreateColumnOptionSyntax,FluentDbTools.Migration.Abstractions.ChangeLogContext)">WithChangeLog(ICreateColumnOptionSyntax, ChangeLogContext)</h4>
+  <div class="markdown level1 summary"><p>ChangeLog activation for Create.Column(..) syntax <br>
+-------------------------------------------------<br>
+It will be possible to add custom logging on all table operations.<br>
+The interface <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a> must be implemented and registered in the IoC container (<a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a> )<br>
+Method <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor.html#FluentDbTools_Migration_Abstractions_ICustomMigrationProcessor_Process_FluentDbTools_Migration_Abstractions_ExtendedExpressions_IChangeLogTabledExpression_">Process(IChangeLogTabledExpression)</a><br>
+can be used to implementing your preferred custom logging <br>
+<br>
+See the example of a implementation of <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a>:<br>
+<a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br>
+<br>
+Can be registered like this:<br></p>
+<pre><code><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor>,TestOracleCustomMigrationProcessor>();</code></pre>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICreateColumnOptionSyntax WithChangeLog(this ICreateColumnOptionSyntax syntax, ChangeLogContext changeLog)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Column.ICreateColumnOptionSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.ChangeLogContext.html">ChangeLogContext</a></td>
+        <td><span class="parametername">changeLog</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Column.ICreateColumnOptionSyntax</span></td>
+        <td><p><span class="xref">FluentMigrator.Builders.Create.Column.ICreateColumnOptionSyntax</span></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_FluentMigrator_Builders_IInSchemaSyntax_FluentDbTools_Migration_Abstractions_ChangeLogContext_FluentDbTools_Migration_Abstractions_IMigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog(FluentMigrator.Builders.IInSchemaSyntax%2CFluentDbTools.Migration.Abstractions.ChangeLogContext%2CFluentDbTools.Migration.Abstractions.IMigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L327">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_FluentMigrator_Builders_IInSchemaSyntax_FluentDbTools_Migration_Abstractions_ChangeLogContext_FluentDbTools_Migration_Abstractions_IMigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog(FluentMigrator.Builders.IInSchemaSyntax,FluentDbTools.Migration.Abstractions.ChangeLogContext,FluentDbTools.Migration.Abstractions.IMigrationModel)">WithChangeLog(IInSchemaSyntax, ChangeLogContext, IMigrationModel)</h4>
+  <div class="markdown level1 summary"><p>ChangeLog activation for Delete.Table(..) syntax <br>
+----------------------------------------------------<br>
+It will be possible to add custom logging on all table operations.<br>
+The interface <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a> must be implemented and registered in the IoC container (<a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a> )<br>
+Method <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor.html#FluentDbTools_Migration_Abstractions_ICustomMigrationProcessor_Process_FluentDbTools_Migration_Abstractions_ExtendedExpressions_IChangeLogTabledExpression_">Process(IChangeLogTabledExpression)</a><br>
+can be used to implementing your preferred custom logging <br>
+<br>
+See the example of a implementation of <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a>:<br>
+<a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br>
+<br>
+Can be registered like this:<br></p>
+<pre><code><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor>,TestOracleCustomMigrationProcessor>();</code></pre>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IInSchemaSyntax WithChangeLog(this IInSchemaSyntax syntax, ChangeLogContext changeLog, IMigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.IInSchemaSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.ChangeLogContext.html">ChangeLogContext</a></td>
+        <td><span class="parametername">changeLog</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.IInSchemaSyntax</span></td>
+        <td><p><span class="xref">FluentMigrator.Builders.IInSchemaSyntax</span></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_FluentMigrator_Builders_Rename_Column_IRenameColumnToSyntax_FluentDbTools_Migration_Abstractions_ChangeLogContext_FluentDbTools_Migration_Abstractions_IMigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog(FluentMigrator.Builders.Rename.Column.IRenameColumnToSyntax%2CFluentDbTools.Migration.Abstractions.ChangeLogContext%2CFluentDbTools.Migration.Abstractions.IMigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L227">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_FluentMigrator_Builders_Rename_Column_IRenameColumnToSyntax_FluentDbTools_Migration_Abstractions_ChangeLogContext_FluentDbTools_Migration_Abstractions_IMigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog(FluentMigrator.Builders.Rename.Column.IRenameColumnToSyntax,FluentDbTools.Migration.Abstractions.ChangeLogContext,FluentDbTools.Migration.Abstractions.IMigrationModel)">WithChangeLog(IRenameColumnToSyntax, ChangeLogContext, IMigrationModel)</h4>
+  <div class="markdown level1 summary"><p>ChangeLog activation for Rename.Column(..) syntax <br>
+----------------------------------------------------<br>
+It will be possible to add custom logging on all table operations.<br>
+The interface <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a> must be implemented and registered in the IoC container (<a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a> )<br>
+Method <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor.html#FluentDbTools_Migration_Abstractions_ICustomMigrationProcessor_Process_FluentDbTools_Migration_Abstractions_ExtendedExpressions_IChangeLogTabledExpression_">Process(IChangeLogTabledExpression)</a><br>
+can be used to implementing your preferred custom logging <br>
+<br>
+See the example of a implementation of <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a>:<br>
+<a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br>
+<br>
+Can be registered like this:<br></p>
+<pre><code><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor>,TestOracleCustomMigrationProcessor>();</code></pre>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IRenameColumnToSyntax WithChangeLog(this IRenameColumnToSyntax syntax, ChangeLogContext changeLog, IMigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Rename.Column.IRenameColumnToSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.ChangeLogContext.html">ChangeLogContext</a></td>
+        <td><span class="parametername">changeLog</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Rename.Column.IRenameColumnToSyntax</span></td>
+        <td><p><span class="xref">FluentMigrator.Builders.Rename.Column.IRenameColumnToSyntax</span></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog__1___0_FluentDbTools_Migration_Abstractions_ChangeLogContext_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog%60%601(%60%600%2CFluentDbTools.Migration.Abstractions.ChangeLogContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L277">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog__1___0_FluentDbTools_Migration_Abstractions_ChangeLogContext_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog``1(``0,FluentDbTools.Migration.Abstractions.ChangeLogContext)">WithChangeLog&lt;T&gt;(T, ChangeLogContext)</h4>
+  <div class="markdown level1 summary"><p>ChangeLog activation for Create.Table(..) syntax or Create.Column(..) syntax <br>
+-------------------------------------------------<br>
+It will be possible to add custom logging on all table operations.<br>
+The interface <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a> must be implemented and registered in the IoC container (<a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a> )<br>
+Method <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor.html#FluentDbTools_Migration_Abstractions_ICustomMigrationProcessor_Process_FluentDbTools_Migration_Abstractions_ExtendedExpressions_IChangeLogTabledExpression_">Process(IChangeLogTabledExpression)</a><br>
+can be used to implementing your preferred custom logging <br>
+<br>
+See the example of a implementation of <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a>:<br>
+<a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br>
+<br>
+Can be registered like this:<br></p>
+<pre><code><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor>,TestOracleCustomMigrationProcessor>();</code></pre>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T WithChangeLog&lt;T&gt;(this T syntax, ChangeLogContext changeLog)
+    where T : ICreateTableWithColumnSyntax</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.ChangeLogContext.html">ChangeLogContext</a></td>
+        <td><span class="parametername">changeLog</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p><code data-dev-comment-type="typeparamref" class="typeparamref">T</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog__1___0_FluentDbTools_Migration_Abstractions_ChangeLogContext_FluentDbTools_Migration_Abstractions_IMigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog%60%601(%60%600%2CFluentDbTools.Migration.Abstractions.ChangeLogContext%2CFluentDbTools.Migration.Abstractions.IMigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L302">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithChangeLog__1___0_FluentDbTools_Migration_Abstractions_ChangeLogContext_FluentDbTools_Migration_Abstractions_IMigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithChangeLog``1(``0,FluentDbTools.Migration.Abstractions.ChangeLogContext,FluentDbTools.Migration.Abstractions.IMigrationModel)">WithChangeLog&lt;T&gt;(T, ChangeLogContext, IMigrationModel)</h4>
+  <div class="markdown level1 summary"><p>ChangeLog activation for Rename.Table(..) syntax <br>
+----------------------------------------------------<br>
+It will be possible to add custom logging on all table operations.<br>
+The interface <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a> must be implemented and registered in the IoC container (<a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a> )<br>
+Method <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor.html#FluentDbTools_Migration_Abstractions_ICustomMigrationProcessor_Process_FluentDbTools_Migration_Abstractions_ExtendedExpressions_IChangeLogTabledExpression_">Process(IChangeLogTabledExpression)</a><br>
+can be used to implementing your preferred custom logging <br>
+<br>
+See the example of a implementation of <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a>:<br>
+<a href="https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs">https://github.com/DIPSAS/FluentDbTools/blob/master/src/FluentDbTools/Tests/Test.FluentDbTools.Migration/TestOracleCustomMigrationProcessor.cs</a><br>
+<br>
+Can be registered like this:<br></p>
+<pre><code><a class="xref" href="https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a>.AddSingleton&lt;ICustomMigrationProcessor&lt;OracleProcessor>,TestOracleCustomMigrationProcessor>();</code></pre>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T WithChangeLog&lt;T&gt;(this T syntax, ChangeLogContext changeLog, IMigrationModel migration)
+    where T : IRenameTableToSyntax</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.ChangeLogContext.html">ChangeLogContext</a></td>
+        <td><span class="parametername">changeLog</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p><span class="xref">FluentMigrator.Builders.Rename.Table.IRenameTableToSyntax</span></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithDefaultColumns__1___0_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithDefaultColumns%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L194">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithDefaultColumns_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithDefaultColumns*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithDefaultColumns__1___0_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithDefaultColumns``1(``0)">WithDefaultColumns&lt;T&gt;(T)</h4>
+  <div class="markdown level1 summary"><p>Enable DefaultColumns functionality.<br>
+----------------------------------------<br>
+It will be possible to add custom columns when creating table.<br>
+The interface <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html">ICustomMigrationProcessor&lt;T&gt;</a> must be implemented and registered in the IoC container<br>
+Method <a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor.html#FluentDbTools_Migration_Abstractions_ICustomMigrationProcessor_GetDefaultColumns_System_String_">GetDefaultColumns(String)</a> must be implemented to return all columns <br>
+<br>
+i.e:<br>
+ServiceProvider.AddSingleton&lt;<a class="xref" href="FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor.html">ICustomMigrationProcessor</a>&lt;<span class="xref">FluentMigrator.Runner.Processors.Oracle.OracleProcessor</span>&gt;,MyCustomMigrationUtilities&gt;()</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T WithDefaultColumns&lt;T&gt;(this T syntax)
+    where T : ICreateTableWithColumnSyntax</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td><p>CreateTable syntax</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>return <code data-dev-comment-type="paramref" class="paramref">syntax</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Available only for all CreateTable syntax's</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithForeignKeyColumn_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_System_String_FluentDbTools_Migration_Contracts_MigrationModel_System_String_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithForeignKeyColumn(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax%2CSystem.String%2CFluentDbTools.Migration.Contracts.MigrationModel%2CSystem.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L572">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithForeignKeyColumn_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithForeignKeyColumn*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithForeignKeyColumn_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_System_String_FluentDbTools_Migration_Contracts_MigrationModel_System_String_System_String_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithForeignKeyColumn(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax,System.String,FluentDbTools.Migration.Contracts.MigrationModel,System.String,System.String)">WithForeignKeyColumn(ICreateTableWithColumnSyntax, String, MigrationModel, String, String)</h4>
+  <div class="markdown level1 summary"><p>Create a foreign columnName to the table <code data-dev-comment-type="paramref" class="paramref">primaryTableName</code><br>
+------------------------------------------------------------------ <br>
+If <code data-dev-comment-type="paramref" class="paramref">columnName</code> is specified, the new column-name will follow that value<br>
+If <code data-dev-comment-type="paramref" class="paramref">columnName</code> is unspecified, the new column-name will be computed<br>
+<br>
+If <code data-dev-comment-type="paramref" class="paramref">primaryColumnName</code> is specified, the primary-table-column will follow that value<br>
+If <code data-dev-comment-type="paramref" class="paramref">primaryColumnName</code> is unspecified, the primary-table-column will be computed<br>
+<br>
+i.e:<br>
+<code data-dev-comment-type="paramref" class="paramref">columnName</code> is unspecified and <code data-dev-comment-type="paramref" class="paramref">primaryTableName</code> is &quot;Parent&quot; =&gt; column-name will be computed to &quot;ParentId&quot;<br>
+<br>
+<code data-dev-comment-type="paramref" class="paramref">primaryColumnName</code> is unspecified =&gt; the primary-table-column will be &quot;Id&quot;<br></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICreateTableColumnAsTypeSyntax WithForeignKeyColumn(this ICreateTableWithColumnSyntax syntax, string primaryTableName, MigrationModel migration, string columnName = null, string primaryColumnName = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">primaryTableName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Contracts.MigrationModel.html">MigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">columnName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">primaryColumnName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableColumnAsTypeSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithForeignKeyColumn_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_System_String_FluentMigrator_Migration_System_String_System_String_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithForeignKeyColumn(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax%2CSystem.String%2CFluentMigrator.Migration%2CSystem.String%2CSystem.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L604">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithForeignKeyColumn_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithForeignKeyColumn*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithForeignKeyColumn_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_System_String_FluentMigrator_Migration_System_String_System_String_System_String_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithForeignKeyColumn(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax,System.String,FluentMigrator.Migration,System.String,System.String,System.String)">WithForeignKeyColumn(ICreateTableWithColumnSyntax, String, Migration, String, String, String)</h4>
+  <div class="markdown level1 summary"><p>Create a foreign columnName to the table <code data-dev-comment-type="paramref" class="paramref">primaryTableName</code><br>
+------------------------------------------------------------------ <br>
+If <code data-dev-comment-type="paramref" class="paramref">columnName</code> is specified, the new column-name will follow that value<br>
+If <code data-dev-comment-type="paramref" class="paramref">columnName</code> is unspecified, the new column-name will be computed<br>
+<br>
+If <code data-dev-comment-type="paramref" class="paramref">primaryColumnName</code> is specified, the primary-table-column will follow that value<br>
+If <code data-dev-comment-type="paramref" class="paramref">primaryColumnName</code> is unspecified, the primary-table-column will be computed<br>
+<br>
+i.e:<br>
+<code data-dev-comment-type="paramref" class="paramref">columnName</code> is unspecified and <code data-dev-comment-type="paramref" class="paramref">primaryTableName</code> is &quot;Parent&quot; =&gt; column-name will be computed to &quot;ParentId&quot;<br>
+<br>
+<code data-dev-comment-type="paramref" class="paramref">primaryColumnName</code> is unspecified =&gt; the primary-table-column will be &quot;Id&quot;<br></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICreateTableColumnAsTypeSyntax WithForeignKeyColumn(this ICreateTableWithColumnSyntax syntax, string primaryTableName, Migration migration, string schemaPrefix = null, string columnName = null, string primaryColumnName = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">primaryTableName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">FluentMigrator.Migration</span></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">schemaPrefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">columnName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">primaryColumnName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableColumnAsTypeSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithIdAsGuidColumn_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_FluentMigrator_Migration_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithIdAsGuidColumn(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax%2CFluentMigrator.Migration)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L497">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithIdAsGuidColumn_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithIdAsGuidColumn*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithIdAsGuidColumn_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_FluentMigrator_Migration_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithIdAsGuidColumn(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax,FluentMigrator.Migration)">WithIdAsGuidColumn(ICreateTableWithColumnSyntax, Migration)</h4>
+  <div class="markdown level1 summary"><p>Add Guid Id column to table specified in <code data-dev-comment-type="paramref" class="paramref">syntax</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICreateTableColumnOptionOrWithColumnSyntax WithIdAsGuidColumn(this ICreateTableWithColumnSyntax syntax, Migration migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">FluentMigrator.Migration</span></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableColumnOptionOrWithColumnSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithIdAsInt32Column_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_FluentMigrator_Migration_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithIdAsInt32Column(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax%2CFluentMigrator.Migration)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L509">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithIdAsInt32Column_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithIdAsInt32Column*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithIdAsInt32Column_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_FluentMigrator_Migration_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithIdAsInt32Column(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax,FluentMigrator.Migration)">WithIdAsInt32Column(ICreateTableWithColumnSyntax, Migration)</h4>
+  <div class="markdown level1 summary"><p>Add Int32(Number 10) Id column to table specified in <code data-dev-comment-type="paramref" class="paramref">syntax</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICreateTableColumnOptionOrWithColumnSyntax WithIdAsInt32Column(this ICreateTableWithColumnSyntax syntax, Migration migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">FluentMigrator.Migration</span></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableColumnOptionOrWithColumnSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithIdColumn_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_FluentMigrator_Migration_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithIdColumn(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax%2CFluentMigrator.Migration)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L476">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithIdColumn_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithIdColumn*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithIdColumn_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_FluentMigrator_Migration_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithIdColumn(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax,FluentMigrator.Migration)">WithIdColumn(ICreateTableWithColumnSyntax, Migration)</h4>
+  <div class="markdown level1 summary"><p>Add Id column to table specified in <code data-dev-comment-type="paramref" class="paramref">syntax</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICreateTableColumnAsTypeSyntax WithIdColumn(this ICreateTableWithColumnSyntax syntax, Migration migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">FluentMigrator.Migration</span></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableColumnAsTypeSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithNullableColumn_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithNullableColumn(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L410">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithNullableColumn_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithNullableColumn*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithNullableColumn_FluentMigrator_Builders_Create_Table_ICreateTableWithColumnSyntax_System_String_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithNullableColumn(FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax,System.String)">WithNullableColumn(ICreateTableWithColumnSyntax, String)</h4>
+  <div class="markdown level1 summary"><p>Make <code data-dev-comment-type="paramref" class="paramref">columnName</code> Nullable</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICreateTableColumnAsTypeSyntax WithNullableColumn(this ICreateTableWithColumnSyntax syntax, string columnName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableWithColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">columnName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableColumnAsTypeSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithTableSequence_FluentMigrator_Builders_Create_Table_ICreateTableColumnOptionOrWithColumnSyntax_FluentDbTools_Migration_Contracts_MigrationModel_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithTableSequence(FluentMigrator.Builders.Create.Table.ICreateTableColumnOptionOrWithColumnSyntax%2CFluentDbTools.Migration.Contracts.MigrationModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L521">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithTableSequence_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithTableSequence*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithTableSequence_FluentMigrator_Builders_Create_Table_ICreateTableColumnOptionOrWithColumnSyntax_FluentDbTools_Migration_Contracts_MigrationModel_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithTableSequence(FluentMigrator.Builders.Create.Table.ICreateTableColumnOptionOrWithColumnSyntax,FluentDbTools.Migration.Contracts.MigrationModel)">WithTableSequence(ICreateTableColumnOptionOrWithColumnSyntax, MigrationModel)</h4>
+  <div class="markdown level1 summary"><p>Create a Sequence with name {syntax.TableName}_seq <br>
+If SchemaPrefix is defined in <code data-dev-comment-type="paramref" class="paramref">migration</code>, the name will be {SchemaPrefix}{syntax.TableName}_seq</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICreateSequenceSyntax WithTableSequence(this ICreateTableColumnOptionOrWithColumnSyntax syntax, MigrationModel migration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableColumnOptionOrWithColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Contracts.MigrationModel.html">MigrationModel</a></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Sequence.ICreateSequenceSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions_WithTableSequence_FluentMigrator_Builders_Create_Table_ICreateTableColumnOptionOrWithColumnSyntax_FluentMigrator_Migration_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions.WithTableSequence(FluentMigrator.Builders.Create.Table.ICreateTableColumnOptionOrWithColumnSyntax%2CFluentMigrator.Migration%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L536">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithTableSequence_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithTableSequence*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationExtensions_WithTableSequence_FluentMigrator_Builders_Create_Table_ICreateTableColumnOptionOrWithColumnSyntax_FluentMigrator_Migration_System_String_" data-uid="FluentDbTools.Migration.Contracts.MigrationExtensions.WithTableSequence(FluentMigrator.Builders.Create.Table.ICreateTableColumnOptionOrWithColumnSyntax,FluentMigrator.Migration,System.String)">WithTableSequence(ICreateTableColumnOptionOrWithColumnSyntax, Migration, String)</h4>
+  <div class="markdown level1 summary"><p>Create a Sequence with name {syntax.TableName}_seq <br>
+If <code data-dev-comment-type="paramref" class="paramref">schemaPrefix</code> is defined, the name will be {schemaPrefix}{syntax.TableName}_seq</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ICreateSequenceSyntax WithTableSequence(this ICreateTableColumnOptionOrWithColumnSyntax syntax, Migration migration, string schemaPrefix = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Table.ICreateTableColumnOptionOrWithColumnSyntax</span></td>
+        <td><span class="parametername">syntax</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">FluentMigrator.Migration</span></td>
+        <td><span class="parametername">migration</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">schemaPrefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Create.Sequence.ICreateSequenceSyntax</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationExtensions.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationExtensions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModelExtensions.cs/#L30" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

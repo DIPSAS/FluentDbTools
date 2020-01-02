@@ -1,0 +1,813 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class MigrationModel
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class MigrationModel
+   ">
+    <meta name="generator" content="docfx 2.48.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="FluentDbTools.Migration.Contracts.MigrationModel">
+  
+  
+  <h1 id="FluentDbTools_Migration_Contracts_MigrationModel" data-uid="FluentDbTools.Migration.Contracts.MigrationModel" class="text-break">Class MigrationModel
+  </h1>
+  <div class="markdown level0 summary"><p>Abstract class with Extended props and methods to <span class="xref">FluentMigrator.Migration</span></p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">FluentMigrator.MigrationBase</span></div>
+    <div class="level2"><span class="xref">FluentMigrator.Migration</span></div>
+    <div class="level3"><span class="xref">MigrationModel</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">FluentMigrator.IMigration</span></div>
+    <div><a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">FluentMigrator.Migration.Update</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.Up()</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.Down()</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.GetUpExpressions(FluentMigrator.Infrastructure.IMigrationContext)</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.GetDownExpressions(FluentMigrator.Infrastructure.IMigrationContext)</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.IfDatabase(System.String[])</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.IfDatabase(System.Predicate&lt;System.String&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.ApplicationContext</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.ConnectionString</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.Alter</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.Create</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.Rename</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.Insert</span>
+    </div>
+    <div>
+      <span class="xref">FluentMigrator.MigrationBase.Schema</span>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="FluentDbTools.Migration.Contracts.html">FluentDbTools.Migration.Contracts</a></h6>
+  <h6><strong>Assembly</strong>: FluentDbTools.Migration.Contracts.dll</h6>
+  <h5 id="FluentDbTools_Migration_Contracts_MigrationModel_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class MigrationModel : Migration, IMigration, IMigrationModel</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel__ctor.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L191">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel__ctor_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.#ctor*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel__ctor" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.#ctor">MigrationModel()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected MigrationModel()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel__ctor_FluentMigrator_Infrastructure_IMigrationContext_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.%23ctor(FluentMigrator.Infrastructure.IMigrationContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L204">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel__ctor_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.#ctor*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel__ctor_FluentMigrator_Infrastructure_IMigrationContext_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.#ctor(FluentMigrator.Infrastructure.IMigrationContext)">MigrationModel(IMigrationContext)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected MigrationModel(IMigrationContext context)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Infrastructure.IMigrationContext</span></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel__ctor_FluentMigrator_Runner_VersionTableInfo_IVersionTableMetaData_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.%23ctor(FluentMigrator.Runner.VersionTableInfo.IVersionTableMetaData)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L197">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel__ctor_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.#ctor*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel__ctor_FluentMigrator_Runner_VersionTableInfo_IVersionTableMetaData_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.#ctor(FluentMigrator.Runner.VersionTableInfo.IVersionTableMetaData)">MigrationModel(IVersionTableMetaData)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected MigrationModel(IVersionTableMetaData version)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Runner.VersionTableInfo.IVersionTableMetaData</span></td>
+        <td><span class="parametername">version</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_ConfiguredDatabaseType.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.ConfiguredDatabaseType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L54">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_ConfiguredDatabaseType_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.ConfiguredDatabaseType*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_ConfiguredDatabaseType" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.ConfiguredDatabaseType">ConfiguredDatabaseType</h4>
+  <div class="markdown level1 summary"><p>Set the configured Database type i.e. Oracle Or Postgres</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ConfiguredDatabaseType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_CreateOrReplace.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.CreateOrReplace%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L37">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_CreateOrReplace_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.CreateOrReplace*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_CreateOrReplace" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.CreateOrReplace">CreateOrReplace</h4>
+  <div class="markdown level1 summary"><p>Gets the starting point for creating or replacing View, Package or Scripts</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICreateOrReplaceExpressionRoot CreateOrReplace { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.ICreateOrReplaceExpressionRoot.html">ICreateOrReplaceExpressionRoot</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_Delete.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.Delete%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L42">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_Delete_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.Delete*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_Delete" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.Delete">Delete</h4>
+  <div class="markdown level1 summary"><p>Gets the starting point for data deletions</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDeleteExpressionRoot Delete { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Delete.IDeleteExpressionRoot</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_Execute.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.Execute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L287">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_Execute_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.Execute*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_Execute" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.Execute">Execute</h4>
+  <div class="markdown level1 summary"><p>Gets the starting point for SQL execution</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IExecuteExpressionRoot Execute { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Builders.Execute.IExecuteExpressionRoot</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_SchemaName.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.SchemaName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L73">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_SchemaName_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.SchemaName*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_SchemaName" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.SchemaName">SchemaName</h4>
+  <div class="markdown level1 summary"><p>SchemaName extracted from <span class="xref">FluentMigrator.Runner.VersionTableInfo.IVersionTableMetaData.SchemaName</span></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SchemaName { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_SchemaPrefixId.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.SchemaPrefixId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L104">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_SchemaPrefixId_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.SchemaPrefixId*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_SchemaPrefixId" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.SchemaPrefixId">SchemaPrefixId</h4>
+  <div class="markdown level1 summary"><p>SchemaPrefixId - Fetch value from configuration &quot;database:migration:schemaprefix:id&quot; or &quot;database:database:schemaprefix:id&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SchemaPrefixId { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_SchemaPrefixUniqueId.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.SchemaPrefixUniqueId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L119">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_SchemaPrefixUniqueId_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.SchemaPrefixUniqueId*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_SchemaPrefixUniqueId" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.SchemaPrefixUniqueId">SchemaPrefixUniqueId</h4>
+  <div class="markdown level1 summary"><p>SchemaPrefixUniqueId - Fetch value from configuration &quot;database:migration:schemaprefix:uniqueid&quot; or &quot;database:database:schemaprefix:uniqueid&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SchemaPrefixUniqueId { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_GetExpressions.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.GetExpressions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L160">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_GetExpressions_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.GetExpressions*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_GetExpressions" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.GetExpressions">GetExpressions()</h4>
+  <div class="markdown level1 summary"><p>return MigrationExpressions from <span class="xref">FluentMigrator.Infrastructure.IMigrationContext.Expressions</span></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IList&lt;IMigrationExpression&gt; GetExpressions()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<span class="xref">FluentMigrator.Expressions.IMigrationExpression</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_GetMigrationConfig.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.GetMigrationConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L137">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_GetMigrationConfig_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.GetMigrationConfig*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_GetMigrationConfig" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.GetMigrationConfig">GetMigrationConfig()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDbMigrationConfig GetMigrationConfig()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Migration.Abstractions.IDbMigrationConfig.html">IDbMigrationConfig</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_GetMigrationContext.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.GetMigrationContext%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L149">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_GetMigrationContext_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.GetMigrationContext*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_GetMigrationContext" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.GetMigrationContext">GetMigrationContext()</h4>
+  <div class="markdown level1 summary"><p>Return the injected MigrationContext or it will be resolved by reflection</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IMigrationContext GetMigrationContext()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Infrastructure.IMigrationContext</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_GetPrefixedName_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.GetPrefixedName(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L171">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_GetPrefixedName_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.GetPrefixedName*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_GetPrefixedName_System_String_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.GetPrefixedName(System.String)">GetPrefixedName(String)</h4>
+  <div class="markdown level1 summary"><p>return SchemaPrefix == null ? name : $&quot;{SchemaPrefix}{name}&quot;;<br>
+Calls the <a class="xref" href="FluentDbTools.Common.Abstractions.StringExtensions.html#FluentDbTools_Common_Abstractions_StringExtensions_GetPrefixedName_System_String_System_String_System_String_">GetPrefixedName(String, String, String)</a> method</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetPrefixedName(string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>name of the object to add prefix to.<br>
+If name start with the value of {<a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html#FluentDbTools_Migration_Abstractions_IMigrationModel_SchemaPrefixId">SchemaPrefixId</a>}, the value of <code data-dev-comment-type="paramref" class="paramref">name</code> will be returned</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_GetServiceProvider.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.GetServiceProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L232">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_GetServiceProvider_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.GetServiceProvider*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_GetServiceProvider" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.GetServiceProvider">GetServiceProvider()</h4>
+  <div class="markdown level1 summary"><p>Return <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a> from <span class="xref">FluentMigrator.Infrastructure.IMigrationContext</span></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IServiceProvider GetServiceProvider()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_IsOracle.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.IsOracle%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L213">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_IsOracle_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.IsOracle*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_IsOracle" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.IsOracle">IsOracle()</h4>
+  <div class="markdown level1 summary"><p>Return true if ConfiguredDatabaseType == &quot;oracle&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsOracle()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_IsPostgres.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.IsPostgres%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L222">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_IsPostgres_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.IsPostgres*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_IsPostgres" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.IsPostgres">IsPostgres()</h4>
+  <div class="markdown level1 summary"><p>Return true if ConfiguredDatabaseType == &quot;postgres&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsPostgres()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel_Reset_FluentMigrator_Infrastructure_IMigrationContext_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel.Reset(FluentMigrator.Infrastructure.IMigrationContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L177">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Contracts_MigrationModel_Reset_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.Reset*"></a>
+  <h4 id="FluentDbTools_Migration_Contracts_MigrationModel_Reset_FluentMigrator_Infrastructure_IMigrationContext_" data-uid="FluentDbTools.Migration.Contracts.MigrationModel.Reset(FluentMigrator.Infrastructure.IMigrationContext)">Reset(IMigrationContext)</h4>
+  <div class="markdown level1 summary"><p>Reset fields</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IMigrationContext Reset(IMigrationContext context)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Infrastructure.IMigrationContext</span></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FluentMigrator.Infrastructure.IMigrationContext</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">FluentMigrator.IMigration</span>
+  </div>
+  <div>
+      <a class="xref" href="FluentDbTools.Migration.Abstractions.IMigrationModel.html">IMigrationModel</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="FluentDbTools.Migration.Abstractions.MigrationAbstractionExtensions.html#FluentDbTools_Migration_Abstractions_MigrationAbstractionExtensions_ExecuteSql_FluentMigrator_Migration_System_String_">MigrationAbstractionExtensions.ExecuteSql(Migration, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="FluentDbTools.Migration.Contracts.MigrationExtensions.html#FluentDbTools_Migration_Contracts_MigrationExtensions_GenerateFkName_FluentMigrator_Migration_System_String_System_String_System_String_">MigrationExtensions.GenerateFkName(Migration, String, String, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="FluentDbTools.Migration.Contracts.MigrationExtensions.html#FluentDbTools_Migration_Contracts_MigrationExtensions_GeneratePkName_FluentDbTools_Migration_Contracts_MigrationModel_System_String_System_String_">MigrationExtensions.GeneratePkName(MigrationModel, String, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="FluentDbTools.Migration.Contracts.MigrationExtensions.html#FluentDbTools_Migration_Contracts_MigrationExtensions_GeneratePkName_FluentMigrator_Migration_System_String_System_String_System_String_">MigrationExtensions.GeneratePkName(Migration, String, String, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="FluentDbTools.Migration.Contracts.MigrationExtensions.html#FluentDbTools_Migration_Contracts_MigrationExtensions_GetConfigurtedDatabaseType_FluentMigrator_Migration_">MigrationExtensions.GetConfigurtedDatabaseType(Migration)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Contracts_MigrationModel.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Contracts.MigrationModel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Migration.Contracts/MigrationModel.cs/#L23" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

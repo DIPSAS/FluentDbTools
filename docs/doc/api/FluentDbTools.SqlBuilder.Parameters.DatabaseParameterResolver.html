@@ -1,0 +1,1236 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class DatabaseParameterResolver
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class DatabaseParameterResolver
+   ">
+    <meta name="generator" content="docfx 2.48.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver">
+  
+  
+  <h1 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver" class="text-break">Class DatabaseParameterResolver
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">DatabaseParameterResolver</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="FluentDbTools.SqlBuilder.Abstractions.Parameters.IDatabaseParameterResolver.html">IDatabaseParameterResolver</a></div>
+    <div><a class="xref" href="FluentDbTools.SqlBuilder.Abstractions.Parameters.IDatabaseParameterHelper.html">IDatabaseParameterHelper</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="FluentDbTools.SqlBuilder.Parameters.html">FluentDbTools.SqlBuilder.Parameters</a></h6>
+  <h6><strong>Assembly</strong>: FluentDbTools.SqlBuilder.dll</h6>
+  <h5 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class DatabaseParameterResolver : IDatabaseParameterResolver, IDatabaseParameterHelper</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver__ctor_FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.%23ctor(FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L17">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver__ctor_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.#ctor*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver__ctor_FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.#ctor(FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets)">DatabaseParameterResolver(IDbConfigDatabaseTargets)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DatabaseParameterResolver(IDbConfigDatabaseTargets dbConfig)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html">IDbConfigDatabaseTargets</a></td>
+        <td><span class="parametername">dbConfig</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_DatabaseType.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.DatabaseType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L24">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_DatabaseType_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.DatabaseType*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_DatabaseType" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.DatabaseType">DatabaseType</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SupportedDatabaseTypes DatabaseType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Common.Abstractions.SupportedDatabaseTypes.html">SupportedDatabaseTypes</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_DbTypeTranslator.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.DbTypeTranslator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L25">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_DbTypeTranslator_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.DbTypeTranslator*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_DbTypeTranslator" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.DbTypeTranslator">DbTypeTranslator</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDbTypeTranslator DbTypeTranslator { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.SqlBuilder.Abstractions.Parameters.IDbTypeTranslator.html">IDbTypeTranslator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddArrayParameter__1_Dapper_DynamicParameters_System_Collections_Generic_IEnumerable___0__.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddArrayParameter%60%601(Dapper.DynamicParameters%2CSystem.Collections.Generic.IEnumerable%7B%60%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L91">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddArrayParameter_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddArrayParameter*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddArrayParameter__1_Dapper_DynamicParameters_System_Collections_Generic_IEnumerable___0__" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddArrayParameter``1(Dapper.DynamicParameters,System.Collections.Generic.IEnumerable{``0})">AddArrayParameter&lt;T&gt;(DynamicParameters, IEnumerable&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string[] AddArrayParameter&lt;T&gt;(DynamicParameters params, IEnumerable&lt;T&gt; enumerable)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Dapper.DynamicParameters</span></td>
+        <td><span class="parametername">params</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</td>
+        <td><span class="parametername">enumerable</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddArrayParameter__1_Dapper_DynamicParameters_System_String_System_Collections_Generic_IEnumerable___0__.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddArrayParameter%60%601(Dapper.DynamicParameters%2CSystem.String%2CSystem.Collections.Generic.IEnumerable%7B%60%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L86">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddArrayParameter_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddArrayParameter*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddArrayParameter__1_Dapper_DynamicParameters_System_String_System_Collections_Generic_IEnumerable___0__" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddArrayParameter``1(Dapper.DynamicParameters,System.String,System.Collections.Generic.IEnumerable{``0})">AddArrayParameter&lt;T&gt;(DynamicParameters, String, IEnumerable&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string[] AddArrayParameter&lt;T&gt;(DynamicParameters params, string paramName, IEnumerable&lt;T&gt; enumerable)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Dapper.DynamicParameters</span></td>
+        <td><span class="parametername">params</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">paramName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</td>
+        <td><span class="parametername">enumerable</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddParameter_System_Data_IDbConnection_System_Data_IDataParameterCollection_System_String_System_Object_System_Nullable_System_Data_DbType__System_Nullable_System_Data_ParameterDirection__System_Nullable_System_Int32__System_Nullable_System_Byte__System_Nullable_System_Byte__.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddParameter(System.Data.IDbConnection%2CSystem.Data.IDataParameterCollection%2CSystem.String%2CSystem.Object%2CSystem.Nullable%7BSystem.Data.DbType%7D%2CSystem.Nullable%7BSystem.Data.ParameterDirection%7D%2CSystem.Nullable%7BSystem.Int32%7D%2CSystem.Nullable%7BSystem.Byte%7D%2CSystem.Nullable%7BSystem.Byte%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L62">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddParameter_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddParameter*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddParameter_System_Data_IDbConnection_System_Data_IDataParameterCollection_System_String_System_Object_System_Nullable_System_Data_DbType__System_Nullable_System_Data_ParameterDirection__System_Nullable_System_Int32__System_Nullable_System_Byte__System_Nullable_System_Byte__" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddParameter(System.Data.IDbConnection,System.Data.IDataParameterCollection,System.String,System.Object,System.Nullable{System.Data.DbType},System.Nullable{System.Data.ParameterDirection},System.Nullable{System.Int32},System.Nullable{System.Byte},System.Nullable{System.Byte})">AddParameter(IDbConnection, IDataParameterCollection, String, Object, Nullable&lt;DbType&gt;, Nullable&lt;ParameterDirection&gt;, Nullable&lt;Int32&gt;, Nullable&lt;Byte&gt;, Nullable&lt;Byte&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int AddParameter(IDbConnection dbConnection, IDataParameterCollection parameterCollection, string parameterName, object value, DbType? dbType = default(DbType? ), ParameterDirection? direction = default(ParameterDirection? ), int? size = default(int? ), byte? precision = default(byte? ), byte? scale = default(byte? ))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idbconnection">IDbConnection</a></td>
+        <td><span class="parametername">dbConnection</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idataparametercollection">IDataParameterCollection</a></td>
+        <td><span class="parametername">parameterCollection</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">parameterName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.dbtype">DbType</a>&gt;</td>
+        <td><span class="parametername">dbType</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.parameterdirection">ParameterDirection</a>&gt;</td>
+        <td><span class="parametername">direction</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><span class="parametername">size</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>&gt;</td>
+        <td><span class="parametername">precision</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>&gt;</td>
+        <td><span class="parametername">scale</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddParameterValue_System_Data_IDbConnection_System_Data_IDataParameterCollection_System_String_System_Object_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddParameterValue(System.Data.IDbConnection%2CSystem.Data.IDataParameterCollection%2CSystem.String%2CSystem.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L78">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddParameterValue_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddParameterValue*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AddParameterValue_System_Data_IDbConnection_System_Data_IDataParameterCollection_System_String_System_Object_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AddParameterValue(System.Data.IDbConnection,System.Data.IDataParameterCollection,System.String,System.Object)">AddParameterValue(IDbConnection, IDataParameterCollection, String, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int AddParameterValue(IDbConnection dbConnection, IDataParameterCollection parameterCollection, string parameterName, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idbconnection">IDbConnection</a></td>
+        <td><span class="parametername">dbConnection</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idataparametercollection">IDataParameterCollection</a></td>
+        <td><span class="parametername">parameterCollection</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">parameterName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AsForeignKey__1_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AsForeignKey%60%601(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L135">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AsForeignKey_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AsForeignKey*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_AsForeignKey__1_System_String_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.AsForeignKey``1(System.String)">AsForeignKey&lt;T&gt;(String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string AsForeignKey&lt;T&gt;(string postfix = &quot;Id&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">postfix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_CreateCommand_System_Data_IDbConnection_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.CreateCommand(System.Data.IDbConnection%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L37">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_CreateCommand_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.CreateCommand*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_CreateCommand_System_Data_IDbConnection_System_String_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.CreateCommand(System.Data.IDbConnection,System.String)">CreateCommand(IDbConnection, String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDbCommand CreateCommand(IDbConnection dbConnection, string sql = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idbconnection">IDbConnection</a></td>
+        <td><span class="parametername">dbConnection</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">sql</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idbcommand">IDbCommand</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_CreateParameter_System_Data_IDbConnection_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.CreateParameter(System.Data.IDbConnection)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L32">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_CreateParameter_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.CreateParameter*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_CreateParameter_System_Data_IDbConnection_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.CreateParameter(System.Data.IDbConnection)">CreateParameter(IDbConnection)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDbDataParameter CreateParameter(IDbConnection dbConnection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idbconnection">IDbConnection</a></td>
+        <td><span class="parametername">dbConnection</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idbdataparameter">IDbDataParameter</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_CreateParameters.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.CreateParameters%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L27">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_CreateParameters_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.CreateParameters*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_CreateParameters" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.CreateParameters">CreateParameters()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDataParameterCollectionExt CreateParameters()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.SqlBuilder.Abstractions.Parameters.IDataParameterCollectionExt.html">IDataParameterCollectionExt</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetNextSequenceValue_System_Data_IDbConnection_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetNextSequenceValue(System.Data.IDbConnection%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L96">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetNextSequenceValue_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetNextSequenceValue*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetNextSequenceValue_System_Data_IDbConnection_System_String_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetNextSequenceValue(System.Data.IDbConnection,System.String)">GetNextSequenceValue(IDbConnection, String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetNextSequenceValue(IDbConnection dbConnection, string sequenceName = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idbconnection">IDbConnection</a></td>
+        <td><span class="parametername">dbConnection</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">sequenceName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetNextSequenceValueForTable_System_Data_IDbConnection_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetNextSequenceValueForTable(System.Data.IDbConnection%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L106">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetNextSequenceValueForTable_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetNextSequenceValueForTable*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetNextSequenceValueForTable_System_Data_IDbConnection_System_String_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetNextSequenceValueForTable(System.Data.IDbConnection,System.String)">GetNextSequenceValueForTable(IDbConnection, String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetNextSequenceValueForTable(IDbConnection dbConnection, string tableName = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idbconnection">IDbConnection</a></td>
+        <td><span class="parametername">dbConnection</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tableName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetNextSequenceValueForTable__1_System_Data_IDbConnection_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetNextSequenceValueForTable%60%601(System.Data.IDbConnection)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L111">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetNextSequenceValueForTable_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetNextSequenceValueForTable*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetNextSequenceValueForTable__1_System_Data_IDbConnection_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetNextSequenceValueForTable``1(System.Data.IDbConnection)">GetNextSequenceValueForTable&lt;T&gt;(IDbConnection)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetNextSequenceValueForTable&lt;T&gt;(IDbConnection dbConnection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idbconnection">IDbConnection</a></td>
+        <td><span class="parametername">dbConnection</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetParameterPrefix.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetParameterPrefix%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L150">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetParameterPrefix_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetParameterPrefix*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_GetParameterPrefix" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.GetParameterPrefix">GetParameterPrefix()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetParameterPrefix()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_ToDynamicParameters_System_Data_IDataParameterCollection_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.ToDynamicParameters(System.Data.IDataParameterCollection)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L42">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_ToDynamicParameters_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.ToDynamicParameters*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_ToDynamicParameters_System_Data_IDataParameterCollection_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.ToDynamicParameters(System.Data.IDataParameterCollection)">ToDynamicParameters(IDataParameterCollection)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object ToDynamicParameters(IDataParameterCollection parameterCollection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.idataparametercollection">IDataParameterCollection</a></td>
+        <td><span class="parametername">parameterCollection</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithBooleanParameterValue_System_Boolean_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithBooleanParameterValue(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L145">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithBooleanParameterValue_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithBooleanParameterValue*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithBooleanParameterValue_System_Boolean_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithBooleanParameterValue(System.Boolean)">WithBooleanParameterValue(Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object WithBooleanParameterValue(bool boolean)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithGuidParameterValue_System_Guid_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithGuidParameterValue(System.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L140">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithGuidParameterValue_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithGuidParameterValue*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithGuidParameterValue_System_Guid_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithGuidParameterValue(System.Guid)">WithGuidParameterValue(Guid)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object WithGuidParameterValue(Guid guid)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></td>
+        <td><span class="parametername">guid</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithNextSequence_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithNextSequence(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L125">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithNextSequence_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithNextSequence*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithNextSequence_System_String_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithNextSequence(System.String)">WithNextSequence(String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string WithNextSequence(string sequenceName = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">sequenceName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithNextTableSequence__1_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithNextTableSequence%60%601(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L130">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithNextTableSequence_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithNextTableSequence*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithNextTableSequence__1_System_String_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithNextTableSequence``1(System.String)">WithNextTableSequence&lt;T&gt;(String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string WithNextTableSequence&lt;T&gt;(string postfix = &quot;_seq&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">postfix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithParameters_System_String___.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithParameters(System.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L116">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithParameters_" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithParameters*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver_WithParameters_System_String___" data-uid="FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.WithParameters(System.String[])">WithParameters(String[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string WithParameters(params string[] parameters)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td><span class="parametername">parameters</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="FluentDbTools.SqlBuilder.Abstractions.Parameters.IDatabaseParameterResolver.html">IDatabaseParameterResolver</a>
+  </div>
+  <div>
+      <a class="xref" href="FluentDbTools.SqlBuilder.Abstractions.Parameters.IDatabaseParameterHelper.html">IDatabaseParameterHelper</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_Parameters_DatabaseParameterResolver.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/Parameters/DatabaseParameterResolver.cs/#L12" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
