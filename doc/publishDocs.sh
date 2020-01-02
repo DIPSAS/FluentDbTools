@@ -1,8 +1,14 @@
+#!/usr/bin/env bash
 # If any commands fail, halt immediately:
 set -eu
 
 # Run DocFX through Mono in the project root (assumed to be the current directory)
 mono /opt/docfx/docfx.exe
+
+if [ -z "$DOCUMENTATION_DEPLOY_USERNAME" ]; then 
+    echo "DOCUMENTATION_DEPLOY_USERNAME not set - won't attempt to check in documentation"
+    exit
+fi
 
 git config user.email "deploy@travis-ci.org"
 git config user.name "Deployment Bot"

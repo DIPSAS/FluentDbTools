@@ -26,4 +26,5 @@ RUN dotnet restore FluentDbTools.sln && dotnet build FluentDbTools.sln
 
 # Finally, run DocFX and commit the updated documentation:
 WORKDIR /project/
+RUN chmod +x /project/doc/publishDocs.sh
 CMD /project/doc/publishDocs.sh
