@@ -1,0 +1,72 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "src/**.csproj"
+          ],
+          "exclude": [
+            "src/FluentDbTools/Tests/**.csproj",
+            "src/FluentDbTools/Example/**.csproj"
+          ]
+
+        }
+      ],
+      "dest": "doc/api",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "doc/api/**.yml",
+          "doc/api/index.md"
+        ]
+      },
+      {
+        "files": [
+          "doc/articles/**.md",
+          "doc/articles/**/toc.yml",
+          "doc/toc.yml",
+          "doc/*.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "doc/images/**"
+        ]
+      }
+    ],
+    "overwrite": [
+      {
+        "files": [
+          "doc/apidoc/**.md"
+        ],
+        "exclude": [
+          "obj/**",
+          "artifacts/doc_site/**"
+        ]
+      }
+    ],
+    "xrefService": [
+      "https://xref.docs.microsoft.com/query?uid={uid}"
+    ],
+    "dest": "docs/",
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [
+      "default"
+    ],
+    "postProcessors": [],
+    "markdownEngineName": "markdig",
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false
+  }
+}
