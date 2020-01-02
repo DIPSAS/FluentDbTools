@@ -1,0 +1,12 @@
+version: '3'
+
+services:  
+  fluentdbtools-documentation:
+    image: fluentdbtools.documentation
+    build:
+      # Note: we build the documentation with the project root as the build context:
+      context: .
+      dockerfile: doc/Dockerfile_BuildDocs
+    environment:
+      - DOCUMENTATION_DEPLOY_USERNAME=${DOCUMENTATION_DEPLOY_USERNAME}
+      - DOCUMENTATION_DEPLOY_TOKEN=${DOCUMENTATION_DEPLOY_TOKEN}

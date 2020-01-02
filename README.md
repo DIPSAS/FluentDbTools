@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/DIPSAS/FluentDbTools.svg?branch=master)](https://travis-ci.com/DIPSAS/FluentDbTools)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+[![API documentation](https://img.shields.io/badge/DocFX-API%20documentation-informational)](https://dipsas.github.io/FluentDbTools/docs/doc/)
 
 FluentDbTools provides a fluent SQL abstraction layer for creating database connections, building sql queries and migrating your database.
 

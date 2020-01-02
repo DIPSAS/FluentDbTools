@@ -45,6 +45,12 @@ publish:
             containerArtifact: false
             files:
                 - docker-compose.nuget.publish.yml
+        documentation:
+            # We need access to both doc/ and src/ to build the documentation:
+            directory: .
+            containerArtifact: false
+            files:
+                - docker-compose.documentation.yml
 
 swarm:
     selections:

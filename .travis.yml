@@ -10,5 +10,15 @@ before_install:
 script:
 - dbm -test
 
-after_script:
-- dbm -stop
+jobs:
+  include:
+    - name: test
+      script: 
+        - dbm -test
+      after_script:
+        - dbm -stop
+    - name: documentation
+      script:
+        - dbm -publish documentation
+      if: branch = master
+
