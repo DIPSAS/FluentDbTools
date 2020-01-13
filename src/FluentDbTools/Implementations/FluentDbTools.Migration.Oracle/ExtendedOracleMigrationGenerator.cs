@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
 using FluentMigrator.Expressions;
 using FluentMigrator.Model;
@@ -135,8 +136,7 @@ END;";
         public string Generate(CreateSchemaExpression expression)
         {
             var schemaPassword = expression.SchemaName;
-            if (expression.SchemaName.Equals(DbMigrationConfig.Schema,
-                StringComparison.OrdinalIgnoreCase))
+            if (expression.SchemaName.EqualsIgnoreCase(DbMigrationConfig.Schema))
             {
                 schemaPassword = DbMigrationConfig.SchemaPassword;
             }

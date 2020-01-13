@@ -27,7 +27,6 @@ namespace FluentDbTools.Migration.Postgres
                     serviceCollection
                         .AddScoped<ExtendedPostgresProcessor>()
                         .AddScoped<IExtendedMigrationProcessor<ExtendedPostgresProcessor>>(sp => sp.GetRequiredService<ExtendedPostgresProcessor>())
-                        .AddScoped<IMigrationProcessor>(sp => sp.GetRequiredService<ExtendedPostgresProcessor>())
                         .AddScoped<OverridenPostgresDescriptionGenerator>()
                         .AddScoped<PostgresQuoter, OverriddenPostgresQouter>()
                         .AddScoped<PostgresTypeMap>()

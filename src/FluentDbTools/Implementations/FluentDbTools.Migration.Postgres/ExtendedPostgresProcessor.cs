@@ -1,6 +1,9 @@
 using System;
 using System.Data;
 using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Common;
@@ -13,6 +16,7 @@ using FluentMigrator.Runner.Processors.Postgres;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Npgsql;
+[assembly: InternalsVisibleTo("FluentDbTools.Extensions.Migration")]
 
 namespace FluentDbTools.Migration.Postgres
 {
@@ -20,6 +24,9 @@ namespace FluentDbTools.Migration.Postgres
     {
         private readonly IExtendedMigrationGenerator ExtendedGeneratorField;
         private readonly IDbMigrationConfig DbMigrationConfig;
+        private readonly IOptionsSnapshot<RunnerOptions> RunnerOptions;
+        private bool Initialize_Initialized;
+        private Func<string> ConnectionStringFunc;
 
         public ExtendedPostgresProcessor(IDbMigrationConfig dbMigrationConfig,
             PostgresQuoter quoter,
@@ -27,6 +34,7 @@ namespace FluentDbTools.Migration.Postgres
             PostgresGenerator generator,
             ILogger<ExtendedPostgresProcessor> logger,
             IOptionsSnapshot<ProcessorOptions> options,
+            IOptionsSnapshot<RunnerOptions> runnerOptions,
             IConnectionStringAccessor connectionStringAccessor,
             IExtendedMigrationGenerator<ExtendedPostgresGenerator> extendedGenerator,
             PostgresOptions pgOptions)
@@ -34,11 +42,13 @@ namespace FluentDbTools.Migration.Postgres
         {
             ExtendedGeneratorField = extendedGenerator;
             DbMigrationConfig = dbMigrationConfig;
+            RunnerOptions = runnerOptions;
 
-            if (dbMigrationConfig.ProcessorId == ProcessorIds.PostgresProcessorId)
+            ConnectionStringFunc = () => connectionStringAccessor.ConnectionString;
+
+            if (dbMigrationConfig.ProcessorId == ProcessorIds.PostgresProcessorId && !NoConnection)
             {
                 var stopWatch = new StopWatch();
-
                 PostgresDatabaseCreator.CreateDatabase(
                     dbMigrationConfig,
                     () =>
@@ -56,7 +66,11 @@ namespace FluentDbTools.Migration.Postgres
             }
 
             this.SetPrivateFieldValue<PostgresProcessor>("_quoter", quoter);
+            Initialize();
         }
+
+        private bool NoConnection => RunnerOptions?.Value?.NoConnection ?? true;
+
 
         public override string DatabaseType => ProcessorIds.PostgresProcessorId;
 
@@ -76,9 +90,107 @@ namespace FluentDbTools.Migration.Postgres
             ProcessSql(sql);
         }
 
+        public void ExtendedBeginTransaction()
+        {
+            if (NoConnection)
+            {
+                return;
+            }
+
+            base.BeginTransaction();
+        }
+
+        public void ExtendedCommitTransaction()
+        {
+            if (NoConnection)
+            {
+                return;
+            }
+
+            base.CommitTransaction();
+        }
+
+        public void ExtendedEnsureConnectionIsOpen()
+        {
+            if (NoConnection)
+            {
+                return;
+            }
+
+            base.EnsureConnectionIsOpen();
+        }
+
+        public void ExtendedEnsureConnectionIsClosed()
+        {
+            if (NoConnection)
+            {
+                return;
+            }
+
+            base.EnsureConnectionIsClosed();
+        }
+
+        public override void BeginTransaction()
+        {
+            ExtendedBeginTransaction();
+        }
+
+        public override void CommitTransaction()
+        {
+            ExtendedCommitTransaction();
+        }
+
+        protected override void EnsureConnectionIsClosed()
+        {
+            ExtendedEnsureConnectionIsClosed();
+        }
+
+        protected override void EnsureConnectionIsOpen()
+        {
+            ExtendedEnsureConnectionIsOpen();
+        }
+
+        public override bool Exists(string template, params object[] args)
+        {
+            if (NoConnection)
+            {
+                return false;
+            }
+
+            return base.Exists(template, args);
+        }
+
+
+        public void Initialize()
+        {
+            if (!NoConnection)
+            {
+                return;
+            }
+
+            if (Initialize_Initialized)
+            {
+                return;
+            }
+
+            Initialize_Initialized = true;
+
+            var field = GetType().SearchForField(typeof(Lazy<IDbConnection>), "_lazyConnection");
+            if (field != null)
+            {
+                field.SetValue(this, new Lazy<IDbConnection>(() =>
+                {
+                    var connection = DbProviderFactory.CreateConnection() ?? throw new NullReferenceException("No Connection available");
+                    connection.ConnectionString = ConnectionStringFunc?.Invoke();
+                    return connection;
+                }));
+            }
+
+        }
+
         public void Initialize(ICustomMigrationProcessor customMigrationProcessor)
         {
-            
+
         }
 
         public bool IsExists(string template, params object[] args)
@@ -343,11 +455,24 @@ namespace FluentDbTools.Migration.Postgres
 
         protected override void Process(string sql)
         {
-            if (Options.PreviewOnly || string.IsNullOrEmpty(sql))
+            Process(new SqlStatement { Sql = sql });
+        }
+
+        private void Process(SqlStatement sqlStatement)
+        {
+            var sql = sqlStatement.Sql;
+            if (Options.PreviewOnly || NoConnection || string.IsNullOrEmpty(sql))
             {
                 if (sql.IsNotEmpty())
                 {
+                    if (sqlStatement.IsExternal)
+                    {
+                        Logger.LogSqlInternal(sql);
+                        return;
+                    }
+
                     Logger.LogSql(sql);
+                    return;
                 }
                 return;
             }
@@ -373,6 +498,8 @@ namespace FluentDbTools.Migration.Postgres
                     }
                 }
             }
+
         }
+
     }
 }

@@ -55,12 +55,23 @@ namespace FluentDbTools.Extensions.Migration
             using (var scope = provider.CreateScope())
             {
                 var versionTable = scope.ServiceProvider.GetVersionTableMetaData();
-                var migrationRunner = scope.ServiceProvider.GetMigrationRunner();
-                migrationRunner.DropSchema(versionTable);
+                scope.ServiceProvider.GetMigrationRunner().DropSchema(versionTable);
             }
 
             return provider;
         }
+
+        public static IServiceProvider CreateSchema(this IServiceProvider provider)
+        {
+            using (var scope = provider.CreateScope())
+            {
+                var versionTable = scope.ServiceProvider.GetVersionTableMetaData();
+                scope.ServiceProvider.GetMigrationRunner().CreateSchema(versionTable);
+            }
+
+            return provider;
+        }
+
 
         [Obsolete("Please use MigrateUp")]
         public static IServiceProvider ExecuteMigration(this IServiceProvider provider)

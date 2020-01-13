@@ -35,7 +35,8 @@ namespace FluentDbTools.Migration.Oracle
                         .AddScoped(CreateExtendedOracleProcessorBase)
                         .AddScoped<IExtendedMigrationProcessor<ExtendedOracleProcessorBase>>(sp => sp.GetRequiredService<ExtendedOracleProcessorBase>())
                         .AddScoped<IExtendedMigrationProcessorOracle>(sp => sp.GetRequiredService<ExtendedOracleProcessorBase>())
-                        .AddScoped<IMigrationProcessor>(sp => sp.GetRequiredService<ExtendedOracleManagedProcessor>())
+                        .AddScoped<OracleManagedProcessor>(sp => sp.GetRequiredService<ExtendedOracleManagedProcessor>())
+                        .AddScoped<OracleProcessorBase>(sp => sp.GetRequiredService<ExtendedOracleManagedProcessor>())
                         .AddScoped<ExtendedOracleManagedProcessor>()
                         .AddScopedIfNotExists<OracleGenerator>()
                         .AddScopedIfNotExists<OracleManagedDbFactory>()
@@ -51,6 +52,7 @@ namespace FluentDbTools.Migration.Oracle
                 sp.GetRequiredService<OracleGenerator>(),
                 sp.GetRequiredService<ILogger<ExtendedOracleProcessorBase>>(),
                 sp.GetRequiredService<IOptionsSnapshot<ProcessorOptions>>(),
+                sp.GetRequiredService<IOptionsSnapshot<RunnerOptions>>(),
                 sp.GetRequiredService<IConnectionStringAccessor>(),
                 sp.GetRequiredService<IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator>>(),
                 sp.GetService<IDbMigrationConfig>(), 

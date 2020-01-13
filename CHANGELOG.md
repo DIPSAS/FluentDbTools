@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
 
+### Version 1.1.35 2020-01-13
+- Improved ConfigMatching (CaseInsesitive)
+- Improved NoConnection an Preview Migration handling
+
 ### Version 1.1.33 2019-11-22
 - Added Password secret functionallity
 

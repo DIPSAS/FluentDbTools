@@ -1,4 +1,7 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Globalization;
+using Example.FluentDbTools.Config;
+using FluentAssertions;
 using Xunit;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration;
@@ -21,28 +24,63 @@ namespace Test.FluentDbTools
         }
 
         [Theory]
-        [InlineData("CREATE USER UserName IDENTIFIED by values 'XXXXXXXXX' ACCOUNT LOCK ","Create User [UserName]")]
-        [InlineData("CREATE OR REPLACE FUNCTION Schema.Function(p IN VARCHAR2) \n RETURN \n PRAGMA AUTONOMOUS_TRANSACTION","Create Function [Schema.Function]")]
-        [InlineData("CREATE OR REPLACE FUNCTION Schema.Function \n RETURN \n PRAGMA AUTONOMOUS_TRANSACTION","Create Function [Schema.Function]")]
-        [InlineData("CREATE OR REPLACE PROCEDURE Schema.Procedure(p IN VARCHAR2) IS\n PRAGMA AUTONOMOUS_TRANSACTION","Create Procedure [Schema.Procedure]")]
-        [InlineData("CREATE OR REPLACE PROCEDURE Schema.Procedure IS\n PRAGMA AUTONOMOUS_TRANSACTION","Create Procedure [Schema.Procedure]")]
-        [InlineData("CREATE OR REPLACE Package Body Schema.Package Is","Create Package Body [Schema.Package]")]
-        [InlineData("CREATE OR REPLACE Package Schema.Package Is","Create Package [Schema.Package]")]
-        [InlineData("create sequence Schema.TABLE_SEQ \nminvalue 1","Create Sequence [Schema.TABLE_SEQ]")]
-        [InlineData("create or replace synonym Schema.dest for OtherSchema.source","Create Synonym [Schema.dest for OtherSchema.source]")]
-        [InlineData("/* My comment */","-- My comment")]
-        [InlineData("/* My comment1 */\n/* My comment2 */","-- My comment1\n-- My comment2")]
-        [InlineData("create index Schema.IndexName_idx on Schema.Table (COL1,COL2)","Create Index [Schema.IndexName_idx => Schema.Table(COL1,COL2)]")]
-        [InlineData("alter table Schema.Table\nadd constraint ..","Alter Table [Schema.Table]")]
-        [InlineData("create table Schema.Table\n(column....","Create Table [Schema.Table]")]
-        [InlineData("comment on column Schema.Table.Column\n is 'my comment'","Add Column Comment [Schema.Table.Column => 'my comment']")]
-        [InlineData("-- Create/Recreate indexes","-- Create/Recreate indexes")]
-        [InlineData("-- Title Create table Schema.Table","-- Title Create table Schema.Table")]
-        [InlineData("-- Title Create table Schema.Table\n-- Title Test\n-- EndTitle","-- Title Create table Schema.Table\nTest")]
+        [InlineData("CREATE USER UserName IDENTIFIED by values 'XXXXXXXXX' ACCOUNT LOCK ", "Create User [UserName]")]
+        [InlineData("CREATE OR REPLACE FUNCTION Schema.Function(p IN VARCHAR2) \n RETURN \n PRAGMA AUTONOMOUS_TRANSACTION", "Create Function [Schema.Function]")]
+        [InlineData("CREATE OR REPLACE FUNCTION Schema.Function \n RETURN \n PRAGMA AUTONOMOUS_TRANSACTION", "Create Function [Schema.Function]")]
+        [InlineData("CREATE OR REPLACE PROCEDURE Schema.Procedure(p IN VARCHAR2) IS\n PRAGMA AUTONOMOUS_TRANSACTION", "Create Procedure [Schema.Procedure]")]
+        [InlineData("CREATE OR REPLACE PROCEDURE Schema.Procedure IS\n PRAGMA AUTONOMOUS_TRANSACTION", "Create Procedure [Schema.Procedure]")]
+        [InlineData("CREATE OR REPLACE Package Body Schema.Package Is", "Create Package Body [Schema.Package]")]
+        [InlineData("CREATE OR REPLACE Package Schema.Package Is", "Create Package [Schema.Package]")]
+        [InlineData("create sequence Schema.TABLE_SEQ \nminvalue 1", "Create Sequence [Schema.TABLE_SEQ]")]
+        [InlineData("create or replace synonym Schema.dest for OtherSchema.source", "Create Synonym [Schema.dest for OtherSchema.source]")]
+        [InlineData("/* My comment */", "-- My comment")]
+        [InlineData("/* My comment1 */\n/* My comment2 */", "-- My comment1\n-- My comment2")]
+        [InlineData("create index Schema.IndexName_idx on Schema.Table (COL1,COL2)", "Create Index [Schema.IndexName_idx => Schema.Table(COL1,COL2)]")]
+        [InlineData("alter table Schema.Table\nadd constraint ..", "Alter Table [Schema.Table]")]
+        [InlineData("create table Schema.Table\n(column....", "Create Table [Schema.Table]")]
+        [InlineData("comment on column Schema.Table.Column\n is 'my comment'", "Add Column Comment [Schema.Table.Column => 'my comment']")]
+        [InlineData("-- Create/Recreate indexes", "-- Create/Recreate indexes")]
+        [InlineData("-- Title Create table Schema.Table", "-- Title Create table Schema.Table")]
+        [InlineData("-- Title Create table Schema.Table\n-- Title Test\n-- EndTitle", "-- Title Create table Schema.Table\nTest")]
         public void ConvertToSqlTitle_StringExtensions_ShouldBeOk(string sql, string expected)
         {
             sql.ConvertToSqlTitle().Should().Be(expected);
         }
 
+        [Theory]
+        [InlineData(true, "test")]
+        [InlineData(true, "test", "TEST")]
+        [InlineData(true, "test", null, StringComparison.CurrentCulture)]
+        [InlineData(false, "test", "TEST", StringComparison.CurrentCulture)]
+        [InlineData(false, "ss", "ß", StringComparison.OrdinalIgnoreCase)]
+        [InlineData(null, "ss", "ß", StringComparison.InvariantCulture)]
+        [InlineData(null, "ss", "ß", StringComparison.InvariantCultureIgnoreCase)]
+        [InlineData(false, "i", "I", StringComparison.CurrentCulture, "en-GB")]
+        [InlineData(true, "i", "I", StringComparison.CurrentCultureIgnoreCase, "en-GB")]
+        [InlineData(false, "i", "İ", StringComparison.CurrentCultureIgnoreCase, "en-GB")]
+        [InlineData(false, "i", "I", StringComparison.CurrentCultureIgnoreCase, "tr-TR")]
+        [InlineData(true, "i", "İ", StringComparison.CurrentCultureIgnoreCase, "tr-TR")]
+
+        public void EqualsIgnoreCase_StringExtensions_ShouldBeOk(bool? isEqual, string s1, string s2 = null, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase, string cultureName = "nb-NO")
+        {
+            var current = CultureInfo.CurrentCulture;
+            var currentIgnoreCaseStringComparison = StringExtensions.CurrentIgnoreCaseStringComparison;
+
+            isEqual = isEqual ?? !BaseConfig.InContainer;
+
+            s2 = s2 ?? s1;
+
+            try
+            {
+                CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(cultureName ?? "nb-NO");
+                StringExtensions.CurrentIgnoreCaseStringComparison = stringComparison;
+                s1.EqualsIgnoreCase(s2).Should().Be(isEqual.Value);
+            }
+            finally
+            {
+                CultureInfo.CurrentCulture = current;
+                StringExtensions.CurrentIgnoreCaseStringComparison = currentIgnoreCaseStringComparison;
+            }
+        }
     }
 }

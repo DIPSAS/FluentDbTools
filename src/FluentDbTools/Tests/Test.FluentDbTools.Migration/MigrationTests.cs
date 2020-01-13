@@ -21,14 +21,18 @@ using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Contracts.MigrationExpressions.Execute;
 using FluentDbTools.Migration.Oracle;
 using FluentDbTools.Migration.Oracle.CustomProcessor;
+using FluentMigrator;
 using FluentMigrator.Expressions;
 using TestUtilities.FluentDbTools;
 using FluentMigrator.Runner;
+using FluentMigrator.Runner.Initialization;
+using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.Oracle;
 using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Npgsql;
 using Oracle.ManagedDataAccess.Client;
 using Xunit;
 using Xunit.Abstractions;
@@ -70,46 +74,183 @@ namespace Test.FluentDbTools.Migration
             var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
             inMemoryOverrideConfig.TryGetValue("database:schema", out var schema);
             var logFile = $"Migration_Success_{schema}_{databaseType}.sql";
+            var loglogFile = $"Migration_Success_{schema}_{databaseType}.log";
             inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "True");
             inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
             inMemoryOverrideConfig.Add("Logging:Migration:File", logFile);
-            var provider = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig, 
+            inMemoryOverrideConfig.Add("Logging:File", loglogFile);
+            var provider = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig,
                 collection => collection
-                    .AddSingleton<ICustomSqlTitleConverter,CustomSqlTitleConverter1>()
-                    .AddSingleton<ICustomSqlTitleConverter,CustomSqlTitleConverter2>());
+                    .AddSingleton<ICustomSqlTitleConverter, CustomSqlTitleConverter1>()
+                    .AddSingleton<ICustomSqlTitleConverter, CustomSqlTitleConverter2>());
 
             using (var scope = provider.CreateScope())
             {
 
-                var versionTable = scope.ServiceProvider.GetService<IVersionTableMetaData>();
-                var processor = scope.ServiceProvider.GetRequiredService<IExtendedMigrationProcessorOracle>();
-                var prefixId = scope.ServiceProvider.GetDbMigrationConfig().GetSchemaPrefixId();
 
-                var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
-                
-                migrationRunner.MigrateUp();
+                try
+                {
+
+                    var versionTable = scope.ServiceProvider.GetService<IVersionTableMetaData>();
+                    var processor = scope.ServiceProvider.GetRequiredService<IExtendedMigrationProcessorOracle>();
+                    var prefixId = scope.ServiceProvider.GetDbMigrationConfig().GetSchemaPrefixId();
+                    var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
+
+                    migrationRunner.MigrateUp();
+                    if (databaseType == SupportedDatabaseTypes.Oracle)
+                    {
+                        processor.ExecuteSql($"create or replace synonym {versionTable.SchemaName}.{Table.Testing}8 for {versionTable.SchemaName}.{Table.Testing.GetPrefixedName(prefixId)}");
+                        processor.ProcessSql($"create or replace synonym {versionTable.SchemaName}.{Table.Testing}9 for {versionTable.SchemaName}.{Table.Testing.GetPrefixedName(prefixId)}", "Sql-title");
+                    }
+
+                    migrationRunner.MigrateDown(0);
+
+                }
+                finally
+                {
+                    scope.ServiceProvider.DropSchema();
+                }
+            }
+
+            ShowLogFileContent(logFile);
+        }
+
+        [Theory]
+        [MemberData(nameof(TestParameters.DbParameters), MemberType = typeof(TestParameters))]
+        public void Migration_NoConnection_NoAccessToDatabaseIsDone(SupportedDatabaseTypes databaseType)
+        {
+            var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
+            inMemoryOverrideConfig.TryGetValue("database:schema", out var schema);
+            var logFile = $"Migration_Success_{schema}_{databaseType}.sql";
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:File", logFile);
+            inMemoryOverrideConfig.Add("database:adminPassword", "invalid");
+
+            var provider = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig,
+                collection =>
+                    collection.Configure<RunnerOptions>(opt => opt.NoConnection = true));
+
+            using (var scope = provider.CreateScope())
+            {
+                try
+                {
+
+                    var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
+
+                    migrationRunner.MigrateUp();
+
+                    migrationRunner.MigrateDown(0);
+
+                }
+                finally
+                {
+                    scope.ServiceProvider.DropSchema();
+                }
+            }
+
+            ShowLogFileContent(logFile);
+        }
+
+        [Theory]
+        [MemberData(nameof(TestParameters.DbParameters), MemberType = typeof(TestParameters))]
+        public void Migration_PreviewOnlyAndInvalidAdminPassword_ShouldThrowDatabaseException(SupportedDatabaseTypes databaseType)
+        {
+            var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
+            inMemoryOverrideConfig.TryGetValue("database:schema", out var schema);
+            var logFile = $"Migration_Success_{schema}_{databaseType}.sql";
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:File", logFile);
+            inMemoryOverrideConfig["database:adminPassword"] = "invalid";
+
+            var provider = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig,
+                collection =>
+                    collection.Configure<ProcessorOptions>(opt => opt.PreviewOnly = true));
+
+            using (var scope = provider.CreateScope())
+            {
+                Action action = () => scope.ServiceProvider.GetService<IMigrationRunner>().MigrateUp();
+                if (databaseType == SupportedDatabaseTypes.Postgres)
+                {
+                    action.Should().Throw<PostgresException>().Which.SqlState.Should().Be("28P01");
+                }
 
                 if (databaseType == SupportedDatabaseTypes.Oracle)
                 {
-                    processor.ExecuteSql($"create or replace synonym {versionTable.SchemaName}.{Table.Testing}8 for {versionTable.SchemaName}.{Table.Testing.GetPrefixedName(prefixId)}");
-                    processor.ProcessSql($"create or replace synonym {versionTable.SchemaName}.{Table.Testing}9 for {versionTable.SchemaName}.{Table.Testing.GetPrefixedName(prefixId)}", "Sql-title");
+                    action.Should().Throw<OracleException>().Which.Number.Should().Be(1017);
                 }
-
-                migrationRunner.MigrateDown(0);
-
-                migrationRunner.DropSchema(versionTable);
 
             }
 
             ShowLogFileContent(logFile);
         }
 
+        [Theory]
+        [MemberData(nameof(TestParameters.DbParameters), MemberType = typeof(TestParameters))]
+        public void Migration_PreviewOnly_ShouldBeOk(SupportedDatabaseTypes databaseType)
+        {
+            var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
+            inMemoryOverrideConfig.TryGetValue("database:schema", out var schema);
+
+            var config2 = new Dictionary<string,string>(inMemoryOverrideConfig);
+
+            if (databaseType == SupportedDatabaseTypes.Postgres)
+            {
+                using (var scope = MigrationBuilder.BuildMigration(databaseType, inMemoryOverrideConfig).CreateScope())
+                {
+                    scope.ServiceProvider.CreateSchema();
+                }
+            }
+
+            var logFile = $"Migration_Success_{schema}_{databaseType}.sql";
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
+            inMemoryOverrideConfig.Add("Logging:Migration:File", logFile);
+            inMemoryOverrideConfig["database:adminPassword"] = "invalid";
+
+
+
+            var provider = MigrationBuilder.BuildMigration(databaseType, config2,
+                collection =>
+                    collection
+                        .Configure<RunnerOptions>(opt => opt.NoConnection = true)
+                        .Configure<ProcessorOptions>(opt => opt.PreviewOnly = true));
+
+            using (var scope = provider.CreateScope())
+            {
+                try
+                {
+                    var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
+
+                    migrationRunner.MigrateUp();
+                    migrationRunner.MigrateDown(0);
+                }
+                finally
+                {
+                    if (databaseType == SupportedDatabaseTypes.Postgres)
+                    {
+                        using (var scope2 = MigrationBuilder.BuildMigration(databaseType, config2).CreateScope())
+                        {
+                            scope2.ServiceProvider.CreateSchema();
+                        }
+                    }
+                }
+
+            }
+
+            ShowLogFileContent(logFile);
+        }
+
+
+
+
         [Fact]
         public void Migration_Logging_Test()
         {
             var databaseType = SupportedDatabaseTypes.Oracle;
             var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
-            
+
             var logFile = "Migration_Logging_Test.sql";
             inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "True");
             inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
@@ -119,7 +260,7 @@ namespace Test.FluentDbTools.Migration
             using (var scope = provider.CreateScope())
             {
                 var processor = scope.ServiceProvider.GetRequiredService<IExtendedMigrationProcessorOracle>();
-                processor.Process(new PerformDBOperationExpression() {Operation = ((connection, transaction) => connection.Execute("select 0 from dual"))});
+                processor.Process(new PerformDBOperationExpression() { Operation = ((connection, transaction) => connection.Execute("select 0 from dual")) });
                 processor.ProcessSql("select 1 from dual");
                 processor.ProcessSql("select 2 from dual");
                 processor.ProcessSql("select 3 from dual");
@@ -172,7 +313,6 @@ namespace Test.FluentDbTools.Migration
             }
             finally
             {
-                //runner.MigrateDown(0);
                 dbConfig.DropSchema(assemblies);
             }
         }
@@ -193,21 +333,28 @@ namespace Test.FluentDbTools.Migration
 
             using (var scope = provider.CreateScope())
             {
-                var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
-                var versionTable = scope.ServiceProvider.GetService<IVersionTableMetaData>();
-                var dbconfig = scope.ServiceProvider.GetDbConfig();
+                try
+                {
+                    var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
+                    var config = scope.ServiceProvider.GetDbConfig();
 
-                dbconfig.Datasource.Should().Be(inMemoryOverrideConfig["database:dataSource"]);
+                    config.Datasource.Should().Be(inMemoryOverrideConfig["database:dataSource"]);
 
-                dbconfig.GetDbProviderFactory(true)
-                    .CreateConnection()
-                    .DataSource.Should().Be(expectedDataSource);
+                    config.GetDbProviderFactory(true)
+                        .CreateConnection()
+                        .DataSource.Should().Be(expectedDataSource);
 
-                migrationRunner.MigrateUp();
+                    migrationRunner.MigrateUp();
 
-                migrationRunner.MigrateDown(0);
+                    migrationRunner.MigrateDown(0);
 
-                migrationRunner.DropSchema(versionTable);
+                }
+                finally
+                {
+                    scope.ServiceProvider.DropSchema();
+
+                }
+
             }
         }
         [Fact]
@@ -222,7 +369,7 @@ namespace Test.FluentDbTools.Migration
                     { "database:user", "TestUser" },
                     { "database:type", "oracle" },
                     { "database:adminUser", "SystemUser" }
-                },loadExampleConfig:false);
+                }, loadExampleConfig: false);
 
             using (var scope = provider.CreateScope())
             {
@@ -470,21 +617,25 @@ namespace Test.FluentDbTools.Migration
             {
                 var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
                 var versionTable = scope.ServiceProvider.GetService<IVersionTableMetaData>();
-                var dbconfig = scope.ServiceProvider.GetDbConfig();
+                var config = scope.ServiceProvider.GetDbConfig();
 
-                dbconfig.Datasource.Should().Be(inMemoryOverrideConfig["database:dataSource"]);
-                dbconfig
+                config.Datasource.Should().Be(inMemoryOverrideConfig["database:dataSource"]);
+                config
                     .GetDbProviderFactory(true).CreateConnection()
                     .DataSource.Should().Be(expectedDataSource);
 
                 Action action = () =>
                 {
-                    migrationRunner.MigrateUp();
+                    try
+                    {
+                        migrationRunner.MigrateUp();
 
-                    migrationRunner.MigrateDown(0);
-
-                    migrationRunner.DropSchema(versionTable);
-
+                        migrationRunner.MigrateDown(0);
+                    }
+                    finally
+                    {
+                        migrationRunner.DropSchema(versionTable);
+                    }
                 };
 
                 // Unable to resolve ORA-12154: TNS:could not resolve the connect identifier specified 

@@ -68,8 +68,7 @@ namespace FluentDbTools.Migration.Postgres
         public string Generate(CreateUserExpression expression)
         {
             var schemaPassword = expression.SchemaName;
-            if (expression.SchemaName.Equals(DbMigrationConfig.Schema,
-                StringComparison.OrdinalIgnoreCase))
+            if (expression.SchemaName.EqualsIgnoreCase(DbMigrationConfig.Schema))
             {
                 schemaPassword = DbMigrationConfig.SchemaPassword;
             }

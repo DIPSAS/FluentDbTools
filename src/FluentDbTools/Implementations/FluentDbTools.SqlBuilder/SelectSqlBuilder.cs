@@ -57,7 +57,7 @@ namespace FluentDbTools.SqlBuilder
                 () =>
                    {
                        if (string.IsNullOrEmpty(TableName) ||
-                           !string.Equals(TableName, SqlBuilderHelper.GetTableName<T>(SchemaNamePrefix, tableName), StringComparison.OrdinalIgnoreCase))
+                           !string.Equals(TableName, SqlBuilderHelper.GetTableName<T>(SchemaNamePrefix, tableName), StringExtensions.CurrentIgnoreCaseStringComparison))
                        {
                            return;
                        }

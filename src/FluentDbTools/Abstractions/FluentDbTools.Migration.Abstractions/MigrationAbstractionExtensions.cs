@@ -214,7 +214,7 @@ namespace FluentDbTools.Migration.Abstractions
         public static string GetDbOperationFromExpression(this IMigrationExpression expression)
         {
             var dbOperation = expression.GetType().Name;
-            var index = dbOperation.IndexOf("Expression", StringComparison.CurrentCultureIgnoreCase);
+            var index = dbOperation.IndexOf("Expression", StringExtensions.CurrentIgnoreCaseStringComparison);
             if (index > -1)
             {
                 dbOperation = dbOperation.Substring(0, index);

@@ -257,7 +257,7 @@ namespace FluentDbTools.Migration.Contracts
 
         private static bool IsDatabase(string configuredDatabaseType, params string[] matchingDatabaseTypes)
         {
-            return !string.IsNullOrEmpty(configuredDatabaseType) && matchingDatabaseTypes.Any(matchingDatabaseType => configuredDatabaseType.StartsWith(matchingDatabaseType, StringComparison.OrdinalIgnoreCase));
+            return !string.IsNullOrEmpty(configuredDatabaseType) && matchingDatabaseTypes.Any(configuredDatabaseType.StartsWithIgnoreCase);
         }
 
         internal TNext AsDatabaseDateTime<TNext>(IColumnTypeSyntax<TNext> column) where TNext : IFluentSyntax
