@@ -4,11 +4,8 @@ using Example.FluentDbTools.Config;
 using FluentAssertions;
 using Xunit;
 using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Migration;
-using FluentMigrator.Runner;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Xunit.Sdk;
+
+[assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly, DisableTestParallelization = true)]
 
 namespace Test.FluentDbTools
 {

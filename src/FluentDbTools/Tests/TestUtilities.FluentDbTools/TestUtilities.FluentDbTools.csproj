@@ -1,31 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
 
-    <Import Project="..\..\SolutionInfo.proj" />
+    <NoWarn>1701;1702;1591</NoWarn>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-        <PackageReference Include="FluentAssertions" Version="5.4.2" />
-    </ItemGroup>
+  <Import Project="..\..\SolutionInfo.proj" />
 
-    <ItemGroup>
-      <ProjectReference Include="..\..\Example\Example.FluentDbTools.Database\Example.FluentDbTools.Database.csproj" />
-      <ProjectReference Include="..\..\Example\Example.FluentDbTools.Migration\Example.FluentDbTools.Migration.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="FluentAssertions" Version="5.10.0" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <None Update="oracle\product\client\network\admin\sqlnet.ora">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="oracle\product\client\network\admin\tnsnames.ora">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="xunit.runner.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Example\Example.FluentDbTools.Database\Example.FluentDbTools.Database.csproj" />
+    <ProjectReference Include="..\..\Example\Example.FluentDbTools.Migration\Example.FluentDbTools.Migration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="oracle\product\client\network\admin\sqlnet.ora">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oracle\product\client\network\admin\tnsnames.ora">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

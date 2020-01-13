@@ -1,14 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
 
-    <Import Project="..\..\SolutionInfo.proj" />
+    <NoWarn>1701;1702;1591</NoWarn>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.Migration\FluentDbTools.Extensions.Migration.csproj" />
-      <ProjectReference Include="..\Example.FluentDbTools.Database\Example.FluentDbTools.Database.csproj" />
-    </ItemGroup>
+  <Import Project="..\..\SolutionInfo.proj" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.Migration\FluentDbTools.Extensions.Migration.csproj" />
+    <ProjectReference Include="..\Example.FluentDbTools.Database\Example.FluentDbTools.Database.csproj" />
+  </ItemGroup>
 
 </Project>
