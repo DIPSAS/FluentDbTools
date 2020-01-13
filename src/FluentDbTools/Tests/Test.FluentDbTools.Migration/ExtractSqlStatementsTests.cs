@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using Example.FluentDbTools.Config;
-using Example.FluentDbTools.Database;
 using Example.FluentDbTools.Migration;
 using FluentAssertions;
 using FluentDbTools.Common.Abstractions;
@@ -11,9 +10,7 @@ using FluentDbTools.Migration;
 using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Oracle;
 using FluentDbTools.Migration.Oracle.CustomProcessor;
-using FluentMigrator;
 using FluentMigrator.Runner;
-using FluentMigrator.Runner.Processors.Oracle;
 using Microsoft.Extensions.DependencyInjection;
 using TestUtilities.FluentDbTools;
 using Xunit;

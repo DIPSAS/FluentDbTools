@@ -9,7 +9,6 @@ using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Config;
 using Example.FluentDbTools.Database;
 using Example.FluentDbTools.Migration;
-using Example.FluentDbTools.Migration.MigrationModels;
 using FluentAssertions;
 using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Extensions.Migration;
@@ -19,23 +18,21 @@ using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using FluentDbTools.Migration;
 using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Contracts.MigrationExpressions.Execute;
-using FluentDbTools.Migration.Oracle;
 using FluentDbTools.Migration.Oracle.CustomProcessor;
-using FluentMigrator;
 using FluentMigrator.Expressions;
 using TestUtilities.FluentDbTools;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Processors;
-using FluentMigrator.Runner.Processors.Oracle;
 using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Npgsql;
 using Oracle.ManagedDataAccess.Client;
 using Xunit;
 using Xunit.Abstractions;
+
+[assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly, DisableTestParallelization = true)]
 
 // ReSharper disable PossibleNullReferenceException
 
