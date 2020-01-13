@@ -1,4 +1,6 @@
-﻿using FluentDbTools.Migration.Abstractions;
+﻿using FluentDbTools.Extensions.MSDependencyInjection;
+using FluentDbTools.Migration.Abstractions;
+using FluentMigrator;
 using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.DependencyInjection;
 

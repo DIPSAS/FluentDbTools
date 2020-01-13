@@ -109,7 +109,7 @@ namespace FluentDbTools.Migration.Abstractions
             if (obj is IMigrationMetadata other)
             {
                 return Equals(MigrationAssembly, other.MigrationAssembly) && string.Equals(MigrationName,
-                           other.MigrationName, StringComparison.CurrentCultureIgnoreCase);
+                           other.MigrationName, StringExtensions.CurrentIgnoreCaseStringComparison);
             }
 
             return false;

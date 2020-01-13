@@ -13,6 +13,12 @@ namespace FluentDbTools.Common.Abstractions
     public static class StringExtensions
     {
         /// <summary>
+        /// Default IgnoreCase StringComparison
+        /// </summary>
+        public static StringComparison CurrentIgnoreCaseStringComparison = StringComparison.OrdinalIgnoreCase;
+
+
+        /// <summary>
         /// return 'defaultValue' if 'value' is [null | string.Empty], elsewhere 'value' is returned
         /// </summary>
         /// <param name="value"></param>
@@ -79,41 +85,41 @@ namespace FluentDbTools.Common.Abstractions
 
 
         /// <summary>
-        /// Contains(searchValue) with StringComparison.CurrentCultureIgnoreCase
+        /// Contains(searchValue) with StringComparison=<see cref="CurrentIgnoreCaseStringComparison"/>
         /// </summary>
         /// <param name="value"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
         public static bool ContainsIgnoreCase(this string value, string searchValue)
         {
-            return value.Contains(searchValue, StringComparison.CurrentCultureIgnoreCase);
+            return value.Contains(searchValue, CurrentIgnoreCaseStringComparison);
         }
 
         /// <summary>
-        /// EndsWith(searchValue) with StringComparison.CurrentCultureIgnoreCase
+        /// EndsWith(searchValue) with StringComparison=<see cref="CurrentIgnoreCaseStringComparison"/>
         /// </summary>
         /// <param name="value"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
         public static bool EndsWithIgnoreCase(this string value, string searchValue)
         {
-            return value.EndsWith(searchValue, StringComparison.CurrentCultureIgnoreCase);
+            return value.EndsWith(searchValue, CurrentIgnoreCaseStringComparison);
         }
 
         /// <summary>
-        /// EndsWith(searchValue) with StringComparison.CurrentCultureIgnoreCase
+        /// EndsWith(searchValue) with StringComparison=<see cref="CurrentIgnoreCaseStringComparison"/>
         /// </summary>
         /// <param name="value"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
         public static bool StartsWithIgnoreCase(this string value, string searchValue)
         {
-            return value.StartsWith(searchValue, StringComparison.CurrentCultureIgnoreCase);
+            return value.StartsWith(searchValue, CurrentIgnoreCaseStringComparison);
         }
 
 
         /// <summary>
-        /// Equals(searchValue) with StringComparison.CurrentCultureIgnoreCase
+        /// Equals(searchValue) with tringComparison=<see cref="CurrentIgnoreCaseStringComparison"/>
         /// </summary>
         /// <param name="value"></param>
         /// <param name="searchValue"></param>
@@ -122,7 +128,7 @@ namespace FluentDbTools.Common.Abstractions
             this string value,
             string searchValue)
         {
-            return value?.Equals(searchValue, StringComparison.CurrentCultureIgnoreCase) ?? false;
+            return value?.Equals(searchValue, CurrentIgnoreCaseStringComparison) ?? false;
         }
 
         /// <summary>
@@ -226,7 +232,7 @@ namespace FluentDbTools.Common.Abstractions
         /// <exception cref="T:System.ArgumentException"><paramref name="oldValue">oldValue</paramref> is the empty string ("").</exception>
         public static string ReplaceIgnoreCase(this string value, string oldValue, string newValue)
         {
-            var pos = value.IndexOf(oldValue, StringComparison.CurrentCultureIgnoreCase);
+            var pos = value.IndexOf(oldValue, CurrentIgnoreCaseStringComparison);
             if (pos == -1)
             {
                 return value;
@@ -246,7 +252,7 @@ namespace FluentDbTools.Common.Abstractions
         /// <returns></returns>
         public static string SubstringTo(this string value, string to)
         {
-            var pos = value.IndexOf(to, StringComparison.CurrentCultureIgnoreCase);
+            var pos = value.IndexOf(to, CurrentIgnoreCaseStringComparison);
             return pos > -1 ? value.Substring(0, pos) : value;
         }
 
@@ -260,7 +266,7 @@ namespace FluentDbTools.Common.Abstractions
         /// <returns></returns>
         public static string SubstringFrom(this string value, string from, params string [] to)
         {
-            var pos = value.IndexOf(from, StringComparison.CurrentCultureIgnoreCase);
+            var pos = value.IndexOf(from, CurrentIgnoreCaseStringComparison);
 
             if (pos <= -1)
             {
@@ -271,7 +277,7 @@ namespace FluentDbTools.Common.Abstractions
             pos = -1;
             foreach (var s in to)
             {
-                var posFount = subStr.IndexOf(s, from.Length - 1,  StringComparison.CurrentCultureIgnoreCase);
+                var posFount = subStr.IndexOf(s, from.Length - 1,  CurrentIgnoreCaseStringComparison);
                 if (posFount > -1 && (pos == -1 || posFount < pos))
                 {
                     pos = posFount;
@@ -290,7 +296,7 @@ namespace FluentDbTools.Common.Abstractions
         /// <returns></returns>
         public static string SubstringFromAdnIncludeToString(this string value, string from, params string [] to)
         {
-            var pos = value.IndexOf(from, StringComparison.CurrentCultureIgnoreCase);
+            var pos = value.IndexOf(from, CurrentIgnoreCaseStringComparison);
 
             if (pos <= -1)
             {
@@ -303,7 +309,7 @@ namespace FluentDbTools.Common.Abstractions
             foreach (var s in to)
             {
                 toString = s;
-                var posFount = subStr.IndexOf(s, from.Length - 1,  StringComparison.CurrentCultureIgnoreCase);
+                var posFount = subStr.IndexOf(s, from.Length - 1,  CurrentIgnoreCaseStringComparison);
                 if (posFount > -1 && (pos == -1 || posFount < pos))
                 {
                     pos = posFount;

@@ -38,6 +38,13 @@ namespace FluentDbTools.Migration.Abstractions
         IDbConnection GetMigrationDbConnection();
         void ProcessSql(string sql);
         void ProcessSql(string sql, string logTitle);
+
+        void Initialize();
+
+        void ExtendedBeginTransaction();
+        void ExtendedCommitTransaction();
+        void ExtendedEnsureConnectionIsOpen();
+        void ExtendedEnsureConnectionIsClosed();
     }
 
     public interface IExtendedMigrationProcessor<T> : IExtendedMigrationProcessor

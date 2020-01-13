@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Common;
@@ -10,7 +11,7 @@ using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.Oracle;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
+[assembly: InternalsVisibleTo("FluentDbTools.Extensions.Migration")]
 namespace FluentDbTools.Migration.Oracle
 {
     internal class ExtendedOracleManagedProcessor : OracleManagedProcessor, IExtendedMigrationProcessor<ExtendedOracleManagedProcessor>
@@ -40,6 +41,45 @@ namespace FluentDbTools.Migration.Oracle
             return ExtendedMigrationProcessor.IsExists(template, args);
         }
 
+        public void ExtendedBeginTransaction()
+        {
+            ExtendedMigrationProcessor.ExtendedBeginTransaction();
+        }
+
+        public void ExtendedCommitTransaction()
+        {
+            ExtendedMigrationProcessor.ExtendedCommitTransaction();
+        }
+
+        public void ExtendedEnsureConnectionIsOpen()
+        {
+            ExtendedMigrationProcessor.ExtendedEnsureConnectionIsOpen();
+        }
+
+        public void ExtendedEnsureConnectionIsClosed()
+        {
+            ExtendedMigrationProcessor.ExtendedEnsureConnectionIsClosed();
+        }
+
+        public override void BeginTransaction()
+        {
+            ExtendedBeginTransaction();
+        }
+
+        public override void CommitTransaction()
+        {
+            ExtendedCommitTransaction();
+        }
+
+        protected override void EnsureConnectionIsClosed()
+        {
+            ExtendedEnsureConnectionIsClosed();
+        }
+
+        protected override void EnsureConnectionIsOpen()
+        {
+            ExtendedEnsureConnectionIsOpen();
+        }
 
         public override void Process(PerformDBOperationExpression expression)
         {
@@ -112,8 +152,14 @@ namespace FluentDbTools.Migration.Oracle
             return Connection;
         }
 
+        public void Initialize()
+        {
+            ExtendedMigrationProcessor.Initialize();           
+        }
+
         public void Initialize(ICustomMigrationProcessor customMigrationProcessor)
         {
+            Initialize();
             ExtendedMigrationProcessor.Initialize(customMigrationProcessor);
         }
 

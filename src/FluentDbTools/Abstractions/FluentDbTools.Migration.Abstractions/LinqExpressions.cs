@@ -10,6 +10,8 @@ using FluentMigrator.Expressions;
 using FluentMigrator.Infrastructure;
 [assembly: InternalsVisibleTo("FluentDbTools.Migration")]
 [assembly: InternalsVisibleTo("FluentDbTools.Migration.Contracts")]
+[assembly: InternalsVisibleTo("FluentDbTools.Migration.Oracle")]
+[assembly: InternalsVisibleTo("FluentDbTools.Migration.Postgres")]
 
 namespace FluentDbTools.Migration.Abstractions
 {
@@ -139,7 +141,7 @@ namespace FluentDbTools.Migration.Abstractions
             return fieldMemberExpression;
         }
 
-        private static FieldInfo SearchForField(this Type instanceType, Type fieldType, string fieldName = null, int depth = 0)
+        public static FieldInfo SearchForField(this Type instanceType, Type fieldType, string fieldName = null, int depth = 0)
         {
             if (fieldType == null && !string.IsNullOrEmpty(fieldName))
             {

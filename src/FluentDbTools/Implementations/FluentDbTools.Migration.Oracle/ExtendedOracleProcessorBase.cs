@@ -22,9 +22,12 @@ namespace FluentDbTools.Migration.Oracle
     internal class ExtendedOracleProcessorBase : OracleProcessorBase, IExtendedMigrationProcessor<ExtendedOracleProcessorBase>, IExtendedMigrationProcessorOracle
     {
         private IMigrationMetadata MigrationMetadata;
+        private readonly IOptionsSnapshot<RunnerOptions> RunnerOptions;
         private readonly IDbMigrationConfig MigrationConfig;
         private readonly IExtendedMigrationGenerator ExtendedGenerator;
         private ICustomMigrationProcessor CustomMigrationProcessor;
+        private bool Initialize_Initialized;
+        private Func<string> ConnectionStringFunc;
         protected string SchemaPrefix => MigrationConfig?.GetSchemaPrefixId();
         protected string SchemaPrefixUniqueId => MigrationConfig?.GetSchemaPrefixUniqueId();
 
@@ -32,14 +35,81 @@ namespace FluentDbTools.Migration.Oracle
             IMigrationGenerator generator,
             ILogger logger,
             IOptionsSnapshot<ProcessorOptions> options,
+            IOptionsSnapshot<RunnerOptions> runnerOptions,
             IConnectionStringAccessor connectionStringAccessor,
             IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator> extendedGenerator,
             IDbMigrationConfig migrationConfig,
             IMigrationSourceItem migrationSourceItem = null) : base(ProcessorIds.OracleProcessorId, factory, generator, logger, options, connectionStringAccessor)
         {
+            RunnerOptions = runnerOptions;
             MigrationConfig = migrationConfig;
             ExtendedGenerator = extendedGenerator;
             MigrationMetadata = new MigrationMetadata(migrationSourceItem).InitMetadata(MigrationConfig);
+
+            ConnectionStringFunc = () => connectionStringAccessor.ConnectionString;
+            Initialize();
+        }
+
+        private bool NoConnection => RunnerOptions?.Value?.NoConnection ?? true;
+
+
+        public void ExtendedBeginTransaction()
+        {
+            if (NoConnection)
+            {
+                return;
+            }
+
+            base.BeginTransaction();
+        }
+
+        public void ExtendedCommitTransaction()
+        {
+            if (NoConnection)
+            {
+                return;
+            }
+            base.CommitTransaction();
+        }
+
+        public void ExtendedEnsureConnectionIsOpen()
+        {
+            if (NoConnection)
+            {
+                return;
+            }
+
+            base.EnsureConnectionIsOpen();
+        }
+
+        public void ExtendedEnsureConnectionIsClosed()
+        {
+            if (NoConnection)
+            {
+                return;
+            }
+
+            base.EnsureConnectionIsClosed();
+        }
+
+        public override void BeginTransaction()
+        {
+            ExtendedBeginTransaction();
+        }
+
+        public override void CommitTransaction()
+        {
+            ExtendedCommitTransaction();
+        }
+
+        protected override void EnsureConnectionIsOpen()
+        {
+            ExtendedEnsureConnectionIsOpen();
+        }
+
+        protected override void EnsureConnectionIsClosed()
+        {
+            ExtendedEnsureConnectionIsClosed();
         }
 
         public override bool Exists(string template, params object[] args)
@@ -49,6 +119,11 @@ namespace FluentDbTools.Migration.Oracle
                 throw new ArgumentNullException(nameof(template));
             }
 
+            if (NoConnection)
+            {
+                return false;
+            }
+            
             EnsureConnectionIsOpen();
 
             using (var command = CreateCommand(string.Format(template, args)))
@@ -92,19 +167,6 @@ namespace FluentDbTools.Migration.Oracle
             }
 
             base.Process(expression);
-        }
-
-
-        public void Initialize(ICustomMigrationProcessor customMigrationProcessor)
-        {
-            CustomMigrationProcessor = customMigrationProcessor;
-
-            RunCustomAction(() =>
-            {
-                CustomMigrationProcessor?.ConfigureSqlExecuteAction(sql => Process(new SqlStatement { Sql = sql, IsExternal = true }));
-                CustomMigrationProcessor?.MigrationMetadataChanged(MigrationMetadata, this);
-            });
-
         }
 
         public bool IsExists(string template, params object[] args)
@@ -244,6 +306,47 @@ namespace FluentDbTools.Migration.Oracle
             Logger.LogSay(logTitle);
             Process(sql);
         }
+
+        public void Initialize()
+        {
+            if (!NoConnection)
+            {
+                return;
+            }
+
+            if (Initialize_Initialized)
+            {
+                return;
+            }
+
+            Initialize_Initialized = true;
+
+            var field = GetType().SearchForField(typeof(Lazy<IDbConnection>), "_lazyConnection");
+            if (field != null)
+            {
+                field.SetValue(this, new Lazy<IDbConnection>(() =>
+                {
+                    var connection = DbProviderFactory.CreateConnection() ?? throw new NullReferenceException("No Connection available");
+                    connection.ConnectionString = ConnectionStringFunc?.Invoke();
+                    return connection;
+                }));
+            }
+        }
+
+        public void Initialize(ICustomMigrationProcessor customMigrationProcessor)
+        {
+            CustomMigrationProcessor = customMigrationProcessor;
+
+            RunCustomAction(() =>
+            {
+                CustomMigrationProcessor?.ConfigureSqlExecuteAction(sql => Process(new SqlStatement { Sql = sql, IsExternal = true }));
+                CustomMigrationProcessor?.MigrationMetadataChanged(MigrationMetadata, this);
+            });
+
+            Initialize();
+        }
+
+
 
         public override void Process(CreateSchemaExpression expression)
         {
@@ -389,11 +492,18 @@ namespace FluentDbTools.Migration.Oracle
             var runningSql = string.Empty;
             try
             {
-                if (Options.PreviewOnly || string.IsNullOrEmpty(sql))
+                if (Options.PreviewOnly || NoConnection || string.IsNullOrEmpty(sql))
                 {
                     if (sql.IsNotEmpty())
                     {
-                        Logger.LogSqlInternal(sql);
+                        if (sqlStatement.IsExternal)
+                        {
+                            Logger.LogSqlInternal(sql);
+                            return;
+                        }
+
+                        Logger.LogSql(sql);
+                        return;
                     }
                     return;
                 }
@@ -429,6 +539,18 @@ namespace FluentDbTools.Migration.Oracle
 
         private void ExecuteCommand(string commandText, bool logSqlInternal = false)
         {
+
+            if (Options.PreviewOnly || NoConnection)
+            {
+                if (logSqlInternal)
+                {
+                    Logger.LogSqlInternal(commandText);
+                    return;
+                }
+                Logger.LogSql(commandText);
+                return;
+            }
+
             using (var command = CreateCommand(commandText))
             {
                 if (!commandText.IsSqlComment())
@@ -444,12 +566,5 @@ namespace FluentDbTools.Migration.Oracle
                 Logger.LogSql(commandText);
             }
         }
-
-        private class SqlStatement
-        {
-            public string Sql { get; set; }
-            public bool IsExternal { get; set; }
-        }
-
     }
 }

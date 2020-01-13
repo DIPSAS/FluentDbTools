@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using Microsoft.Extensions.Configuration;
 
 namespace FluentDbTools.Extensions.MSDependencyInjection
@@ -38,13 +39,27 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                     continue;
                 }
 
-                foreach (var key in keys)
+                foreach (var readonlyKey in keys)
                 {
-                    var value = dbSection[key];
+                    var key = readonlyKey;
+
+                    var value = dbSection.GetSectionStringValue(key);
                     if (value.IsNotEmpty())
                     {
                         return value;
                     }
+
+                    if (key.StartsWithIgnoreCase($"{section}:"))
+                    {
+                        key = key.Substring($"{section}:".Length);
+
+                        value = dbSection.GetSectionStringValue(key);
+                        if (value.IsNotEmpty())
+                        {
+                            return value;
+                        }
+                    }
+
                 }
             }
 
