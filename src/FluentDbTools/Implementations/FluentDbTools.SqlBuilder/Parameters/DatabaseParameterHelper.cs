@@ -9,13 +9,13 @@ namespace FluentDbTools.SqlBuilder.Parameters
 {
     internal class DatabaseParameterHelper : IDatabaseParameterHelper
     {
-        private readonly IDbConfigDatabaseTargets DbConfig;
+        private readonly IDbConfigSchemaTargets DbConfigConfig;
 
         
-        public DatabaseParameterHelper(IDbConfigDatabaseTargets dbConfig)
+        public DatabaseParameterHelper(IDbConfigSchemaTargets dbConfigConfig)
         {
-            DbConfig = dbConfig;
-            DatabaseType = dbConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
+            DbConfigConfig = dbConfigConfig;
+            DatabaseType = dbConfigConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
             DbTypeTranslator = DatabaseType.GetDbTypeTranslator();
         }
 
@@ -80,7 +80,7 @@ namespace FluentDbTools.SqlBuilder.Parameters
 
         public string GetParameterPrefix()
         {
-            return SqlBuilderHelper.GetParameterPrefixIfNull(DbConfig?.GetParameterPrefix());
+            return SqlBuilderHelper.GetParameterPrefixIfNull(DbConfigConfig?.GetParameterPrefix());
         }
     }
 }

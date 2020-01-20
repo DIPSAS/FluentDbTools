@@ -16,7 +16,7 @@ namespace Test.FluentDbTools.SqlBuilder
         {
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes).CreateScope())
             {
-                var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
+                var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 
                 dbConfig.GetParameterPrefix().Should().Be(prefix);
             }

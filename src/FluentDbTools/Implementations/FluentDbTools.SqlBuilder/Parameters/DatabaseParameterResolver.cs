@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Dapper;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions.Parameters;
 using FluentDbTools.SqlBuilder.Common;
@@ -11,22 +9,30 @@ namespace FluentDbTools.SqlBuilder.Parameters
 {
     public class DatabaseParameterResolver : IDatabaseParameterResolver
     {
-        private readonly IDbConfigDatabaseTargets DbConfig;
+        private readonly IDbConfigSchemaTargets DbConfigConfig;
         private readonly IDatabaseParameterHelper DatabaseParameterHelperField;
 
         public DatabaseParameterResolver(
-            IDbConfigDatabaseTargets dbConfig)
+            IDbConfigSchemaTargets dbConfigConfig)
         {
-            DbConfig = dbConfig;
-            DatabaseParameterHelperField = new DatabaseParameterHelper(dbConfig);
+            DbConfigConfig = dbConfigConfig;
+            DatabaseParameterHelperField = new DatabaseParameterHelper(dbConfigConfig);
+        }
+
+        public DatabaseParameterResolver(
+            string schema,
+            string schemaPrefixId,
+            SupportedDatabaseTypes dbType = SupportedDatabaseTypes.Oracle)
+            : this(new SqlBuilderDbConfigSchemaTargets(schema, schemaPrefixId, dbType))
+        {
         }
 
         public SupportedDatabaseTypes DatabaseType => DatabaseParameterHelperField?.DatabaseType ?? SupportedDatabaseTypes.Postgres;
         public IDbTypeTranslator DbTypeTranslator => DatabaseParameterHelperField?.DbTypeTranslator;
 
-        public IDataParameterCollectionExt CreateParameters()
+        public IDataParameterCollectionExt CreateParameters<TDynamicParameters>() where TDynamicParameters : new()
         {
-            return new DataParameterCollectionExt(this);
+            return new DataParameterCollectionExt<TDynamicParameters>(this);
         }
 
         public IDbDataParameter CreateParameter(IDbConnection dbConnection)
@@ -39,9 +45,9 @@ namespace FluentDbTools.SqlBuilder.Parameters
             return dbConnection.CreateCommand(sql);
         }
 
-        public object ToDynamicParameters(IDataParameterCollection parameterCollection)
+        public TDynamicParameters ToDynamicParameters<TDynamicParameters>(IDataParameterCollection parameterCollection) where TDynamicParameters : new()
         {
-            var dynamic = new DynamicParameters();
+            var dynamic = new TDynamicParameters();
             foreach (var param in parameterCollection)
             {
 
@@ -83,24 +89,19 @@ namespace FluentDbTools.SqlBuilder.Parameters
             return parameterCollection.Add(param);
         }
 
-        public string[] AddArrayParameter<T>(DynamicParameters @params, string paramName, IEnumerable<T> enumerable)
-        {
-            return DatabaseParameterHelperField.AddArrayParameter(@params, paramName, enumerable);
-        }
-
-        public string[] AddArrayParameter<T>(DynamicParameters @params, IEnumerable<T> enumerable)
-        {
-            return AddArrayParameter(@params, typeof(T).Name, enumerable);
-        }
-
         public int GetNextSequenceValue(IDbConnection dbConnection, string sequenceName = null)
         {
             var sequence = DatabaseParameterHelperField.WithNextSequence(sequenceName);
             var sql = DatabaseParameterHelperField.DatabaseType == SupportedDatabaseTypes.Oracle
                 ? $"select {sequence} from dual"
                 : $"select {sequence}";
+            var result = dbConnection.CreateCommand(sql).ExecuteScalar();
+            if (result != null && result is int intResult)
+            {
+                return intResult;
+            }
 
-            return dbConnection.ExecuteScalar<int>(sql);
+            return default(int);
         }
 
         public int GetNextSequenceValueForTable(IDbConnection dbConnection, string tableName = null)

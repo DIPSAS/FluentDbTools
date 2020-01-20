@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using FluentDbTools.Extensions.SqlBuilder;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions.Common;
 using TestUtilities.FluentDbTools;
 using FluentAssertions;
+using FluentDbTools.Extensions.SqlBuilder;
 using Microsoft.Extensions.DependencyInjection;
 using Test.FluentDbTools.SqlBuilder.MinimumDependencies.TestEntities;
 using Xunit;
@@ -26,10 +26,10 @@ namespace Test.FluentDbTools.SqlBuilder
             var addDictionary = new Dictionary<string, string> {{"database:schemaPrefix:Id", schemaPrefixId}};
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes, addDictionary).CreateScope())
             {
-                var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
+                var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
                 
-                var builder = dbConfig.CreateSqlBuilder();
+                var builder = dbConfig.SqlBuilder();
                 var update = builder.Update<Entity>();
                 
                 var sql = update
@@ -57,9 +57,9 @@ namespace Test.FluentDbTools.SqlBuilder
             var addDictionary = new Dictionary<string, string> {{"database:schemaPrefix:Id", schemaPrefixId}};
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes, addDictionary).CreateScope())
             {
-                var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
+                var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
-                var builder = dbConfig.CreateSqlBuilder();
+                var builder = dbConfig.SqlBuilder();
                 var update = builder.Update<Entity>();
 
                 var sql = update

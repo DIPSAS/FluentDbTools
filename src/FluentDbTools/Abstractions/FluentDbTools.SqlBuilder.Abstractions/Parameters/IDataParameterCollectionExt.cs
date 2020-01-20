@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using Dapper;
 
 namespace FluentDbTools.SqlBuilder.Abstractions.Parameters
 {
@@ -13,6 +12,5 @@ namespace FluentDbTools.SqlBuilder.Abstractions.Parameters
         void Add(object @params);
 
         void AddArrayParameter<T>(string paramName, IEnumerable<T> enumerable, ref string sql);
-        DynamicParameters ToDynamicParameters();
     }
 }

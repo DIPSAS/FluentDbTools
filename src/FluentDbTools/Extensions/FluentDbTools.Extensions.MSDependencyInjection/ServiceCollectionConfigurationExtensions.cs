@@ -54,8 +54,16 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         public static IServiceCollection AddDbConfigDatabaseTargets(this IServiceCollection serviceProvider)
         {
             serviceProvider.TryAddTransient<IDbConfigDatabaseTargets>(sp => sp.GetRequiredService<IDbConfig>());
+            serviceProvider.AddDbConfigSchemaTargets();
             return serviceProvider;
         }
+
+        public static IServiceCollection AddDbConfigSchemaTargets(this IServiceCollection serviceProvider)
+        {
+            serviceProvider.TryAddTransient<IDbConfigSchemaTargets>(sp => sp.GetRequiredService<IDbConfig>());
+            return serviceProvider;
+        }
+
 
         /// <summary>
         /// Resolve the registered implementation of <see cref="IDbConfig"/> from the DependencyInjection container <see cref="IServiceProvider"/>

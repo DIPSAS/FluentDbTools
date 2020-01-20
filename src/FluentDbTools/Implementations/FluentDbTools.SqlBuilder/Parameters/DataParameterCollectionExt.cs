@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using Dapper;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions.Parameters;
 
 namespace FluentDbTools.SqlBuilder.Parameters
 {
-    internal class DataParameterCollectionExt : IDataParameterCollectionExt
+    internal class DataParameterCollectionExt<TDynamicParameters> : IDataParameterCollectionExt where TDynamicParameters:new()
     {
         private readonly IDatabaseParameterHelper DataParameterHelperField;
-        private DynamicParameters DynamicParameters { get; }
+        private TDynamicParameters DynamicParameters { get; }
 
         public DataParameterCollectionExt(IDatabaseParameterHelper dataParameterHelper)
         {
             DataParameterHelperField = dataParameterHelper;
-            DynamicParameters = new DynamicParameters();
+            DynamicParameters = new TDynamicParameters();
         }
 
         public void Add(string parameterName, object value, DbType? dbType = null, ParameterDirection? direction = null,
@@ -51,7 +50,7 @@ namespace FluentDbTools.SqlBuilder.Parameters
             }
         }
 
-        public DynamicParameters ToDynamicParameters()
+        public TDynamicParameters ToDynamicParameters()
         {
             return DynamicParameters;
         }

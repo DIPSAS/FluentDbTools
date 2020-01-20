@@ -69,9 +69,9 @@ namespace FluentDbTools.Migration.Abstractions
 
         /// <summary>
         /// Replace elements by conventions<br/>
-        /// Replace {SchemaName} with <paramref name="schemaName"/> or <see cref="IDbConfigDatabaseTargets.Schema"/><br/>
-        /// Replace {SchemaPrefixId} with <paramref name="schemaPrefixId"/> or  <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/><br/>
-        /// Replace {SchemaPrefixUniqueId} with <paramref name="schemaPrefixUniqueId"/> or  <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId()"/><br/>
+        /// Replace {SchemaName} with <paramref name="schemaName"/> or <see cref="IDbConfigSchemaTargets.Schema"/><br/>
+        /// Replace {SchemaPrefixId} with <paramref name="schemaPrefixId"/> or  <see cref="IDbConfigSchemaTargets.GetSchemaPrefixId()"/><br/>
+        /// Replace {SchemaPrefixUniqueId} with <paramref name="schemaPrefixUniqueId"/> or  <see cref="IDbMigrationConfig.GetSchemaPrefixUniqueId()"/><br/>
         /// Replace {MigrationName} with <paramref name="migrationName"/> or  <see cref="IDbMigrationConfig.GetMigrationName()"/><br/>
         /// Replace {User} with <paramref name="migrationName"/> or  <see cref="IDbMigrationConfig.GetMigrationName()"/><br/>
         /// </summary>
@@ -236,7 +236,7 @@ namespace FluentDbTools.Migration.Abstractions
 
         /// <summary>
         /// Resolve table-value by <paramref name="template"/> and <paramref name="tableName"/><br/>
-        /// i.e: With <paramref name="template"/> equal to "tables:{<paramref name="tableName"/>}:globalId" and <paramref name="tableName"/> equal to "Person" (and ie. <paramref name="migrationConfig"/>.GetSchemaPrefixId() (<see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/>) returns "EX" <br/>
+        /// i.e: With <paramref name="template"/> equal to "tables:{<paramref name="tableName"/>}:globalId" and <paramref name="tableName"/> equal to "Person" (and ie. <paramref name="migrationConfig"/>.GetSchemaPrefixId() (<see cref="IDbConfigSchemaTargets.GetSchemaPrefixId()"/>) returns "EX" <br/>
         /// => Will search configuration:<br/>
         /// - "database:migration:tables:Person:globalId"<br/>
         /// - "database:migration:tables:EXPerson:globalId"<br/> 

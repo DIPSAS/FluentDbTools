@@ -5,8 +5,8 @@ namespace FluentDbTools.SqlBuilder.Common
 {
     internal class UpdateFieldSelector<TClass> : BaseFieldSetterSelector<TClass>
     {
-        public UpdateFieldSelector(IDbConfigDatabaseTargets dbConfig)
-            :base(dbConfig)
+        public UpdateFieldSelector(IDbConfigSchemaTargets dbConfigConfig)
+            :base(dbConfigConfig)
         {
         }
         public override string Build()
@@ -23,7 +23,7 @@ namespace FluentDbTools.SqlBuilder.Common
 
         private string GetParameterPrefix()
         {
-            return SqlBuilderHelper.GetParameterPrefixIfNull(DbConfig?.GetParameterPrefix());
+            return SqlBuilderHelper.GetParameterPrefixIfNull(DbConfigConfig?.GetParameterPrefix());
         }
 
     }

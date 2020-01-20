@@ -64,5 +64,12 @@ namespace FluentDbTools.Migration.Abstractions
         /// </summary>
         /// <returns></returns>
         string GetMigrationName();
+
+        /// <summary>
+        /// Can be used to specifying a unique schemaPrefix Id for the migration
+        /// </summary>
+        /// <returns></returns>
+        string GetSchemaPrefixUniqueId();
+
     }
 }

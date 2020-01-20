@@ -7,14 +7,14 @@ namespace FluentDbTools.SqlBuilder.Common
     {
         private readonly string Prefix;
 
-        public WhereFieldSelectorWithSelect(string prefix, IDbConfigDatabaseTargets dbConfig) : base(dbConfig)
+        public WhereFieldSelectorWithSelect(string prefix, IDbConfigSchemaTargets dbConfigConfig) : base(dbConfigConfig)
         {
             Prefix = prefix;
         }
 
         protected override string CreateWhereFieldStringForParameter(string field, string paramName, OP whereOperator)
         {
-            return $"{GetAliasForType()}.{field} {SqlBuilderHelper.GetStringForOperator(whereOperator)} {DbConfig.WithParameters(paramName)}";
+            return $"{GetAliasForType()}.{field} {SqlBuilderHelper.GetStringForOperator(whereOperator)} {DbConfigConfig.WithParameters(paramName)}";
         }
 
         protected override string CreateWhereFieldStringForValue(string field, OP whereOperator, params string[] value)

@@ -8,7 +8,7 @@ namespace FluentDbTools.SqlBuilder.Common
 {
     public abstract class BaseFieldSetterSelector<TClass> : IFieldSetterSelector<TClass>
     {
-        protected readonly IDbConfigDatabaseTargets DbConfig;
+        protected readonly IDbConfigSchemaTargets DbConfigConfig;
 
         protected class Field
         {
@@ -26,10 +26,10 @@ namespace FluentDbTools.SqlBuilder.Common
             }
         }
 
-        protected BaseFieldSetterSelector(IDbConfigDatabaseTargets dbConfig)
+        protected BaseFieldSetterSelector(IDbConfigSchemaTargets dbConfigConfig)
         {
-            DbConfig = dbConfig;
-            SchemaPrefixId = dbConfig?.GetSchemaPrefixId() ?? string.Empty;
+            DbConfigConfig = dbConfigConfig;
+            SchemaPrefixId = dbConfigConfig?.GetSchemaPrefixId() ?? string.Empty;
         }
 
         protected readonly List<Field> FieldsList = new List<Field>();

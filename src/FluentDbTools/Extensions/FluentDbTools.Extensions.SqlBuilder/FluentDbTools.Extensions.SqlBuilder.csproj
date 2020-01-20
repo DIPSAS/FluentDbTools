@@ -1,13 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>FluentDbTools.Extensions.SqlBuilder</RootNamespace>
     </PropertyGroup>
 
     <Import Project="..\..\SolutionInfo.proj" />
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Abstractions\FluentDbTools.SqlBuilder.Abstractions\FluentDbTools.SqlBuilder.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Implementations\FluentDbTools.SqlBuilder.Dapper\FluentDbTools.SqlBuilder.Dapper.csproj" />
       <ProjectReference Include="..\..\Implementations\FluentDbTools.SqlBuilder\FluentDbTools.SqlBuilder.csproj" />
     </ItemGroup>
 

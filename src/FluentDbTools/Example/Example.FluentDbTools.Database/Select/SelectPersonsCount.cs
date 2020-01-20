@@ -10,20 +10,20 @@ namespace Example.FluentDbTools.Database.Select
 {
     public static class SelectPersonsCount
     {
-        public async static Task<long> Execute(
+        public static async Task<long> Execute(
             IDbConnection dbConnection,
-            IDbConfigDatabaseTargets dbConfig)
+            IDbConfigSchemaTargets dbConfigConfig)
         {
-            var sql = dbConfig.BuildSql(out var @params);
+            var sql = dbConfigConfig.BuildSql(out var @params);
             var res = await dbConnection.QuerySingleAsync<long>(sql, @params);
             return res;
         }
         
-        private static string BuildSql(this IDbConfigDatabaseTargets dbConfig, out DynamicParameters @params)
+        private static string BuildSql(this IDbConfigSchemaTargets dbConfigConfig, out DynamicParameters @params)
         {
             @params = new DynamicParameters();
-            @params.Add(nameof(Person.Alive), dbConfig.CreateParameterResolver().WithBooleanParameterValue(true));
-            var sql = dbConfig.CreateSqlBuilder().Select()
+            @params.Add(nameof(Person.Alive), dbConfigConfig.DatabaseParameterResolver().WithBooleanParameterValue(true));
+            var sql = dbConfigConfig.SqlBuilder().Select()
                 .OnSchema()
                 .Count()
                 .Fields<Person>(x => x.F(item => item.PersonId))

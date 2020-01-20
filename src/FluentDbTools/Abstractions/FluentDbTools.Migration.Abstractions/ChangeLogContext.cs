@@ -97,8 +97,8 @@ namespace FluentDbTools.Migration.Abstractions
         /// <summary>
         /// Constructor<br/>
         /// -------------<br/>
-        /// SchemaPrefixId is assigned with value from parameter <paramref name="migrationConfig"/> - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/><br/> 
-        /// SchemaPrefixUniqueId is assigned with value from parameter <paramref name="migrationConfig"/> - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId()"/><br/> 
+        /// SchemaPrefixId is assigned with value from parameter <paramref name="migrationConfig"/> - method <see cref="IDbConfigSchemaTargets.GetSchemaPrefixId()"/><br/> 
+        /// SchemaPrefixUniqueId is assigned with value from parameter <paramref name="migrationConfig"/> - method <see cref="IDbMigrationConfig.GetSchemaPrefixUniqueId()"/><br/> 
         /// ShortName is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:ShortName or database:schemaPrefix:tables:{tableName}:ShortName<br/>
         /// GlobalId is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:GlobalId or database:schemaPrefix:tables:{tableName}:GlobalId<br/>
         /// KeyType is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:KeyType or database:schemaPrefix:tables:{tableName}:KeyType<br/>
@@ -147,8 +147,8 @@ namespace FluentDbTools.Migration.Abstractions
         /// -------------<br/>
         /// Inherited from constructor <see cref="ChangeLogContext(IDbMigrationConfig)"/><br/>
         /// AnonymousOperation is assigned with "NOOP"<br/>
-        /// SchemaPrefixId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/><br/> 
-        /// SchemaPrefixUniqueId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId()"/><br/> 
+        /// SchemaPrefixId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbConfigSchemaTargets.GetSchemaPrefixId()"/><br/> 
+        /// SchemaPrefixUniqueId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbMigrationConfig.GetSchemaPrefixUniqueId()"/><br/> 
         /// <br/>
         /// i.e:<br/>
         /// When configuration have database:migration:schemaPrefix:Id = "PR" and database:migration:schemaPrefix:UniqueId = "abode" <br/>
@@ -167,8 +167,8 @@ namespace FluentDbTools.Migration.Abstractions
         /// Constructor<br/>
         /// -------------<br/>
         /// Inherited from constructor <see cref="ChangeLogContext(IDbMigrationConfig,string)"/><br/>
-        /// SchemaPrefixId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/><br/> 
-        /// SchemaPrefixUniqueId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId()"/><br/> 
+        /// SchemaPrefixId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbConfigSchemaTargets.GetSchemaPrefixId()"/><br/> 
+        /// SchemaPrefixUniqueId is assigned with value from <paramref name="model"/>(<see cref="IMigrationModel.GetMigrationConfig()"/>)  - method <see cref="IDbMigrationConfig.GetSchemaPrefixUniqueId()"/><br/> 
         /// ShortName is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:ShortName or database:schemaPrefix:tables:{tableName}:ShortName<br/>
         /// GlobalId is assigned value from configuration database:migration:schemaPrefix:tables:{tableName}:GlobalId or database:schemaPrefix:tables:{tableName}:GlobalId<br/>
         /// <br/>

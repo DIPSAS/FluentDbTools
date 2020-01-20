@@ -51,7 +51,15 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                         $"{nameof(IDbConnection)} provided by the db provider factory cannot be null!");
                 }
 
-                dbConnection.Open();
+                try
+                {
+                    dbConnection.Open();
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine("Exception:" + exception.Message);
+                    throw;
+                }
                 return dbConnection;
             });
             serviceCollection.TryAddScoped(sp =>

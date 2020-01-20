@@ -436,7 +436,7 @@ namespace Test.FluentDbTools.Migration
             inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
             inMemoryOverrideConfig.Add("Logging:Migration:File", logFile);
             inMemoryOverrideConfig.Add("database:schemaprefix:id", schemaPrefixId);
-            inMemoryOverrideConfig.Add("database:schemaprefix:uniqueId", schemaPrefixUniqueId);
+            inMemoryOverrideConfig.Add("database:migration:schemaprefix:uniqueId", schemaPrefixUniqueId);
 
             inMemoryOverrideConfig.Add("database:schemaprefix:tables:person:shortName", "sn");
             inMemoryOverrideConfig.Add("database:schemaprefix:tables:person:globalId", "glob");
