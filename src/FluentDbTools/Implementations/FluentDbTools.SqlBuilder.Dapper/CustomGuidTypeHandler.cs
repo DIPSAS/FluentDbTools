@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using Dapper;
 
-namespace FluentDbTools.SqlBuilder.TypeHandlers
+namespace FluentDbTools.SqlBuilder
 {
     internal class CustomGuidTypeHandler : SqlMapper.ITypeHandler
     {

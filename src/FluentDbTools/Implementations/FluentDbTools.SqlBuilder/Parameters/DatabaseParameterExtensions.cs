@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dapper;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions.Parameters;
 
 namespace FluentDbTools.SqlBuilder.Parameters
 {
-    internal static class DatabaseParameterExtensions
+    public static class DatabaseParameterExtensions
     {
         public static string GetParameterWithIdPostfix<T>(this IDatabaseParameterHelper @param, string postfix = "Id")
         {
@@ -19,8 +18,12 @@ namespace FluentDbTools.SqlBuilder.Parameters
             return typeof(T).Name + postfix;
         }
 
+        public static string[] AddArrayParameter<T,TDynamicParameters>(this IDatabaseParameterHelper databaseParameterHelper, TDynamicParameters parameters, IEnumerable<T> enumerable)
+        {
+            return AddArrayParameter(databaseParameterHelper, parameters, typeof(T).Name, enumerable);
+        }
 
-        public static string[] AddArrayParameter<T>(this IDatabaseParameterHelper databaseParameterHelper, DynamicParameters parameters, string paramName, IEnumerable<T> enumerable)
+        public static string[] AddArrayParameter<T,TDynamicParameters>(this IDatabaseParameterHelper databaseParameterHelper, TDynamicParameters parameters, string paramName, IEnumerable<T> enumerable)
         {
             var array = databaseParameterHelper.ToParameterArrayValue(enumerable);
             if (databaseParameterHelper.DatabaseType != SupportedDatabaseTypes.Oracle)
@@ -46,7 +49,7 @@ namespace FluentDbTools.SqlBuilder.Parameters
         }
 
 
-        public static Array ToParameterArrayValue<T>(this IDatabaseParameterHelper databaseParameterHelper, IEnumerable<T> collection)
+        internal static Array ToParameterArrayValue<T>(this IDatabaseParameterHelper databaseParameterHelper, IEnumerable<T> collection)
         {
             if (databaseParameterHelper.DatabaseType == SupportedDatabaseTypes.Oracle)
             {

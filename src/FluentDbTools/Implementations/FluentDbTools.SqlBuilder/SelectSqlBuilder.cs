@@ -9,7 +9,7 @@ namespace FluentDbTools.SqlBuilder
 {
     internal class SelectSqlBuilder : ISelectSqlBuilder
     {
-        private readonly IDbConfigDatabaseTargets DbConfig;
+        private readonly IDbConfigSchemaTargets DbConfigConfig;
         private readonly List<string> FieldsList = new List<string>();
 
         private readonly List<string> Joins = new List<string>();
@@ -23,12 +23,12 @@ namespace FluentDbTools.SqlBuilder
         private bool SelectCount = false;
 
         private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? SchemaPrefixId : $"{SchemaName}.{SchemaPrefixId}";
-        private string SchemaPrefixId => DbConfig?.GetSchemaPrefixId() ?? string.Empty;
+        private string SchemaPrefixId => DbConfigConfig?.GetSchemaPrefixId() ?? string.Empty;
 
-        public SelectSqlBuilder(IDbConfigDatabaseTargets dbConfig)
+        public SelectSqlBuilder(IDbConfigSchemaTargets dbConfigConfig)
         {
-            DbConfig = dbConfig;
-            DbType = dbConfig.DbType;
+            DbConfigConfig = dbConfigConfig;
+            DbType = dbConfigConfig.DbType;
         }
 
         public SupportedDatabaseTypes DbType { get; }
@@ -37,7 +37,7 @@ namespace FluentDbTools.SqlBuilder
         {
             if (setSchemaNameIfExpressionIsEvaluatedToTrue?.Invoke() ?? true)
             {
-                SchemaName = schemaName ?? DbConfig.Schema;
+                SchemaName = schemaName ?? DbConfigConfig.Schema;
             }
 
             return this;
@@ -97,7 +97,7 @@ namespace FluentDbTools.SqlBuilder
         /// <returns></returns>
         public ISelectSqlBuilder Where<T>(Action<IWhereFieldSelector<T>> selector, string prefix = null)
         {
-            var fieldSelector = new WhereFieldSelectorWithSelect<T>(prefix, DbConfig);
+            var fieldSelector = new WhereFieldSelectorWithSelect<T>(prefix, DbConfigConfig);
             selector(fieldSelector);
 
             Wheres.AddRange(fieldSelector.Build());

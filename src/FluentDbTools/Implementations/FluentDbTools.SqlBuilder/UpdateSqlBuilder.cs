@@ -13,7 +13,7 @@ namespace FluentDbTools.SqlBuilder
 
         private readonly List<string> Wheres = new List<string>();
         private readonly UpdateFieldSelector<TClass> UpdateFieldSelector;
-        private readonly IDbConfigDatabaseTargets DbConfig;
+        private readonly IDbConfigSchemaTargets DbConfigConfig;
         private string TableName;
 
         private string SchemaNameField;
@@ -24,12 +24,12 @@ namespace FluentDbTools.SqlBuilder
             set => SchemaNameField = value;
         }
 
-        public UpdateSqlBuilder(IDbConfigDatabaseTargets dbConfig)
+        public UpdateSqlBuilder(IDbConfigSchemaTargets dbConfigConfig)
         {
-            DbConfig = dbConfig;
-            DbType = dbConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
+            DbConfigConfig = dbConfigConfig;
+            DbType = dbConfigConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
             
-            UpdateFieldSelector = new UpdateFieldSelector<TClass>(DbConfig);
+            UpdateFieldSelector = new UpdateFieldSelector<TClass>(DbConfigConfig);
         }
 
         public SupportedDatabaseTypes DbType { get; }
@@ -46,7 +46,7 @@ namespace FluentDbTools.SqlBuilder
 
         public IUpdateSqlBuilder<TClass> Where(Action<IWhereFieldSelector<TClass>> selector)
         {
-            var whereSelector = new WhereFieldSelector<TClass>(DbConfig);
+            var whereSelector = new WhereFieldSelector<TClass>(DbConfigConfig);
             selector(whereSelector);
 
             Wheres.AddRange(whereSelector.Build());
@@ -73,7 +73,7 @@ namespace FluentDbTools.SqlBuilder
         {
             if (setSchemaNameIfExpressionIsEvaluatedToTrue?.Invoke() ?? true)
             {
-                SchemaName = schemaName ?? DbConfig.Schema;
+                SchemaName = schemaName ?? DbConfigConfig.Schema;
             }
             return this;
         }

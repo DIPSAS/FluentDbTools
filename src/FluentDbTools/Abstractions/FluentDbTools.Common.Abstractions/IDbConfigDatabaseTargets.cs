@@ -1,38 +1,20 @@
-namespace FluentDbTools.Common.Abstractions
+﻿namespace FluentDbTools.Common.Abstractions
 {
     /// <summary>
-    /// Database Connection targets
+    /// Database Connection targets<br/>
+    /// Interface:<br/>
+    /// • DatabaseName: <see cref="string"/> ──── <remarks>Current Database type</remarks> <br/>
+    /// <br/>
+    /// Inherits From Interface <see cref="IDbConfigSchemaTargets"/>:<br/>
+    /// • DbType: <see cref="SupportedDatabaseTypes"/> ──── <remarks>Current Database type</remarks> <br/>
+    /// • Schema: <see cref="string"/> ──── <remarks>Used to specify Schema for connected database</remarks> <br/>
+    /// • GetSchemaPrefixId(): Return <returns><see cref="string"/></returns>  ──── <remarks>Can be used to specifying a short Prefix for the Schema.</remarks> <br/>
     /// </summary>
-    public interface IDbConfigDatabaseTargets 
+    public interface IDbConfigDatabaseTargets : IDbConfigSchemaTargets
     {
-        /// <summary>
-        /// Current Database type
-        /// </summary>
-        SupportedDatabaseTypes DbType { get; }
-
-        /// <summary>
-        /// Used to specify Schema for connected database
-        /// </summary>
-        string Schema { get; }
-
         /// <summary>
         /// Database instance on given host, e.g. Oracle SID or postgres database name.
         /// </summary>        
         string DatabaseName { get; }
-
-        /// <summary>
-        /// Can be used to specifying a short Prefix for the Schema. <br/>
-        /// i.e: EX => Tables should be prefixed with EX. <br/>
-        ///      Entity Person will result in the EXPerson table in the database.
-        /// </summary>
-        /// <returns></returns>
-        string GetSchemaPrefixId();
-
-        /// <summary>
-        /// Can be used to specifying a unique Id for the <see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId"/>
-        /// </summary>
-        /// <returns></returns>
-        string GetSchemaPrefixUniqueId();
-
     }
 }

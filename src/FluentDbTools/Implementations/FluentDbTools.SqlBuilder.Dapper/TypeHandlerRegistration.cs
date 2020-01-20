@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using Dapper;
 
 [assembly: InternalsVisibleTo("FluentDbTools.Extensions.SqlBuilder")]
-namespace FluentDbTools.SqlBuilder.TypeHandlers
+namespace FluentDbTools.SqlBuilder
 {
     internal static class TypeHandlerRegistration
     {

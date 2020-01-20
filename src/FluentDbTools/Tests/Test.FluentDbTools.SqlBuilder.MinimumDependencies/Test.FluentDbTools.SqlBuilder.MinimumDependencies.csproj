@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.SqlBuilder\FluentDbTools.Extensions.SqlBuilder.csproj" />
+    <ProjectReference Include="..\..\Implementations\FluentDbTools.SqlBuilder\FluentDbTools.SqlBuilder.csproj" />
   </ItemGroup>
 
 </Project>

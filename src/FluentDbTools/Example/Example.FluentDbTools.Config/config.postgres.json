@@ -12,8 +12,8 @@
     "type": "postgres",
     "user": "dbuser",
     "password": "dbpassword",
-    "adminUser": "admin",
-    "adminPassword": "admin",
+    "adminUser": "admindbuser",
+    "adminPassword": "admindbpassword",
     "schema": "dbuser", // If not set, then it equals to 'database:user'
     "databaseName": "dbuser", // If not set, then it equals to 'database:schema'
     "hostname": "localhost",

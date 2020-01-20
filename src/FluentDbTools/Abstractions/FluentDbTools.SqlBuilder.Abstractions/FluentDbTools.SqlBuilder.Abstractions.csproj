@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
@@ -7,11 +7,6 @@
     <Import Project="..\..\SolutionInfo.proj" />
 
     <ItemGroup>
-      <ProjectReference Include="..\FluentDbTools.Common.Abstractions\FluentDbTools.Common.Abstractions.csproj" />
+      <ProjectReference Include="..\FluentDbTools.Abstractions\FluentDbTools.Abstractions.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Dapper" Version="1.50.5" />
-    </ItemGroup>
-
 </Project>

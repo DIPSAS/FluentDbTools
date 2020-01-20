@@ -25,10 +25,10 @@ namespace Test.FluentDbTools.SqlBuilder
             var addDictionary = new Dictionary<string, string> { { "database:schemaPrefix:Id", schemaPrefixId } };
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes, addDictionary).CreateScope())
             {
-                var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
+                var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
-                var builder = dbConfig.CreateSqlBuilder();
+                var builder = dbConfig.SqlBuilder();
                 var insert = builder.Insert<Entity>();
 
                 var sql = insert
@@ -56,11 +56,11 @@ namespace Test.FluentDbTools.SqlBuilder
             var addDictionary = new Dictionary<string, string> { { "database:schemaPrefix:Id", schemaPrefixId } };
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes, addDictionary).CreateScope())
             {
-                var dbConfig = scope.ServiceProvider.GetService<IDbConfigDatabaseTargets>();
+                var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
-                var builder = dbConfig.CreateSqlBuilder();
-                var resolver = dbConfig.CreateParameterResolver();
+                var builder = dbConfig.SqlBuilder();
+                var resolver = dbConfig.DatabaseParameterResolver();
                 var insert = builder.Insert<Entity>();
                 var sql = insert
                     .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue: () => useSchema)

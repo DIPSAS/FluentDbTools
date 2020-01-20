@@ -12,18 +12,18 @@ namespace Example.FluentDbTools.Database.Select
     {
         public static Task<Person> Execute(
             IDbConnection dbConnection,
-            IDbConfigDatabaseTargets dbConfig,
+            IDbConfigSchemaTargets dbConfigConfig,
             Guid id)
         {
-            var sql = dbConfig.BuildSql();
+            var sql = dbConfigConfig.BuildSql();
             var @params = new DynamicParameters();
-            @params.Add(nameof(Person.PersonId), dbConfig.CreateParameterResolver().WithGuidParameterValue(id));
+            @params.Add(nameof(Person.PersonId), dbConfigConfig.DatabaseParameterResolver().WithGuidParameterValue(id));
             return dbConnection.QuerySingleAsync<Person>(sql, @params);
         }
         
-        private static string BuildSql(this IDbConfigDatabaseTargets dbConfig)
+        private static string BuildSql(this IDbConfigSchemaTargets dbConfigConfig)
         {
-            var sql = dbConfig.CreateSqlBuilder().Select()
+            var sql = dbConfigConfig.SqlBuilder().Select()
                 .OnSchema()
                 .Fields<Person>(x => x.F(item => item.PersonId))
                 .Fields<Person>(x => x.F(item => item.SequenceNumber))

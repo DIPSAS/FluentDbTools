@@ -9,12 +9,12 @@ namespace FluentDbTools.SqlBuilder.Common
 {
     internal class WhereFieldSelector<TClass> : IWhereFieldSelector<TClass>
     {
-        protected readonly IDbConfigDatabaseTargets DbConfig;
+        protected readonly IDbConfigSchemaTargets DbConfigConfig;
         private readonly List<string> Wheres = new List<string>();
 
-        public WhereFieldSelector(IDbConfigDatabaseTargets dbConfig)
+        public WhereFieldSelector(IDbConfigSchemaTargets dbConfigConfig)
         {
-            DbConfig = dbConfig;
+            DbConfigConfig = dbConfigConfig;
         }
 
         public IWhereFieldSelector<TClass> WP<T>(Expression<Func<TClass, T>> field,
@@ -70,7 +70,7 @@ namespace FluentDbTools.SqlBuilder.Common
         
         protected virtual string CreateWhereFieldStringForParameter(string field, string paramName, OP whereOperator)
         {
-            return $"{field} {SqlBuilderHelper.GetStringForOperator(whereOperator)} {DbConfig.WithParameters(paramName)}";
+            return $"{field} {SqlBuilderHelper.GetStringForOperator(whereOperator)} {DbConfigConfig.WithParameters(paramName)}";
         }
 
         protected virtual string CreateWhereFieldStringForValue(string field, OP whereOperator, params string[] value)
@@ -101,7 +101,7 @@ namespace FluentDbTools.SqlBuilder.Common
         {
             var values = string.Join(", ", value);
             if ((whereOperator == OP.IN || whereOperator == OP.NOT_IN)
-                && DbConfig.DbType == SupportedDatabaseTypes.Postgres)
+                && DbConfigConfig.DbType == SupportedDatabaseTypes.Postgres)
             {
                 values = "(" + values + ")";
             }

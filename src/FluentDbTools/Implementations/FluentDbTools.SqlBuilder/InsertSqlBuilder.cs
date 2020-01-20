@@ -9,12 +9,12 @@ namespace FluentDbTools.SqlBuilder
 {
     internal class InsertSqlBuilder<TClass> : IInsertSqlBuilder<TClass>
     {
-        private readonly IDbConfigDatabaseTargets DbConfig;
+        private readonly IDbConfigSchemaTargets DbConfigConfig;
 
-        public InsertSqlBuilder(IDbConfigDatabaseTargets dbConfig)
+        public InsertSqlBuilder(IDbConfigSchemaTargets dbConfigConfig)
         {
-            DbConfig = dbConfig;
-            DbType = dbConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
+            DbConfigConfig = dbConfigConfig;
+            DbType = dbConfigConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
         }
 
         public SupportedDatabaseTypes DbType { get; }
@@ -26,8 +26,8 @@ namespace FluentDbTools.SqlBuilder
 
         private class InsertFieldSelector : BaseFieldSetterSelector<TClass>
         {
-            public InsertFieldSelector(IDbConfigDatabaseTargets dbConfig)
-                : base (dbConfig)
+            public InsertFieldSelector(IDbConfigSchemaTargets dbConfigConfig)
+                : base (dbConfigConfig)
             {
             }
             public override string Build()
@@ -38,13 +38,13 @@ namespace FluentDbTools.SqlBuilder
 
             private string CreateFieldValue(Field field)
             {
-                return field.IsParameterized ? DbConfig?.WithParameters(field.Value) : field.Value;
+                return field.IsParameterized ? DbConfigConfig?.WithParameters(field.Value) : field.Value;
             }
         }
 
         public IInsertSqlBuilder<TClass> Fields(Action<IFieldSetterSelector<TClass>> selector)
         {
-            FieldSelector = FieldSelector ?? new InsertFieldSelector(DbConfig);
+            FieldSelector = FieldSelector ?? new InsertFieldSelector(DbConfigConfig);
             FieldSelector.OnTable(TableName);
             FieldSelector.OnSchema(SchemaName);
             selector(FieldSelector);
@@ -64,7 +64,7 @@ namespace FluentDbTools.SqlBuilder
         {
             if (setSchemaNameIfExpressionIsEvaluatedToTrue?.Invoke() ?? true)
             {
-                SchemaName = schemaName ?? DbConfig.Schema ?? string.Empty;
+                SchemaName = schemaName ?? DbConfigConfig.Schema ?? string.Empty;
             }
             return this;
         }

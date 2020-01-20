@@ -53,12 +53,12 @@ using (var scope = serviceProvider.CreateScope())
     "type": "postgres",
     "user": "dbuser",
     "password": "dbpassword",
-    "adminUser": "admin",
-    "adminPassword": "admin",
+    "adminUser": "admindbuser",
+    "adminPassword": "admindbuser",
     "schema": "dbuser", 
     "databaseName": "dbuser", 
     "hostname": "localhost",
-    "port": 5433,
+    "port": 5432,
     "pooling": true,
 	// If you want all tables should be prefixed with EX 
 	// i.e. Person will give tablename EXPerson in the database

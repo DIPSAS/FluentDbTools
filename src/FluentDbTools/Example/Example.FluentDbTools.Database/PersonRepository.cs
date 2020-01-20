@@ -11,14 +11,14 @@ namespace Example.FluentDbTools.Database
     public class PersonRepository : IPersonRepository
     {
         private readonly ILogger Logger;
-        private readonly IDbConfigDatabaseTargets DbConfig;
+        private readonly IDbConfigSchemaTargets DbConfigConfig;
 
         public PersonRepository(
             ILogger<PersonRepository> logger,
-            IDbConfigDatabaseTargets dbConfig)
+            IDbConfigSchemaTargets dbConfigConfig)
         {
             Logger = logger;
-            DbConfig = dbConfig;
+            DbConfigConfig = dbConfigConfig;
         }
         
         public Task InsertPerson(Person person, IDbConnection dbConnection)
@@ -26,7 +26,7 @@ namespace Example.FluentDbTools.Database
             Logger.LogDebug($"Inserting person with id: {person.PersonId}");
             return Insert.InsertPerson.Execute(
                 dbConnection,
-                DbConfig,
+                DbConfigConfig,
                 person);
         }
 
@@ -35,7 +35,7 @@ namespace Example.FluentDbTools.Database
             Logger.LogDebug($"Selecting multiple persons");
             return Select.SelectPersons.Execute(
                 dbConnection,
-                DbConfig,
+                DbConfigConfig,
                 ids);
         }
 
@@ -44,7 +44,7 @@ namespace Example.FluentDbTools.Database
             Logger.LogDebug($"Selecting person with id: {id}");
             return Select.SelectPerson.Execute(
                 dbConnection,
-                DbConfig,
+                DbConfigConfig,
                 id);
         }
 
@@ -53,7 +53,7 @@ namespace Example.FluentDbTools.Database
             Logger.LogDebug($"Count how many persons alive.");
             return Select.SelectPersonsCount.Execute(
                 dbConnection,
-                DbConfig);
+                DbConfigConfig);
         }
 
         public Task UpdatePerson(Person person, IDbConnection dbConnection)
@@ -61,7 +61,7 @@ namespace Example.FluentDbTools.Database
             Logger.LogDebug($"Updating person with id: {person.PersonId}");
             return Update.UpdatePerson.Execute(
                 dbConnection,
-                DbConfig,
+                DbConfigConfig,
                 person);
         }
 
@@ -70,7 +70,7 @@ namespace Example.FluentDbTools.Database
             Logger.LogDebug($"Deleting person with id: {id}");
             return Delete.DeletePerson.Execute(
                 dbConnection,
-                DbConfig,
+                DbConfigConfig,
                 id);
         }
     }

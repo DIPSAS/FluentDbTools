@@ -12,18 +12,18 @@ namespace Example.FluentDbTools.Database.Delete
     {
         public static Task Execute(
             IDbConnection dbConnection,
-            IDbConfigDatabaseTargets dbConfig,
+            IDbConfigSchemaTargets dbConfigConfig,
             Guid id)
         {
-            var sql = dbConfig.BuildSql();
+            var sql = dbConfigConfig.BuildSql();
             var @params = new DynamicParameters();
-            @params.Add(nameof(Person.PersonId), dbConfig.CreateParameterResolver().WithGuidParameterValue(id));
+            @params.Add(nameof(Person.PersonId), dbConfigConfig.DatabaseParameterResolver().WithGuidParameterValue(id));
             return dbConnection.ExecuteAsync(sql, @params);
         }
         
-        private static string BuildSql(this IDbConfigDatabaseTargets dbConfig)
+        private static string BuildSql(this IDbConfigSchemaTargets dbConfigConfig)
         {
-            var sql = dbConfig.CreateSqlBuilder().Delete<Person>()
+            var sql = dbConfigConfig.SqlBuilder().Delete<Person>()
                 .OnSchema()
                 .Where(x => x.WP(item => item.PersonId))
                 .Build();

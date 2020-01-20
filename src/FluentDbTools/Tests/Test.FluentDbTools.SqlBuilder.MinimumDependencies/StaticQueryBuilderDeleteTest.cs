@@ -1,7 +1,6 @@
 ﻿using FluentDbTools.Common.Abstractions;
-using FluentDbTools.Extensions.SqlBuilder;
 using FluentAssertions;
-using FluentDbTools.Contracts;
+using FluentDbTools.SqlBuilder;
 using Test.FluentDbTools.SqlBuilder.MinimumDependencies.TestEntities;
 using Xunit;
 
@@ -22,7 +21,7 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         {
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema, schemaPrefixId: schemaPrefixId);
+            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId() ?? string.Empty);
 
             var builder = dbConfig.CreateSqlBuilder();
@@ -47,7 +46,7 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
             const string tableName = "EntityTable";
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = DbConfigDatabaseTargets.Create(databaseTypes, schema, schemaPrefixId: schemaPrefixId);
+            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId() ?? string.Empty);
 
             var builder = dbConfig.CreateSqlBuilder();

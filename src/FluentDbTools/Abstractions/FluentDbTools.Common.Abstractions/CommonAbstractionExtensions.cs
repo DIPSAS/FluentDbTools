@@ -21,7 +21,7 @@ namespace FluentDbTools.Common.Abstractions
         /// <param name="dbConfig"></param>
         /// <param name="name">
         /// The object to add prefix to.<br/>
-        /// If name start with value of {<see cref="IDbConfigDatabaseTargets.GetSchemaPrefixId()"/>}, the value of <paramref name="name"/> will be returned
+        /// If name start with value of {<see cref="IDbConfigSchemaTargets.GetSchemaPrefixId()"/>}, the value of <paramref name="name"/> will be returned
         /// </param>
         /// <returns></returns>
         public static string GetPrefixedName(this IDbConfig dbConfig, string name)

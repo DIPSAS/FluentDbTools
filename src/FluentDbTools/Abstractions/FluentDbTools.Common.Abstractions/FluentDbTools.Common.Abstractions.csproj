@@ -14,6 +14,10 @@
       <EmbeddedResource Include="Secrets\Key512Bytes.txt" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FluentDbTools.Abstractions\FluentDbTools.Abstractions.csproj" />
+    </ItemGroup>
+
     <Import Project="..\..\SolutionInfo.proj" />
 
 </Project>

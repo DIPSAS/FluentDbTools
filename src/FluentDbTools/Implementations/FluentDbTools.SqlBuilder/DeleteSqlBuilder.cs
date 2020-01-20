@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions;
-using FluentDbTools.SqlBuilder.Abstractions.Common;
 using FluentDbTools.SqlBuilder.Abstractions.Fields;
 using FluentDbTools.SqlBuilder.Common;
 
@@ -11,17 +10,17 @@ namespace FluentDbTools.SqlBuilder
     internal class DeleteSqlBuilder<TClass> : IDeleteSqlBuilder<TClass>
     {
         private readonly List<string> Wheres = new List<string>();
-        private readonly IDbConfigDatabaseTargets DbConfig;
+        private readonly IDbConfigSchemaTargets DbConfigConfig;
         private string TableName;
         private string SchemaName;
 
         private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? SchemaPrefixId : $"{SchemaName}.{SchemaPrefixId}";
-        private string SchemaPrefixId => DbConfig?.GetSchemaPrefixId() ?? string.Empty;
+        private string SchemaPrefixId => DbConfigConfig?.GetSchemaPrefixId() ?? string.Empty;
 
-        public DeleteSqlBuilder(IDbConfigDatabaseTargets dbConfig)
+        public DeleteSqlBuilder(IDbConfigSchemaTargets dbConfigConfig)
         {
-            DbConfig = dbConfig;
-            DbType = dbConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
+            DbConfigConfig = dbConfigConfig;
+            DbType = dbConfigConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
         }
 
         public SupportedDatabaseTypes DbType { get; }
@@ -29,7 +28,7 @@ namespace FluentDbTools.SqlBuilder
 
         public IDeleteSqlBuilder<TClass> Where(Action<IWhereFieldSelector<TClass>> selector)
         {
-            var whereSelector = new WhereFieldSelector<TClass>(DbConfig);
+            var whereSelector = new WhereFieldSelector<TClass>(DbConfigConfig);
             selector(whereSelector);
 
             Wheres.AddRange(whereSelector.Build());
@@ -56,7 +55,7 @@ namespace FluentDbTools.SqlBuilder
         {
             if (setSchemaNameIfExpressionIsEvaluatedToTrue?.Invoke() ?? true)
             {
-                SchemaName = schemaName ?? DbConfig?.Schema ?? string.Empty;
+                SchemaName = schemaName ?? DbConfigConfig?.Schema ?? string.Empty;
             }
             return this;
         }
