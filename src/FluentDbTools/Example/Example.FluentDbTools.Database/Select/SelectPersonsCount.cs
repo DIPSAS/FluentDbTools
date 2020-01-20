@@ -22,8 +22,8 @@ namespace Example.FluentDbTools.Database.Select
         private static string BuildSql(this IDbConfigSchemaTargets dbConfigConfig, out DynamicParameters @params)
         {
             @params = new DynamicParameters();
-            @params.Add(nameof(Person.Alive), dbConfigConfig.DatabaseParameterResolver().WithBooleanParameterValue(true));
-            var sql = dbConfigConfig.SqlBuilder().Select()
+            @params.Add(nameof(Person.Alive), dbConfigConfig.CreateDatabaseParameterResolver().WithBooleanParameterValue(true));
+            var sql = dbConfigConfig.CreateSqlBuilder().Select()
                 .OnSchema()
                 .Count()
                 .Fields<Person>(x => x.F(item => item.PersonId))

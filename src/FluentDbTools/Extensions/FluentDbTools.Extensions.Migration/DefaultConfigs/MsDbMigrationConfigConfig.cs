@@ -130,6 +130,7 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         public string GetSchemaPrefixUniqueId()
         {
             return GetAllMigrationConfigValues().GetValue("schemaPrefix:UniqueId") ??
+                   GetDbConfig().GetAllDatabaseConfigValues().GetValue("schemaPrefix:UniqueId") ??
                    Defaults?.GetDefaultSchemaPrefixUniqueIdString.Invoke() ?? string.Empty; ;
         }
 

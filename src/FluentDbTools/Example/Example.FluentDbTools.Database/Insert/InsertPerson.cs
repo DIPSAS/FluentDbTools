@@ -17,8 +17,8 @@ namespace Example.FluentDbTools.Database.Insert
         {
             var sql = dbConfigConfig.BuildSql();
             var @params = new DynamicParameters();
-            @params.Add(nameof(Person.PersonId), dbConfigConfig.DatabaseParameterResolver().WithGuidParameterValue(person.PersonId));
-            @params.Add(nameof(Person.Alive), dbConfigConfig.DatabaseParameterResolver().WithBooleanParameterValue(person.Alive));
+            @params.Add(nameof(Person.PersonId), dbConfigConfig.CreateDatabaseParameterResolver().WithGuidParameterValue(person.PersonId));
+            @params.Add(nameof(Person.Alive), dbConfigConfig.CreateDatabaseParameterResolver().WithBooleanParameterValue(person.Alive));
             @params.Add(nameof(Person.Username), person.Username);
             @params.Add(nameof(Person.Password), person.Password);
             await dbConnection.ExecuteAsync(sql, @params);
@@ -26,8 +26,8 @@ namespace Example.FluentDbTools.Database.Insert
         
         private static string BuildSql(this IDbConfigSchemaTargets dbConfigConfig)
         {
-            var parameterResolver = dbConfigConfig.DatabaseParameterResolver();
-            var sql = dbConfigConfig.SqlBuilder().Insert<Person>()
+            var parameterResolver = dbConfigConfig.CreateDatabaseParameterResolver();
+            var sql = dbConfigConfig.CreateSqlBuilder().Insert<Person>()
                 .OnSchema()
                 .Fields(x => x.FP(item => item.PersonId))
                 .Fields(x => x.FV(item => item.SequenceNumber, parameterResolver.WithNextTableSequence<Person>(), ignoreFormat: true))

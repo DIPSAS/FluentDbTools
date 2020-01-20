@@ -28,7 +28,7 @@ namespace Test.FluentDbTools.SqlBuilder
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
                 
-                var builder = dbConfig.SqlBuilder();
+                var builder = dbConfig.CreateSqlBuilder();
                 var select = builder.Select();
                 var sqls = new List<string>
                 {
@@ -72,7 +72,7 @@ namespace Test.FluentDbTools.SqlBuilder
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
                 
-                var builder = dbConfig.SqlBuilder();
+                var builder = dbConfig.CreateSqlBuilder();
                 var select = builder.Select();
 
                 var sqls = new List<string>
@@ -137,7 +137,7 @@ namespace Test.FluentDbTools.SqlBuilder
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
                 
-                var builder = dbConfig.SqlBuilder();
+                var builder = dbConfig.CreateSqlBuilder();
                 var select = builder.Select();
 
                 var sqls = new List<string>
@@ -217,7 +217,7 @@ namespace Test.FluentDbTools.SqlBuilder
             {
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
-                var builder = dbConfig.SqlBuilder();
+                var builder = dbConfig.CreateSqlBuilder();
                 var sql =
                     builder.Select()
                         .Fields<Entity>(x => x.F(item => item.Name))

@@ -20,11 +20,11 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         [InlineData(SupportedDatabaseTypes.Postgres, "schema", "UP", "UPDATE {0}.{1}Entity SET Description = @Description, Name = 'Arild' WHERE Id = @IdParam")]
         public void UpdateTest(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             var useSchema = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var update = builder.Update<Entity>();
 
             var sql = update
@@ -49,11 +49,11 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         public void UpdateTest_WithTableNameSet(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
             const string tableName = "EntityTable";
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             var useSchema = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var update = builder.Update<Entity>();
 
             var sql = update
@@ -78,11 +78,11 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         [InlineData(SupportedDatabaseTypes.Postgres, "schema", "UPD", "UPDATE {0}.{1}Entity SET Description = @Description, Name = 'Arild' WHERE Id = @IdParam AND Name <> 'Arild'")]
         public void UpdateTestWithWhereIfTest(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             var ifStatementResult = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var update = builder.Update<Entity>();
 
             var sql = update

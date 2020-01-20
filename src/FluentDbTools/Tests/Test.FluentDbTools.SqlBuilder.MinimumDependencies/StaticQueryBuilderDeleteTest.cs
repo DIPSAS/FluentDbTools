@@ -21,10 +21,10 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         {
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId() ?? string.Empty);
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var delete = builder.Delete<Entity>();
 
             var sql = delete
@@ -46,10 +46,10 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
             const string tableName = "EntityTable";
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId() ?? string.Empty);
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var delete = builder.Delete<Entity>();
 
             var sql = delete

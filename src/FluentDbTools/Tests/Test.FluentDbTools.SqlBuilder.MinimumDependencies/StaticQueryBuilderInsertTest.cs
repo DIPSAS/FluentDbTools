@@ -21,10 +21,10 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         {
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var insert = builder.Insert<Entity>();
 
             var sql = insert
@@ -51,10 +51,10 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
             const string tableName = "EntityTable";
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var insert = builder.Insert<Entity>();
 
             var sql = insert
@@ -81,11 +81,11 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         {
             var useSchema = !string.IsNullOrEmpty(schema);
 
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
-            var builder = dbConfig.CreateSqlBuilder();
-            var resolver = dbConfig.CreateParameterResolver();
+            var builder = dbConfig.SqlBuilder();
+            var resolver = dbConfig.DatabaseParameterResolver();
             var insert = builder.Insert<Entity>();
             var sql = insert
                 .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue: () => useSchema)
@@ -109,10 +109,10 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         public void InsertTest_WithEnumAndDirectProperty(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
             var useSchema = !string.IsNullOrEmpty(schema);
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
-            var builder = dbConfig.CreateSqlBuilder();
-            var resolver = dbConfig.CreateParameterResolver();
+            var builder = dbConfig.SqlBuilder();
+            var resolver = dbConfig.DatabaseParameterResolver();
             var insert = builder.Insert<Entity>();
             var sql = insert
                 .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue: () => useSchema)

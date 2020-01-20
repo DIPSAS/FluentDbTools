@@ -29,7 +29,7 @@ namespace Test.FluentDbTools.SqlBuilder
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
                 
-                var builder = dbConfig.SqlBuilder();
+                var builder = dbConfig.CreateSqlBuilder();
                 var update = builder.Update<Entity>();
                 
                 var sql = update
@@ -59,7 +59,7 @@ namespace Test.FluentDbTools.SqlBuilder
             {
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
-                var builder = dbConfig.SqlBuilder();
+                var builder = dbConfig.CreateSqlBuilder();
                 var update = builder.Update<Entity>();
 
                 var sql = update

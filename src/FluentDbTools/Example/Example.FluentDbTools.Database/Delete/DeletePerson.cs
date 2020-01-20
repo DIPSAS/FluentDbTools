@@ -17,13 +17,13 @@ namespace Example.FluentDbTools.Database.Delete
         {
             var sql = dbConfigConfig.BuildSql();
             var @params = new DynamicParameters();
-            @params.Add(nameof(Person.PersonId), dbConfigConfig.DatabaseParameterResolver().WithGuidParameterValue(id));
+            @params.Add(nameof(Person.PersonId), dbConfigConfig.CreateDatabaseParameterResolver().WithGuidParameterValue(id));
             return dbConnection.ExecuteAsync(sql, @params);
         }
         
         private static string BuildSql(this IDbConfigSchemaTargets dbConfigConfig)
         {
-            var sql = dbConfigConfig.SqlBuilder().Delete<Person>()
+            var sql = dbConfigConfig.CreateSqlBuilder().Delete<Person>()
                 .OnSchema()
                 .Where(x => x.WP(item => item.PersonId))
                 .Build();

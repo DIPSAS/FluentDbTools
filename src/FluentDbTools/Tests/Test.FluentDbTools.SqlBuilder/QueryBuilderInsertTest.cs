@@ -28,7 +28,7 @@ namespace Test.FluentDbTools.SqlBuilder
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
-                var builder = dbConfig.SqlBuilder();
+                var builder = dbConfig.CreateSqlBuilder();
                 var insert = builder.Insert<Entity>();
 
                 var sql = insert
@@ -59,8 +59,8 @@ namespace Test.FluentDbTools.SqlBuilder
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
-                var builder = dbConfig.SqlBuilder();
-                var resolver = dbConfig.DatabaseParameterResolver();
+                var builder = dbConfig.CreateSqlBuilder();
+                var resolver = dbConfig.CreateDatabaseParameterResolver();
                 var insert = builder.Insert<Entity>();
                 var sql = insert
                     .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue: () => useSchema)

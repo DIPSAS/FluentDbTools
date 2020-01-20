@@ -20,12 +20,12 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         [InlineData(SupportedDatabaseTypes.Postgres, "schema", "XY", "SELECT e.Name, e.Description FROM {0}.{1}Entity e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
         public void SelectTestOneTableOnly(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
 
             var useSchema = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId() ?? string.Empty);
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var select = builder.Select();
             var sqls = new List<string>
                 {
@@ -63,11 +63,11 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         public void SelectTestOneTableOnly_WithTableNameSet(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
             const string tableName = "EntityTable";
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             var useSchema = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId() ?? string.Empty);
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var select = builder.Select();
             var sqls = new List<string>
                 {
@@ -104,11 +104,11 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         [InlineData(SupportedDatabaseTypes.Postgres, "schema", "XY", "SELECT COUNT(e.Name, e.Description) FROM {0}.{1}Entity e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
         public void SelectCountTestOneTableOnly(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             var useSchema = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId() ?? string.Empty);
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var select = builder.Select();
             var sqls = new List<string>
                 {
@@ -147,12 +147,12 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         [InlineData(SupportedDatabaseTypes.Postgres, "schema", "XY", "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {0}.{1}Entity e INNER JOIN {0}.{1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.{1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
         public void SelectTestWithJoins(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
 
             var useSchema = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var select = builder.Select();
 
             var sqls = new List<string>
@@ -210,11 +210,11 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         [InlineData(SupportedDatabaseTypes.Postgres, "postgres_schema", "XY", "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {0}.{1}Entity e INNER JOIN {0}.{1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.{1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
         public void SelectTest2WithJoins(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
         {
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             var useSchema = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId() ?? string.Empty);
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var select = builder.Select();
 
             var sqls = new List<string>
@@ -298,11 +298,11 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
             const string entityTableName = "EntityTable";
             const string childTableName = "ChildEntityTable";
             const string childChildTableName = "ChildChildEntityTable";
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
             var useSchema = !string.IsNullOrEmpty(schema);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId() ?? string.Empty);
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var select = builder.Select();
 
             var sqls = new List<string>
@@ -356,10 +356,10 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         [InlineData(false, "XY", "SELECT e.Name, e.Description FROM {1}Entity e WHERE e.Id = @IdParam")]
         public void SelectWithIfStatementTest(bool ifStatementResult, string schemaPrefixId, string expectedSql)
         {
-            var dbConfig = SqlBuilderFactory.CreateDbConfigSchemaTargets(null, schemaPrefixId, SupportedDatabaseTypes.Postgres);
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(null, schemaPrefixId, SupportedDatabaseTypes.Postgres);
             expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId() ?? string.Empty);
 
-            var builder = dbConfig.CreateSqlBuilder();
+            var builder = dbConfig.SqlBuilder();
             var sql =
                 builder.Select()
                     .Fields<Entity>(x => x.F(item => item.Name))

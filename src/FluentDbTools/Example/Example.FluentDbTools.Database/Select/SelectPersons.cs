@@ -26,8 +26,8 @@ namespace Example.FluentDbTools.Database.Select
         {
             @params = new DynamicParameters();
 
-            var inSelections = dbConfigConfig.DatabaseParameterResolver().AddArrayParameter(@params, nameof(Person.PersonId), ids);
-            var sql = dbConfigConfig.SqlBuilder().Select()
+            var inSelections = dbConfigConfig.CreateDatabaseParameterResolver().AddArrayParameter(@params, nameof(Person.PersonId), ids);
+            var sql = dbConfigConfig.CreateSqlBuilder().Select()
                 .OnSchema()
                 .Fields<Person>(x => x.F(item => item.PersonId))
                 .Fields<Person>(x => x.F(item => item.SequenceNumber))

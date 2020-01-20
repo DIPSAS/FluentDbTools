@@ -23,7 +23,7 @@ namespace FluentDbTools.SqlBuilder
         /// </summary>
         /// <param name="dbConfigConfig">See <see cref="IDbConfigSchemaTargets.Schema"/></param>
         /// <returns></returns>
-        public static ISqlBuilder CreateSqlBuilder(this IDbConfigSchemaTargets dbConfigConfig)
+        public static ISqlBuilder SqlBuilder(this IDbConfigSchemaTargets dbConfigConfig)
         {
             return new SqlBuilder(dbConfigConfig);
         }
@@ -35,7 +35,7 @@ namespace FluentDbTools.SqlBuilder
         /// <param name="schemaPrefixId"><inheritdoc cref="IDbConfigSchemaTargets.GetSchemaPrefixId"/></param>
         /// <param name="dbType"><inheritdoc cref="IDbConfigSchemaTargets.DbType"/></param>
         /// <returns></returns>
-        public static ISqlBuilder CreateSqlBuilder(
+        public static ISqlBuilder SqlBuilder(
             string schema,
             string schemaPrefixId,
             SupportedDatabaseTypes dbType = SupportedDatabaseTypes.Oracle)
@@ -50,7 +50,7 @@ namespace FluentDbTools.SqlBuilder
         /// </summary>
         /// <param name="dbConfigConfig"></param>
         /// <returns></returns>
-        public static IDatabaseParameterResolver CreateParameterResolver(this IDbConfigSchemaTargets dbConfigConfig)
+        public static IDatabaseParameterResolver DatabaseParameterResolver(this IDbConfigSchemaTargets dbConfigConfig)
         {
             return new DatabaseParameterResolver(dbConfigConfig);
         }
@@ -63,7 +63,7 @@ namespace FluentDbTools.SqlBuilder
         /// <param name="schemaPrefixId"><inheritdoc cref="IDbConfigSchemaTargets.GetSchemaPrefixId"/></param>
         /// <param name="dbType"><inheritdoc cref="IDbConfigSchemaTargets.DbType"/></param>
         /// <returns></returns>
-        public static IDatabaseParameterResolver CreateParameterResolver(
+        public static IDatabaseParameterResolver DatabaseParameterResolver(
             string schema, 
             string schemaPrefixId,
             SupportedDatabaseTypes dbType = SupportedDatabaseTypes.Oracle)
@@ -82,7 +82,7 @@ namespace FluentDbTools.SqlBuilder
         /// <param name="schemaPrefixId"></param>
         /// <param name="dbType"></param>
         /// <returns></returns>
-        public static IDbConfigSchemaTargets CreateDbConfigSchemaTargets(
+        public static IDbConfigSchemaTargets DbConfigSchemaTargets(
             string schema,
             string schemaPrefixId,
             SupportedDatabaseTypes dbType = SupportedDatabaseTypes.Oracle)

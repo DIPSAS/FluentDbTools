@@ -28,7 +28,7 @@ namespace Test.FluentDbTools.SqlBuilder
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
                 expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
                 
-                var builder = dbConfig.SqlBuilder();
+                var builder = dbConfig.CreateSqlBuilder();
                 var delete = builder.Delete<Entity>();
 
                 var sql = delete

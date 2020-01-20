@@ -17,13 +17,13 @@ namespace Example.FluentDbTools.Database.Select
         {
             var sql = dbConfigConfig.BuildSql();
             var @params = new DynamicParameters();
-            @params.Add(nameof(Person.PersonId), dbConfigConfig.DatabaseParameterResolver().WithGuidParameterValue(id));
+            @params.Add(nameof(Person.PersonId), dbConfigConfig.CreateDatabaseParameterResolver().WithGuidParameterValue(id));
             return dbConnection.QuerySingleAsync<Person>(sql, @params);
         }
         
         private static string BuildSql(this IDbConfigSchemaTargets dbConfigConfig)
         {
-            var sql = dbConfigConfig.SqlBuilder().Select()
+            var sql = dbConfigConfig.CreateSqlBuilder().Select()
                 .OnSchema()
                 .Fields<Person>(x => x.F(item => item.PersonId))
                 .Fields<Person>(x => x.F(item => item.SequenceNumber))
