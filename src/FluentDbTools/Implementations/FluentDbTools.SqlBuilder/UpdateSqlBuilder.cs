@@ -24,11 +24,12 @@ namespace FluentDbTools.SqlBuilder
             set => SchemaNameField = value;
         }
 
-        public UpdateSqlBuilder(IDbConfigSchemaTargets dbConfigConfig)
+        public UpdateSqlBuilder(IDbConfigSchemaTargets dbConfigConfig, string tableName = null)
         {
             DbConfigConfig = dbConfigConfig;
             DbType = dbConfigConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
-            
+            TableName = tableName;
+
             UpdateFieldSelector = new UpdateFieldSelector<TClass>(DbConfigConfig);
         }
 

@@ -7,11 +7,11 @@ namespace FluentDbTools.SqlBuilder.Abstractions
     {
         SupportedDatabaseTypes DatabaseType { get; }
 
-        IDeleteSqlBuilder<TClass> Delete<TClass>();
+        IDeleteSqlBuilder<TClass> Delete<TClass>(string tableName = null);
 
-        IUpdateSqlBuilder<TClass> Update<TClass>();
+        IUpdateSqlBuilder<TClass> Update<TClass>(string tableName = null);
 
-        IInsertSqlBuilder<TClass> Insert<TClass>();
+        IInsertSqlBuilder<TClass> Insert<TClass>(string tableName = null);
 
         ISelectSqlBuilder Select();
     }

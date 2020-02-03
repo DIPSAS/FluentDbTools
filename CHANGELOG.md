@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.2.4 2020-02-02
+- Resolved issue on SqlBuilder where a invalid alias (as) was genereted.
+- Introduced SqlAliasHelper with Blacklisted Aliases functionallity.
+- The Alias-Blacklist is pre-filled with "as", "on" etc...
+
 ### Version 1.2.3 2020-01-20
 - Added SolutionInfo.proj to FluentDbTools.Abstractions and FluentDbTools.SqlBuilder.Dapper project
 

@@ -49,7 +49,7 @@ namespace FluentDbTools.SqlBuilder
             return this;
         }
 
-        public ISelectSqlBuilder Fields<T>(Action<ISelectFieldSelector<T>> selector, string tableName = null)
+        public ISelectSqlBuilder Fields<T>(Action<ISelectFieldSelector<T>> selector, string tableName = null, string tableAlias = null)
         {
             var fieldSelector = new SelectFieldSelector<T>();
             selector(fieldSelector);
@@ -62,28 +62,32 @@ namespace FluentDbTools.SqlBuilder
                            return;
                        }
 
-                       var alias = fieldSelector.GetFirstTableAlias(typeof(T));
+                       var alias = tableAlias.WithDefault(fieldSelector.GetFirstTableAlias(typeof(T)));
                        if (!string.IsNullOrEmpty(alias))
                        {
-                           TableAlias = alias;
+                           TableAlias = TableAlias.WithDefault(alias);
                        }
-                   }, tableName);
+                   }, tableName, tableAlias);
 
             FieldsList.AddRange(fieldSelector.Build());
 
             return this;
         }
 
-        private void SetTableName<T>(Action additionAction = null, string originalTableName = null)
+        private void SetTableName<T>(Action additionAction = null, string originalTableName = null, string tableAlias = null)
         {
             if (!string.IsNullOrEmpty(TableName))
             {
+                if (TableAlias.IsEmpty())
+                {
+                    TableAlias = SqlAliasHelper.GetAliasForType<T>(tableAlias, TableName);
+                }
                 additionAction?.Invoke();
                 return;
             }
 
             TableName = SqlBuilderHelper.GetTableName<T>(SchemaNamePrefix, originalTableName);
-            TableAlias = SqlBuilderHelper.GetAliasForType<T>();
+            TableAlias = SqlAliasHelper.GetAliasForType<T>(tableAlias, originalTableName);
 
             additionAction?.Invoke();
         }
@@ -93,11 +97,11 @@ namespace FluentDbTools.SqlBuilder
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="selector"></param>
-        /// <param name="prefix"></param>
+        /// <param name="tableAlias"></param>
         /// <returns></returns>
-        public ISelectSqlBuilder Where<T>(Action<IWhereFieldSelector<T>> selector, string prefix = null)
+        public ISelectSqlBuilder Where<T>(Action<IWhereFieldSelector<T>> selector, string tableAlias = null)
         {
-            var fieldSelector = new WhereFieldSelectorWithSelect<T>(prefix, DbConfigConfig);
+            var fieldSelector = new WhereFieldSelectorWithSelect<T>(tableAlias, DbConfigConfig);
             selector(fieldSelector);
 
             Wheres.AddRange(fieldSelector.Build());
@@ -111,20 +115,20 @@ namespace FluentDbTools.SqlBuilder
         /// <param name="selector"></param>
         /// <param name="statement"></param>
         /// <returns></returns>
-        public ISelectSqlBuilder WhereIf<T>(Action<IWhereFieldSelector<T>> selector, Func<bool> statement, string prefix = null)
+        public ISelectSqlBuilder WhereIf<T>(Action<IWhereFieldSelector<T>> selector, Func<bool> statement, string tableAlias = null)
         {
             if (statement.Invoke())
             {
-                Where(selector, prefix);
+                Where(selector, tableAlias);
             }
             return this;
         }
 
-        public ISelectSqlBuilder InnerJoin<TFrom, TTo>(string fromField = null, string toField = null, string toPrefix = null, string fromPrefix = null,
+        public ISelectSqlBuilder InnerJoin<TFrom, TTo>(string fromField = null, string toField = null, string toTableAlias = null, string fromTableAlias = null,
             string fromTableName = null,
             string toTableName = null)
         {
-            return TypeJoin<TFrom, TTo>("INNER", fromField, toField, toPrefix, fromPrefix, fromTableName, toTableName);
+            return TypeJoin<TFrom, TTo>("INNER", fromField, toField, toTableAlias, fromTableAlias, fromTableName, toTableName);
         }
 
         /// <summary>
@@ -133,30 +137,30 @@ namespace FluentDbTools.SqlBuilder
         /// <typeparam name="TFrom"></typeparam>
         /// <typeparam name="TTo"></typeparam>
         /// <returns></returns>
-        public ISelectSqlBuilder LeftOuterJoin<TFrom, TTo>(string fromField = null, string toField = null, string toPrefix = null, string fromPrefix = null,
+        public ISelectSqlBuilder LeftOuterJoin<TFrom, TTo>(string fromField = null, string toField = null, string toTableAlias = null, string fromTableAlias = null,
             string fromTableName = null,
             string toTableName = null)
         {
-            return TypeJoin<TFrom, TTo>("LEFT OUTER", fromField, toField, toPrefix, fromPrefix, fromTableName, toTableName);
+            return TypeJoin<TFrom, TTo>("LEFT OUTER", fromField, toField, toTableAlias, fromTableAlias, fromTableName, toTableName);
         }
 
-        public ISelectSqlBuilder From<TFrom>(string fromTableName = null)
+        public ISelectSqlBuilder From<TFrom>(string fromTableName = null, string tableAlias = null)
         {
-            SetTableName<TFrom>(originalTableName: fromTableName);
+            SetTableName<TFrom>(originalTableName: fromTableName, tableAlias: tableAlias);
             return this;
         }
 
-        private string GetTypeAlias<T>(string tablealias)
+        private string GetTypeAlias<T>(string tableAlias, string tableName = null)
         {
-            return SqlBuilderHelper.GetAliasForType<T>(tablealias);
+            return SqlAliasHelper.GetAliasForType<T>(tableAlias, tableName);
         }
 
 
-        private ISelectSqlBuilder TypeJoin<TFrom, TTo>(string joinType, string fromField = null, string toField = null, string toPrefix = null, string fromPrefix = null,
+        private ISelectSqlBuilder TypeJoin<TFrom, TTo>(string joinType, string fromField = null, string toField = null, string toTableAlias = null, string fromTableAlias = null,
             string fromTableName = null,
             string toTableName = null)
         {
-            SetTableName<TFrom>(originalTableName: fromTableName);
+            SetTableName<TFrom>(originalTableName: fromTableName, tableAlias: fromTableAlias);
             if (string.IsNullOrEmpty(fromField))
             {
                 fromField = SqlBuilderHelper.GetTableName<TTo>(null, toTableName) + "Id";
@@ -167,12 +171,12 @@ namespace FluentDbTools.SqlBuilder
                 toField = "Id";
             }
 
-            var fromExpresstion = $"{GetTypeAlias<TFrom>(fromPrefix)}.{fromField}";
+            var fromExpresstion = $"{GetTypeAlias<TFrom>(fromTableAlias, fromTableName)}.{fromField}";
 
             Joins.Add(string.Format("{0} JOIN {1} {2} ON {3} = {2}.{4}",
                 joinType.ToUpper(),
                 SqlBuilderHelper.GetTableName<TTo>(SchemaNamePrefix, toTableName),
-                GetTypeAlias<TTo>(toPrefix),
+                GetTypeAlias<TTo>(toTableAlias, toTableName),
                 fromExpresstion,
                 toField));
             return this;

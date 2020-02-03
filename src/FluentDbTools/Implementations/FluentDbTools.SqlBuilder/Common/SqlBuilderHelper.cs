@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Mime;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions.Common;
 using FluentDbTools.SqlBuilder.Parameters;
@@ -12,34 +11,16 @@ namespace FluentDbTools.SqlBuilder.Common
 {
     internal static class SqlBuilderHelper
     {
-        private static readonly ConcurrentDictionary<Type, string> Alias = new ConcurrentDictionary<Type, string>();
-
         public static string GetParameterWithIdPostfix<T>(string postfix = "Id")
         {
             return DatabaseParameterExtensions.GetParameterWithIdPostfix<T>(postfix);
         }
 
-        public static string GetAliasForType<T>(string tablealias = null)
-        {
-            if (!string.IsNullOrWhiteSpace(tablealias))
-            {
-                return tablealias;
-            }
-
-            if (!Alias.TryGetValue(typeof(T), out var alias))
-            {
-                alias = CreateAliasForType<T>();
-                Alias?.TryAdd(typeof(T), alias);
-            }
-
-            return alias;
-        }
-
         public static string GetTableName<T>(string schemaNamePrefix, string tableName = null)
         {
-            return tableName != null ? 
-                GetTableName(tableName, schemaNamePrefix) : 
-                GetTableNameForType<T>(schemaNamePrefix);   
+            return tableName != null ?
+                GetTableName(tableName, schemaNamePrefix) :
+                GetTableNameForType<T>(schemaNamePrefix);
         }
 
         public static string GetTableNameForType<T>(string schemaNamePrefix)
@@ -55,8 +36,8 @@ namespace FluentDbTools.SqlBuilder.Common
             }
             return schemaNamePrefix ?? string.Empty;
         }
-        
-        public static string GetTableName(string tableName, string schemaNamePrefix, Func<string,string> schemaNamePrefixCorrectionFunc = null)
+
+        public static string GetTableName(string tableName, string schemaNamePrefix, Func<string, string> schemaNamePrefixCorrectionFunc = null)
         {
             if (schemaNamePrefixCorrectionFunc != null)
             {
@@ -77,9 +58,9 @@ namespace FluentDbTools.SqlBuilder.Common
             var name = memberExpression.Member.Name;
             var baseType = memberExpression.Type.BaseType;
 
-            if (baseType == null || 
-                baseType == typeof(ValueType) || 
-                baseType == typeof(Object) || 
+            if (baseType == null ||
+                baseType == typeof(ValueType) ||
+                baseType == typeof(Object) ||
                 baseType == typeof(Enum))
             {
                 return name;
@@ -136,11 +117,6 @@ namespace FluentDbTools.SqlBuilder.Common
             throw new ArgumentException("op");
         }
 
-        private static string CreateAliasForType<T>()
-        {
-            return new string(typeof(T).Name.Where(char.IsUpper).ToArray()).ToLower();
-        }
-
         public static string CheckParamNameAndUseFieldNameIfEmpty(string field, string paramName)
         {
             if (String.IsNullOrEmpty(paramName))
@@ -177,7 +153,7 @@ namespace FluentDbTools.SqlBuilder.Common
             {
                 return stringValue;
             }
-            
+
             if (ShouldQuote<TValue>(stringValue))
             {
                 stringValue = "'" + stringValue + "'";
@@ -223,11 +199,6 @@ namespace FluentDbTools.SqlBuilder.Common
             return !type.IsValueType;
         }
 
-
-        public static void ClearAlias()
-        {
-            Alias.Clear();
-        }
 
         public static string GetParameterPrefixIfNull(string parameterPrefix)
         {

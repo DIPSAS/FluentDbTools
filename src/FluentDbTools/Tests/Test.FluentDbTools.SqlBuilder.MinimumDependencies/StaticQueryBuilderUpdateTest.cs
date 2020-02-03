@@ -68,6 +68,35 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
         }
 
         [Theory]
+        [InlineData(SupportedDatabaseTypes.Oracle, null, null, "UPDATE {1}EntityTable SET Description = :Description, Name = 'Arild' WHERE Id = :IdParam")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, null, "UPDATE {1}EntityTable SET Description = @Description, Name = 'Arild' WHERE Id = @IdParam")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", null, "UPDATE {0}.{1}EntityTable SET Description = :Description, Name = 'Arild' WHERE Id = :IdParam")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", null, "UPDATE {0}.{1}EntityTable SET Description = @Description, Name = 'Arild' WHERE Id = @IdParam")]
+        [InlineData(SupportedDatabaseTypes.Oracle, null, "LONGPREFIX", "UPDATE {1}EntityTable SET Description = :Description, Name = 'Arild' WHERE Id = :IdParam")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, "LONGPREFIX", "UPDATE {1}EntityTable SET Description = @Description, Name = 'Arild' WHERE Id = @IdParam")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "LONGPREFIX", "UPDATE {0}.{1}EntityTable SET Description = :Description, Name = 'Arild' WHERE Id = :IdParam")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "LONGPREFIX", "UPDATE {0}.{1}EntityTable SET Description = @Description, Name = 'Arild' WHERE Id = @IdParam")]
+        public void UpdateTest_WithTableNameSet2(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
+        {
+            const string tableName = "EntityTable";
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            var useSchema = !string.IsNullOrEmpty(schema);
+            expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
+
+            var builder = dbConfig.SqlBuilder();
+            var update = builder.Update<Entity>(tableName);
+
+            var sql = update
+                .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue: () => useSchema)
+                .Fields(x => x.FP(f => f.Description)
+                    .FV(f => f.Name, "Arild"))
+                .Where(x => x.WP(item => item.Id, "IdParam"))
+                .Build();
+
+            sql.Should().Be(expectedSql);
+        }
+
+        [Theory]
         [InlineData(SupportedDatabaseTypes.Oracle, null, null, "UPDATE {1}Entity SET Description = :Description, Name = 'Arild' WHERE Id = :IdParam")]
         [InlineData(SupportedDatabaseTypes.Postgres, null, null, "UPDATE {1}Entity SET Description = @Description, Name = 'Arild' WHERE Id = @IdParam")]
         [InlineData(SupportedDatabaseTypes.Oracle, "schema", null, "UPDATE {0}.{1}Entity SET Description = :Description, Name = 'Arild' WHERE Id = :IdParam AND Name <> 'Arild'")]

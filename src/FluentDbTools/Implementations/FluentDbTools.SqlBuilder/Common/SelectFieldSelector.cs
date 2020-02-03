@@ -11,24 +11,24 @@ namespace FluentDbTools.SqlBuilder.Common
 
         private readonly IDictionary<Type, string> TableAliaseLookup = new Dictionary<Type, string>();
 
-        public ISelectFieldSelector<TClass> F<T>(Expression<Func<TClass, T>> field, string alias = null, string tablealias = null)
+        public ISelectFieldSelector<TClass> F<T>(Expression<Func<TClass, T>> field, string alias = null, string tableAlias = null)
         {
-            return F(SqlBuilderHelper.GetNameFromExpression(field), alias, tablealias);
+            return F(SqlBuilderHelper.GetNameFromExpression(field), alias, tableAlias);
         }
 
-        public ISelectFieldSelector<TClass> F(string field, string alias = null, string tablealias = null)
+        public ISelectFieldSelector<TClass> F(string field, string alias = null, string tableAlias = null)
         {
-            var tableAlias = SqlBuilderHelper.GetAliasForType<TClass>(tablealias);
+            var aliasForType = SqlAliasHelper.GetAliasForType<TClass>(tableAlias);
 
-            AddTableAlias(tableAlias);
+            AddTableAlias(aliasForType);
 
             if (string.IsNullOrEmpty(alias))
             {
-                FieldsList.Add($"{tableAlias}.{field}");
+                FieldsList.Add($"{aliasForType}.{field}");
             }
             else
             {
-                FieldsList.Add($"{tableAlias}.{field} as {alias}");
+                FieldsList.Add($"{aliasForType}.{field} as {alias}");
             }
 
             return this;

@@ -17,10 +17,11 @@ namespace FluentDbTools.SqlBuilder
         private string SchemaNamePrefix => string.IsNullOrEmpty(SchemaName) ? SchemaPrefixId : $"{SchemaName}.{SchemaPrefixId}";
         private string SchemaPrefixId => DbConfigConfig?.GetSchemaPrefixId() ?? string.Empty;
 
-        public DeleteSqlBuilder(IDbConfigSchemaTargets dbConfigConfig)
+        public DeleteSqlBuilder(IDbConfigSchemaTargets dbConfigConfig, string tableName = null)
         {
             DbConfigConfig = dbConfigConfig;
             DbType = dbConfigConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
+            TableName = tableName;
         }
 
         public SupportedDatabaseTypes DbType { get; }
