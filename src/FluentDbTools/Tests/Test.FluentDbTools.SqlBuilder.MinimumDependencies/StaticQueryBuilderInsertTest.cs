@@ -67,6 +67,37 @@ namespace Test.FluentDbTools.SqlBuilder.MinimumDependencies
 
             sql.Should().Be(expectedSql);
         }
+                [Theory]
+        [InlineData(SupportedDatabaseTypes.Oracle, null, null, "INSERT INTO {1}EntityTable(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, null, "INSERT INTO {1}EntityTable(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", null, "INSERT INTO {0}.{1}EntityTable(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", null, "INSERT INTO {0}.{1}EntityTable(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, null, "En", "INSERT INTO {1}EntityTable(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, null, "En", "INSERT INTO {1}EntityTable(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        [InlineData(SupportedDatabaseTypes.Oracle, "schema", "En", "INSERT INTO {0}.{1}EntityTable(Id, Name, Description) VALUES(:IdParam, 'Arild', :Description)")]
+        [InlineData(SupportedDatabaseTypes.Postgres, "schema", "En", "INSERT INTO {0}.{1}EntityTable(Id, Name, Description) VALUES(@IdParam, 'Arild', @Description)")]
+        public void InsertTest_WithTableNameSet2(SupportedDatabaseTypes databaseTypes, string schema, string schemaPrefixId, string expectedSql)
+        {
+            const string tableName = "EntityTable";
+            var useSchema = !string.IsNullOrEmpty(schema);
+
+            var dbConfig = SqlBuilderFactory.DbConfigSchemaTargets(schema, schemaPrefixId, databaseTypes);
+            expectedSql = string.Format(expectedSql, dbConfig.Schema, dbConfig.GetSchemaPrefixId());
+
+            var builder = dbConfig.SqlBuilder();
+            var insert = builder.Insert<Entity>(tableName);
+
+            var sql = insert
+                .OnSchema(setSchemaNameIfExpressionIsEvaluatedToTrue: () => useSchema)
+                .Fields(x => x.FP(f => f.Id, "IdParam"))
+                .Fields(x => x.FV(f => f.Name, "Arild"))
+                .Fields(x => x.FP(f => f.Description))
+                .Build();
+
+            sql.Should().Be(expectedSql);
+        }
+
+
 
         [Theory]
         [InlineData(SupportedDatabaseTypes.Oracle, null, null, "INSERT INTO {1}Entity(Id, Name, Description) VALUES(seq.nextval, 'Arild', :Description)")]

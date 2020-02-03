@@ -26,10 +26,11 @@ namespace FluentDbTools.SqlBuilder.Common
             }
         }
 
-        protected BaseFieldSetterSelector(IDbConfigSchemaTargets dbConfigConfig)
+        protected BaseFieldSetterSelector(IDbConfigSchemaTargets dbConfigConfig, string tableName = null)
         {
             DbConfigConfig = dbConfigConfig;
             SchemaPrefixId = dbConfigConfig?.GetSchemaPrefixId() ?? string.Empty;
+            TableName = tableName;
         }
 
         protected readonly List<Field> FieldsList = new List<Field>();

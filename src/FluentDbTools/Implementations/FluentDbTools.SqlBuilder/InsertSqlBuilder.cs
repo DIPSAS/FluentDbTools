@@ -11,10 +11,11 @@ namespace FluentDbTools.SqlBuilder
     {
         private readonly IDbConfigSchemaTargets DbConfigConfig;
 
-        public InsertSqlBuilder(IDbConfigSchemaTargets dbConfigConfig)
+        public InsertSqlBuilder(IDbConfigSchemaTargets dbConfigConfig, string tableName = null)
         {
             DbConfigConfig = dbConfigConfig;
             DbType = dbConfigConfig?.DbType ?? SupportedDatabaseTypes.Postgres;
+            TableName = tableName;
         }
 
         public SupportedDatabaseTypes DbType { get; }

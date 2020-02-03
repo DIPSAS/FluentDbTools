@@ -5,11 +5,15 @@ namespace FluentDbTools.SqlBuilder.Common
 {
     internal class WhereFieldSelectorWithSelect<TClass> : WhereFieldSelector<TClass>
     {
-        private readonly string Prefix;
+        private string TableAlias;
 
-        public WhereFieldSelectorWithSelect(string prefix, IDbConfigSchemaTargets dbConfigConfig) : base(dbConfigConfig)
+        public WhereFieldSelectorWithSelect(string tableAlias, IDbConfigSchemaTargets dbConfigConfig) : base(dbConfigConfig)
         {
-            Prefix = prefix;
+            TableAlias = tableAlias;
+            if (TableAlias.IsNotEmpty())
+            {
+                TableAlias = SqlAliasHelper.GetAliasForType<TClass>(TableAlias);
+            }
         }
 
         protected override string CreateWhereFieldStringForParameter(string field, string paramName, OP whereOperator)
@@ -44,7 +48,7 @@ namespace FluentDbTools.SqlBuilder.Common
 
         private string GetAliasForType()
         {
-            return Prefix ?? SqlBuilderHelper.GetAliasForType<TClass>();
+            return TableAlias ?? (TableAlias = SqlAliasHelper.GetAliasForType<TClass>());
         }
     }
 }

@@ -31,19 +31,19 @@ namespace FluentDbTools.SqlBuilder
             return new SelectSqlBuilder(DbConfigConfig);
         }
 
-        public IDeleteSqlBuilder<TClass> Delete<TClass>()
+        public IDeleteSqlBuilder<TClass> Delete<TClass>(string tableName = null)
         {
-            return new DeleteSqlBuilder<TClass>(DbConfigConfig);
+            return new DeleteSqlBuilder<TClass>(DbConfigConfig, tableName);
         }
 
-        public IUpdateSqlBuilder<TClass> Update<TClass>()
+        public IUpdateSqlBuilder<TClass> Update<TClass>(string tableName = null)
         {
-            return new UpdateSqlBuilder<TClass>(DbConfigConfig);
+            return new UpdateSqlBuilder<TClass>(DbConfigConfig, tableName);
         }
 
-        public IInsertSqlBuilder<TClass> Insert<TClass>()
+        public IInsertSqlBuilder<TClass> Insert<TClass>(string tableName = null)
         {
-            return new InsertSqlBuilder<TClass>(DbConfigConfig);
+            return new InsertSqlBuilder<TClass>(DbConfigConfig, tableName);
         }
     }
 }

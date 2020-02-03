@@ -3,6 +3,7 @@ using FluentDbTools.Extensions.SqlBuilder;
 using FluentDbTools.Common.Abstractions;
 using TestUtilities.FluentDbTools;
 using FluentAssertions;
+using FluentDbTools.SqlBuilder.Common;
 using Microsoft.Extensions.DependencyInjection;
 using Test.FluentDbTools.SqlBuilder.MinimumDependencies.TestEntities;
 using Xunit;
@@ -22,6 +23,8 @@ namespace Test.FluentDbTools.SqlBuilder
         [InlineData(SupportedDatabaseTypes.Postgres, true, "XY", "SELECT e.Name, e.Description FROM {0}.{1}Entity e WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
         public void SelectTestOneTableOnly(SupportedDatabaseTypes databaseTypes, bool useSchema,string schemaPrefixId, string expectedSql)
         {
+            SqlAliasHelper.ClearAliases();
+
             var addDictionary = new Dictionary<string, string> {{"database:schemaPrefix:Id", schemaPrefixId}};
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes, addDictionary).CreateScope())
             {
@@ -66,6 +69,8 @@ namespace Test.FluentDbTools.SqlBuilder
         [InlineData(SupportedDatabaseTypes.Postgres, true, "XY", "SELECT ce.Description, ce.Relation, e.Name, e.Description FROM {0}.{1}Entity e INNER JOIN {0}.{1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.{1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
         public void SelectTestWithJoins(SupportedDatabaseTypes databaseTypes, bool useSchema,string schemaPrefixId, string expectedSql)
         {
+            SqlAliasHelper.ClearAliases();
+
             var addDictionary = new Dictionary<string, string> {{"database:schemaPrefix:Id", schemaPrefixId}};
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes, addDictionary).CreateScope())
             {
@@ -131,6 +136,8 @@ namespace Test.FluentDbTools.SqlBuilder
         [InlineData(SupportedDatabaseTypes.Postgres, true, "XY", "SELECT e.Name, e.Description, ce.Description, ce.Relation FROM {0}.{1}Entity e INNER JOIN {0}.{1}ChildEntity ce ON e.ChildEntityId = ce.Id LEFT OUTER JOIN {0}.{1}ChildChildEntity cce ON ce.ChildChildEntityId = cce.Id WHERE e.Id = @IdParam AND e.Name = 'Arild'")]
         public void SelectTest2WithJoins(SupportedDatabaseTypes databaseTypes, bool useSchema, string schemaPrefixId, string expectedSql)
         {
+            SqlAliasHelper.ClearAliases();
+
             var addDictionary = new Dictionary<string, string> {{"database:schemaPrefix:Id", schemaPrefixId}};
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider(databaseTypes, addDictionary).CreateScope())
             {
@@ -213,6 +220,8 @@ namespace Test.FluentDbTools.SqlBuilder
         [InlineData(false, "SELECT e.Name, e.Description FROM Entity e WHERE e.Id = @IdParam")]
         public void SelectWithIfStatementTest(bool ifStatementResult, string expectedSql)
         {
+            SqlAliasHelper.ClearAliases();
+
             using (var scope = TestServiceProvider.GetDatabaseExampleServiceProvider().CreateScope())
             {
                 var dbConfig = scope.ServiceProvider.GetService<IDbConfigSchemaTargets>();
