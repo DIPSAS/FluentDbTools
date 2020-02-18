@@ -12,7 +12,10 @@ build:
             directory: src
             files:
                 - docker-compose.nuget.build.yml
-
+        version:
+            cmd:
+                - echo VERSION ${VERSION}
+        
 run:
     selections:
         fluentDbTools:
@@ -23,7 +26,7 @@ run:
                     hostDest: output
             files:
                 - docker-compose.nuget.build.yml
-
+         
 test:
     selections:
         fluentDbTools:
@@ -51,7 +54,6 @@ publish:
             containerArtifact: false
             files:
                 - docker-compose.documentation.yml
-
 swarm:
     selections:
         fluentDbTools:
