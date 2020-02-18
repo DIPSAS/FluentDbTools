@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
 
-### Version 1.2.5 2020-02-19
+### Version 1.2.6 2020-02-18
 - Fixed Scope registrations of DbConfig and DbProvider
 - Fixed Scope registrations of Migration LoggerProvider.
 
