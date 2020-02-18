@@ -21,43 +21,30 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
             return typeof(MsDbConfig);
         }
 
-<<<<<<< refs/remotes/origin/master
-        public static IServiceCollection AddDbProvider<TDbConfig>(this IServiceCollection serviceCollection, bool asSingleton = true)
-=======
-        public static IServiceCollection AddDbProvider<TDbConfig>(this IServiceCollection serviceCollection,
-            Action actionToRunIfDbFactoryIsNull = null, bool asSingleton = true)
->>>>>>> Version 1.2.5 2020-02-18
+        public static IServiceCollection AddDbProvider<TDbConfig>(
+            this IServiceCollection serviceCollection,
+            Action actionToRunIfDbFactoryIsNull = null,
+            bool asSingleton = true)
             where TDbConfig : class, IDbConfig
         {
             return serviceCollection
                 .AddDbConfig<TDbConfig>(asSingleton)
-<<<<<<< refs/remotes/origin/master
-                .AddDbProvider(asSingleton);
-        }
-
-        public static IServiceCollection AddDbProvider(this IServiceCollection serviceCollection, Type dbConfigType, bool asSingleton = true)
-        {
-            return serviceCollection
-                .AddDbConfig(dbConfigType, asSingleton)
-                .AddDbProvider(asSingleton);
-        }
-
-        public static IServiceCollection AddDbProvider(this IServiceCollection serviceCollection, bool asSingleton = true)
-=======
                 .AddDbProvider(actionToRunIfDbFactoryIsNull, asSingleton);
         }
 
-        public static IServiceCollection AddDbProvider(this IServiceCollection serviceCollection, Type dbConfigType,
-            Action actionToRunIfDbFactoryIsNull = null, bool asSingleton = true)
+        public static IServiceCollection AddDbProvider(this
+            IServiceCollection serviceCollection,
+            Type dbConfigType,
+            Action actionToRunIfDbFactoryIsNull = null,
+            bool asSingleton = true)
         {
             return serviceCollection
                 .AddDbConfig(dbConfigType, asSingleton)
                 .AddDbProvider(actionToRunIfDbFactoryIsNull, asSingleton);
         }
-
+        
         public static IServiceCollection AddDbProvider(this IServiceCollection serviceCollection,
             Action actionToRunIfDbFactoryIsNull = null, bool asSingleton = true)
->>>>>>> Version 1.2.5 2020-02-18
         {
             serviceCollection.AddDbConfigDatabaseTargets();
             if (asSingleton)
@@ -72,19 +59,11 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
             serviceCollection.IfExistThen<DbConnection>(() => serviceCollection.TryAddScoped<IDbConnection>(sp => sp.GetRequiredService<DbConnection>()));
 
             return serviceCollection
-<<<<<<< refs/remotes/origin/master
-                .AddDbConnection()
-                .AddDbTransaction();
-        }
-
-        static IServiceCollection AddDbConnection(this IServiceCollection serviceCollection, Action ActionToRunIfDbFactoryIsNull = null)
-=======
                 .AddDbConnection(actionToRunIfDbFactoryIsNull)
                 .AddDbTransaction();
         }
 
         static IServiceCollection AddDbConnection(this IServiceCollection serviceCollection, Action actionToRunIfDbFactoryIsNull = null)
->>>>>>> Version 1.2.5 2020-02-18
         {
             serviceCollection.TryAddScoped<IDbConnection>(sp =>
             {
@@ -92,21 +71,13 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                 var dbProviderFactory = sp.GetService<DbProviderFactory>();
                 if (dbProviderFactory == null)
                 {
-<<<<<<< refs/remotes/origin/master
-                    
-                    if (ActionToRunIfDbFactoryIsNull != null)
-                    {
-                        ActionToRunIfDbFactoryIsNull();
-=======
 
                     if (actionToRunIfDbFactoryIsNull != null)
                     {
                         actionToRunIfDbFactoryIsNull();
->>>>>>> Version 1.2.5 2020-02-18
                         dbProviderFactory = sp.GetService<DbProviderFactory>();
                     }
                 }
-
 
                 if (dbProviderFactory == null)
                 {

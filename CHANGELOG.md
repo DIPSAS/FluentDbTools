@@ -8,6 +8,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed Scope registrations of DbConfig and DbProvider
 - Fixed Scope registrations of Migration LoggerProvider.
 
+### Version 1.2.5 2020-02-18
+- Fixed Scope registrations of DbConfig and DbProvider
+- Fixed Scope registrations of Migration LoggerProvider.
+
 ### Version 1.2.4 2020-02-02
 - Resolved issue on SqlBuilder where a invalid alias (as) was genereted.
 - Introduced SqlAliasHelper with Blacklisted Aliases functionallity.

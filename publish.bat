@@ -1,1 +1,1 @@
-dbm -build -run -publish fluentDbTools sign nuget
+dbm -build -run -publish version fluentDbTools sign nuget
