@@ -290,7 +290,7 @@ namespace Test.FluentDbTools.Migration
                 .Build();
 
             var serviceProvider = new ServiceCollection()
-                .AddScoped<IConfiguration>(provider => configuration)
+                .AddSingleton<IConfiguration>(provider => configuration)
                 .AddDefaultDbMigrationConfig()
                 .AddOracleDbProvider()
                 .AddPostgresDbProvider()

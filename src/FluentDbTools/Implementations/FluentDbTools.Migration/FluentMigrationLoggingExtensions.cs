@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentMigrator.Runner;
+using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -61,8 +63,10 @@ namespace FluentDbTools.Migration
                 loggingBuilder.ClearProviders();
             }
 
-            loggingBuilder.Services.AddSingleton<IOptions<FluentMigratorLoggerOptions>>(new OptionsWrapper<FluentMigratorLoggerOptions>(options));
-            loggingBuilder.Services.AddSingleton<ILoggerProvider, FluentMigratorConsoleLoggerProvider>();
+            loggingBuilder.Services.RemoveAll<IOptions<FluentMigratorLoggerOptions>>();
+            loggingBuilder.Services.RemoveAll<ILoggerProvider>();
+            loggingBuilder.Services.TryAddSingleton<IOptions<FluentMigratorLoggerOptions>>(new OptionsWrapper<FluentMigratorLoggerOptions>(options));
+            loggingBuilder.Services.TryAddSingleton<ILoggerProvider, FluentMigratorConsoleLoggerProvider>();
 
             return loggingBuilder;
         }
@@ -111,7 +115,8 @@ namespace FluentDbTools.Migration
                 loggingBuilder.ClearProviders();
             }
 
-            loggingBuilder.Services.AddSingleton<IOptions<LogFileFluentMigratorLoggerOptions>>(new OptionsWrapper<LogFileFluentMigratorLoggerOptions>(options));
+            loggingBuilder.Services.RemoveAll<IOptions<LogFileFluentMigratorLoggerOptions>>();
+            loggingBuilder.Services.AddSingleton<IOptions<LogFileFluentMigratorLoggerOptions>>(sp => new OptionsWrapper<LogFileFluentMigratorLoggerOptions>(options));
             if (UseLogFileAppendFluentMigratorLoggerProvider)
             {
                 loggingBuilder.Services.AddLogFileAppendFluentMigratorLoggerProvider();
@@ -119,7 +124,9 @@ namespace FluentDbTools.Migration
             }
             else
             {
-                loggingBuilder.Services.AddScoped<ILoggerProvider, LogFileFluentMigratorLoggerProvider>();
+                loggingBuilder.Services.AddSingleton<ILoggerProvider>(sp =>
+                    new LogFileFluentMigratorLoggerProvider(sp.GetService<IAssemblySource>(),
+                        sp.GetService<IOptions<LogFileFluentMigratorLoggerOptions>>()));
 
             }
             return loggingBuilder;

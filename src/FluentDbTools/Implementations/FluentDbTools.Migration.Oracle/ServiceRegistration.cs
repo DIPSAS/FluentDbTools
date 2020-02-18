@@ -50,7 +50,7 @@ namespace FluentDbTools.Migration.Oracle
         {
             return new ExtendedOracleProcessorBase(sp.GetRequiredService<OracleManagedDbFactory>(),
                 sp.GetRequiredService<OracleGenerator>(),
-                sp.GetRequiredService<ILogger<ExtendedOracleProcessorBase>>(),
+                sp.GetService<ILogger<ExtendedOracleProcessorBase>>(),
                 sp.GetRequiredService<IOptionsSnapshot<ProcessorOptions>>(),
                 sp.GetRequiredService<IOptionsSnapshot<RunnerOptions>>(),
                 sp.GetRequiredService<IConnectionStringAccessor>(),

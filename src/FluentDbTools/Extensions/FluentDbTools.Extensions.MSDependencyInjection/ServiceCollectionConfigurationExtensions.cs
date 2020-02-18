@@ -12,45 +12,83 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
     /// DependencyInjection extension methods
     /// </summary>
     public static class ServiceCollectionConfigurationExtensions
-    {      
+    {
         /// <summary>
         /// Register the DependencyInjection implementation of <see cref="IDbConfig"/>(Strong-type Ms<see cref="DbConfig"/>)<br/>
         /// Register the DependencyInjection implementation of <see cref="IConfigurationChangedHandler"/> 
         /// </summary>
         /// <param name="serviceProvider"></param>
+        /// <param name="asSingleton"></param>
         /// <returns></returns>
-        public static IServiceCollection AddDefaultDbConfig(this IServiceCollection serviceProvider)
+        public static IServiceCollection AddDefaultDbConfig(this IServiceCollection serviceProvider, bool asSingleton = true)
         {
-            serviceProvider.TryAddScoped<DefaultDbConfigValues, MsDefaultDbConfigValues>();
-            serviceProvider.TryAddScoped<DbConfigCredentials, MsDbConfigCredentials>();
-            serviceProvider.TryAddScoped<IConfigurationChangedHandler, MsConfigurationChangedHandler>();
-            serviceProvider.TryAddScoped<IDbConfig, MsDbConfig>();
+            if (asSingleton)
+            {
+                serviceProvider.TryAddSingleton<DefaultDbConfigValues, MsDefaultDbConfigValues>();
+                serviceProvider.TryAddSingleton<DbConfigCredentials, MsDbConfigCredentials>();
+                serviceProvider.TryAddSingleton<IConfigurationChangedHandler, MsConfigurationChangedHandler>();
+                serviceProvider.TryAddSingleton<IDbConfig, MsDbConfig>();
+            }
+            else
+            {
+                serviceProvider.TryAddScoped<DefaultDbConfigValues, MsDefaultDbConfigValues>();
+                serviceProvider.TryAddScoped<DbConfigCredentials, MsDbConfigCredentials>();
+                serviceProvider.TryAddScoped<IConfigurationChangedHandler, MsConfigurationChangedHandler>();
+                serviceProvider.TryAddScoped<IDbConfig, MsDbConfig>();
+            }
+
             return serviceProvider.AddDbConfigDatabaseTargets();
         }
 
-        public static IServiceCollection AddDbConfig(this IServiceCollection serviceProvider, Type dbConfigType) 
+        public static IServiceCollection AddDbConfig(this IServiceCollection serviceProvider, Type dbConfigType, bool asSingleton = true)
         {
-            return serviceProvider
-                .AddScoped(typeof(IDbConfig), dbConfigType)
-                .AddDbConfigDatabaseTargets();
+            serviceProvider.RemoveAll<IDbConfig>();
+            
+            if (asSingleton)
+            {
+                serviceProvider.AddSingleton(typeof(IDbConfig), dbConfigType);
+            }
+            else
+            {
+                serviceProvider.AddScoped(typeof(IDbConfig), dbConfigType);
+            }
+
+            return serviceProvider.AddDbConfigDatabaseTargets();
 
         }
 
-        public static IServiceCollection AddDbConfig<TDbConfig>(this IServiceCollection serviceProvider) where TDbConfig: class, IDbConfig
+        public static IServiceCollection AddDbConfig<TDbConfig>(this IServiceCollection serviceProvider, bool asSingleton = true) where TDbConfig : class, IDbConfig
         {
-            return serviceProvider
-                .AddScoped<IDbConfig, TDbConfig>()
-                .AddDbConfigDatabaseTargets();
+            serviceProvider.RemoveAll<IDbConfig>();
+            
+            if (asSingleton)
+            {
+                serviceProvider.AddSingleton<IDbConfig, TDbConfig>();
+            }
+            else
+            {
+                serviceProvider.AddScoped<IDbConfig, TDbConfig>();
+            }
+            return serviceProvider.AddDbConfigDatabaseTargets();
 
         }
 
-        public static IServiceCollection AddDbConfig<TDbConfig>(this IServiceCollection serviceProvider, TDbConfig impl) where TDbConfig : class, IDbConfig
+        public static IServiceCollection AddDbConfig<TDbConfig>(this IServiceCollection serviceProvider, TDbConfig impl, bool asSingleton = true) where TDbConfig : class, IDbConfig
         {
-            return serviceProvider
-                .AddScoped<IDbConfig>(sp => impl)
-                .AddDbConfigDatabaseTargets();
+            serviceProvider.RemoveAll<IDbConfig>();
+            
+            if (asSingleton)
+            {
+                serviceProvider.AddSingleton<IDbConfig>(sp => impl);
+            }
+            else
+            {
+                serviceProvider.AddScoped<IDbConfig>(sp => impl);
+            }
+
+            return serviceProvider.AddDbConfigDatabaseTargets();
         }
-        
+
         public static IServiceCollection AddDbConfigDatabaseTargets(this IServiceCollection serviceProvider)
         {
             serviceProvider.TryAddTransient<IDbConfigDatabaseTargets>(sp => sp.GetRequiredService<IDbConfig>());
