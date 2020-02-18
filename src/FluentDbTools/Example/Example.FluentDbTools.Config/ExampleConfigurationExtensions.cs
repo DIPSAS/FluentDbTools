@@ -15,7 +15,7 @@ namespace Example.FluentDbTools.Config
             bool loadExampleConfig = true)
         {
             return serviceCollection
-                .AddScoped<IConfiguration>(serviceProvider =>
+                .AddSingleton<IConfiguration>(serviceProvider =>
                 {
                     var builder = new ConfigurationBuilder();
                     if (loadExampleConfig)

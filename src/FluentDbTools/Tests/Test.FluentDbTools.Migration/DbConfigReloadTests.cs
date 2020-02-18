@@ -82,7 +82,7 @@ namespace Test.FluentDbTools.Migration
         {
             var configuration = (new ConfigurationBuilder().AddJsonFile(CreateTestConfig(), false, true)).Build();
             return new ServiceCollection()
-                .AddScoped<IConfiguration>(sc => configuration)
+                .AddSingleton<IConfiguration>(sc => configuration)
                 .AddDefaultDbMigrationConfig()
                 .BuildServiceProvider();
         }

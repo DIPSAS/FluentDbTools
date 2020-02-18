@@ -34,7 +34,7 @@ var dbConnection = dbConfig.CreateDbConnection();
 ```csharp     
 var serviceCollection = new ServiceCollection();       
 var serviceProvider = serviceCollection
-    .AddScoped<IConfiguration>(serviceProvider => new ConfigurationBuilder()
+    .AddSingleton<IConfiguration>(serviceProvider => new ConfigurationBuilder()
         .AddJsonFile("config.json"))
     .AddOracleDbProvider()
     .AddPostgresDbProvider()
@@ -100,7 +100,7 @@ var sql = dbConfig.CreateSqlBuilder().Select()
 ```csharp
 IEnumerable<Assembly> migrationAssemblies => new[] { typeof(AddPersonTable).Assembly };
 var serviceProvider = new ServiceCollection()
-    .AddScoped<IConfiguration>(serviceProvider => new ConfigurationBuilder()
+    .AddSingleton<IConfiguration>(serviceProvider => new ConfigurationBuilder()
         .AddJsonFile("config.json"))
     .ConfigureWithMigrationAndScanForVersionTable(migrationAssemblies)
     .BuildServiceProvider();

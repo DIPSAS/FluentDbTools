@@ -27,21 +27,23 @@ namespace Example.FluentDbTools.Migration
                     databaseType,
                     overrideConfig,
                     loadExampleConfig)
-                .AddLogging(x => x.AddFluentMigratorConsoleLogger(null)
-                                 .AddFluentMigratorFileLogger());
+            
+                    .AddLogging(x => x.AddFluentMigratorConsoleLogger(null)
+                             .AddFluentMigratorFileLogger());
         }
 
         public static IServiceProvider BuildMigration(
             SupportedDatabaseTypes databaseType,
             Dictionary<string, string> overrideConfig = null,
             Func<IServiceCollection, IServiceCollection> additionalRegistration = null,
-            bool loadExampleConfig = true)
+            bool loadExampleConfig = true,
+            bool validateScope=true)
         {
             var serviceCollection = BuildMigrationServiceCollection(databaseType, overrideConfig, loadExampleConfig);
             additionalRegistration?.Invoke(serviceCollection);
 
 
-            return serviceCollection.BuildServiceProvider();
+            return serviceCollection.BuildServiceProvider(validateScope);
         }
     }
 }
