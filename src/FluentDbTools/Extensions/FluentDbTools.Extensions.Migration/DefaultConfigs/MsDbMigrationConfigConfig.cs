@@ -31,10 +31,12 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         /// <param name="configuration"></param>
         /// <param name="dbConfig"></param>
         /// <param name="configurationChangedHandler"></param>
+        /// <param name="prioritizedConfigValues"></param>
         public MsDbMigrationConfig(
             IConfiguration configuration,
             IDbConfig dbConfig = null,
-            IConfigurationChangedHandler configurationChangedHandler = null)
+            IConfigurationChangedHandler configurationChangedHandler = null,
+            IPrioritizedConfigValues prioritizedConfigValues = null)
         {
             Configuration = configuration;
 
@@ -47,7 +49,7 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
 
             if (Defaults == null)
             {
-                Defaults = (dbConfig as MsDbConfig)?.Defaults ?? new MsDefaultDbConfigValues(configuration);
+                Defaults = (dbConfig as MsDbConfig)?.Defaults ?? new MsDefaultDbConfigValues(configuration, prioritizedConfigValues);
             }
 
             GetDbConfig = () => dbConfig;

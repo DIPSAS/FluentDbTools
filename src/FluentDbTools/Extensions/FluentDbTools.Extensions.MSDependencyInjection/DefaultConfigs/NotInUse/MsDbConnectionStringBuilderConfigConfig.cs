@@ -1,4 +1,5 @@
-﻿using FluentDbTools.Contracts;
+﻿using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Contracts;
 using Microsoft.Extensions.Configuration;
 
 namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs.NotInUse
@@ -10,8 +11,9 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs.NotInUse
         public MsDbConnectionStringBuilderConfig(
             IConfiguration configuration,
             DefaultDbConfigValues defaultDbConfigValues = null,
-            DbConfigCredentials dbConfigCredentials = null)
-           : base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration), dbConfigCredentials) 
+            DbConfigCredentials dbConfigCredentials = null,
+            IPrioritizedConfigValues prioritizedConfigValues = null)
+           : base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration, prioritizedConfigValues), dbConfigCredentials)
         {
 
         }
