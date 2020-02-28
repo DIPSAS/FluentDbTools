@@ -17,8 +17,9 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             IConfiguration configuration,
             IConfigurationChangedHandler configurationChangedHandler = null,
             DefaultDbConfigValues defaultDbConfigValues = null,
-            DbConfigCredentials dbConfigCredentials = null) :
-            base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration), dbConfigCredentials)
+            DbConfigCredentials dbConfigCredentials = null,
+            IPrioritizedConfigValues prioritizedConfigValues = null) :
+            base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration,prioritizedConfigValues), dbConfigCredentials)
         {
             Configuration = configuration;
             configurationChangedHandler?.RegisterConfigurationChangedCallback(OnConfigurationChanged);

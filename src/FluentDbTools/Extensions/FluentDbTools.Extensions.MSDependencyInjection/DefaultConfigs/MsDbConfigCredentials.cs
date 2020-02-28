@@ -15,11 +15,13 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         /// <param name="configuration"></param>
         /// <param name="defaultDbConfigValues"></param>
         /// <param name="configurationChangedHandler"></param>
+        /// <param name="prioritizedConfigValues"></param>
         public MsDbConfigCredentials(
             IConfiguration configuration, 
             DefaultDbConfigValues defaultDbConfigValues = null,
-            IConfigurationChangedHandler configurationChangedHandler = null)
-            : base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration))
+            IConfigurationChangedHandler configurationChangedHandler = null,
+            IPrioritizedConfigValues prioritizedConfigValues = null)
+            : base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration, prioritizedConfigValues))
         {
             IgnoreManualCallOnConfigurationChanged = true;
             configurationChangedHandler?.RegisterConfigurationChangedCallback(OnConfigurationChanged);
