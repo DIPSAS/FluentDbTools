@@ -20,7 +20,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             DefaultDbConfigValues defaultDbConfigValues = null,
             DbConfigCredentials dbConfigCredentials = null,
             IPrioritizedConfigValues prioritizedConfigValues = null,
-            IPrioritizedConfigKeys prioritizedConfigKeys = null) :
+            IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null) :
             base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration,prioritizedConfigValues, prioritizedConfigKeys), dbConfigCredentials)
         {
             Configuration = configuration;

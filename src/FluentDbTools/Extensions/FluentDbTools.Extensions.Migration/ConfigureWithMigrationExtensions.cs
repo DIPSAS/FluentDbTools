@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Common.Abstractions.PrioritizedConfig;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentDbTools.Extensions.Migration.DefaultConfigs;
 using FluentDbTools.Migration.Abstractions;
@@ -34,7 +36,9 @@ namespace FluentDbTools.Extensions.Migration
             IEnumerable<Assembly> assembliesWithMigrationModels)
         {
             var assembliesWithMigrationModelArray = assembliesWithMigrationModels.ToArray();
+
             return serviceCollection
+                .AddPrioritizedConfigKeysRegistration(assembliesWithMigrationModelArray)
                 .AddDefaultDbMigrationConfig()
                 .Register(FluentDbTools.Migration.Oracle.ServiceRegistration.Register)
                 .Register(FluentDbTools.Migration.Postgres.ServiceRegistration.Register)
@@ -42,32 +46,36 @@ namespace FluentDbTools.Extensions.Migration
                 .ConfigureWithMigrationAssemblies(FluentDbTools.Migration.ServiceRegistration.Register, assembliesWithMigrationModelArray);
         }
 
+
         internal static IServiceCollection ConfigureVersionTableMetaData(
             this IServiceCollection serviceCollection,
             IEnumerable<Assembly> assembliesWithMigrationModels)
         {
-            var serviceType = typeof(IVersionTableMetaData);
+            var interfaceType = typeof(IVersionTableMetaData);
             foreach (var assembliesWithMigrationModel in assembliesWithMigrationModels)
             {
                 var implementationType = assembliesWithMigrationModel
                     .GetTypes()
-                    .FirstOrDefault(x => !x.IsInterface && !x.IsAbstract && serviceType.IsAssignableFrom(x));
+                    .FirstOrDefault(x => !x.IsInterface && !x.IsAbstract && x.IsImplementingInterfaceType(interfaceType));
 
                 if (implementationType == null)
                 {
                     continue;
                 }
 
-                serviceCollection.AddScoped(serviceType, implementationType);
+                serviceCollection.AddScoped(interfaceType, implementationType);
                 return serviceCollection;
             }
 
             return serviceCollection;
         }
 
-        public static IServiceCollection AddDefaultDbMigrationConfig(this IServiceCollection serviceCollection)
+        public static IServiceCollection AddDefaultDbMigrationConfig(this IServiceCollection serviceCollection,
+            IEnumerable<Assembly> assemblies = null)
         {
-            serviceCollection.AddDefaultDbConfig();
+            assemblies = assemblies ?? new [] { Assembly.GetEntryAssembly(), Assembly.GetCallingAssembly(), Assembly.GetExecutingAssembly() };
+
+            serviceCollection.AddDefaultDbConfig(assemblies:assemblies);
             serviceCollection.TryAddScoped<IDbMigrationConfig, MsDbMigrationConfig>();
             return serviceCollection;
         }
@@ -98,6 +106,7 @@ namespace FluentDbTools.Extensions.Migration
 
 
         }
+
 
     }
 }

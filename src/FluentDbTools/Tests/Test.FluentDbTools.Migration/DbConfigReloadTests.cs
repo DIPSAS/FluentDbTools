@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Reflection.Metadata;
 using System.Runtime.Serialization;
@@ -80,6 +81,7 @@ namespace Test.FluentDbTools.Migration
 
         private ServiceProvider GetServiceProvider()
         {
+            var assemblies = new [] { Assembly.GetEntryAssembly(), Assembly.GetCallingAssembly(), Assembly.GetExecutingAssembly() };
             var configuration = (new ConfigurationBuilder().AddJsonFile(CreateTestConfig(), false, true)).Build();
             return new ServiceCollection()
                 .AddSingleton<IConfiguration>(sc => configuration)

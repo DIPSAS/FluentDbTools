@@ -5,6 +5,7 @@ using Example.FluentDbTools.Config;
 using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Migration.MigrationModels;
 using FluentDbTools.Extensions.Migration;
+using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
 using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using FluentDbTools.Migration;
@@ -19,10 +20,14 @@ namespace Example.FluentDbTools.Migration
         public static IServiceCollection BuildMigrationServiceCollection(
             SupportedDatabaseTypes databaseType,
             Dictionary<string, string> overrideConfig = null,
-            bool loadExampleConfig = true)
+            bool loadExampleConfig = true,
+            IEnumerable<Assembly> assemblies = null)
         {
+            assemblies =  assemblies ?? new [] { Assembly.GetEntryAssembly(), Assembly.GetCallingAssembly(), Assembly.GetExecutingAssembly() };
+
             return new ServiceCollection()
                 .ConfigureWithMigrationAndScanForVersionTable(MigrationAssemblies)
+                .AddDefaultDbConfig(assemblies:assemblies)
                 .UseExampleConfiguration(
                     databaseType,
                     overrideConfig,
@@ -37,9 +42,12 @@ namespace Example.FluentDbTools.Migration
             Dictionary<string, string> overrideConfig = null,
             Func<IServiceCollection, IServiceCollection> additionalRegistration = null,
             bool loadExampleConfig = true,
-            bool validateScope=true)
+            bool validateScope=true,
+            IEnumerable<Assembly> assemblies = null)
         {
-            var serviceCollection = BuildMigrationServiceCollection(databaseType, overrideConfig, loadExampleConfig);
+            assemblies =  assemblies ?? new [] { Assembly.GetEntryAssembly(), Assembly.GetCallingAssembly(), Assembly.GetExecutingAssembly() };
+
+            var serviceCollection = BuildMigrationServiceCollection(databaseType, overrideConfig, loadExampleConfig, assemblies);
             additionalRegistration?.Invoke(serviceCollection);
 
 

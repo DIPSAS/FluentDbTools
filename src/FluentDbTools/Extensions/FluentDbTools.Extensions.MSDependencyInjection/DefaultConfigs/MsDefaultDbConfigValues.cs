@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Common.Abstractions.PrioritizedConfig;
 using FluentDbTools.Contracts;
@@ -18,9 +19,9 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         public MsDefaultDbConfigValues(
             IConfiguration configuration, 
             IPrioritizedConfigValues prioritizedConfigValues = null, 
-            IPrioritizedConfigKeys prioritizedConfigKeys = null)
+            IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null)
         {
-            prioritizedConfigValues = prioritizedConfigValues ?? new PrioritizedConfigValues(configuration.GetConfigValue, prioritizedConfigKeys ?? new PrioritizedConfigKeys());
+            prioritizedConfigValues = prioritizedConfigValues ?? new PrioritizedConfigValues(configuration.GetConfigValue, prioritizedConfigKeys ?? new []{ new PrioritizedConfigKeys()});
             // DbConfigDatabaseTargets defaults
             GetDefaultDbType = () => GetConfigValueSupportedDatabaseTypes(prioritizedConfigValues.GetDbType, configuration.GetDbType);
             GetDefaultSchema = () => GetConfigValueString(prioritizedConfigValues.GetDbSchema, configuration.GetDbSchema);

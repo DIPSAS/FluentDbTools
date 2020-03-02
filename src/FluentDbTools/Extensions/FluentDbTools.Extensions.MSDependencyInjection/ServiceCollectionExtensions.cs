@@ -22,6 +22,22 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
             return GetFirstServiceDescriptor<T>(serviceCollection) != null;
         }
 
+        public static bool Exists(this IServiceCollection serviceCollection, Type type)
+        {
+            return GetFirstServiceDescriptor(serviceCollection, type) != null;
+        }
+
+        public static void RemoveIfExists(this IServiceCollection serviceCollection, Type type)
+        {
+            var descriptor =  GetFirstServiceDescriptor(serviceCollection, type);
+            if (descriptor != null)
+            {
+                serviceCollection.Remove(descriptor);
+            }
+        }
+
+
+
         public static IServiceCollection IfExistThen<T>(this IServiceCollection serviceCollection, Action thenAction)
         {
             if (serviceCollection.Exists<T>())
@@ -52,8 +68,14 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         public static ServiceDescriptor GetFirstServiceDescriptor<T>(this IServiceCollection serviceCollection)
         {
             var type = typeof(T);
+            return serviceCollection.GetFirstServiceDescriptor(type);
+        }
+
+        public static ServiceDescriptor GetFirstServiceDescriptor(this IServiceCollection serviceCollection, Type type)
+        {
             return serviceCollection.FirstOrDefault(x => x.ServiceType == type || x.ImplementationType == type);
         }
+
 
         public static T GetImplementation<T>(this ServiceDescriptor descriptor, IServiceScope serviceScope = null) where T:class
         {

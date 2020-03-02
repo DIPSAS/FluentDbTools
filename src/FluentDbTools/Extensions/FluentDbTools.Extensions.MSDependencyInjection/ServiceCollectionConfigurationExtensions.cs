@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Common.Abstractions.PrioritizedConfig;
 using FluentDbTools.Contracts;
 using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
@@ -13,6 +17,32 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
     /// </summary>
     public static class ServiceCollectionConfigurationExtensions
     {
+        private static readonly List<Assembly> PrioritizedConfigKeysAssemblies = new List<Assembly>();
+
+        public static void AddPrioritizedConfigKeysAssembly(Assembly assembly)
+        {
+            if (PrioritizedConfigKeysAssemblies.Contains(assembly))
+            {
+                return;
+            }
+            PrioritizedConfigKeysAssemblies.Add(assembly);
+        }
+
+        public static void RemovePrioritizedConfigKeysAssembly(Assembly assembly)
+        {
+            if (PrioritizedConfigKeysAssemblies.Contains(assembly))
+            {
+                PrioritizedConfigKeysAssemblies.Remove(assembly);
+            }
+        }
+
+        public static void ClearPrioritizedConfigKeysAssemblies(Assembly assembly)
+        {
+            PrioritizedConfigKeysAssemblies.Clear();
+        }
+
+
+
         /// <summary>
         /// Register the DependencyInjection implementation of <see cref="IDbConfig"/>(Strong-type Ms<see cref="DbConfig"/>)<br/>
         /// Register the DependencyInjection implementation of <see cref="IConfigurationChangedHandler"/> 
@@ -20,8 +50,10 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         /// <param name="serviceProvider"></param>
         /// <param name="asSingleton"></param>
         /// <returns></returns>
-        public static IServiceCollection AddDefaultDbConfig(this IServiceCollection serviceProvider, bool asSingleton = true)
+        public static IServiceCollection AddDefaultDbConfig(this IServiceCollection serviceProvider, bool asSingleton = true,
+            IEnumerable<Assembly> assemblies = null)
         {
+            assemblies = assemblies ?? new [] { Assembly.GetEntryAssembly(), Assembly.GetCallingAssembly(), Assembly.GetExecutingAssembly() };
             if (asSingleton)
             {
                 serviceProvider.TryAddSingleton<DefaultDbConfigValues, MsDefaultDbConfigValues>();
@@ -37,13 +69,15 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                 serviceProvider.TryAddScoped<IDbConfig, MsDbConfig>();
             }
 
+            serviceProvider.AddPrioritizedConfigKeysRegistration(assemblies, asSingleton);
+
             return serviceProvider.AddDbConfigDatabaseTargets();
         }
 
         public static IServiceCollection AddDbConfig(this IServiceCollection serviceProvider, Type dbConfigType, bool asSingleton = true)
         {
             serviceProvider.RemoveAll<IDbConfig>();
-            
+
             if (asSingleton)
             {
                 serviceProvider.AddSingleton(typeof(IDbConfig), dbConfigType);
@@ -53,6 +87,8 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                 serviceProvider.AddScoped(typeof(IDbConfig), dbConfigType);
             }
 
+            serviceProvider.AddPrioritizedConfigKeysRegistration(asSingleton);
+
             return serviceProvider.AddDbConfigDatabaseTargets();
 
         }
@@ -60,7 +96,8 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         public static IServiceCollection AddDbConfig<TDbConfig>(this IServiceCollection serviceProvider, bool asSingleton = true) where TDbConfig : class, IDbConfig
         {
             serviceProvider.RemoveAll<IDbConfig>();
-            
+            serviceProvider.RemoveAll<IPrioritizedConfigKeys>();
+
             if (asSingleton)
             {
                 serviceProvider.AddSingleton<IDbConfig, TDbConfig>();
@@ -69,6 +106,9 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
             {
                 serviceProvider.AddScoped<IDbConfig, TDbConfig>();
             }
+
+            serviceProvider.AddPrioritizedConfigKeysRegistration(asSingleton);
+
             return serviceProvider.AddDbConfigDatabaseTargets();
 
         }
@@ -76,7 +116,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         public static IServiceCollection AddDbConfig<TDbConfig>(this IServiceCollection serviceProvider, TDbConfig impl, bool asSingleton = true) where TDbConfig : class, IDbConfig
         {
             serviceProvider.RemoveAll<IDbConfig>();
-            
+
             if (asSingleton)
             {
                 serviceProvider.AddSingleton<IDbConfig>(sp => impl);
@@ -86,12 +126,13 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                 serviceProvider.AddScoped<IDbConfig>(sp => impl);
             }
 
+            serviceProvider.AddPrioritizedConfigKeysRegistration(asSingleton);
+
             return serviceProvider.AddDbConfigDatabaseTargets();
         }
 
         public static IServiceCollection AddDbConfigDatabaseTargets(this IServiceCollection serviceProvider)
         {
-            serviceProvider.TryAddTransient<IDbConfigDatabaseTargets>(sp => sp.GetRequiredService<IDbConfig>());
             serviceProvider.AddDbConfigSchemaTargets();
             return serviceProvider;
         }
@@ -112,5 +153,86 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         {
             return serviceProvider.GetRequiredService<IDbConfig>();
         }
+
+        public static IServiceCollection AddPrioritizedConfigKeysRegistration(
+            this IServiceCollection serviceProvider, bool asSingleton = true)
+        {
+            var assemblies = new [] { Assembly.GetEntryAssembly(), Assembly.GetCallingAssembly(), Assembly.GetExecutingAssembly() };
+            serviceProvider.AddPrioritizedConfigKeysRegistration(assemblies, asSingleton);
+            return serviceProvider;
+        }
+
+
+        public static IServiceCollection AddPrioritizedConfigKeysRegistration(
+            this IServiceCollection serviceCollection,
+            IEnumerable<Assembly> assemblies,
+            bool asSingleton = true)
+        {
+            assemblies = assemblies ?? new [] { Assembly.GetEntryAssembly(), Assembly.GetCallingAssembly(), Assembly.GetExecutingAssembly() };
+            var list = assemblies.ToList();
+            if (PrioritizedConfigKeysAssemblies.Any())
+            {
+                list.AddRange(PrioritizedConfigKeysAssemblies);
+            }
+
+            var prioritizedConfigKeysTypes = GetPrioritizedConfigKeysTypes(list);
+            if (prioritizedConfigKeysTypes == null)
+            {
+                return serviceCollection;
+            }
+
+            foreach (var prioritizedConfigKeysType in prioritizedConfigKeysTypes.Distinct())
+            {
+                serviceCollection.RemoveIfExists(prioritizedConfigKeysType);
+
+                if (asSingleton)
+                {
+                    serviceCollection.AddSingleton(typeof(IPrioritizedConfigKeys), prioritizedConfigKeysType);
+                }
+                else
+                {
+                    serviceCollection.AddScoped(typeof(IPrioritizedConfigKeys), prioritizedConfigKeysType);
+                }                
+            }
+            
+
+            return serviceCollection;
+        }
+
+        public static IEnumerable<Type> GetPrioritizedConfigKeysTypes(IEnumerable<Assembly> assemblies)
+        {
+            assemblies = assemblies ?? Enumerable.Empty<Assembly>();
+            var searchForForInterfaceType = typeof(IPrioritizedConfigKeys);
+            foreach (var assembliesWithMigrationModel in assemblies.Where(x => x != null).Distinct())
+            {
+                foreach (var type in assembliesWithMigrationModel.GetTypes())
+                {
+                    var foundType = !type.IsInterface && !type.IsAbstract && type.IsImplementingInterfaceType(searchForForInterfaceType);
+                    if (!foundType)
+                    {
+                        continue;
+                    }
+
+                    yield return type;
+                }
+            }
+        }
+
+        internal static bool IsImplementingInterfaceType(this Type type, Type ofInterfaceType)
+        {
+            if (type == null || ofInterfaceType == null)
+            {
+                return false;
+            }
+
+            if (ofInterfaceType.IsAssignableFrom(type) || type.IsAssignableFrom(ofInterfaceType))
+            {
+                return true;
+            }
+
+            return type.GetInterface(ofInterfaceType.Name) != null;
+        }
+
+
     }
 }
