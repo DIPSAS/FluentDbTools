@@ -33,12 +33,13 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         /// <param name="dbConfig"></param>
         /// <param name="configurationChangedHandler"></param>
         /// <param name="prioritizedConfigValues"></param>
+        /// <param name="prioritizedConfigKeys"></param>
         public MsDbMigrationConfig(
             IConfiguration configuration,
             IDbConfig dbConfig = null,
             IConfigurationChangedHandler configurationChangedHandler = null,
             IPrioritizedConfigValues prioritizedConfigValues = null,
-            IPrioritizedConfigKeys prioritizedConfigKeys = null)
+            IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null)
         {
             Configuration = configuration;
 

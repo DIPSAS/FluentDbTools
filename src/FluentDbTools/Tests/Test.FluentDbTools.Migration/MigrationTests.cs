@@ -529,6 +529,16 @@ namespace Test.FluentDbTools.Migration
             FluentMigrationLoggingExtensions.UseLogFileAppendFluentMigratorLoggerProvider = false;
         }
 
+        [Fact]
+        public void OracleMigration_PrioritizedSchemaName_IsUsed()
+        {
+            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, new Dictionary<string, string> {{"database:exampleSchema",nameof(OracleMigration_PrioritizedSchemaName_IsUsed)}});
+            using (var scope = provider.CreateScope())
+            {
+                var dbConfig = scope.ServiceProvider.GetService<IDbMigrationConfig>().GetDbConfig();
+                dbConfig.Schema.Should().Be(nameof(OracleMigration_PrioritizedSchemaName_IsUsed));
+            }
+        }
 
         [Fact]
         public void OracleMigration_AllDatabaseConfigValuesShouldHaveExpectedValues()

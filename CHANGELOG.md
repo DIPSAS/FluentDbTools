@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
 
+### Version 1.2.9 2020-03-02
+- More PrioritizedConfig stuff
+
 ### Version 1.2.8 2020-03-02
 - More PrioritizedConfig stuff
 
