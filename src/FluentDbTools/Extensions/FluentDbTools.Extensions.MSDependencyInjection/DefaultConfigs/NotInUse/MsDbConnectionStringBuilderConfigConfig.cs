@@ -1,4 +1,5 @@
 ﻿using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Common.Abstractions.PrioritizedConfig;
 using FluentDbTools.Contracts;
 using Microsoft.Extensions.Configuration;
 
@@ -12,8 +13,9 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs.NotInUse
             IConfiguration configuration,
             DefaultDbConfigValues defaultDbConfigValues = null,
             DbConfigCredentials dbConfigCredentials = null,
-            IPrioritizedConfigValues prioritizedConfigValues = null)
-           : base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration, prioritizedConfigValues), dbConfigCredentials)
+            IPrioritizedConfigValues prioritizedConfigValues = null,
+            IPrioritizedConfigKeys prioritizedConfigKeys = null)
+           : base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration, prioritizedConfigValues, prioritizedConfigKeys), dbConfigCredentials)
         {
 
         }
