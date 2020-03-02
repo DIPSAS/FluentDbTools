@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Common.Abstractions.PrioritizedConfig;
+using FluentDbTools.Contracts;
 using FluentDbTools.Extensions.DbProvider;
 using Microsoft.Extensions.Configuration;
 
@@ -260,10 +262,16 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         /// Create the DependencyInjection implementing class of <see cref="IDbConfig"/> (strong type Ms<see cref="DbConfig"/>) 
         /// </summary>
         /// <param name="configuration"></param>
+        /// <param name="defaultDbConfigValues"></param>
+        /// <param name="dbConfigCredentials"></param>
+        /// <param name="prioritizedConfigValues"></param>
         /// <returns></returns>
-        public static DbConfig CreateDbConfig(this IConfiguration configuration)
+        public static DbConfig CreateDbConfig(this IConfiguration configuration,
+            DefaultDbConfigValues defaultDbConfigValues = null,
+            DbConfigCredentials dbConfigCredentials = null,
+            IPrioritizedConfigValues prioritizedConfigValues = null)
         {
-            return new MsDbConfig(configuration);
+            return new MsDbConfig(configuration,null,defaultDbConfigValues,dbConfigCredentials,prioritizedConfigValues);
         }
     }
 }

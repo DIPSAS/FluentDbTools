@@ -1,4 +1,5 @@
 ﻿using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Common.Abstractions.PrioritizedConfig;
 using FluentDbTools.Contracts;
 using Microsoft.Extensions.Configuration;
 
@@ -20,8 +21,9 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             IConfiguration configuration, 
             DefaultDbConfigValues defaultDbConfigValues = null,
             IConfigurationChangedHandler configurationChangedHandler = null,
-            IPrioritizedConfigValues prioritizedConfigValues = null)
-            : base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration, prioritizedConfigValues))
+            IPrioritizedConfigValues prioritizedConfigValues = null,
+            IPrioritizedConfigKeys prioritizedConfigKeys = null)
+            : base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration, prioritizedConfigValues, prioritizedConfigKeys))
         {
             IgnoreManualCallOnConfigurationChanged = true;
             configurationChangedHandler?.RegisterConfigurationChangedCallback(OnConfigurationChanged);

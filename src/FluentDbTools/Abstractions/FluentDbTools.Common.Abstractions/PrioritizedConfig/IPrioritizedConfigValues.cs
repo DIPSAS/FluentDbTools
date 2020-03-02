@@ -1,4 +1,4 @@
-﻿namespace FluentDbTools.Common.Abstractions
+﻿namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
 {
     public interface IPrioritizedConfigValues
     {

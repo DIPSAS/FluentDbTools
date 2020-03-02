@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Common.Abstractions.PrioritizedConfig;
 using FluentDbTools.Contracts;
 using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Extensions.MSDependencyInjection;
@@ -36,7 +37,8 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
             IConfiguration configuration,
             IDbConfig dbConfig = null,
             IConfigurationChangedHandler configurationChangedHandler = null,
-            IPrioritizedConfigValues prioritizedConfigValues = null)
+            IPrioritizedConfigValues prioritizedConfigValues = null,
+            IPrioritizedConfigKeys prioritizedConfigKeys = null)
         {
             Configuration = configuration;
 
@@ -49,7 +51,7 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
 
             if (Defaults == null)
             {
-                Defaults = (dbConfig as MsDbConfig)?.Defaults ?? new MsDefaultDbConfigValues(configuration, prioritizedConfigValues);
+                Defaults = (dbConfig as MsDbConfig)?.Defaults ?? new MsDefaultDbConfigValues(configuration, prioritizedConfigValues, prioritizedConfigKeys);
             }
 
             GetDbConfig = () => dbConfig;

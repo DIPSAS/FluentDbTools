@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Common.Abstractions.PrioritizedConfig;
 using FluentDbTools.Contracts;
 using Microsoft.Extensions.Configuration;
 
@@ -12,32 +13,36 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         /// Overrides all default functions in <see cref="DefaultDbConfigValues"/> by <paramref name="configuration"/> extension methods
         /// </summary>
         /// <param name="configuration"></param>
-        /// <param name="prioritizedConfig"></param>
-        public MsDefaultDbConfigValues(IConfiguration configuration, IPrioritizedConfigValues prioritizedConfig = null)
+        /// <param name="prioritizedConfigValues"></param>
+        /// <param name="prioritizedConfigKeys"></param>
+        public MsDefaultDbConfigValues(
+            IConfiguration configuration, 
+            IPrioritizedConfigValues prioritizedConfigValues = null, 
+            IPrioritizedConfigKeys prioritizedConfigKeys = null)
         {
-            prioritizedConfig = prioritizedConfig ?? new PrioritizedConfigValues();
+            prioritizedConfigValues = prioritizedConfigValues ?? new PrioritizedConfigValues(configuration.GetConfigValue, prioritizedConfigKeys ?? new PrioritizedConfigKeys());
             // DbConfigDatabaseTargets defaults
-            GetDefaultDbType = () => GetConfigValueSupportedDatabaseTypes(prioritizedConfig.GetDbType, configuration.GetDbType);
-            GetDefaultSchema = () => GetConfigValueString(prioritizedConfig.GetDbSchema, configuration.GetDbSchema);
-            GetDefaultDatabaseName = () => GetConfigValueString(prioritizedConfig.GetDbDatabaseName, configuration.GetDbDatabaseName);
-            GetDefaultSchemaPrefixIdString = () => GetConfigValueString(prioritizedConfig.GetDbSchemaPrefixIdString, () => string.Empty);
+            GetDefaultDbType = () => GetConfigValueSupportedDatabaseTypes(prioritizedConfigValues.GetDbType, configuration.GetDbType);
+            GetDefaultSchema = () => GetConfigValueString(prioritizedConfigValues.GetDbSchema, configuration.GetDbSchema);
+            GetDefaultDatabaseName = () => GetConfigValueString(prioritizedConfigValues.GetDbDatabaseName, configuration.GetDbDatabaseName);
+            GetDefaultSchemaPrefixIdString = () => GetConfigValueString(prioritizedConfigValues.GetDbSchemaPrefixIdString, () => string.Empty);
 
             // DbConfigCredentials defaults
-            GetDefaultUser = () => GetConfigValueString(prioritizedConfig.GetDbUser, configuration.GetDbUser);
-            GetDefaultPassword = () => GetConfigValueString(prioritizedConfig.GetDbPassword, configuration.GetDbPassword);
-            GetDefaultAdminUser = () => GetConfigValueString(prioritizedConfig.GetDbAdminUser, configuration.GetDbAdminUser);
-            GetDefaultAdminPassword = () => GetConfigValueString(prioritizedConfig.GetDbAdminPassword, configuration.GetDbAdminPassword);
+            GetDefaultUser = () => GetConfigValueString(prioritizedConfigValues.GetDbUser, configuration.GetDbUser);
+            GetDefaultPassword = () => GetConfigValueString(prioritizedConfigValues.GetDbPassword, configuration.GetDbPassword);
+            GetDefaultAdminUser = () => GetConfigValueString(prioritizedConfigValues.GetDbAdminUser, configuration.GetDbAdminUser);
+            GetDefaultAdminPassword = () => GetConfigValueString(prioritizedConfigValues.GetDbAdminPassword, configuration.GetDbAdminPassword);
 
             // DbConnectionStringBuilderConfig defaults
-            GetDefaultHostName = () => GetConfigValueString(prioritizedConfig.GetDbHostname, configuration.GetDbHostname);
-            GetDefaultPort = () => GetConfigValueString(prioritizedConfig.GetDbPort, configuration.GetDbPort);
-            GetDefaultDataSource = () => GetConfigValueString(prioritizedConfig.GetDbDataSource, configuration.GetDbDataSource);
-            GetDefaultConnectionTimeoutInSecs = () => GetConfigValueString(prioritizedConfig.GetDbConnectionTimeout, configuration.GetDbConnectionTimeout);
-            GetDefaultPooling = () => GetConfigValueBool(prioritizedConfig.GetDbPooling, configuration.GetDbPooling);
+            GetDefaultHostName = () => GetConfigValueString(prioritizedConfigValues.GetDbHostname, configuration.GetDbHostname);
+            GetDefaultPort = () => GetConfigValueString(prioritizedConfigValues.GetDbPort, configuration.GetDbPort);
+            GetDefaultDataSource = () => GetConfigValueString(prioritizedConfigValues.GetDbDataSource, configuration.GetDbDataSource);
+            GetDefaultConnectionTimeoutInSecs = () => GetConfigValueString(prioritizedConfigValues.GetDbConnectionTimeout, configuration.GetDbConnectionTimeout);
+            GetDefaultPooling = () => GetConfigValueBool(prioritizedConfigValues.GetDbPooling, configuration.GetDbPooling);
 
             // DbConfig defaults
-            GetDefaultConnectionString = () => GetConfigValueString(prioritizedConfig.GetDbConnectionString, configuration.GetDbConnectionString);
-            GetDefaultAdminConnectionString = () => GetConfigValueString(prioritizedConfig.GetDbAdminConnectionString, configuration.GetDbAdminConnectionString);
+            GetDefaultConnectionString = () => GetConfigValueString(prioritizedConfigValues.GetDbConnectionString, configuration.GetDbConnectionString);
+            GetDefaultAdminConnectionString = () => GetConfigValueString(prioritizedConfigValues.GetDbAdminConnectionString, configuration.GetDbAdminConnectionString);
 
             string GetConfigValueString(Func<string> firstPriority, Func<string> nextPriority)
             {
