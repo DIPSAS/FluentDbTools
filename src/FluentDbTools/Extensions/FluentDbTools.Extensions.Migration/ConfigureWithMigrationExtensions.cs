@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using FluentDbTools.Common.Abstractions;
@@ -13,6 +14,7 @@ using FluentMigrator;
 using FluentMigrator.Runner.Generators.Oracle;
 using FluentMigrator.Runner.Generators.Postgres;
 using FluentMigrator.Runner.VersionTableInfo;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -107,6 +109,22 @@ namespace FluentDbTools.Extensions.Migration
 
         }
 
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
+        public static IDbMigrationConfig GetOrCreateDbMigrationConfig(this IServiceProvider serviceProvider)
+        {
+            var dbMigrationConfig = serviceProvider.GetDbMigrationConfig(false);
+            if (dbMigrationConfig != null)
+            {
+                return dbMigrationConfig;
+            }
+            
+            return new MsDbMigrationConfig( 
+                serviceProvider.GetRequiredService<IConfiguration>(), 
+                serviceProvider.GetDbConfig(false),
+                serviceProvider.GetService<IConfigurationChangedHandler>(), 
+                serviceProvider.GetService<IPrioritizedConfigValues>(),
+                serviceProvider.GetServices<IPrioritizedConfigKeys>());
+        }
 
     }
 }

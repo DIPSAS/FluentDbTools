@@ -227,10 +227,11 @@ namespace FluentDbTools.Migration.Abstractions
         /// Resolve the registered implementation of <see cref="IDbMigrationConfig"/> from the DependencyInjection container <see cref="IServiceProvider"/>
         /// </summary>
         /// <param name="serviceProvider"></param>
+        /// <param name="required"></param>
         /// <returns></returns>
-        public static IDbMigrationConfig GetDbMigrationConfig(this IServiceProvider serviceProvider)
+        public static IDbMigrationConfig GetDbMigrationConfig(this IServiceProvider serviceProvider, bool required = true)
         {
-            return serviceProvider.GetRequiredService<IDbMigrationConfig>();
+            return required ? serviceProvider.GetRequiredService<IDbMigrationConfig>() : serviceProvider.GetService<IDbMigrationConfig>();
         }
 
 

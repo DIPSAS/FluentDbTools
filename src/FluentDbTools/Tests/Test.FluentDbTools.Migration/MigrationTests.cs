@@ -190,7 +190,7 @@ namespace Test.FluentDbTools.Migration
             var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
             inMemoryOverrideConfig.TryGetValue("database:schema", out var schema);
 
-            var config2 = new Dictionary<string,string>(inMemoryOverrideConfig);
+            var config2 = new Dictionary<string, string>(inMemoryOverrideConfig);
 
             if (databaseType == SupportedDatabaseTypes.Postgres)
             {
@@ -530,15 +530,57 @@ namespace Test.FluentDbTools.Migration
         }
 
         [Fact]
-        public void OracleMigration_PrioritizedSchemaName_IsUsed()
+        public void OracleMigration_PrioritizeValues_IsResolvedCorrect()
         {
-            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, new Dictionary<string, string> {{"database:exampleSchema",nameof(OracleMigration_PrioritizedSchemaName_IsUsed)}});
+            var overrideConfig = new Dictionary<string, string>
+            {
+                {"database:exampleSchema",nameof(OracleMigration_PrioritizeValues_IsResolvedCorrect)},
+                {"database:migration:exampleSchema:password",nameof(OracleMigration_PrioritizeValues_IsResolvedCorrect) + "-password"},
+                {"database:schemaPrefix:exampleSchemaPrefixId","SP"},
+                {"database:migration:schemaPrefix:exampleSchemaPrefixUniqueId","xyz1234" }
+            };
+            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, overrideConfig);
             using (var scope = provider.CreateScope())
             {
-                var dbConfig = scope.ServiceProvider.GetService<IDbMigrationConfig>().GetDbConfig();
-                dbConfig.Schema.Should().Be(nameof(OracleMigration_PrioritizedSchemaName_IsUsed));
+                var migrationConfig = scope.ServiceProvider.GetDbMigrationConfig();
+                var dbConfig = migrationConfig.GetDbConfig();
+
+                dbConfig.Schema.Should().Be(nameof(OracleMigration_PrioritizeValues_IsResolvedCorrect));
+                migrationConfig.Schema.Should().Be(dbConfig.Schema);
+                migrationConfig.SchemaPassword.Should().Be(nameof(OracleMigration_PrioritizeValues_IsResolvedCorrect) + "-password");
+                migrationConfig.GetSchemaPrefixId().Should().Be("SP");
+                migrationConfig.GetSchemaPrefixUniqueId().Should().Be("xyz1234");
+
             }
         }
+
+        [Theory]
+        [InlineData("exampleSchema", "exampleSchema-pwd")]
+        [InlineData("testing", "testing-pwd")]
+        [InlineData(nameof(OracleMigration_PrioritizeValues_SchemePasswordIsResolvedCorrect), nameof(OracleMigration_PrioritizeValues_SchemePasswordIsResolvedCorrect) + "-pwd")]
+        [InlineData("testing", null, "dbpassword")]
+        public void OracleMigration_PrioritizeValues_SchemePasswordIsResolvedCorrect(string schemaName,string schemaPassword, string expectedSchemaPassword=null)
+        {
+            if (expectedSchemaPassword == null)
+            {
+                expectedSchemaPassword = schemaPassword;
+            }
+            var overrideConfig = new Dictionary<string, string>
+            {
+                {"database:exampleSchema",schemaName},
+                {$"database:{schemaName}:password",schemaPassword},
+            };
+            var provider = MigrationBuilder.BuildMigration(SupportedDatabaseTypes.Oracle, overrideConfig);
+            using (var scope = provider.CreateScope())
+            {
+                var migrationConfig = scope.ServiceProvider.GetDbMigrationConfig();
+
+                migrationConfig.Schema.Should().Be(schemaName);
+                migrationConfig.SchemaPassword.Should().Be(expectedSchemaPassword);
+
+            }
+        }
+
 
         [Fact]
         public void OracleMigration_AllDatabaseConfigValuesShouldHaveExpectedValues()

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Common.Abstractions.PrioritizedConfig;
 using FluentDbTools.Contracts;
@@ -10,7 +10,6 @@ using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using FluentDbTools.Migration.Abstractions;
 using Microsoft.Extensions.Configuration;
 using FluentDbTools.Migration.Common;
-using Microsoft.Extensions.Primitives;
 
 namespace FluentDbTools.Extensions.Migration.DefaultConfigs
 {
@@ -18,6 +17,7 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
     public class MsDbMigrationConfig : IDbMigrationConfig
     {
         private readonly DefaultDbConfigValues Defaults;
+        private readonly IPrioritizedConfigValues PrioritizedConfigValues;
         internal readonly IConfiguration Configuration;
         private IDictionary<string, string> AllConfigValuesField;
 
@@ -41,34 +41,42 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
             IPrioritizedConfigValues prioritizedConfigValues = null,
             IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null)
         {
+            var prioritizedConfigKeysArray = (prioritizedConfigKeys ?? new[] { new PrioritizedConfigKeys() }).ToArray();
+            PrioritizedConfigValues = prioritizedConfigValues ??
+                                      new PrioritizedConfigValues(configuration.GetConfigValue, prioritizedConfigKeysArray);
+
             Configuration = configuration;
 
             if (dbConfig == null)
             {
-                var newConfig = new MsDbConfig(Configuration);
+                var newConfig = new MsDbConfig(
+                    Configuration,
+                    configurationChangedHandler,
+                    CreateDefaultDbConfigValues(prioritizedConfigKeysArray));
+
                 Defaults = newConfig.Defaults;
                 dbConfig = newConfig;
             }
 
             if (Defaults == null)
             {
-                Defaults = (dbConfig as MsDbConfig)?.Defaults ?? new MsDefaultDbConfigValues(configuration, prioritizedConfigValues, prioritizedConfigKeys);
+                Defaults = (dbConfig as MsDbConfig)?.Defaults ?? CreateDefaultDbConfigValues(prioritizedConfigKeysArray);
             }
 
             GetDbConfig = () => dbConfig;
             configurationChangedHandler?.RegisterConfigurationChangedCallback(OnConfigurationChanged);
         }
 
-
-
         private string SchemaPasswordField;
 
         /// <inheritdoc />
         public virtual string SchemaPassword
         {
-            get => SchemaPasswordField ?? Configuration.GetMigrationSchemaPassword()
+            get => SchemaPasswordField ??
+                        PrioritizedConfigValues.GetDbSchemaPassword()
+                       .WithDefault(Configuration.GetMigrationSchemaPassword())
                        .WithDefault(Configuration.GetSecret(Schema))
-                       .WithDefault(GetDbConfig().Password);
+                       .WithDefault(GetDbConfig().Password.EndsWithIgnoreCase("_APP") == false ? GetDbConfig().Password : Schema);
             set => SchemaPasswordField = value;
         }
 
@@ -101,7 +109,8 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         public string DatabaseName => GetDbConfig().DatabaseName;
 
         /// <inheritdoc />
-        public string GetSchemaPrefixId() => GetAllMigrationConfigValues().GetValue("schemaPrefix:Id") ??
+        public string GetSchemaPrefixId() => PrioritizedConfigValues.GetDbSchemaPrefixIdString() ??
+                                             GetAllMigrationConfigValues().GetValue("schemaPrefix:Id") ??
                                              GetDbConfig().GetSchemaPrefixId() ??
                                              Defaults?.GetDefaultSchemaPrefixIdString.Invoke() ?? string.Empty;
 
@@ -134,9 +143,11 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
         /// <inheritdoc />
         public string GetSchemaPrefixUniqueId()
         {
-            return GetAllMigrationConfigValues().GetValue("schemaPrefix:UniqueId") ??
+            return PrioritizedConfigValues.GetDbSchemaUniquePrefixIdString() ??
+                   GetAllMigrationConfigValues().GetValue("schemaPrefix:UniqueId") ??
                    GetDbConfig().GetAllDatabaseConfigValues().GetValue("schemaPrefix:UniqueId") ??
-                   Defaults?.GetDefaultSchemaPrefixUniqueIdString.Invoke() ?? string.Empty; ;
+                   Defaults?.GetDefaultSchemaPrefixUniqueIdString.Invoke() ?? string.Empty; 
+
         }
 
         private void OnConfigurationChanged(Func<string[], string> getValueFunc)
@@ -147,5 +158,11 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
 
             GetAllMigrationConfigValues(true);
         }
+
+        private MsDefaultDbConfigValues CreateDefaultDbConfigValues(IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeysArray)
+        {
+            return new MsDefaultDbConfigValues(Configuration, PrioritizedConfigValues, prioritizedConfigKeysArray);
+        }
+
     }
 }

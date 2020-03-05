@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
 
+### Version 1.2.12 2020-03-05
+- Added PrioritizedConfig to MsMigrationConfig
+
 ### Version 1.2.11 2020-03-05
 - Fixed build/merge fail
 

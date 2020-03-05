@@ -4,7 +4,9 @@
     {
         string[] GetDbTypeKeys();
         string[] GetDbSchemaKeys();
+        string[] GetDbSchemaPasswordKeys();
         string[] GetDbSchemaPrefixIdStringKeys();
+        string[] GetDbSchemaUniquePrefixIdStringKeys();
         string[] GetDbDatabaseNameKeys();
         string[] GetDbUserKeys();
         string[] GetDbPasswordKeys();
