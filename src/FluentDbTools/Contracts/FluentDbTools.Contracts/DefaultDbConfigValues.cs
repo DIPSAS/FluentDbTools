@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
 
 namespace FluentDbTools.Contracts
@@ -8,6 +9,8 @@ namespace FluentDbTools.Contracts
     /// </summary>
     public class DefaultDbConfigValues
     {
+        private Dictionary<string, string> AllConfigValuesField;
+
         /// <summary>
         /// Default database type
         /// </summary>
@@ -113,13 +116,26 @@ namespace FluentDbTools.Contracts
         /// SchemaPrefix defaults: <br/>
         /// - Function returning Default SchemaPrefixId <br/>
         /// </summary>
-        public Func<string> GetDefaultSchemaPrefixIdString = () => string.Empty;
+        public Func<string> GetDefaultSchemaPrefixIdString = () => null;
 
         /// <summary>
         /// SchemaPrefix defaults: <br/>
         /// - Function returning Default SchemaPrefixUniqueId <br/>
         /// </summary>
-        public Func<string> GetDefaultSchemaPrefixUniqueIdString = () => string.Empty;
+        public Func<string> GetDefaultSchemaPrefixUniqueIdString = () => null;
         #endregion
+
+        /// <summary>
+        /// GetAllMigrationConfigValues() : Get al values and subValues from configuration "database:migration". 
+        /// </summary>
+        public virtual IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false)
+        {
+            if (AllConfigValuesField == null || reload)
+            {
+                AllConfigValuesField = new Dictionary<string, string>();
+            }
+
+            return AllConfigValuesField;
+        }
     }
 }

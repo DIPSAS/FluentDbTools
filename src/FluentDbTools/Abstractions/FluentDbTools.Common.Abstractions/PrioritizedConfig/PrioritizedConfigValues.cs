@@ -152,7 +152,8 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
         private string GetConfigValue(params string[] keys)
         {
             keys = keys?.Where(x => x != null).Distinct().ToArray();
-            return keys == null || GetConfigValueFunc == null ? null : GetConfigValueFunc?.Invoke(keys);
+            var value = keys == null || GetConfigValueFunc == null ? null : GetConfigValueFunc?.Invoke(keys);
+            return string.IsNullOrEmpty(value) ? null : value;
         }
 
         private bool GetPasswordByUserName(string user, out string passwordByUser)

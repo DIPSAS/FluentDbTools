@@ -33,31 +33,5 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             GetAllDatabaseConfigValues(true);
             base.OnConfigurationChanged(getValueFunc);
         }
-
-        /// <inheritdoc />
-        public override IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false)
-        {
-            if (AllConfigValuesField == null || reload)
-            {
-                AllConfigValuesField = Configuration.GetDbSection().GetDbAllConfigValues();
-            }
-
-            return AllConfigValuesField;
-        }
-
-
-        /// <inheritdoc />
-        public override string GetSchemaPrefixId()
-        {
-            return GetAllDatabaseConfigValues().GetValue("schemaPrefix:Id") ??
-                   Defaults.GetDefaultSchemaPrefixIdString?.Invoke() ?? string.Empty;
-        }
-
-        /// <inheritdoc />
-        public override string GetSchemaPrefixUniqueId()
-        {
-            return GetAllDatabaseConfigValues().GetValue("schemaPrefix:UniqueId") ??
-                   Defaults.GetDefaultSchemaPrefixUniqueIdString?.Invoke() ?? string.Empty;
-        }
     }
 }

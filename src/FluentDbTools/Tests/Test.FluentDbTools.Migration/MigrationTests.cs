@@ -546,10 +546,13 @@ namespace Test.FluentDbTools.Migration
                 var dbConfig = migrationConfig.GetDbConfig();
 
                 dbConfig.Schema.Should().Be(nameof(OracleMigration_PrioritizeValues_IsResolvedCorrect));
+                
                 migrationConfig.Schema.Should().Be(dbConfig.Schema);
                 migrationConfig.SchemaPassword.Should().Be(nameof(OracleMigration_PrioritizeValues_IsResolvedCorrect) + "-password");
                 migrationConfig.GetSchemaPrefixId().Should().Be("SP");
                 migrationConfig.GetSchemaPrefixUniqueId().Should().Be("xyz1234");
+
+                dbConfig.GetSchemaPrefixId().Should().Be(migrationConfig.GetSchemaPrefixId());
 
             }
         }
