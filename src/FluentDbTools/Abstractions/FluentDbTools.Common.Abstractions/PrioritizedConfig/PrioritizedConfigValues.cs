@@ -4,17 +4,22 @@ using System.Linq;
 
 namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
 {
-    public class PrioritizedConfigValues : IPrioritizedConfigValues 
+    public class PrioritizedConfigValues : IPrioritizedConfigValues
     {
         private readonly IPrioritizedConfigKeys[] PrioritizedConfigKeys;
         private readonly Func<string[], string> GetConfigValueFunc;
+        private readonly string Delimiter;
 
         public PrioritizedConfigValues(
+            
             Func<string[], string> getConfigValueFunc = null,
-            IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null)
+            IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null,
+            IConfigurationDelimiter configurationDelimiter = null)
         {
             PrioritizedConfigKeys = prioritizedConfigKeys?.Distinct()?.ToArray() ?? Array.Empty<IPrioritizedConfigKeys>();
             GetConfigValueFunc = getConfigValueFunc;
+
+            Delimiter = configurationDelimiter?.Delimiter ?? ":";
         }
 
         public SupportedDatabaseTypes? GetDbType()
@@ -28,7 +33,7 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
             }
 
             return Enum.TryParse(value, true, out SupportedDatabaseTypes dbType)
-                ? (SupportedDatabaseTypes?) dbType
+                ? (SupportedDatabaseTypes?)dbType
                 : null;
         }
 
@@ -58,6 +63,10 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
 
         public virtual string GetDbPassword()
         {
+            if (GetPasswordByUserName(GetDbUser(), out var password))
+            {
+                return password;
+            }
             return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbPasswordKeys() != null)?
                 .SelectMany(x => x?.GetDbPasswordKeys())?.ToArray());
         }
@@ -70,6 +79,11 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
 
         public virtual string GetDbAdminPassword()
         {
+            if (GetPasswordByUserName(GetDbAdminUser(), out var password))
+            {
+                return password;
+            }
+
             return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbAdminPasswordKeys() != null)?
                 .SelectMany(x => x?.GetDbAdminPasswordKeys())?.ToArray());
         }
@@ -103,7 +117,7 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
             var value = GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbPoolingKeys() != null)?
                 .SelectMany(x => x?.GetDbPoolingKeys())?.ToArray());
 
-            return value.IsNotEmpty() ? (bool?) value.IsTrue() : null;
+            return value.IsNotEmpty() ? (bool?)value.IsTrue() : null;
         }
 
         public virtual string GetDbConnectionString()
@@ -122,6 +136,18 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
         {
             keys = keys?.Where(x => x != null).Distinct().ToArray();
             return keys == null || GetConfigValueFunc == null ? null : GetConfigValueFunc?.Invoke(keys);
+        }
+
+        private bool GetPasswordByUserName(string user, out string passwordByUser)
+        {
+            if (user.IsEmpty())
+            {
+                passwordByUser = null;
+                return false;
+            }
+
+            passwordByUser = GetConfigValue($"database{Delimiter}{user}{Delimiter}password");
+            return passwordByUser.IsNotEmpty();
         }
     }
 }
