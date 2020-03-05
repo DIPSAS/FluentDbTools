@@ -12,7 +12,17 @@
             return null;
         }
 
+        public virtual string[] GetDbSchemaPasswordKeys()
+        {
+            return null;
+        }
+
         public virtual string[] GetDbSchemaPrefixIdStringKeys()
+        {
+            return null;
+        }
+
+        public virtual string[] GetDbSchemaUniquePrefixIdStringKeys()
         {
             return null;
         }

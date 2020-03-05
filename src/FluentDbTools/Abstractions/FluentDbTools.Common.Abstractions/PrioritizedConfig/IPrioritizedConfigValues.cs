@@ -4,7 +4,9 @@
     {
         SupportedDatabaseTypes? GetDbType();
         string GetDbSchema();
+        string GetDbSchemaPassword();
         string GetDbSchemaPrefixIdString();
+        string GetDbSchemaUniquePrefixIdString();
         string GetDbDatabaseName();
         string GetDbUser();
         string GetDbPassword();

@@ -11,7 +11,6 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
         private readonly string Delimiter;
 
         public PrioritizedConfigValues(
-            
             Func<string[], string> getConfigValueFunc = null,
             IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null,
             IConfigurationDelimiter configurationDelimiter = null)
@@ -43,10 +42,28 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
                 .SelectMany(x => x?.GetDbSchemaKeys())?.ToArray());
         }
 
+        public virtual string GetDbSchemaPassword()
+        {
+            if (GetPasswordByUserName(GetDbSchema(), out var password))
+            {
+                return password;
+            }
+            
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaPasswordKeys() != null)?
+                .SelectMany(x => x?.GetDbSchemaPasswordKeys())?.ToArray());
+        }
+
+
         public string GetDbSchemaPrefixIdString()
         {
             return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaPrefixIdStringKeys() != null)?
                 .SelectMany(x => x?.GetDbSchemaPrefixIdStringKeys())?.ToArray());
+        }
+
+        public virtual string GetDbSchemaUniquePrefixIdString()
+        {
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaUniquePrefixIdStringKeys() != null)?
+                .SelectMany(x => x?.GetDbSchemaUniquePrefixIdStringKeys())?.ToArray());
         }
 
         public virtual string GetDbDatabaseName()

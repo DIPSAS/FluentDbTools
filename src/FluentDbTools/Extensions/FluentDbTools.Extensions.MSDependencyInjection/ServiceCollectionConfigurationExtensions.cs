@@ -148,10 +148,11 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         /// Resolve the registered implementation of <see cref="IDbConfig"/> from the DependencyInjection container <see cref="IServiceProvider"/>
         /// </summary>
         /// <param name="serviceProvider"></param>
+        /// <param name="required"></param>
         /// <returns></returns>
-        public static IDbConfig GetDbConfig(this IServiceProvider serviceProvider)
+        public static IDbConfig GetDbConfig(this IServiceProvider serviceProvider, bool required = true)
         {
-            return serviceProvider.GetRequiredService<IDbConfig>();
+            return required ? serviceProvider.GetRequiredService<IDbConfig>() : serviceProvider.GetService<IDbConfig>();
         }
 
         public static IServiceCollection AddPrioritizedConfigKeysRegistration(
