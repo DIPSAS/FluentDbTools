@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
 
+### Version 1.2.11 2020-03-05
+- Fixed build/merge fail
+
 ### Version 1.2.10 2020-03-05
 - More PrioritizedConfig stuff (IConfigurationDelimiter)
 
