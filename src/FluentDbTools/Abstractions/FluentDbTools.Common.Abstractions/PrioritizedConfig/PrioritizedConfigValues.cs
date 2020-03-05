@@ -63,12 +63,7 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
 
         public virtual string GetDbPassword()
         {
-            if (GetPasswordByUserName(GetDbUser(), out var password))
-            {
-                return password;
-            }
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbPasswordKeys() != null)?
-                .SelectMany(x => x?.GetDbPasswordKeys())?.ToArray());
+            return GetConfigValue(PrioritizedConfigKeys.GetDbPasswordKeys());
         }
 
         public virtual string GetDbAdminUser()
@@ -79,13 +74,7 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
 
         public virtual string GetDbAdminPassword()
         {
-            if (GetPasswordByUserName(GetDbAdminUser(), out var password))
-            {
-                return password;
-            }
-
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbAdminPasswordKeys() != null)?
-                .SelectMany(x => x?.GetDbAdminPasswordKeys())?.ToArray());
+            return GetConfigValue(PrioritizedConfigKeys.GetDbAdminPasswordKeys());
         }
 
         public virtual string GetDbHostname()
