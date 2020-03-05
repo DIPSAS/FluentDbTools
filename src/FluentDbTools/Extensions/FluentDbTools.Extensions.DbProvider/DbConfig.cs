@@ -8,9 +8,6 @@ namespace FluentDbTools.Extensions.DbProvider
     /// <inheritdoc cref="IDbConfig" />
     public class DbConfig : DbConnectionStringBuilderConfig, IDbConfig
     {
-#pragma warning disable 1591
-        protected IDictionary<string, string> AllConfigValuesField;
-#pragma warning restore 1591
 
         /// <inheritdoc />
         public DbConfig(
@@ -42,12 +39,7 @@ namespace FluentDbTools.Extensions.DbProvider
         /// <inheritdoc />
         public virtual IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false)
         {
-            if (AllConfigValuesField == null || reload)
-            {
-                AllConfigValuesField = new Dictionary<string, string>();
-            }
-
-            return AllConfigValuesField;
+            return Defaults?.GetAllDatabaseConfigValues(reload) ?? new Dictionary<string, string>();
         }
 
         /// <inheritdoc />

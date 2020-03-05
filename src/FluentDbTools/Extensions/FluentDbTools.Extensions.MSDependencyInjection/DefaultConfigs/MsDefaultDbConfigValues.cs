@@ -10,6 +10,9 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
     /// <inheritdoc />
     internal class MsDefaultDbConfigValues : DefaultDbConfigValues
     {
+        private readonly IConfiguration Configuration;
+        private IDictionary<string, string> AllConfigValuesField;
+
         /// <summary>
         /// Overrides all default functions in <see cref="DefaultDbConfigValues"/> by <paramref name="configuration"/> extension methods
         /// </summary>
@@ -21,13 +24,15 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             IPrioritizedConfigValues prioritizedConfigValues = null, 
             IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null)
         {
+            Configuration = configuration;
             prioritizedConfigValues = prioritizedConfigValues ?? new PrioritizedConfigValues(configuration.GetConfigValue, prioritizedConfigKeys ?? new []{ new PrioritizedConfigKeys()});
             // DbConfigDatabaseTargets defaults
             GetDefaultDbType = () => GetConfigValueSupportedDatabaseTypes(prioritizedConfigValues.GetDbType, configuration.GetDbType);
             GetDefaultSchema = () => GetConfigValueString(prioritizedConfigValues.GetDbSchema, configuration.GetDbSchema);
             GetDefaultDatabaseName = () => GetConfigValueString(prioritizedConfigValues.GetDbDatabaseName, configuration.GetDbDatabaseName);
-            GetDefaultSchemaPrefixIdString = () => GetConfigValueString(prioritizedConfigValues.GetDbSchemaPrefixIdString, () => string.Empty);
-
+            GetDefaultSchemaPrefixIdString = () => GetConfigValueString(prioritizedConfigValues.GetDbSchemaPrefixIdString, () => GetAllDatabaseConfigValues().GetValue("schemaPrefix:Id"));
+            GetDefaultSchemaPrefixUniqueIdString = () => GetConfigValueString(prioritizedConfigValues.GetDbSchemaUniquePrefixIdString, () => GetAllDatabaseConfigValues().GetValue("schemaPrefix:UniqueId"));
+            
             // DbConfigCredentials defaults
             GetDefaultUser = () => GetConfigValueString(prioritizedConfigValues.GetDbUser, configuration.GetDbUser);
             GetDefaultPassword = () => GetConfigValueString(prioritizedConfigValues.GetDbPassword, configuration.GetDbPassword);
@@ -47,7 +52,8 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 
             string GetConfigValueString(Func<string> firstPriority, Func<string> nextPriority)
             {
-                return firstPriority?.Invoke() ?? nextPriority?.Invoke();
+                var value = firstPriority?.Invoke() ?? nextPriority?.Invoke();
+                return string.IsNullOrEmpty(value) ? null : value;
             }
 
             bool GetConfigValueBool(Func<bool?> firstPriority, Func<bool> nextPriority)
@@ -58,10 +64,21 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             SupportedDatabaseTypes GetConfigValueSupportedDatabaseTypes(Func<SupportedDatabaseTypes?> firstPriority, Func<SupportedDatabaseTypes> nextPriority)
             {
                 return firstPriority?.Invoke() ?? nextPriority.Invoke();
+                
             }
-
-
         }
 
+        /// <summary>
+        /// GetAllMigrationConfigValues() : Get al values and subValues from configuration "database:migration". 
+        /// </summary>
+        public override IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false)
+        {
+            if (AllConfigValuesField == null || reload)
+            {
+                AllConfigValuesField = Configuration.GetDbSection().GetDbAllConfigValues();
+            }
+
+            return AllConfigValuesField;
+        }
     }
 }

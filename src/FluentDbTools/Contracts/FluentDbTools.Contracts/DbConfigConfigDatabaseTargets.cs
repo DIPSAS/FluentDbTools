@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Dynamic;
 using FluentDbTools.Common.Abstractions;
 
 namespace FluentDbTools.Contracts
@@ -10,14 +9,17 @@ namespace FluentDbTools.Contracts
         private SupportedDatabaseTypes? DbTypeField;
         private string SchemaField;
         private string DatabaseConnectionNameField;
-        private string SchemaPrefixUniqueIdField;
 
         /// <summary>
         /// All default values
         /// </summary>
         public DefaultDbConfigValues Defaults { get; protected set; }
         
-        protected string ScemaPrefixIdField { get; set; }
+        /// <summary>
+        /// Current SchemaPrefixId
+        /// </summary>
+        protected string SchemaPrefixIdField { get; set; }
+
         /// <summary>
         /// Constructor 
         /// </summary>
@@ -50,25 +52,28 @@ namespace FluentDbTools.Contracts
         }
 
         /// <inheritdoc />
-        public virtual string GetSchemaPrefixId() => ScemaPrefixIdField ?? Defaults.GetDefaultSchemaPrefixIdString();
+        public virtual string GetSchemaPrefixId() => SchemaPrefixIdField ?? Defaults.GetDefaultSchemaPrefixIdString();
 
-        /// <inheritdoc />
-        public virtual string GetSchemaPrefixUniqueId() => SchemaPrefixUniqueIdField ?? Defaults.GetDefaultSchemaPrefixUniqueIdString();
-
+        /// <summary>
+        /// Factory method for create <see cref="DbConfigDatabaseTargets"/>
+        /// </summary>
+        /// <param name="dbType"></param>
+        /// <param name="schema"></param>
+        /// <param name="databaseName"></param>
+        /// <param name="schemaPrefixId"></param>
+        /// <returns></returns>
         public static DbConfigDatabaseTargets Create(
             SupportedDatabaseTypes dbType, 
             string schema,
             string databaseName = null,
-            string schemaPrefixId = null,
-            string schemaPrefixUniqueId = null)
+            string schemaPrefixId = null)
         {
             return new DbConfigDatabaseTargets()
             {
                 DbType = dbType,
                 Schema = schema,
                 DatabaseName = databaseName,
-                ScemaPrefixIdField = schemaPrefixId,
-                SchemaPrefixUniqueIdField =  schemaPrefixUniqueId
+                SchemaPrefixIdField = schemaPrefixId,
             };
         }
 
@@ -81,8 +86,7 @@ namespace FluentDbTools.Contracts
             DbTypeField = null;
             SchemaField = null;
             DatabaseConnectionNameField = null;
-            ScemaPrefixIdField = null;
-            SchemaPrefixUniqueIdField = null;
+            SchemaPrefixIdField = null;
         }
 
     }
