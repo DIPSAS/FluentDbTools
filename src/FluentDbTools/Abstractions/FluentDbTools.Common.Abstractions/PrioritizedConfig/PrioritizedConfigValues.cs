@@ -21,7 +21,7 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
             Delimiter = configurationDelimiter?.Delimiter ?? ":";
         }
 
-        public SupportedDatabaseTypes? GetDbType()
+        public virtual SupportedDatabaseTypes? GetDbType()
         {
 
             var value = GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbTypeKeys() != null)?
@@ -54,7 +54,7 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
         }
 
 
-        public string GetDbSchemaPrefixIdString()
+        public virtual string GetDbSchemaPrefixIdString()
         {
             return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaPrefixIdStringKeys() != null)?
                 .SelectMany(x => x?.GetDbSchemaPrefixIdStringKeys())?.ToArray());
