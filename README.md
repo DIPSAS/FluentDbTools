@@ -11,25 +11,26 @@ Following databases are currently supported:
 - Postgres
 
 ## Nugets
-- FluentDbTools.Abstractions: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Abstractions.svg)]
-- FluentDbTools.Common.Abstractions: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Common.Abstractions.svg)]
-- FluentDbTools.Migration.Abstractions: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.Abstractions.svg)]
-- FluentDbTools.SqlBuilder.Abstractions: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.SqlBuilder.Abstractions.svg)]
-- FluentDbTools.Contracts: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Contracts.svg)]
-- FluentDbTools.Migration.Contracts: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.Contracts.svg)]
+- FluentDbTools.Abstractions: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Abstractions.svg)](https://badge.fury.io/nu/FluentDbTools.Abstractions)
+- FluentDbTools.Common.Abstractions: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Common.Abstractions.svg)](https://badge.fury.io/nu/FluentDbTools.Common.Abstractions)
+- FluentDbTools.Migration.Abstractions: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.Abstractions.svg)](https://badge.fury.io/nu/FluentDbTools.Migration.Abstractions)
+- FluentDbTools.SqlBuilder.Abstractions: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.SqlBuilder.Abstractions.svg)](https://badge.fury.io/nu/FluentDbTools.SqlBuilder.Abstractions)
+- FluentDbTools.Contracts: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Contracts.svg)](https://badge.fury.io/nu/FluentDbTools.Contracts)
+- FluentDbTools.Migration.Contracts: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.Contracts.svg)](https://badge.fury.io/nu/FluentDbTools.Migration.Contracts)
 - FluentDbTools.Extensions.DbProvider: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Extensions.DbProvider.svg)](https://badge.fury.io/nu/FluentDbTools.Extensions.DbProvider)
 - FluentDbTools.Extensions.SqlBuilder: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Extensions.SqlBuilder.svg)](https://badge.fury.io/nu/FluentDbTools.Extensions.SqlBuilder)
 - FluentDbTools.Extensions.Migration: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Extensions.Migration.svg)](https://badge.fury.io/nu/FluentDbTools.Extensions.Migration)
 - FluentDbTools.Extension.MSDependencyInjection: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Extensions.MSDependencyInjection.svg)](https://badge.fury.io/nu/FluentDbTools.Extensions.MSDependencyInjection)
 - FluentDbTools.Extension.MSDependencyInjection.Oracle: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Extensions.MSDependencyInjection.Oracle.svg)](https://badge.fury.io/nu/FluentDbTools.Extensions.MSDependencyInjection.Oracle)
 - FluentDbTools.Extension.MSDependencyInjection.Postgres: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Extensions.MSDependencyInjection.Postgres.svg)](https://badge.fury.io/nu/FluentDbTools.Extensions.MSDependencyInjection.Postgres)
-- FluentDbTools.DbProviders: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.DbProviders.svg)]
-- FluentDbTools.Migration: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.svg)]
-- FluentDbTools.Migration.Common: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.Common.svg)]
-- FluentDbTools.Migration.Oracle: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.Oracle.svg)]
-- FluentDbTools.Migration.Postgres: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.Postgres.svg)]
-- FluentDbTools.SqlBuilder: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.SqlBuilder.svg)]
-- FluentDbTools.SqlBuilder.Dapper: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.SqlBuilder.Dapper.svg)](https://
+- FluentDbTools.DbProviders: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.DbProviders.svg)](https://badge.fury.io/nu/FluentDbTools.DbProviders)
+- FluentDbTools.Migration: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.svg)](https://badge.fury.io/nu/FluentDbTools.Migration)
+- FluentDbTools.Migration.Common: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.Common.svg)](https://badge.fury.io/nu/FluentDbTools.Migration.Common)
+- FluentDbTools.Migration.Oracle: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.Oracle.svg)](https://badge.fury.io/nu/FluentDbTools.Migration.Oracle)
+- FluentDbTools.Migration.Postgres: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.Migration.Postgres.svg)](https://badge.fury.io/nu/FluentDbTools.Migration.Postgres)
+- FluentDbTools.SqlBuilder: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.SqlBuilder.svg)](https://badge.fury.io/nu/FluentDbTools.SqlBuilder)
+- FluentDbTools.SqlBuilder.Dapper: [![NuGet version](https://badge.fury.io/nu/FluentDbTools.SqlBuilder.Dapper.svg)](https://badge.fury.io/nu/FluentDbTools.SqlBuilder.Dapper)
+
 
 ## Example
 The `IDbConfig` interface is the only member you need to instantiate.
