@@ -30,8 +30,8 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             GetDefaultDbType = () => GetConfigValueSupportedDatabaseTypes(prioritizedConfigValues.GetDbType, configuration.GetDbType);
             GetDefaultSchema = () => GetConfigValueString(prioritizedConfigValues.GetDbSchema, configuration.GetDbSchema);
             GetDefaultDatabaseName = () => GetConfigValueString(prioritizedConfigValues.GetDbDatabaseName, configuration.GetDbDatabaseName);
-            GetDefaultSchemaPrefixIdString = () => GetConfigValueString(prioritizedConfigValues.GetDbSchemaPrefixIdString, () => GetAllDatabaseConfigValues().GetValue("schemaPrefix:Id"));
-            GetDefaultSchemaPrefixUniqueIdString = () => GetConfigValueString(prioritizedConfigValues.GetDbSchemaUniquePrefixIdString, () => GetAllDatabaseConfigValues().GetValue("schemaPrefix:UniqueId"));
+            GetDefaultSchemaPrefixIdString = () => GetConfigValueString(prioritizedConfigValues.GetDbSchemaPrefixIdString, () => GetAllDatabaseConfigValues().GetValue("schemaPrefix:Id") ?? GetAllDatabaseConfigValues(sectionName:"database:migration").GetValue("schemaPrefix:Id"));
+            GetDefaultSchemaPrefixUniqueIdString = () => GetConfigValueString(prioritizedConfigValues.GetDbSchemaUniquePrefixIdString, () => GetAllDatabaseConfigValues(sectionName:"database:migration").GetValue("schemaPrefix:UniqueId") ?? GetAllDatabaseConfigValues().GetValue("schemaPrefix:UniqueId"));
             
             // DbConfigCredentials defaults
             GetDefaultUser = () => GetConfigValueString(prioritizedConfigValues.GetDbUser, configuration.GetDbUser);
@@ -71,8 +71,16 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         /// <summary>
         /// GetAllMigrationConfigValues() : Get al values and subValues from configuration "database:migration". 
         /// </summary>
-        public override IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false)
+        public override IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false, string sectionName = null)
         {
+            if (sectionName != null)
+            {
+                var section = Configuration.GetSection(sectionName) ??
+                                    Configuration.GetDbSection().GetSection(sectionName);
+
+                return section?.GetDbAllConfigValues();
+            }
+
             if (AllConfigValuesField == null || reload)
             {
                 AllConfigValuesField = Configuration.GetDbSection().GetDbAllConfigValues();

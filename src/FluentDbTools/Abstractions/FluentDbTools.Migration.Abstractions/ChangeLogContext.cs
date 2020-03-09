@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions.ExtendedExpressions;
 
@@ -35,6 +34,7 @@ namespace FluentDbTools.Migration.Abstractions
         /// Can be used to specify the short name of the changed resource<br/>
         /// i.e "DWDELINSTI" for table "DWDELINSTITUSJON", or "DWDSVERDI" for the "DWDATASETTVERDIER" table
         /// </summary>
+        [SuppressMessage("ReSharper", "CommentTypo")]
         public string ShortName { get; set; }
 
         /// <summary>
@@ -66,6 +66,7 @@ namespace FluentDbTools.Migration.Abstractions
         /// Default constructor<br/>
         /// AnonymousOperation is assigned with "NOOP"
         /// </summary>
+        [SuppressMessage("ReSharper", "RedundantBaseConstructorCall")]
         public ChangeLogContext() : base()
         {
             AnonymousOperation = "NOOP";

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading;
 
 namespace FluentDbTools.Common.Abstractions
 {
@@ -9,19 +8,21 @@ namespace FluentDbTools.Common.Abstractions
     public interface IDbConfig : IDbConnectionStringBuilderConfig
     {
         /// <summary>
-        /// If set, overrides all other config values related to the connection string.
+        /// <para>If set, overrides all other config values related to the connection string.</para>
+        /// <remarks>Default config-key: 'database:connectionString'</remarks>
         /// </summary>
         string ConnectionString { get; }
 
         /// <summary>
-        /// If set, overrides all other config values related to the admin connection string.
+        /// <para>If set, overrides all other config values related to the admin connection string.</para>
+        /// <remarks>Default config-key: 'database:adminConnectionString'</remarks>
         /// </summary>
         string AdminConnectionString { get; }
 
         /// <summary>
-        /// GetAllMigrationConfigValues() : Get al values and subValues from configuration "database:migration". 
+        /// <para>GetAllDatabaseConfigValues() : Get all values and subValues from configuration "database".</para>
         /// </summary>
-        IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false);
+        IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false, string sectionName = null);
 
     }
 }

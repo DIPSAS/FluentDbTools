@@ -6,18 +6,20 @@
     public interface IDbConnectionStringBuilder
     {
         /// <summary>
-        /// Current DatabaseType
+        /// <para>Current DatabaseType</para>
+        /// <remarks>Default config-key: 'database:type' </remarks>
         /// </summary>
         SupportedDatabaseTypes DatabaseType { get; }
+
         /// <summary>
-        /// Build a ConnectionsString from dbConfig settings and for then specific DatabaseType
+        /// <para>Build a ConnectionsString from dbConfig settings and for then specific DatabaseType</para>
         /// </summary>
         /// <param name="dbConfig"></param>
         /// <returns></returns>
         string BuildConnectionString(IDbConnectionStringBuilderConfig dbConfig);
 
         /// <summary>
-        /// Build a AdminConnectionsString from dbConfig settings and for then specific DatabaseType
+        /// <para>Build a AdminConnectionsString from dbConfig settings and for then specific DatabaseType</para>
         /// </summary>
         /// <param name="dbConfig"></param>
         /// <returns></returns>

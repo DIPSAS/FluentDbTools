@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -18,6 +18,7 @@ namespace FluentDbTools.Migration.Abstractions
     /// <summary>
     /// Methods using <see cref="Expression"/> to resolve <see cref="IMigrationContext"/> from object
     /// </summary>
+    [SuppressMessage("ReSharper", "UnusedMember.Local")]
     internal static class LinqExpressions
     {
         //private static Func<object, IMigrationContext> MigrationContextFromBuilderGetter;
@@ -169,6 +170,7 @@ namespace FluentDbTools.Migration.Abstractions
             return fieldInfo.IsFieldType(fieldType) ? fieldInfo : null;
         }
 
+        [SuppressMessage("ReSharper", "TailRecursiveCall")]
         private static FieldInfo SearchForField(this Type instanceType, string fieldName, int depth = 0)
         {
             if (depth > 5 || instanceType == null)
@@ -177,7 +179,7 @@ namespace FluentDbTools.Migration.Abstractions
             }
 
             var fieldInfo = instanceType.GetTheField(fieldName);
-            return fieldInfo != null ? fieldInfo : SearchForField(instanceType.BaseType, fieldName, ++depth); ;
+            return fieldInfo ?? SearchForField(instanceType.BaseType, fieldName, ++depth);
         }
 
         private static FieldInfo GetTheField(this Type instanceType, string fieldName)

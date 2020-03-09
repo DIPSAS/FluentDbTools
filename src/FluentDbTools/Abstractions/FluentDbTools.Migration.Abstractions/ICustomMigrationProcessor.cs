@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using FluentDbTools.Migration.Abstractions.ExtendedExpressions;
 using FluentMigrator;
-using FluentMigrator.Expressions;
 using FluentMigrator.Model;
 
 namespace FluentDbTools.Migration.Abstractions
@@ -64,6 +64,7 @@ namespace FluentDbTools.Migration.Abstractions
     /// <summary>
     /// Custom migration utility methods for IMigrationProcessor
     /// </summary>
+    [SuppressMessage("ReSharper", "UnusedTypeParameter")]
     public interface ICustomMigrationProcessor<T> : ICustomMigrationProcessor where T : IMigrationProcessor
     {
     }

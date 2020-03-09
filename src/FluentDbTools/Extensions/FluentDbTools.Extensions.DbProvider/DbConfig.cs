@@ -37,9 +37,9 @@ namespace FluentDbTools.Extensions.DbProvider
         }
 
         /// <inheritdoc />
-        public virtual IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false)
+        public virtual IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false, string sectionName = null)
         {
-            return Defaults?.GetAllDatabaseConfigValues(reload) ?? new Dictionary<string, string>();
+            return Defaults?.GetAllDatabaseConfigValues(reload, sectionName) ?? new Dictionary<string, string>();
         }
 
         /// <inheritdoc />
