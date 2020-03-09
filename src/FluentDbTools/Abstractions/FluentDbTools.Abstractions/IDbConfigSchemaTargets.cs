@@ -10,19 +10,24 @@
     public interface IDbConfigSchemaTargets
     {
         /// <summary>
-        /// Current Database type
+        /// <para>Current Database type</para>
+        /// <remarks>Default config-key: 'database:type' </remarks>
         /// </summary>
         SupportedDatabaseTypes DbType { get; }
 
         /// <summary>
-        /// Used to specify Schema for connected database
+        /// <para>Used to specify Schema for connected database</para>
+        /// <remarks>Default config-key: 'database:schema' </remarks>
         /// </summary>
         string Schema { get; }
 
         /// <summary>
-        /// Can be used to specifying a short Prefix for the Schema. <br/>
-        /// i.e: EX => Tables should be prefixed with EX. <br/>
-        ///      Entity Person will result in the EXPerson table in the database.
+        /// <para>Can be used to specifying a short Prefix for the Schema.</para>
+        /// <example>
+        /// <para>i.e: EX => Tables should be prefixed with EX. </para>
+        /// <para>          Entity Person will result in the EXPerson table in the database.</para>
+        /// </example>
+        /// <remarks>Default config-keys: ['database:schemaPrefix:id', 'database:migration:schemaPrefix:id'] </remarks>
         /// </summary>
         /// <returns></returns>
         string GetSchemaPrefixId();

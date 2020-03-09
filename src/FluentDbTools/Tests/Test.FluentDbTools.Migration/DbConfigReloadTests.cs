@@ -172,7 +172,7 @@ namespace Test.FluentDbTools.Migration
         public string ConnectionTimeoutInSecs { get; set; }
         public string ConnectionString { get; set; }
         public string AdminConnectionString { get; set; }
-        public IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false)
+        public IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false, string sectionName = null)
         {
             return new Dictionary<string, string>();
         }

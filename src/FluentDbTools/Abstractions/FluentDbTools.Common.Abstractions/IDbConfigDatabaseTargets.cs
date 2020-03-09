@@ -13,7 +13,8 @@
     public interface IDbConfigDatabaseTargets : IDbConfigSchemaTargets
     {
         /// <summary>
-        /// Database instance on given host, e.g. Oracle SID or postgres database name.
+        /// <para>Database instance on given host, e.g. Oracle SID or postgres database name.</para>
+        /// <remarks>Default config-keys: ['database:databaseName','database:databaseConnectionName', 'database:serviceName', (postgres only) 'database:schema'] </remarks>
         /// </summary>        
         string DatabaseName { get; }
     }

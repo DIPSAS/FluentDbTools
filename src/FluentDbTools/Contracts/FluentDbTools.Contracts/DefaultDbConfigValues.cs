@@ -85,7 +85,7 @@ namespace FluentDbTools.Contracts
         /// DbConnectionStringBuilderConfig defaults: <br/>
         /// - Function returning Default connection pooling switch (true/false)
         /// </summary>
-        public Func<bool>  GetDefaultPooling = () => true;
+        public Func<bool> GetDefaultPooling = () => true;
 
         /// <summary>
         /// DbConnectionStringBuilderConfig defaults: <br/>
@@ -128,7 +128,7 @@ namespace FluentDbTools.Contracts
         /// <summary>
         /// GetAllMigrationConfigValues() : Get al values and subValues from configuration "database:migration". 
         /// </summary>
-        public virtual IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false)
+        public virtual IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false, string sectionName = null)
         {
             if (AllConfigValuesField == null || reload)
             {

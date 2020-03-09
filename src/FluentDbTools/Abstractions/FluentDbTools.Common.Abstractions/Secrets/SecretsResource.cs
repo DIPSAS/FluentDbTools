@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Text;
 
 namespace FluentDbTools.Common.Abstractions.Secrets
 {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class SecretsResource
     {
         private static readonly Assembly CurrentAssembly = typeof(SecretsResource).Assembly;

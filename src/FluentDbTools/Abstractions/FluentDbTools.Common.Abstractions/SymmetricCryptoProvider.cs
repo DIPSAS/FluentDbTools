@@ -107,7 +107,7 @@ namespace FluentDbTools.Common.Abstractions
         {
             if (bytes == null || bytes.Length <= 0)
             {
-                throw new ArgumentNullException("byte is null or empty");
+                throw new ArgumentNullException(nameof(bytes), $"{nameof(bytes)} is null or empty");
             }
 
             using (var cryptoServiceProvider = GetAesSymmetricAlgorithm(algorithmName, key, iv))
@@ -122,7 +122,7 @@ namespace FluentDbTools.Common.Abstractions
         {
             if (bytes == null || bytes.Length <= 0)
             {
-                throw new ArgumentNullException("byte is null or empty");
+                throw new ArgumentNullException(nameof(bytes), $"{nameof(bytes)} is null or empty");
             }
 
             using (var cryptoServiceProvider = GetAesSymmetricAlgorithm(algorithmName, key, iv))

@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
 
+### Version 1.2.14 2020-03-05
+- Extended IPrioritizedConfigKeys with Order property
+- Added more API documentations
+
 ### Version 1.2.13 2020-03-05
 - Even more PrioritizedConfig stuff. Improved MsConfig and MsMigrationConfig
 

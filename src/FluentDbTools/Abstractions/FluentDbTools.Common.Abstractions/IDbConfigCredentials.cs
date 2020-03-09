@@ -6,22 +6,26 @@ namespace FluentDbTools.Common.Abstractions
     public interface IDbConfigCredentials
     {
         /// <summary>
-        /// User Name credentials
+        /// <para>User Name credentials</para>
+        /// <remarks>Default config-key: 'database:user' </remarks>
         /// </summary>
         string User { get; }
 
         /// <summary>
-        /// User Password credentials
+        /// <para>User Password credentials</para>
+        /// <remarks>Default config-keys: ['database:password', 'database:user'] </remarks>
         /// </summary>
         string Password { get; }
 
         /// <summary>
-        /// AdminUser Name credentials
+        /// <para>AdminUser Name credentials</para>
+        /// <remarks>Default config-key: 'database:adminUser' </remarks>
         /// </summary>
         string AdminUser { get; }
 
         /// <summary>
-        /// AdminUser Password credentials
+        /// <para>AdminUser Password credentials</para>
+        /// <remarks>Default config-keys: ['database:adminPassword', 'database:adminUser'] </remarks>
         /// </summary>
         string AdminPassword { get; }
     }
