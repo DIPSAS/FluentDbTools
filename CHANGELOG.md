@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.2.15 2020-03-05
+- Improved PrioritizedConfigValues Password resolving
 
 ### Version 1.2.14 2020-03-05
 - Extended IPrioritizedConfigKeys with Order property

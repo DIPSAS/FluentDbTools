@@ -194,7 +194,9 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
                 return false;
             }
 
-            passwordByUser = GetConfigValue($"database{Delimiter}{user}{Delimiter}password");
+            passwordByUser = GetConfigValue(
+                $"database{Delimiter}{user}{Delimiter}password",
+                $"database{Delimiter}{user.Replace("_","")}{Delimiter}password");
             return passwordByUser.IsNotEmpty();
         }
     }
