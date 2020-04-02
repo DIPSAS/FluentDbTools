@@ -12,7 +12,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         private readonly IConfiguration Configuration;
         private readonly IDisposable ChangeCallback;
         private IChangeToken ChangeTokenField;
-        private IChangeToken ChangeToken => ChangeTokenField ??  (ChangeTokenField = Configuration.GetReloadToken());
+        private IChangeToken ChangeToken => ChangeTokenField ??  (ChangeTokenField = Configuration?.GetReloadToken());
 
         /// <summary>
         /// The constructor will register configuration callback <br/>
@@ -20,15 +20,23 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         /// Finally register Action <see cref="IConfigurationChangedHandler.RaiseConfigurationChanged"/> to be called when config reloads with {<see cref="IChangeToken.RegisterChangeCallback"/>}
         /// </summary>
         /// <param name="configuration"></param>
-        public MsConfigurationChangedHandler(IConfiguration configuration)
+        public MsConfigurationChangedHandler(IConfiguration configuration = null)
         {
             Configuration = configuration;
-            ChangeCallback = ChangeToken.RegisterChangeCallback(state => RaiseConfigurationChanged(args => Configuration.GetConfigValue(args)), Configuration);
+            if (Configuration != null)
+            {
+                ChangeCallback = ChangeToken.RegisterChangeCallback(state => RaiseConfigurationChanged(args => Configuration.GetConfigValue(args)), Configuration);
+            }
         }
 
         /// <inheritdoc />
         public override void RaiseConfigurationChanged(Func<string[], string> getValueFunc)
         {
+            if (ChangeToken == null)
+            {
+                return;
+            }
+
             if (ChangeToken.ActiveChangeCallbacks && ChangeToken.HasChanged)
             {
                 base.RaiseConfigurationChanged(getValueFunc);
