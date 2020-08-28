@@ -3,6 +3,7 @@ using System.Data;
 using System.IO;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.DbProvider;
+using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentDbTools.Migration.Abstractions;
 using Npgsql;
 
@@ -32,14 +33,15 @@ namespace FluentDbTools.Migration.Postgres
         {
             using (var dbConnection = CreateDbConnection(GetConnecionStringWithoutDatabase(dbMigrationConfig)))
             {
-                dbConnection.Open();
+                dbConnection.SafeOpen();
+
                 try
                 {
                     CreateDatabase(dbMigrationConfig, dbConnection, before, after);
                 }
                 finally
                 {
-                    dbConnection.Close();
+                    dbConnection.SafeClose();
                 }
             }
         }
@@ -48,14 +50,15 @@ namespace FluentDbTools.Migration.Postgres
         {
             using (var dbConnection = CreateDbConnection(GetConnecionStringWithoutDatabase(dbMigrationConfig)))
             {
-                dbConnection.Open();
+                dbConnection.SafeOpen();
+
                 try
                 {
                     DropDatabase(dbMigrationConfig, dbConnection, before, after);
                 }
                 finally
                 {
-                    dbConnection.Close();
+                    dbConnection.SafeClose();
                 }
             }
         }
