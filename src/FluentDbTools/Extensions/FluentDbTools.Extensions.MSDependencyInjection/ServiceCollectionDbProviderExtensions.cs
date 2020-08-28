@@ -97,7 +97,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
 
                 try
                 {
-                    dbConnection.Open();
+                    dbConnection.SafeOpen();
                 }
                 catch (Exception exception)
                 {
@@ -126,6 +126,30 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
             serviceCollection.TryAddScoped(transactionProviderFunc);
             return serviceCollection;
 
+        }
+
+        /// <summary>
+        /// Open the <paramref name="dbConnection"/> only if it isn't already opened
+        /// </summary>
+        /// <param name="dbConnection"></param>
+        public static void SafeOpen(this IDbConnection dbConnection)
+        {
+            if (dbConnection.State != ConnectionState.Open)
+            {
+                dbConnection.Open();
+            }
+        }
+
+        /// <summary>
+        /// Close the <paramref name="dbConnection"/> only if it's opened
+        /// </summary>
+        /// <param name="dbConnection"></param>
+        public static void SafeClose(this IDbConnection dbConnection)
+        {
+            if (dbConnection.State == ConnectionState.Open)
+            {
+                dbConnection.Close();
+            }
         }
 
     }
