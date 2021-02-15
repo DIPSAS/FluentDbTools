@@ -16,7 +16,6 @@ using FluentMigrator.Runner.Processors.Oracle;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-
 namespace FluentDbTools.Migration.Oracle
 {
     internal class ExtendedOracleProcessorBase : OracleProcessorBase, IExtendedMigrationProcessor<ExtendedOracleProcessorBase>, IExtendedMigrationProcessorOracle
@@ -28,6 +27,7 @@ namespace FluentDbTools.Migration.Oracle
         private ICustomMigrationProcessor CustomMigrationProcessor;
         private bool Initialize_Initialized;
         private Func<string> ConnectionStringFunc;
+        private string LatestComment = null;
         protected string SchemaPrefix => MigrationConfig?.GetSchemaPrefixId();
         protected string SchemaPrefixUniqueId => MigrationConfig?.GetSchemaPrefixUniqueId();
 
@@ -514,11 +514,23 @@ namespace FluentDbTools.Migration.Oracle
                     .Select(x => x.Trim())
                     .Where(x => !string.IsNullOrEmpty(x)).ToArray();
 
+                LatestComment = null;
+
                 if (!sqlStatement.IsExternal)
                 {
                     foreach (var commandText in statementsSql)
                     {
-                        ExecuteCommand(runningSql = commandText.ConvertSimpleSqlComment());
+                        if (Regex.IsMatch(commandText, @"^\s*\/\s*$"))
+                        {
+                            foreach (var commandText2 in commandText.ExtractSqlStatements())
+                            {
+                                ExecuteCommand(runningSql = commandText2);
+                            }
+                        }
+                        else
+                        {
+                            ExecuteCommand(runningSql = commandText.ConvertSimpleSqlComment());
+                        }
                     }
                     return;
                 }
@@ -551,11 +563,17 @@ namespace FluentDbTools.Migration.Oracle
                 return;
             }
 
+            
             using (var command = CreateCommand(commandText))
             {
-                if (!commandText.IsSqlComment())
+                if (commandText.IsSqlComment())
                 {
-                    command.ExecuteNonQuery();
+                    LatestComment = commandText;
+                }
+                else
+                {
+                    command.ExecuteNonQuery(LatestComment);
+                    LatestComment = null;
                 }
 
                 if (logSqlInternal)

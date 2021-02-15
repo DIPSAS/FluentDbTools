@@ -28,6 +28,17 @@ namespace Test.FluentDbTools.Migration
         }
 
         [Fact]
+        public void ExtractSqlStatements_CreateTableWithErrorFilter_ShouldHaveCount110()
+        {
+            var sql = TestSqlResources.CreateTableWithErrorFilter.ExtractSqlStatements().ToArray();
+            sql.Should().HaveCount(12);
+            sql[0].StartsWithIgnoreCase("/* ErrorFilter").Should().BeTrue();
+            sql[1].StartsWithIgnoreCase("create table").Should().BeTrue();
+            sql[2].StartsWithIgnoreCase("/* ErrorFilter").Should().BeTrue();
+            sql[3].StartsWithIgnoreCase("alter table").Should().BeTrue();
+        }
+
+        [Fact]
         public void ExtractSqlStatements_SmallScriptSql_ShouldHaveCount110()
         {
             var sql = TestSqlResources.SmallScriptSql.ExtractSqlStatements().ToArray();
