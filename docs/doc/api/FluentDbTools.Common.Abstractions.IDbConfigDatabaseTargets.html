@@ -73,27 +73,47 @@
   
   <h1 id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets" data-uid="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets" class="text-break">Interface IDbConfigDatabaseTargets
   </h1>
-  <div class="markdown level0 summary"><p>Database Connection targets</p>
+  <div class="markdown level0 summary"><p>Database Connection targets<br>
+Interface:<br>
+• DatabaseName: <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> ──── <remarks>Current Database type</remarks> <br>
+<br>
+Inherits From Interface <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html">IDbConfigSchemaTargets</a>:<br>
+• DbType: <a class="xref" href="FluentDbTools.Common.Abstractions.SupportedDatabaseTypes.html">SupportedDatabaseTypes</a> ──── <remarks>Current Database type</remarks> <br>
+• Schema: <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> ──── <remarks>Used to specify Schema for connected database</remarks> <br>
+• GetSchemaPrefixId(): Return <returns><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></returns>  ──── <remarks>Can be used to specifying a short Prefix for the Schema.</remarks> <br></p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html#FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_DbType">IDbConfigSchemaTargets.DbType</a>
+    </div>
+    <div>
+      <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html#FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_Schema">IDbConfigSchemaTargets.Schema</a>
+    </div>
+    <div>
+      <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html#FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_GetSchemaPrefixId">IDbConfigSchemaTargets.GetSchemaPrefixId()</a>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="FluentDbTools.Common.Abstractions.html">FluentDbTools.Common.Abstractions</a></h6>
   <h6><strong>Assembly</strong>: FluentDbTools.Common.Abstractions.dll</h6>
   <h5 id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IDbConfigDatabaseTargets</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IDbConfigDatabaseTargets : IDbConfigSchemaTargets</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_DatabaseName.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.DatabaseName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_DatabaseName.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.DatabaseName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/IDbConfigDatabaseTargets.cs/#L21">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/IDbConfigDatabaseTargets.cs/#L19">View Source</a>
   </span>
   <a id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_DatabaseName_" data-uid="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.DatabaseName*"></a>
   <h4 id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_DatabaseName" data-uid="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.DatabaseName">DatabaseName</h4>
   <div class="markdown level1 summary"><p>Database instance on given host, e.g. Oracle SID or postgres database name.</p>
+<remarks>Default config-keys: [&apos;database:databaseName&apos;,&apos;database:databaseConnectionName&apos;, &apos;database:serviceName&apos;, (postgres only) &apos;database:schema&apos;] </remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -115,140 +135,18 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_DbType.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.DbType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/IDbConfigDatabaseTargets.cs/#L11">View Source</a>
-  </span>
-  <a id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_DbType_" data-uid="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.DbType*"></a>
-  <h4 id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_DbType" data-uid="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.DbType">DbType</h4>
-  <div class="markdown level1 summary"><p>Current Database type</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">SupportedDatabaseTypes DbType { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="FluentDbTools.Common.Abstractions.SupportedDatabaseTypes.html">SupportedDatabaseTypes</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_Schema.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.Schema%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/IDbConfigDatabaseTargets.cs/#L16">View Source</a>
-  </span>
-  <a id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_Schema_" data-uid="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.Schema*"></a>
-  <h4 id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_Schema" data-uid="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.Schema">Schema</h4>
-  <div class="markdown level1 summary"><p>Used to specify Schema for connected database</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">string Schema { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_GetSchemaPrefixId.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.GetSchemaPrefixId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/IDbConfigDatabaseTargets.cs/#L29">View Source</a>
-  </span>
-  <a id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_GetSchemaPrefixId_" data-uid="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.GetSchemaPrefixId*"></a>
-  <h4 id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_GetSchemaPrefixId" data-uid="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.GetSchemaPrefixId">GetSchemaPrefixId()</h4>
-  <div class="markdown level1 summary"><p>Can be used to specifying a short Prefix for the Schema. <br>
-i.e: EX =&gt; Tables should be prefixed with EX. <br>
-Entity Person will result in the EXPerson table in the database.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">string GetSchemaPrefixId()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_GetSchemaPrefixUniqueId.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/IDbConfigDatabaseTargets.cs/#L35">View Source</a>
-  </span>
-  <a id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_GetSchemaPrefixUniqueId_" data-uid="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId*"></a>
-  <h4 id="FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_GetSchemaPrefixUniqueId" data-uid="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.GetSchemaPrefixUniqueId">GetSchemaPrefixUniqueId()</h4>
-  <div class="markdown level1 summary"><p>Can be used to specifying a unique Id for the <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html#FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_GetSchemaPrefixId">GetSchemaPrefixId()</a></p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">string GetSchemaPrefixUniqueId()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
-      <a class="xref" href="FluentDbTools.Extensions.SqlBuilder.SqlBuilderExtensions.html#FluentDbTools_Extensions_SqlBuilder_SqlBuilderExtensions_CreateSqlBuilder_FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_">SqlBuilderExtensions.CreateSqlBuilder(IDbConfigDatabaseTargets)</a>
+      <a class="xref" href="FluentDbTools.SqlBuilder.SqlBuilderFactory.html#FluentDbTools_SqlBuilder_SqlBuilderFactory_SqlBuilder_FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_">SqlBuilderFactory.SqlBuilder(IDbConfigSchemaTargets)</a>
   </div>
   <div>
-      <a class="xref" href="FluentDbTools.Extensions.SqlBuilder.SqlBuilderExtensions.html#FluentDbTools_Extensions_SqlBuilder_SqlBuilderExtensions_CreateParameterResolver_FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_">SqlBuilderExtensions.CreateParameterResolver(IDbConfigDatabaseTargets)</a>
+      <a class="xref" href="FluentDbTools.SqlBuilder.SqlBuilderFactory.html#FluentDbTools_SqlBuilder_SqlBuilderFactory_DatabaseParameterResolver_FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_">SqlBuilderFactory.DatabaseParameterResolver(IDbConfigSchemaTargets)</a>
+  </div>
+  <div>
+      <a class="xref" href="FluentDbTools.Extensions.SqlBuilder.SqlBuilderFactory.html#FluentDbTools_Extensions_SqlBuilder_SqlBuilderFactory_CreateSqlBuilder_FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_">SqlBuilderFactory.CreateSqlBuilder(IDbConfigSchemaTargets)</a>
+  </div>
+  <div>
+      <a class="xref" href="FluentDbTools.Extensions.SqlBuilder.SqlBuilderFactory.html#FluentDbTools_Extensions_SqlBuilder_SqlBuilderFactory_CreateDatabaseParameterResolver_FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_">SqlBuilderFactory.CreateDatabaseParameterResolver(IDbConfigSchemaTargets)</a>
   </div>
 </article>
           </div>
@@ -258,10 +156,10 @@ Entity Person will result in the EXPerson table in the database.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/IDbConfigDatabaseTargets.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/IDbConfigDatabaseTargets.cs/#L13" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

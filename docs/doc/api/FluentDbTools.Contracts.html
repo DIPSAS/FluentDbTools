@@ -81,7 +81,14 @@
       <section><p>User and AdminUser credentials</p>
 </section>
       <h4><a class="xref" href="FluentDbTools.Contracts.DbConfigDatabaseTargets.html">DbConfigDatabaseTargets</a></h4>
-      <section><p>Database Connection targets</p>
+      <section><p>Database Connection targets<br>
+Interface:<br>
+• DatabaseName: <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> ──── <remarks>Current Database type</remarks> <br>
+<br>
+Inherits From Interface <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html">IDbConfigSchemaTargets</a>:<br>
+• DbType: <a class="xref" href="FluentDbTools.Common.Abstractions.SupportedDatabaseTypes.html">SupportedDatabaseTypes</a> ──── <remarks>Current Database type</remarks> <br>
+• Schema: <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> ──── <remarks>Used to specify Schema for connected database</remarks> <br>
+• GetSchemaPrefixId(): Return <returns><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></returns>  ──── <remarks>Can be used to specifying a short Prefix for the Schema.</remarks> <br></p>
 </section>
       <h4><a class="xref" href="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.html">DbConnectionStringBuilderConfig</a></h4>
       <section></section>

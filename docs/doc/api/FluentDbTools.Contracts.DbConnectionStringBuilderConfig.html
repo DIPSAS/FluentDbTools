@@ -86,6 +86,7 @@
     <h5>Implements</h5>
     <div><a class="xref" href="FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html">IDbConnectionStringBuilderConfig</a></div>
     <div><a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html">IDbConfigDatabaseTargets</a></div>
+    <div><a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html">IDbConfigSchemaTargets</a></div>
     <div><a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigCredentials.html">IDbConfigCredentials</a></div>
   </div>
   <div class="inheritedMembers">
@@ -94,7 +95,7 @@
       <a class="xref" href="FluentDbTools.Contracts.DbConfigDatabaseTargets.html#FluentDbTools_Contracts_DbConfigDatabaseTargets_Defaults">DbConfigDatabaseTargets.Defaults</a>
     </div>
     <div>
-      <a class="xref" href="FluentDbTools.Contracts.DbConfigDatabaseTargets.html#FluentDbTools_Contracts_DbConfigDatabaseTargets_ScemaPrefixIdField">DbConfigDatabaseTargets.ScemaPrefixIdField</a>
+      <a class="xref" href="FluentDbTools.Contracts.DbConfigDatabaseTargets.html#FluentDbTools_Contracts_DbConfigDatabaseTargets_SchemaPrefixIdField">DbConfigDatabaseTargets.SchemaPrefixIdField</a>
     </div>
     <div>
       <a class="xref" href="FluentDbTools.Contracts.DbConfigDatabaseTargets.html#FluentDbTools_Contracts_DbConfigDatabaseTargets_DbType">DbConfigDatabaseTargets.DbType</a>
@@ -109,10 +110,7 @@
       <a class="xref" href="FluentDbTools.Contracts.DbConfigDatabaseTargets.html#FluentDbTools_Contracts_DbConfigDatabaseTargets_GetSchemaPrefixId">DbConfigDatabaseTargets.GetSchemaPrefixId()</a>
     </div>
     <div>
-      <a class="xref" href="FluentDbTools.Contracts.DbConfigDatabaseTargets.html#FluentDbTools_Contracts_DbConfigDatabaseTargets_GetSchemaPrefixUniqueId">DbConfigDatabaseTargets.GetSchemaPrefixUniqueId()</a>
-    </div>
-    <div>
-      <a class="xref" href="FluentDbTools.Contracts.DbConfigDatabaseTargets.html#FluentDbTools_Contracts_DbConfigDatabaseTargets_Create_FluentDbTools_Common_Abstractions_SupportedDatabaseTypes_System_String_System_String_System_String_System_String_">DbConfigDatabaseTargets.Create(SupportedDatabaseTypes, String, String, String, String)</a>
+      <a class="xref" href="FluentDbTools.Contracts.DbConfigDatabaseTargets.html#FluentDbTools_Contracts_DbConfigDatabaseTargets_Create_FluentDbTools_Common_Abstractions_SupportedDatabaseTypes_System_String_System_String_System_String_">DbConfigDatabaseTargets.Create(SupportedDatabaseTypes, String, String, String)</a>
     </div>
     <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
@@ -140,16 +138,16 @@
   <h6><strong>Assembly</strong>: FluentDbTools.Contracts.dll</h6>
   <h5 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DbConnectionStringBuilderConfig : DbConfigDatabaseTargets, IDbConnectionStringBuilderConfig, IDbConfigDatabaseTargets, IDbConfigCredentials</code></pre>
+    <pre><code class="lang-csharp hljs">public class DbConnectionStringBuilderConfig : DbConfigDatabaseTargets, IDbConnectionStringBuilderConfig, IDbConfigDatabaseTargets, IDbConfigSchemaTargets, IDbConfigCredentials</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig__ctor_FluentDbTools_Contracts_DefaultDbConfigValues_FluentDbTools_Contracts_DbConfigCredentials_.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.%23ctor(FluentDbTools.Contracts.DefaultDbConfigValues%2CFluentDbTools.Contracts.DbConfigCredentials)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig__ctor_FluentDbTools_Contracts_DefaultDbConfigValues_FluentDbTools_Contracts_DbConfigCredentials_.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.%23ctor(FluentDbTools.Contracts.DefaultDbConfigValues%2CFluentDbTools.Contracts.DbConfigCredentials)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L20">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L20">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig__ctor_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.#ctor*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig__ctor_FluentDbTools_Contracts_DefaultDbConfigValues_FluentDbTools_Contracts_DbConfigCredentials_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.#ctor(FluentDbTools.Contracts.DefaultDbConfigValues,FluentDbTools.Contracts.DbConfigCredentials)">DbConnectionStringBuilderConfig(DefaultDbConfigValues, DbConfigCredentials)</h4>
@@ -185,14 +183,15 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_AdminPassword.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.AdminPassword%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_AdminPassword.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.AdminPassword%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L55">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L55">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_AdminPassword_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.AdminPassword*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_AdminPassword" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.AdminPassword">AdminPassword</h4>
   <div class="markdown level1 summary"><p>AdminUser Password credentials</p>
+<remarks>Default config-keys: [&apos;database:adminPassword&apos;, &apos;database:adminUser&apos;] </remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -216,14 +215,15 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_AdminUser.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.AdminUser%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_AdminUser.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.AdminUser%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L48">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L48">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_AdminUser_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.AdminUser*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_AdminUser" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.AdminUser">AdminUser</h4>
   <div class="markdown level1 summary"><p>AdminUser Name credentials</p>
+<remarks>Default config-key: &apos;database:adminUser&apos; </remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -247,14 +247,15 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_ConnectionTimeoutInSecs.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.ConnectionTimeoutInSecs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_ConnectionTimeoutInSecs.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.ConnectionTimeoutInSecs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L90">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L90">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_ConnectionTimeoutInSecs_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.ConnectionTimeoutInSecs*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_ConnectionTimeoutInSecs" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.ConnectionTimeoutInSecs">ConnectionTimeoutInSecs</h4>
   <div class="markdown level1 summary"><p>Used to specify Connection Timeout or not</p>
+<remarks>Default config-key: &apos;database:connectionTimeoutInSecs&apos;</remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -278,15 +279,16 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Datasource.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Datasource%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Datasource.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Datasource%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L83">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L83">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Datasource_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Datasource*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Datasource" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Datasource">Datasource</h4>
-  <div class="markdown level1 summary"><p>Used by oracle typically when using tnsname or ezconnect.
-Oracle: Overrides HostName, Database and Port. Can override User and Password if spscified</p>
+  <div class="markdown level1 summary"><p>Used by oracle typically when using tnsName or EzConnect.</p>
+<remarks>Oracle: Overrides HostName, Database and Port. Can override User and Password if specified</remarks>
+<remarks><p>Default config-key: &apos;database:dataSource&apos;</p></remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -310,10 +312,10 @@ Oracle: Overrides HostName, Database and Port. Can override User and Password if
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_DbConfigCredentials.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.DbConfigCredentials%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_DbConfigCredentials.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.DbConfigCredentials%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L17">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L17">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_DbConfigCredentials_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.DbConfigCredentials*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_DbConfigCredentials" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.DbConfigCredentials">DbConfigCredentials</h4>
@@ -340,14 +342,15 @@ Oracle: Overrides HostName, Database and Port. Can override User and Password if
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Hostname.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Hostname%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Hostname.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Hostname%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L62">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L62">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Hostname_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Hostname*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Hostname" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Hostname">Hostname</h4>
   <div class="markdown level1 summary"><p>Database hostname. If Oracle, this will be overridden if Datasource is specified</p>
+<remarks>Default config-key: &apos;database:hostname&apos;</remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -371,14 +374,15 @@ Oracle: Overrides HostName, Database and Port. Can override User and Password if
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Password.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Password%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Password.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Password%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L41">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L41">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Password_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Password*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Password" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Password">Password</h4>
   <div class="markdown level1 summary"><p>User Password credentials</p>
+<remarks>Default config-keys: [&apos;database:password&apos;, &apos;database:user&apos;] </remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -402,14 +406,15 @@ Oracle: Overrides HostName, Database and Port. Can override User and Password if
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Pooling.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Pooling%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Pooling.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Pooling%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L76">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L76">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Pooling_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Pooling*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Pooling" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Pooling">Pooling</h4>
   <div class="markdown level1 summary"><p>Used to specify Connection Pooling or not</p>
+<remarks>Default config-key: &apos;database:pooling&apos;</remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -433,14 +438,15 @@ Oracle: Overrides HostName, Database and Port. Can override User and Password if
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Port.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Port%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Port.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Port%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L69">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L69">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Port_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Port*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_Port" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.Port">Port</h4>
   <div class="markdown level1 summary"><p>Database port. If Oracle, this will be overridden if Datasource is specified</p>
+<remarks>Default config-key: &apos;database:port&apos;</remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -464,14 +470,15 @@ Oracle: Overrides HostName, Database and Port. Can override User and Password if
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_User.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.User%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_User.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.User%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L34">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L34">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_User_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.User*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_User" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.User">User</h4>
   <div class="markdown level1 summary"><p>User Name credentials</p>
+<remarks>Default config-key: &apos;database:user&apos; </remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -497,10 +504,10 @@ Oracle: Overrides HostName, Database and Port. Can override User and Password if
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_OnConfigurationChanged_System_Func_System_String___System_String__.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.OnConfigurationChanged(System.Func%7BSystem.String%5B%5D%2CSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig_OnConfigurationChanged_System_Func_System_String___System_String__.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig.OnConfigurationChanged(System.Func%7BSystem.String%5B%5D%2CSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L97">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L97">View Source</a>
   </span>
   <a id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_OnConfigurationChanged_" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.OnConfigurationChanged*"></a>
   <h4 id="FluentDbTools_Contracts_DbConnectionStringBuilderConfig_OnConfigurationChanged_System_Func_System_String___System_String__" data-uid="FluentDbTools.Contracts.DbConnectionStringBuilderConfig.OnConfigurationChanged(System.Func{System.String[],System.String})">OnConfigurationChanged(Func&lt;String[], String&gt;)</h4>
@@ -538,14 +545,10 @@ Oracle: Overrides HostName, Database and Port. Can override User and Password if
       <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html">IDbConfigDatabaseTargets</a>
   </div>
   <div>
+      <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html">IDbConfigSchemaTargets</a>
+  </div>
+  <div>
       <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigCredentials.html">IDbConfigCredentials</a>
-  </div>
-  <h3 id="extensionmethods">Extension Methods</h3>
-  <div>
-      <a class="xref" href="FluentDbTools.Extensions.SqlBuilder.SqlBuilderExtensions.html#FluentDbTools_Extensions_SqlBuilder_SqlBuilderExtensions_CreateSqlBuilder_FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_">SqlBuilderExtensions.CreateSqlBuilder(IDbConfigDatabaseTargets)</a>
-  </div>
-  <div>
-      <a class="xref" href="FluentDbTools.Extensions.SqlBuilder.SqlBuilderExtensions.html#FluentDbTools_Extensions_SqlBuilder_SqlBuilderExtensions_CreateParameterResolver_FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_">SqlBuilderExtensions.CreateParameterResolver(IDbConfigDatabaseTargets)</a>
   </div>
 </article>
           </div>
@@ -555,10 +558,10 @@ Oracle: Overrides HostName, Database and Port. Can override User and Password if
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Contracts_DbConnectionStringBuilderConfig.md&amp;value=---%0Auid%3A%20FluentDbTools.Contracts.DbConnectionStringBuilderConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfig.cs/#L8" class="contribution-link">View Source</a>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Contracts/FluentDbTools.Contracts/DbConnectionStringBuilderConfigConfig.cs/#L8" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

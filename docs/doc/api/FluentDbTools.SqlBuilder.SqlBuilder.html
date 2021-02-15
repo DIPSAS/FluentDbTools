@@ -118,18 +118,18 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder__ctor_FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.%23ctor(FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder__ctor_FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.%23ctor(FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L15">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L16">View Source</a>
   </span>
   <a id="FluentDbTools_SqlBuilder_SqlBuilder__ctor_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.#ctor*"></a>
-  <h4 id="FluentDbTools_SqlBuilder_SqlBuilder__ctor_FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.#ctor(FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets)">SqlBuilder(IDbConfigDatabaseTargets)</h4>
+  <h4 id="FluentDbTools_SqlBuilder_SqlBuilder__ctor_FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.#ctor(FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets)">SqlBuilder(IDbConfigSchemaTargets)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SqlBuilder(IDbConfigDatabaseTargets dbConfig)</code></pre>
+    <pre><code class="lang-csharp hljs">public SqlBuilder(IDbConfigSchemaTargets dbConfigConfig)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -142,8 +142,50 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html">IDbConfigDatabaseTargets</a></td>
-        <td><span class="parametername">dbConfig</span></td>
+        <td><a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html">IDbConfigSchemaTargets</a></td>
+        <td><span class="parametername">dbConfigConfig</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder__ctor_System_String_System_String_FluentDbTools_Common_Abstractions_SupportedDatabaseTypes_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.%23ctor(System.String%2CSystem.String%2CFluentDbTools.Common.Abstractions.SupportedDatabaseTypes)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L21">View Source</a>
+  </span>
+  <a id="FluentDbTools_SqlBuilder_SqlBuilder__ctor_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.#ctor*"></a>
+  <h4 id="FluentDbTools_SqlBuilder_SqlBuilder__ctor_System_String_System_String_FluentDbTools_Common_Abstractions_SupportedDatabaseTypes_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.#ctor(System.String,System.String,FluentDbTools.Common.Abstractions.SupportedDatabaseTypes)">SqlBuilder(String, String, SupportedDatabaseTypes)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SqlBuilder(string schema, string schemaPrefixId, SupportedDatabaseTypes dbType = SupportedDatabaseTypes.Oracle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">schema</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">schemaPrefixId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Common.Abstractions.SupportedDatabaseTypes.html">SupportedDatabaseTypes</a></td>
+        <td><span class="parametername">dbType</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -152,10 +194,10 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder_DatabaseType.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.DatabaseType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder_DatabaseType.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.DatabaseType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L13">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L14">View Source</a>
   </span>
   <a id="FluentDbTools_SqlBuilder_SqlBuilder_DatabaseType_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.DatabaseType*"></a>
   <h4 id="FluentDbTools_SqlBuilder_SqlBuilder_DatabaseType" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.DatabaseType">DatabaseType</h4>
@@ -184,19 +226,36 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder_Delete__1.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.Delete%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder_Delete__1_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.Delete%60%601(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L25">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L34">View Source</a>
   </span>
   <a id="FluentDbTools_SqlBuilder_SqlBuilder_Delete_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.Delete*"></a>
-  <h4 id="FluentDbTools_SqlBuilder_SqlBuilder_Delete__1" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.Delete``1">Delete&lt;TClass&gt;()</h4>
+  <h4 id="FluentDbTools_SqlBuilder_SqlBuilder_Delete__1_System_String_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.Delete``1(System.String)">Delete&lt;TClass&gt;(String)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IDeleteSqlBuilder&lt;TClass&gt; Delete&lt;TClass&gt;()</code></pre>
+    <pre><code class="lang-csharp hljs">public IDeleteSqlBuilder&lt;TClass&gt; Delete&lt;TClass&gt;(string tableName = null)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tableName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -229,19 +288,36 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder_Insert__1.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.Insert%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder_Insert__1_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.Insert%60%601(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L35">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L44">View Source</a>
   </span>
   <a id="FluentDbTools_SqlBuilder_SqlBuilder_Insert_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.Insert*"></a>
-  <h4 id="FluentDbTools_SqlBuilder_SqlBuilder_Insert__1" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.Insert``1">Insert&lt;TClass&gt;()</h4>
+  <h4 id="FluentDbTools_SqlBuilder_SqlBuilder_Insert__1_System_String_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.Insert``1(System.String)">Insert&lt;TClass&gt;(String)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IInsertSqlBuilder&lt;TClass&gt; Insert&lt;TClass&gt;()</code></pre>
+    <pre><code class="lang-csharp hljs">public IInsertSqlBuilder&lt;TClass&gt; Insert&lt;TClass&gt;(string tableName = null)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tableName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -274,10 +350,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder_Select.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.Select%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder_Select.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.Select%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L20">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L29">View Source</a>
   </span>
   <a id="FluentDbTools_SqlBuilder_SqlBuilder_Select_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.Select*"></a>
   <h4 id="FluentDbTools_SqlBuilder_SqlBuilder_Select" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.Select">Select()</h4>
@@ -304,19 +380,36 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder_Update__1.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.Update%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder_Update__1_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder.Update%60%601(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L30">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L39">View Source</a>
   </span>
   <a id="FluentDbTools_SqlBuilder_SqlBuilder_Update_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.Update*"></a>
-  <h4 id="FluentDbTools_SqlBuilder_SqlBuilder_Update__1" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.Update``1">Update&lt;TClass&gt;()</h4>
+  <h4 id="FluentDbTools_SqlBuilder_SqlBuilder_Update__1_System_String_" data-uid="FluentDbTools.SqlBuilder.SqlBuilder.Update``1(System.String)">Update&lt;TClass&gt;(String)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IUpdateSqlBuilder&lt;TClass&gt; Update&lt;TClass&gt;()</code></pre>
+    <pre><code class="lang-csharp hljs">public IUpdateSqlBuilder&lt;TClass&gt; Update&lt;TClass&gt;(string tableName = null)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tableName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -359,10 +452,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_SqlBuilder_SqlBuilder.md&amp;value=---%0Auid%3A%20FluentDbTools.SqlBuilder.SqlBuilder%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L8" class="contribution-link">View Source</a>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Implementations/FluentDbTools.SqlBuilder/SqlBuilder.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

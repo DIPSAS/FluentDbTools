@@ -85,6 +85,7 @@
     <h5>Implements</h5>
     <div><a class="xref" href="FluentDbTools.Migration.Abstractions.IDbMigrationConfig.html">IDbMigrationConfig</a></div>
     <div><a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html">IDbConfigDatabaseTargets</a></div>
+    <div><a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html">IDbConfigSchemaTargets</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -114,19 +115,19 @@
   <h6><strong>Assembly</strong>: FluentDbTools.Extensions.Migration.dll</h6>
   <h5 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class MsDbMigrationConfig : IDbMigrationConfig, IDbConfigDatabaseTargets</code></pre>
+    <pre><code class="lang-csharp hljs">public class MsDbMigrationConfig : IDbMigrationConfig, IDbConfigDatabaseTargets, IDbConfigSchemaTargets</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig__ctor_Microsoft_Extensions_Configuration_IConfiguration_FluentDbTools_Common_Abstractions_IDbConfig_FluentDbTools_Common_Abstractions_IConfigurationChangedHandler_.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.%23ctor(Microsoft.Extensions.Configuration.IConfiguration%2CFluentDbTools.Common.Abstractions.IDbConfig%2CFluentDbTools.Common.Abstractions.IConfigurationChangedHandler)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig__ctor_Microsoft_Extensions_Configuration_IConfiguration_FluentDbTools_Common_Abstractions_IDbConfig_FluentDbTools_Common_Abstractions_IConfigurationChangedHandler_FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigValues_System_Collections_Generic_IEnumerable_FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys__.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.%23ctor(Microsoft.Extensions.Configuration.IConfiguration%2CFluentDbTools.Common.Abstractions.IDbConfig%2CFluentDbTools.Common.Abstractions.IConfigurationChangedHandler%2CFluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigValues%2CSystem.Collections.Generic.IEnumerable%7BFluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L34">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L37">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig__ctor_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.#ctor*"></a>
-  <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig__ctor_Microsoft_Extensions_Configuration_IConfiguration_FluentDbTools_Common_Abstractions_IDbConfig_FluentDbTools_Common_Abstractions_IConfigurationChangedHandler_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.#ctor(Microsoft.Extensions.Configuration.IConfiguration,FluentDbTools.Common.Abstractions.IDbConfig,FluentDbTools.Common.Abstractions.IConfigurationChangedHandler)">MsDbMigrationConfig(IConfiguration, IDbConfig, IConfigurationChangedHandler)</h4>
+  <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig__ctor_Microsoft_Extensions_Configuration_IConfiguration_FluentDbTools_Common_Abstractions_IDbConfig_FluentDbTools_Common_Abstractions_IConfigurationChangedHandler_FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigValues_System_Collections_Generic_IEnumerable_FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys__" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.#ctor(Microsoft.Extensions.Configuration.IConfiguration,FluentDbTools.Common.Abstractions.IDbConfig,FluentDbTools.Common.Abstractions.IConfigurationChangedHandler,FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigValues,System.Collections.Generic.IEnumerable{FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys})">MsDbMigrationConfig(IConfiguration, IDbConfig, IConfigurationChangedHandler, IPrioritizedConfigValues, IEnumerable&lt;IPrioritizedConfigKeys&gt;)</h4>
   <div class="markdown level1 summary"><p>Constructor. <br>
 If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is not Null, GetDbConfig func will be initialized from <code data-dev-comment-type="paramref" class="paramref">dbConfig</code><br>
 If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Null, GetDbConfig func will be initialized from <code data-dev-comment-type="paramref" class="paramref">configuration</code><br></p>
@@ -134,7 +135,7 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MsDbMigrationConfig(IConfiguration configuration, IDbConfig dbConfig = null, IConfigurationChangedHandler configurationChangedHandler = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public MsDbMigrationConfig(IConfiguration configuration, IDbConfig dbConfig = null, IConfigurationChangedHandler configurationChangedHandler = null, IPrioritizedConfigValues prioritizedConfigValues = null, IEnumerable&lt;IPrioritizedConfigKeys&gt; prioritizedConfigKeys = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -161,16 +162,26 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
         <td><span class="parametername">configurationChangedHandler</span></td>
         <td></td>
       </tr>
+      <tr>
+        <td><a class="xref" href="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigValues.html">IPrioritizedConfigValues</a></td>
+        <td><span class="parametername">prioritizedConfigValues</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.html">IPrioritizedConfigKeys</a>&gt;</td>
+        <td><span class="parametername">prioritizedConfigKeys</span></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_ConnectionString.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.ConnectionString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_ConnectionString.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.ConnectionString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L107">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L121">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_ConnectionString_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.ConnectionString*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_ConnectionString" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.ConnectionString">ConnectionString</h4>
@@ -201,14 +212,15 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DatabaseName.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DatabaseName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DatabaseName.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DatabaseName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L96">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L109">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DatabaseName_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DatabaseName*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DatabaseName" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DatabaseName">DatabaseName</h4>
   <div class="markdown level1 summary"><p>Database instance on given host, e.g. Oracle SID or postgres database name.</p>
+<remarks>Default config-keys: [&apos;database:databaseName&apos;,&apos;database:databaseConnectionName&apos;, &apos;database:serviceName&apos;, (postgres only) &apos;database:schema&apos;] </remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -232,10 +244,10 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DatabaseOwner.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DatabaseOwner%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DatabaseOwner.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DatabaseOwner%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L104">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L118">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DatabaseOwner_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DatabaseOwner*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DatabaseOwner" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DatabaseOwner">DatabaseOwner</h4>
@@ -267,14 +279,15 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DbType.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DbType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DbType.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DbType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L90">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L103">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DbType_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DbType*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DbType" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DbType">DbType</h4>
   <div class="markdown level1 summary"><p>Current Database type</p>
+<remarks>Default config-key: &apos;database:type&apos; </remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -298,10 +311,10 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DefaultTablespace.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DefaultTablespace%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DefaultTablespace.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DefaultTablespace%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L73">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L86">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DefaultTablespace_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DefaultTablespace*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_DefaultTablespace" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.DefaultTablespace">DefaultTablespace</h4>
@@ -332,10 +345,10 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetDbConfig.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetDbConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetDbConfig.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetDbConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L24">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L25">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetDbConfig_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetDbConfig*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetDbConfig" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetDbConfig">GetDbConfig</h4>
@@ -363,10 +376,10 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_ProcessorId.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.ProcessorId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_ProcessorId.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.ProcessorId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L110">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L124">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_ProcessorId_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.ProcessorId*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_ProcessorId" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.ProcessorId">ProcessorId</h4>
@@ -398,14 +411,15 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_Schema.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.Schema%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_Schema.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.Schema%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L93">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L106">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_Schema_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.Schema*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_Schema" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.Schema">Schema</h4>
   <div class="markdown level1 summary"><p>Used to specify Schema for connected database</p>
+<remarks>Default config-key: &apos;database:schema&apos; </remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -429,10 +443,10 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_SchemaPassword.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.SchemaPassword%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_SchemaPassword.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.SchemaPassword%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L62">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L73">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_SchemaPassword_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.SchemaPassword*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_SchemaPassword" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.SchemaPassword">SchemaPassword</h4>
@@ -464,10 +478,10 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_TempTablespace.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.TempTablespace%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_TempTablespace.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.TempTablespace%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L82">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L95">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_TempTablespace_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.TempTablespace*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_TempTablespace" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.TempTablespace">TempTablespace</h4>
@@ -500,10 +514,10 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetAllMigrationConfigValues_System_Boolean_.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetAllMigrationConfigValues(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetAllMigrationConfigValues_System_Boolean_.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetAllMigrationConfigValues(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L113">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L127">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetAllMigrationConfigValues_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetAllMigrationConfigValues*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetAllMigrationConfigValues_System_Boolean_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetAllMigrationConfigValues(System.Boolean)">GetAllMigrationConfigValues(Boolean)</h4>
@@ -548,10 +562,10 @@ If <code data-dev-comment-type="paramref" class="paramref">dbConfig</code> is Nu
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetMigrationName.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetMigrationName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetMigrationName.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetMigrationName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L124">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L138">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetMigrationName_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetMigrationName*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetMigrationName" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetMigrationName">GetMigrationName()</h4>
@@ -580,16 +594,19 @@ Will follow configuration parameter &quot;database:migration:migrationName&quot;
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetSchemaPrefixId.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetSchemaPrefixId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetSchemaPrefixId.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetSchemaPrefixId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L99">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L112">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetSchemaPrefixId_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetSchemaPrefixId*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetSchemaPrefixId" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetSchemaPrefixId">GetSchemaPrefixId()</h4>
-  <div class="markdown level1 summary"><p>Can be used to specifying a short Prefix for the Schema. <br>
-i.e: EX =&gt; Tables should be prefixed with EX. <br>
-Entity Person will result in the EXPerson table in the database.</p>
+  <div class="markdown level1 summary"><p>Can be used to specifying a short Prefix for the Schema.</p>
+<example>
+<p>i.e: EX => Tables should be prefixed with EX. </p>
+<p>          Entity Person will result in the EXPerson table in the database.</p>
+</example>
+<remarks>Default config-keys: [&apos;database:schemaPrefix:id&apos;, &apos;database:migration:schemaPrefix:id&apos;] </remarks>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -613,14 +630,14 @@ Entity Person will result in the EXPerson table in the database.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetSchemaPrefixUniqueId.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetSchemaPrefixUniqueId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetSchemaPrefixUniqueId.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetSchemaPrefixUniqueId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L130">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L144">View Source</a>
   </span>
   <a id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetSchemaPrefixUniqueId_" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetSchemaPrefixUniqueId*"></a>
   <h4 id="FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig_GetSchemaPrefixUniqueId" data-uid="FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.GetSchemaPrefixUniqueId">GetSchemaPrefixUniqueId()</h4>
-  <div class="markdown level1 summary"><p>Can be used to specifying a unique Id for the <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html#FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_GetSchemaPrefixId">GetSchemaPrefixId()</a></p>
+  <div class="markdown level1 summary"><p>Can be used to specifying a unique schemaPrefix Id for the migration</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -649,6 +666,9 @@ Entity Person will result in the EXPerson table in the database.</p>
   <div>
       <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html">IDbConfigDatabaseTargets</a>
   </div>
+  <div>
+      <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html">IDbConfigSchemaTargets</a>
+  </div>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
       <a class="xref" href="FluentDbTools.Extensions.Migration.ExecutorExtensions.html#FluentDbTools_Extensions_Migration_ExecutorExtensions_GetMigrationRunner_FluentDbTools_Migration_Abstractions_IDbMigrationConfig_System_Collections_Generic_IEnumerable_System_Reflection_Assembly__Microsoft_Extensions_DependencyInjection_IServiceCollection_">ExecutorExtensions.GetMigrationRunner(IDbMigrationConfig, IEnumerable&lt;Assembly&gt;, IServiceCollection)</a>
@@ -667,10 +687,10 @@ Entity Person will result in the EXPerson table in the database.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Extensions_Migration_DefaultConfigs_MsDbMigrationConfig.md&amp;value=---%0Auid%3A%20FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L17" class="contribution-link">View Source</a>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Extensions/FluentDbTools.Extensions.Migration/DefaultConfigs/MsDbMigrationConfig.cs/#L17" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

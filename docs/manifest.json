@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Common.Abstractions.Extensions.html",
-          "hash": "UUWpHCRxld8YMcesQTq22w=="
+          "hash": "reZg9IArKfuCqnzhKOnchg=="
         }
       },
       "is_incremental": false,
@@ -21,7 +21,19 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IConfigurationChangedHandler.html",
-          "hash": "t5YaVuc2tID0b1dinK+VnA=="
+          "hash": "5hkXbKB/+jVoJ8u/+w4EtQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.IConfigurationDelimiter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IConfigurationDelimiter.html",
+          "hash": "5Ap8YCdIvIqdf7fuMQGt0w=="
         }
       },
       "is_incremental": false,
@@ -33,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConfig.html",
-          "hash": "Mc+QLUML35AV48p+Qi0kQQ=="
+          "hash": "WnGkHXwvdyUb3H7wLimtsQ=="
         }
       },
       "is_incremental": false,
@@ -45,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConfigCredentials.html",
-          "hash": "WEZFdhQCO1RrH9+SoeRd7Q=="
+          "hash": "42b73WcYiNqrfvo6Qv2+Lw=="
         }
       },
       "is_incremental": false,
@@ -57,7 +69,19 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html",
-          "hash": "0Q5CrOcI+n3N9Lcd+QqS0w=="
+          "hash": "fX3Bjqtdir/5T6dUsRmuug=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html",
+          "hash": "j9grTl1osShGaGGhnNieSA=="
         }
       },
       "is_incremental": false,
@@ -69,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConnectionStringBuilder.html",
-          "hash": "81pPwxqWL2ScUC15H6HFhA=="
+          "hash": "ENpRDWQEAe9o7Zk+tMYMiA=="
         }
       },
       "is_incremental": false,
@@ -81,7 +105,67 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html",
-          "hash": "CGbcIXQw89BrdjytuGxaYA=="
+          "hash": "4WcgF8YHQMOJ/XEJyweUpQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.html",
+          "hash": "HaLDMz9A+oYYKcn1hJ8Ytw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigValues.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigValues.html",
+          "hash": "wiHfLeAMpCUaBSeZaJawDg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.PrioritizedConfig.PrioritizedConfigKeys.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.PrioritizedConfig.PrioritizedConfigKeys.html",
+          "hash": "CZydyQd3nFelTXI2fhQA1A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.PrioritizedConfig.PrioritizedConfigValues.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.PrioritizedConfig.PrioritizedConfigValues.html",
+          "hash": "CtipZjUJdB/ozhpjNtG4Lg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Common.Abstractions.PrioritizedConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Common.Abstractions.PrioritizedConfig.html",
+          "hash": "RMcXTWtj+O889f4zZnJCGw=="
         }
       },
       "is_incremental": false,
@@ -93,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Common.Abstractions.StringExtensions.html",
-          "hash": "qk7EnHh0KNkII1qOweitLQ=="
+          "hash": "21dSNcSY5bv4W0OCrSS76g=="
         }
       },
       "is_incremental": false,
@@ -105,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Common.Abstractions.SupportedDatabaseTypes.html",
-          "hash": "/dGjBqn21qh1RMN0dEz3+Q=="
+          "hash": "CA5ZWzHjuYb0wmOt0F9Ryg=="
         }
       },
       "is_incremental": false,
@@ -117,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Common.Abstractions.SymmetricCryptoProvider.html",
-          "hash": "fQi5ZkthKqNErIBDiKIA8A=="
+          "hash": "6OAbS2tG8AWZdEcTS/3GgQ=="
         }
       },
       "is_incremental": false,
@@ -129,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Common.Abstractions.html",
-          "hash": "AqOc6F4B8H2gv/WYqsXa2A=="
+          "hash": "A6iW1a3Ib33NYuQm/M3U7Q=="
         }
       },
       "is_incremental": false,
@@ -141,7 +225,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Contracts.DbConfigCredentials.html",
-          "hash": "ZAYJOKCUcAy6EQYXlzmmMg=="
+          "hash": "bH3vklRIbsMUZtI35JWlLQ=="
         }
       },
       "is_incremental": false,
@@ -153,7 +237,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Contracts.DbConfigDatabaseTargets.html",
-          "hash": "6KIQ6EEjlCmjaCv12HLPtQ=="
+          "hash": "MYZtAK2jURRcQMAGWV/7yw=="
         }
       },
       "is_incremental": false,
@@ -165,7 +249,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Contracts.DbConnectionStringBuilderConfig.html",
-          "hash": "UOEtV1lkkqrxoK4Wiexlgg=="
+          "hash": "FPkCzhL0hsrfnyeVFYZgVg=="
         }
       },
       "is_incremental": false,
@@ -177,7 +261,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Contracts.DefaultDbConfigValues.html",
-          "hash": "J+kTQim2qa+qh/7Q5UC7sw=="
+          "hash": "VE9TsObadhoNRBrlvp2chA=="
         }
       },
       "is_incremental": false,
@@ -189,7 +273,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Contracts.html",
-          "hash": "oWbw88XKkG5r4WpGeiVAFg=="
+          "hash": "1Ce6RCtIsWPKZnFQkCDxlQ=="
         }
       },
       "is_incremental": false,
@@ -201,7 +285,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.DbProvider.ConfigurationChangedHandler.html",
-          "hash": "14TcSTEQbt6E0NJ9bbDuSw=="
+          "hash": "TJQXOHaNk0nqAcsbMb9gNg=="
         }
       },
       "is_incremental": false,
@@ -213,7 +297,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.DbProvider.DbConfig.html",
-          "hash": "ppt1cqDCx0Z/4kYwGFRwaw=="
+          "hash": "fGMt59+pe+GrAc8MmjTZbw=="
         }
       },
       "is_incremental": false,
@@ -225,7 +309,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.DbProvider.DbProviderExtensions.html",
-          "hash": "U/YDsblGPGv2qpXXyy3/tw=="
+          "hash": "TgqgWb/coGa/I9P2mGBXZg=="
         }
       },
       "is_incremental": false,
@@ -249,7 +333,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ConfigurationExtensions.html",
-          "hash": "KfpxW5NrRqr0b71AdJCtpA=="
+          "hash": "xdgoSJp64CNBGCVCZB8y1Q=="
         }
       },
       "is_incremental": false,
@@ -261,7 +345,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs.MsDbConfigExtensions.html",
-          "hash": "6uiLL7voKbbtSYtkRqi5LQ=="
+          "hash": "gIXi0hSv3YDsCRETAMrWIA=="
         }
       },
       "is_incremental": false,
@@ -285,7 +369,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.Oracle.OracleDbProviderExtensions.html",
-          "hash": "apwzSn55h5WAKUkQ3fyzkA=="
+          "hash": "asMSDvae/S3EFPrJiVPQkA=="
         }
       },
       "is_incremental": false,
@@ -309,7 +393,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.Postgres.PostgresDbProviderExtensions.html",
-          "hash": "80MtqrmMaYeDcQHJL0dI0A=="
+          "hash": "4MKvTvzZCcTTX+hA9wCa0g=="
         }
       },
       "is_incremental": false,
@@ -333,7 +417,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ServiceCollectionConfigurationExtensions.html",
-          "hash": "F89Ao049V7Boe9RwM6eK3Q=="
+          "hash": "k3PwNRxFeY/UUVhfU7xVlQ=="
         }
       },
       "is_incremental": false,
@@ -345,7 +429,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ServiceCollectionDbProviderExtensions.html",
-          "hash": "e9IZlNUADa66ARdvOkrRoQ=="
+          "hash": "wAABDiBN4UK7AsiLG83QOg=="
         }
       },
       "is_incremental": false,
@@ -357,7 +441,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.MSDependencyInjection.ServiceCollectionMigrationExtensions.html",
-          "hash": "IJVYVlo2bsz2RlCUOIjDEg=="
+          "hash": "fdu63l2nJLjkLTy19SeKLg=="
         }
       },
       "is_incremental": false,
@@ -381,7 +465,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.Migration.ConfigureWithMigrationExtensions.html",
-          "hash": "owXU6SxpvAYVv8OGfLos0w=="
+          "hash": "+J0lG4VqR7FBB2sLAu3Faw=="
         }
       },
       "is_incremental": false,
@@ -393,7 +477,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfig.html",
-          "hash": "eeyCTvADZPLMCt0Z0YOvHg=="
+          "hash": "cc4cArvg5U/0VaKABUiMhw=="
         }
       },
       "is_incremental": false,
@@ -405,7 +489,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.Migration.DefaultConfigs.MsDbMigrationConfigExtension.html",
-          "hash": "ugMrZ28+3R36OpQ6Ymcjsw=="
+          "hash": "sfhehrPe7DN5jNIcbWWzfw=="
         }
       },
       "is_incremental": false,
@@ -429,7 +513,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.Migration.ExecutorExtensions.html",
-          "hash": "4xveJBFbIMwrrqOF4MeiBw=="
+          "hash": "hMWLm/HAswNN58RQDnSweg=="
         }
       },
       "is_incremental": false,
@@ -449,11 +533,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "doc/api/FluentDbTools.Extensions.SqlBuilder.SqlBuilderExtensions.yml",
+      "source_relative_path": "doc/api/FluentDbTools.Extensions.SqlBuilder.SqlBuilderFactory.yml",
       "output": {
         ".html": {
-          "relative_path": "doc/api/FluentDbTools.Extensions.SqlBuilder.SqlBuilderExtensions.html",
-          "hash": "TdHyt25mXO8dKjv+oeEFEg=="
+          "relative_path": "doc/api/FluentDbTools.Extensions.SqlBuilder.SqlBuilderFactory.html",
+          "hash": "EEH8Id/s1Jkm5PVb49xRyg=="
         }
       },
       "is_incremental": false,
@@ -465,7 +549,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Extensions.SqlBuilder.html",
-          "hash": "RoNMtDeiVwkEjnczpUcUmg=="
+          "hash": "KM3+Rwf9dLOKGJkEvqJFPw=="
         }
       },
       "is_incremental": false,
@@ -477,7 +561,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ChangeLogContext.html",
-          "hash": "T1EB5AwCCvTg9Sf7Hl22AA=="
+          "hash": "C7kxuzemxMTEI+tZgjrgjA=="
         }
       },
       "is_incremental": false,
@@ -489,7 +573,43 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.CreateUserExpression.html",
-          "hash": "A0X4fUsh0P/TKm08QiMzSg=="
+          "hash": "MdIclEypMrqdKjuf9Y7Kog=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.DataDictionary.DataDictionaryRequiredLevel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.DataDictionary.DataDictionaryRequiredLevel.html",
+          "hash": "86/7Bd0jkO0FHY2bo+m7wg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.DataDictionary.IDataDictionarySchemaPrefixAppender.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.DataDictionary.IDataDictionarySchemaPrefixAppender.html",
+          "hash": "oKQlz4srFwoVc1qb4A50Jw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.Migration.Abstractions.DataDictionary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.DataDictionary.html",
+          "hash": "+4mdZd+YHJ1atv1oInJ4Cw=="
         }
       },
       "is_incremental": false,
@@ -501,7 +621,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.DeleteUserExpression.html",
-          "hash": "RDkJyJGCjsEHcx8g+8oAsA=="
+          "hash": "/W1p8HPLZq89XGH70irltQ=="
         }
       },
       "is_incremental": false,
@@ -513,7 +633,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.IChangeLogTabledExpression.html",
-          "hash": "IeS0NuuxenB7Hyy9Aip9Bw=="
+          "hash": "Oo+UknsHM0HSpWNELcTtcw=="
         }
       },
       "is_incremental": false,
@@ -525,7 +645,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.ICreateSchemaWithPrefixExpression.html",
-          "hash": "KieYD6Zm44OsFTuMvZOYtQ=="
+          "hash": "wER7TRNDPSTkb0GCeHJoeQ=="
         }
       },
       "is_incremental": false,
@@ -537,7 +657,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.IDropSchemaWithPrefixExpression.html",
-          "hash": "hs4Jz4ry5ZtwSy46HvboOg=="
+          "hash": "GRJ00qFFoOu+IbyHUF96cg=="
         }
       },
       "is_incremental": false,
@@ -549,7 +669,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.ILinkedExpression.html",
-          "hash": "ms3pT24yrKShFI5f3opLRA=="
+          "hash": "OzclAVCCUKw9y1WLuosvbg=="
         }
       },
       "is_incremental": false,
@@ -561,7 +681,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.ISchemaWithPrefixExpression.html",
-          "hash": "NDzj9bKoDCU3P8WADxaIaw=="
+          "hash": "m2+gjc7h5eCn7mOKN9VDaw=="
         }
       },
       "is_incremental": false,
@@ -573,7 +693,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ExtendedExpressions.html",
-          "hash": "c1IoqiYq3/7CK3DHg6415g=="
+          "hash": "Woe7/nuoPp6R71+YLlRUTQ=="
         }
       },
       "is_incremental": false,
@@ -585,7 +705,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplaceExpressionRoot.html",
-          "hash": "NyD1bP7XgD7g8sBHDbmpDw=="
+          "hash": "bvzoyK268JP5k2/bMLDyKQ=="
         }
       },
       "is_incremental": false,
@@ -597,7 +717,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplacePackageSyntax.html",
-          "hash": "L7bRv2xkbazY1tyrAc9svw=="
+          "hash": "pa+e8XdS2R9hTPvFLbNO8w=="
         }
       },
       "is_incremental": false,
@@ -609,7 +729,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplaceViewWithColumnSyntax.html",
-          "hash": "glDSAh15DN6mkzK6HG8S8g=="
+          "hash": "RNBYDQA2VYdx7i3hsH5OEg=="
         }
       },
       "is_incremental": false,
@@ -621,7 +741,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICreateOrReplaceWithSqlScript.html",
-          "hash": "AP6dnmalhdk6K0Hhgq19uQ=="
+          "hash": "CusXbIrTqEf6o0zUy4PA1A=="
         }
       },
       "is_incremental": false,
@@ -633,7 +753,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor-1.html",
-          "hash": "L1SwgO8YVl86Kdqg+bX2Ww=="
+          "hash": "/5lKrhOMZUQj1n9nbd6UBA=="
         }
       },
       "is_incremental": false,
@@ -645,7 +765,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.ICustomMigrationProcessor.html",
-          "hash": "YeZ0Dp7j79kvoaxLecdZNg=="
+          "hash": "G3Tsu8j+TA6pncf9jiCh2A=="
         }
       },
       "is_incremental": false,
@@ -657,7 +777,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IDbMigrationConfig.html",
-          "hash": "rGW/pivMfa25Cvg5sf10ug=="
+          "hash": "BUd7OjceTAnV2Pb4MTesEg=="
         }
       },
       "is_incremental": false,
@@ -669,7 +789,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationGenerator-1.html",
-          "hash": "ZX773S4pyfT3Y/j5tHM26A=="
+          "hash": "ChhaGaQ+fPH/YqfDRaKP7w=="
         }
       },
       "is_incremental": false,
@@ -681,7 +801,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationGenerator.html",
-          "hash": "Zrwfub//wJgnqhV2Ep6Waw=="
+          "hash": "g0SLuOWbjBU/3l8x9waNKQ=="
         }
       },
       "is_incremental": false,
@@ -693,7 +813,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor-1.html",
-          "hash": "89/YMpGzBmLXGTxYNkqQ2g=="
+          "hash": "RRtUIxHbR60PRAdDfipnPw=="
         }
       },
       "is_incremental": false,
@@ -705,7 +825,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.html",
-          "hash": "8j53capr4iFFedn/85BrNg=="
+          "hash": "cMxB2MMKCsGKWpMk1A1U8A=="
         }
       },
       "is_incremental": false,
@@ -717,7 +837,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessorExists.html",
-          "hash": "AJNfwsIRBmosXhlRz/iU+Q=="
+          "hash": "2LTs1TbM6u4UEFbifjjnhA=="
         }
       },
       "is_incremental": false,
@@ -729,7 +849,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessorOracle.html",
-          "hash": "r2Z2+pd/u0woAFBbv7WE6A=="
+          "hash": "t2YXOmgJNc1u88eatRfLbg=="
         }
       },
       "is_incremental": false,
@@ -741,7 +861,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IFluentDbToolsVersionTableMetaData.html",
-          "hash": "ym72VOpMmIQVqMcE3rLdGg=="
+          "hash": "n6NGWG0JnSHjc2MrqPmJag=="
         }
       },
       "is_incremental": false,
@@ -753,7 +873,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IMigrationMetadata.html",
-          "hash": "k8yQ4w0Um1jQDkiL3eq+ZA=="
+          "hash": "XmimqiV3bUpZpoIfIhFvQg=="
         }
       },
       "is_incremental": false,
@@ -765,7 +885,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.IMigrationModel.html",
-          "hash": "edblWHppoqy9LvQH+iQsjA=="
+          "hash": "5fqDWjU0nS/KQRI9XJHbQA=="
         }
       },
       "is_incremental": false,
@@ -777,7 +897,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.MigrationAbstractionExtensions.html",
-          "hash": "q8kfWbcHvq16ERYydFf/qw=="
+          "hash": "NmVUf7yaHZho6kfe9ob+VQ=="
         }
       },
       "is_incremental": false,
@@ -789,7 +909,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.MigrationMetadata.html",
-          "hash": "ssp75lZxyXjkO1rybniLLw=="
+          "hash": "VtXhW+jYKYPoeIPy4uOyaA=="
         }
       },
       "is_incremental": false,
@@ -801,7 +921,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.TableSpaceType.html",
-          "hash": "C0rdCH7fWYFHWxQxZ920hA=="
+          "hash": "CaOKgRruEVZgE1r7EUGnLg=="
         }
       },
       "is_incremental": false,
@@ -813,7 +933,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.TriggersAndViewsGeneration.html",
-          "hash": "wzvVpM6MAxI5EJ/41VvjUw=="
+          "hash": "cM7EjJ+J8mx/UHTJITnS1A=="
         }
       },
       "is_incremental": false,
@@ -825,7 +945,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Abstractions.html",
-          "hash": "hJyi/4EdfqkOeBsK0tkTuw=="
+          "hash": "bKc1ucdf/MEzmt6JtL36CQ=="
         }
       },
       "is_incremental": false,
@@ -837,7 +957,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Common.ServiceRegistration.html",
-          "hash": "LalzNbI4rjzp3GVzklMMnQ=="
+          "hash": "e2cAbwnKmKJw5NRXSQrHxw=="
         }
       },
       "is_incremental": false,
@@ -861,7 +981,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.ColumnName.html",
-          "hash": "QJtWqIjDsccwYskoBLppLA=="
+          "hash": "uYc2GcIOo69SKkNvwvYjwA=="
         }
       },
       "is_incremental": false,
@@ -873,7 +993,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.CreateOrReplaceExpressionRoot.html",
-          "hash": "77suNHD3YG6njxFnXm5A8A=="
+          "hash": "28BibbyG03aouXeF/i6SAQ=="
         }
       },
       "is_incremental": false,
@@ -885,7 +1005,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationConsts.html",
-          "hash": "Y6SSAjmGOUv9bZncQtlu6w=="
+          "hash": "xCISrLh+4AwIHrMGp+mT3A=="
         }
       },
       "is_incremental": false,
@@ -897,7 +1017,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.ChangeLogLinkedExpression.html",
-          "hash": "gKjTj3CMh22iDn+jy1K+Lg=="
+          "hash": "9hqQIG81+/2+Mqk7zPeUCA=="
         }
       },
       "is_incremental": false,
@@ -909,7 +1029,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.CreateSchemaWithPrefixExpression.html",
-          "hash": "xOwcScT3NkwetMnEWNw+lQ=="
+          "hash": "+VJE5YIa1OR1t4NBZmTVZA=="
         }
       },
       "is_incremental": false,
@@ -921,7 +1041,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.DefaultColumnsLinkedExpression.html",
-          "hash": "hhsgZwY0TpMZwj5DbGDSCg=="
+          "hash": "A0DcCY42ifqHcMUSH0FN/A=="
         }
       },
       "is_incremental": false,
@@ -933,7 +1053,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.DropSchemaWithPrefixExpression.html",
-          "hash": "MartDtT1a5EdCp2Hta/AEg=="
+          "hash": "vgLhD1f4VWC/qJLONzRBAA=="
         }
       },
       "is_incremental": false,
@@ -945,7 +1065,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.Execute.ICustomSqlTitleConverter.html",
-          "hash": "arS/g6IzIi38Kwv6AGROkA=="
+          "hash": "Kchiw0PxIi35QWLLbAqclw=="
         }
       },
       "is_incremental": false,
@@ -969,7 +1089,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.MigrationMetadataChangedExpression.html",
-          "hash": "KSp4wKJkwbeCKwoePj9boA=="
+          "hash": "arj2V2ThfJj6WoFW2+O1rg=="
         }
       },
       "is_incremental": false,
@@ -981,7 +1101,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExpressions.SchemaWithPrefixExpression.html",
-          "hash": "rC+JuaMKxPna8IHkR9a8MQ=="
+          "hash": "gqIH8WVPvDm2f4wj33T0Ew=="
         }
       },
       "is_incremental": false,
@@ -1005,7 +1125,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationExtensions.html",
-          "hash": "Jz/41xTwjHV3/UnZGAKg8g=="
+          "hash": "zeKTEnGQX63/dHSpmPsqig=="
         }
       },
       "is_incremental": false,
@@ -1017,7 +1137,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Contracts.MigrationModel.html",
-          "hash": "kt0GfXlPBApydgPOn0kCEA=="
+          "hash": "DQzJDgWbK+HlUZGLWsriJg=="
         }
       },
       "is_incremental": false,
@@ -1041,7 +1161,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.FluentMigrationExtensions.html",
-          "hash": "Me4Wa8R5bTn2/IUJ+VadWw=="
+          "hash": "rP0E25Nfcs8UNfCFod/V5A=="
         }
       },
       "is_incremental": false,
@@ -1053,7 +1173,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.FluentMigrationLoggingExtensions.html",
-          "hash": "misZS8qe/L5j4pya5D7dsA=="
+          "hash": "9vGKUEcWAN24FkOfYV+1uQ=="
         }
       },
       "is_incremental": false,
@@ -1065,7 +1185,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.LogFileAppendFluentMigratorLoggerProvider.html",
-          "hash": "lW+0S3nm7+8THBZ9FcSxbA=="
+          "hash": "+KQj9Mdz48kqVFM4rO1v8w=="
         }
       },
       "is_incremental": false,
@@ -1077,7 +1197,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Oracle.CustomProcessor.DefaultOracleCustomMigrationProcessor.html",
-          "hash": "TKBfTQtgzSDmK8GXuNSGSA=="
+          "hash": "MKaNbX0jXH2Q+DkndiJVQQ=="
         }
       },
       "is_incremental": false,
@@ -1089,7 +1209,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Oracle.CustomProcessor.ServiceRegistration.html",
-          "hash": "ZRW1ngdtf4XZRrwVIMMSNA=="
+          "hash": "+tlsnS2y659H4M/+GwqXAw=="
         }
       },
       "is_incremental": false,
@@ -1113,7 +1233,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Oracle.ServiceRegistration.html",
-          "hash": "Hbsw29QrEUmVC8r2ezMpGQ=="
+          "hash": "RQj39J1nI+qMtDz9oxV3KA=="
         }
       },
       "is_incremental": false,
@@ -1125,7 +1245,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Oracle.SqlResources.html",
-          "hash": "aVTvakgWk4LjJjuHM6Ok3A=="
+          "hash": "/m2uQ66w66BGMy4hKUytdA=="
         }
       },
       "is_incremental": false,
@@ -1149,7 +1269,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.Postgres.ServiceRegistration.html",
-          "hash": "x2mY3pVLa0deKg5TAvxB6w=="
+          "hash": "Rhwd3al6Is01x9eA0vZXbA=="
         }
       },
       "is_incremental": false,
@@ -1173,7 +1293,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.Migration.ServiceRegistration.html",
-          "hash": "qERzHKfSCUgUOF2oCSqmlA=="
+          "hash": "en6wFPnIxK1r+OflUwjAHw=="
         }
       },
       "is_incremental": false,
@@ -1197,7 +1317,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Commands.IBatchUpdateCommand.html",
-          "hash": "ZXGEjY+87cw2Jk8Bs4kRsw=="
+          "hash": "L6bLYEmDrW2HTHMDjxYUKg=="
         }
       },
       "is_incremental": false,
@@ -1209,7 +1329,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Commands.IPlainQueryCommand-1.html",
-          "hash": "1vm1KPINQxo5QyW6Rg90Lg=="
+          "hash": "30Dy+UiLgd50iZ4jdFgkWA=="
         }
       },
       "is_incremental": false,
@@ -1221,7 +1341,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Commands.IPlainUpdateCommand.html",
-          "hash": "RG4ffS8wxBOkeWSENMz5vQ=="
+          "hash": "ZZ/iT+sat08KBPGpyF48ug=="
         }
       },
       "is_incremental": false,
@@ -1245,7 +1365,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Common.ISqlBuildOnly.html",
-          "hash": "SgVFAGS/XKCsMkRz7xv7TQ=="
+          "hash": "bKmeqdjUii39ylnI+XKjNQ=="
         }
       },
       "is_incremental": false,
@@ -1257,7 +1377,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Common.OP.html",
-          "hash": "hccdY1cqLBma13eYhYzJCw=="
+          "hash": "Qg/dGZ3l7D6EnKOEWxZn2Q=="
         }
       },
       "is_incremental": false,
@@ -1281,7 +1401,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.IFieldSetterSelector-1.html",
-          "hash": "xQ651ICBtz1y5rh8FnjMKQ=="
+          "hash": "WkLVTgN9bNTFEk+p4/rw3A=="
         }
       },
       "is_incremental": false,
@@ -1293,7 +1413,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.ISelectFieldSelector-1.html",
-          "hash": "2w2THh4ldEBKXYJdy/itYg=="
+          "hash": "YqBlMVkf8Jf5LIsRtvGpHQ=="
         }
       },
       "is_incremental": false,
@@ -1305,7 +1425,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.ISqlFieldBuilder-1.html",
-          "hash": "xBkQjnCmmgCJ8RGqHY6lsQ=="
+          "hash": "/PAbIjplzegQAifJET2QOQ=="
         }
       },
       "is_incremental": false,
@@ -1317,7 +1437,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Fields.IWhereFieldSelector-1.html",
-          "hash": "LkYYYoDLHHqbvxZwo6Y1Eg=="
+          "hash": "mpXbxIQbcSDTDBfwg3e/SQ=="
         }
       },
       "is_incremental": false,
@@ -1341,7 +1461,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Handlers.IQueryHandler.html",
-          "hash": "eOD13mPihgq8Yb9NXNbMnw=="
+          "hash": "9j2hiEvPs5QGPNu9hhTd+Q=="
         }
       },
       "is_incremental": false,
@@ -1353,7 +1473,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Handlers.IUpdateHandler.html",
-          "hash": "rJ6kVufnMUuzUKrWXU6jAg=="
+          "hash": "AqgMexA0Va7wcoczlmlKVQ=="
         }
       },
       "is_incremental": false,
@@ -1377,7 +1497,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.IDeleteSqlBuilder-1.html",
-          "hash": "8dy9SR+gdOifRCZHrGtMZg=="
+          "hash": "DZwfMOxF3aMmrw1VLAT6Qg=="
         }
       },
       "is_incremental": false,
@@ -1389,7 +1509,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.IInsertSqlBuilder-1.html",
-          "hash": "ll7EvfLo4TNK0OFjhs2UEw=="
+          "hash": "YLIvb0dai6JGVjZttXGYXA=="
         }
       },
       "is_incremental": false,
@@ -1401,7 +1521,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.ISelectSqlBuilder.html",
-          "hash": "QYZov+fYAGOMfMKwiymfIQ=="
+          "hash": "wJ2VS4exvxCBMb1T8oMpTA=="
         }
       },
       "is_incremental": false,
@@ -1413,7 +1533,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.ISqlBuilder.html",
-          "hash": "FTpdpBsHCJyK1aq1pbCF7Q=="
+          "hash": "zkUa7DmYKmOfCzYXbWRX3A=="
         }
       },
       "is_incremental": false,
@@ -1425,7 +1545,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.IUpdateSqlBuilder-1.html",
-          "hash": "i4oad0Pva0vXE0+C/CEOCQ=="
+          "hash": "1P65rlxFmK9ajtS+Qwpzug=="
         }
       },
       "is_incremental": false,
@@ -1437,7 +1557,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDataParameterCollectionExt.html",
-          "hash": "B2S9ymXLCtn4GokBC3wo9w=="
+          "hash": "Y7vg6jyKS90DKMRCOEEPyA=="
         }
       },
       "is_incremental": false,
@@ -1449,7 +1569,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDatabaseParameterHelper.html",
-          "hash": "xk8jeViqSgw7G1M+JoVTVQ=="
+          "hash": "oMETjxH0LqRTARrBqVcMTw=="
         }
       },
       "is_incremental": false,
@@ -1461,7 +1581,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDatabaseParameterResolver.html",
-          "hash": "Z51BxD69493+ygLT6qvivQ=="
+          "hash": "gW7QZ9RpupdP6Oi0KRXPag=="
         }
       },
       "is_incremental": false,
@@ -1473,7 +1593,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Abstractions.Parameters.IDbTypeTranslator.html",
-          "hash": "859BoxjzK6j0s48OoEBeUg=="
+          "hash": "+/+7Ib+dx7Ma1angHI6pHQ=="
         }
       },
       "is_incremental": false,
@@ -1509,7 +1629,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.BaseFieldSetterSelector-1.Field.html",
-          "hash": "i8sEdviJ0iqQo4W7T1/h7w=="
+          "hash": "hP/tcInUN+n8h9dL1Z+3dQ=="
         }
       },
       "is_incremental": false,
@@ -1521,7 +1641,31 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.BaseFieldSetterSelector-1.html",
-          "hash": "QinzGPfwy/cGX1HxgdJW+A=="
+          "hash": "n9ywOfB2FcB0rnf4bhgpeA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.SqlAliasHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.SqlAliasHelper.html",
+          "hash": "rTO3bStZ01uoUUTE9LdLzg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.SqlBuilderDbConfigSchemaTargets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.SqlBuilderDbConfigSchemaTargets.html",
+          "hash": "EXbSqz0NwdYB34lLANWzNg=="
         }
       },
       "is_incremental": false,
@@ -1533,7 +1677,19 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Common.html",
-          "hash": "oEt8epFGpn1uIJr7ctjk6w=="
+          "hash": "rdtUzfA9KQbHZ9lN2GK75w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.Parameters.DatabaseParameterExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.Parameters.DatabaseParameterExtensions.html",
+          "hash": "R/DfT8Lv6OUMcbnQwImUeg=="
         }
       },
       "is_incremental": false,
@@ -1545,7 +1701,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Parameters.DatabaseParameterResolver.html",
-          "hash": "FHHqy7bBT+W68tuDHYSe2A=="
+          "hash": "O071ltjOi7syE7svtjWzmQ=="
         }
       },
       "is_incremental": false,
@@ -1557,7 +1713,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.Parameters.html",
-          "hash": "UDGVSwZLzZg6lTWzy7l6eg=="
+          "hash": "lEJIbW6bVlZnPYjveWTw6w=="
         }
       },
       "is_incremental": false,
@@ -1569,7 +1725,19 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.SqlBuilder.html",
-          "hash": "w3n6OSJr7E1MSt6Lw0Nzjg=="
+          "hash": "Lj8tYW7kwhhjxGrl2bIETg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/FluentDbTools.SqlBuilder.SqlBuilderFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/FluentDbTools.SqlBuilder.SqlBuilderFactory.html",
+          "hash": "3tehi9vYCP1tHBh9WnczRw=="
         }
       },
       "is_incremental": false,
@@ -1581,7 +1749,31 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/FluentDbTools.SqlBuilder.html",
-          "hash": "LSoL7GgZqd2XrkoB/U6VOA=="
+          "hash": "U2rhl+GZE7iFJe5ARlkKOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/System.Data.SystemDataExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/System.Data.SystemDataExtensions.html",
+          "hash": "BpW/q0nRtUz6FjcBLzikog=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "doc/api/System.Data.yml",
+      "output": {
+        ".html": {
+          "relative_path": "doc/api/System.Data.html",
+          "hash": "5Ty9PoF4TD08yBUtTGcLwQ=="
         }
       },
       "is_incremental": false,
@@ -1593,7 +1785,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/index.html",
-          "hash": "hBOGxrSmvbPjDCSszLRPVQ=="
+          "hash": "LtWL9ho6lnHOu2tesUtxCQ=="
         }
       },
       "is_incremental": false,
@@ -1605,7 +1797,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/api/toc.html",
-          "hash": "KG8w5m3d04CQqqB/xLZ/9Q=="
+          "hash": "JMKe0l8488lVlSz3As2AOw=="
         }
       },
       "is_incremental": false,
@@ -1617,7 +1809,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/articles/intro.html",
-          "hash": "np6Uzoyf/Gfyvf15P9AawA=="
+          "hash": "wDfTeNQgD1njGUNHzyb85A=="
         }
       },
       "is_incremental": false,
@@ -1641,7 +1833,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/index.html",
-          "hash": "d0BwcU+3uE4t3kfW2fw3uw=="
+          "hash": "J8J5rYWibvYn0o/QepbzCQ=="
         }
       },
       "is_incremental": false,
@@ -1681,7 +1873,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 132,
+          "total_file_count": 148,
           "skipped_file_count": 0
         },
         "ConceptualDocumentProcessor": {

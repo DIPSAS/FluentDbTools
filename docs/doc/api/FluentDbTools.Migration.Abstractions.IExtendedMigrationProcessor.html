@@ -74,7 +74,8 @@
   <h1 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor" class="text-break">Interface IExtendedMigrationProcessor
   </h1>
   <div class="markdown level0 summary"><p>Important database Processing methods<br>
-Important database Exists methods</p>
+Important database Exists methods
+Important database connections methods</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritedMembers">
@@ -117,14 +118,79 @@ Important database Exists methods</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_GetMigrationDbConnection.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.GetMigrationDbConnection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedBeginTransaction.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedBeginTransaction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L38">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L97">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedBeginTransaction_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedBeginTransaction*"></a>
+  <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedBeginTransaction" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedBeginTransaction">ExtendedBeginTransaction()</h4>
+  <div class="markdown level1 summary"><p>Start a transaction if No-Connection is turned off</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ExtendedBeginTransaction()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedCommitTransaction.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedCommitTransaction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L102">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedCommitTransaction_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedCommitTransaction*"></a>
+  <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedCommitTransaction" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedCommitTransaction">ExtendedCommitTransaction()</h4>
+  <div class="markdown level1 summary"><p>Commit the transaction if No-Connection is turned off</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ExtendedCommitTransaction()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedEnsureConnectionIsClosed.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedEnsureConnectionIsClosed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L112">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedEnsureConnectionIsClosed_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedEnsureConnectionIsClosed*"></a>
+  <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedEnsureConnectionIsClosed" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedEnsureConnectionIsClosed">ExtendedEnsureConnectionIsClosed()</h4>
+  <div class="markdown level1 summary"><p>Ensure that connection is Closed if No-Connection is turned off</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ExtendedEnsureConnectionIsClosed()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedEnsureConnectionIsOpen.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedEnsureConnectionIsOpen%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L107">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedEnsureConnectionIsOpen_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedEnsureConnectionIsOpen*"></a>
+  <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ExtendedEnsureConnectionIsOpen" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ExtendedEnsureConnectionIsOpen">ExtendedEnsureConnectionIsOpen()</h4>
+  <div class="markdown level1 summary"><p>Ensure that connection is Opened if No-Connection is turned off</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ExtendedEnsureConnectionIsOpen()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_GetMigrationDbConnection.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.GetMigrationDbConnection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L73">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_GetMigrationDbConnection_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.GetMigrationDbConnection*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_GetMigrationDbConnection" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.GetMigrationDbConnection">GetMigrationDbConnection()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Return the default Migration IDbConnection</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -147,14 +213,31 @@ Important database Exists methods</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateConstraintExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateConstraintExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Initialize.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L31">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L92">View Source</a>
+  </span>
+  <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Initialize_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Initialize*"></a>
+  <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Initialize" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Initialize">Initialize()</h4>
+  <div class="markdown level1 summary"><p>Initialize method</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Initialize()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateConstraintExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateConstraintExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L37">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateConstraintExpression_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateConstraintExpression)">Process(CreateConstraintExpression)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Create constraint process method</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -179,14 +262,15 @@ Important database Exists methods</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateIndexExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateIndexExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateIndexExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateIndexExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L32">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L43">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateIndexExpression_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateIndexExpression)">Process(CreateIndexExpression)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Create index process method</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -211,10 +295,10 @@ Important database Exists methods</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateSchemaExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateSchemaExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateSchemaExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateSchemaExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L18">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L19">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateSchemaExpression_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateSchemaExpression)">Process(CreateSchemaExpression)</h4>
@@ -244,14 +328,15 @@ Important database Exists methods</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateSequenceExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateSequenceExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateSequenceExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateSequenceExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L34">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L55">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateSequenceExpression_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateSequenceExpression)">Process(CreateSequenceExpression)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Create sequence process method</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -276,14 +361,15 @@ Important database Exists methods</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateTableExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateTableExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateTableExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateTableExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L33">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L49">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_CreateTableExpression_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.CreateTableExpression)">Process(CreateTableExpression)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Create table process method</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -308,10 +394,10 @@ Important database Exists methods</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_DeleteDataExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.DeleteDataExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_DeleteDataExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.DeleteDataExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L30">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L31">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_DeleteDataExpression_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.DeleteDataExpression)">Process(DeleteDataExpression)</h4>
@@ -341,10 +427,10 @@ Important database Exists methods</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_DeleteSchemaExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.DeleteSchemaExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_DeleteSchemaExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.DeleteSchemaExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L24">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L25">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_DeleteSchemaExpression_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.DeleteSchemaExpression)">Process(DeleteSchemaExpression)</h4>
@@ -374,14 +460,15 @@ Important database Exists methods</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_DeleteTableExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.DeleteTableExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_DeleteTableExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.DeleteTableExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L35">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L61">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_DeleteTableExpression_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.DeleteTableExpression)">Process(DeleteTableExpression)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Delete table process method</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -406,14 +493,15 @@ Important database Exists methods</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_PerformDBOperationExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.PerformDBOperationExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_PerformDBOperationExpression_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.PerformDBOperationExpression)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L36">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L67">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_Process_FluentMigrator_Expressions_PerformDBOperationExpression_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.Process(FluentMigrator.Expressions.PerformDBOperationExpression)">Process(PerformDBOperationExpression)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Database operation process method</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -438,14 +526,15 @@ Important database Exists methods</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ProcessSql_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ProcessSql(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ProcessSql_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ProcessSql(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L39">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L80">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ProcessSql_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ProcessSql*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ProcessSql_System_String_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ProcessSql(System.String)">ProcessSql(String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Process the sql (sql will be logged if logging is enable )</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -470,14 +559,15 @@ Important database Exists methods</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ProcessSql_System_String_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ProcessSql(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ProcessSql_System_String_System_String_.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ProcessSql(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L40">View Source</a>
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L87">View Source</a>
   </span>
   <a id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ProcessSql_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ProcessSql*"></a>
   <h4 id="FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor_ProcessSql_System_String_System_String_" data-uid="FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor.ProcessSql(System.String,System.String)">ProcessSql(String, String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Process the sql (sql with title will be logged if logging is enable )</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -517,10 +607,10 @@ Important database Exists methods</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/DIPSAS/FluentDbTools/new/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Migration_Abstractions_IExtendedMigrationProcessor.md&amp;value=---%0Auid%3A%20FluentDbTools.Migration.Abstractions.IExtendedMigrationProcessor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/854cee143dbb4017f4a63d3b6c9fa5c1ce1dce74/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L12" class="contribution-link">View Source</a>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Migration.Abstractions/IExtendedMigrationProcessor.cs/#L12" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

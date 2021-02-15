@@ -1,0 +1,723 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IPrioritizedConfigKeys
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IPrioritizedConfigKeys
+   ">
+    <meta name="generator" content="docfx 2.48.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys">
+  
+  
+  <h1 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys" class="text-break">Interface IPrioritizedConfigKeys
+  </h1>
+  <div class="markdown level0 summary"><p>Contains methods for overriding config-keys in &apos;database&apos; and &apos;database:migration&apos; section.</p>
+<p>Name &apos;Prioritized&apos; is used to signal that these keys is prioritized before default-keys</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="FluentDbTools.Common.Abstractions.PrioritizedConfig.html">FluentDbTools.Common.Abstractions.PrioritizedConfig</a></h6>
+  <h6><strong>Assembly</strong>: FluentDbTools.Common.Abstractions.dll</h6>
+  <h5 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IPrioritizedConfigKeys</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_Order.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.Order%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L151">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_Order_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.Order*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_Order" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.Order">Order</h4>
+  <div class="markdown level1 summary"><p>When parsing array of <a class="xref" href="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.html">IPrioritizedConfigKeys</a>-objects, <a class="xref" href="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.html#FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_Order">Order</a> is used to sort the array.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int Order { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbAdminConnectionStringKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbAdminConnectionStringKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L146">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbAdminConnectionStringKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbAdminConnectionStringKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbAdminConnectionStringKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbAdminConnectionStringKeys">GetDbAdminConnectionStringKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:adminConnectionString&apos; </p>
+<remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfig.html#FluentDbTools_Common_Abstractions_IDbConfig_AdminConnectionString">AdminConnectionString</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbAdminConnectionStringKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbAdminPasswordKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbAdminPasswordKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L90">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbAdminPasswordKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbAdminPasswordKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbAdminPasswordKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbAdminPasswordKeys">GetDbAdminPasswordKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-keys: [&apos;database:adminPassword&apos;, &apos;database:adminUser&apos;]</p>
+<remarks>PS! Keys from this function is prioritized before the above default-keys</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigCredentials.html#FluentDbTools_Common_Abstractions_IDbConfigCredentials_AdminPassword">AdminPassword</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigCredentials.html#FluentDbTools_Common_Abstractions_IDbConfigCredentials_AdminPassword">AdminPassword</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbAdminPasswordKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbAdminUserKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbAdminUserKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L82">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbAdminUserKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbAdminUserKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbAdminUserKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbAdminUserKeys">GetDbAdminUserKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:adminUser&apos;</p>
+<remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigCredentials.html#FluentDbTools_Common_Abstractions_IDbConfigCredentials_AdminUser">AdminUser</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigCredentials.html#FluentDbTools_Common_Abstractions_IDbConfigCredentials_AdminUser">AdminUser</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbAdminUserKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbConnectionStringKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbConnectionStringKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L138">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbConnectionStringKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbConnectionStringKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbConnectionStringKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbConnectionStringKeys">GetDbConnectionStringKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:connectionString&apos; </p>
+<remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfig.html#FluentDbTools_Common_Abstractions_IDbConfig_ConnectionString">ConnectionString</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbConnectionStringKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbConnectionTimeoutKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbConnectionTimeoutKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L122">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbConnectionTimeoutKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbConnectionTimeoutKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbConnectionTimeoutKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbConnectionTimeoutKeys">GetDbConnectionTimeoutKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:connectionTimeoutInSecs&apos; </p>
+<remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html#FluentDbTools_Common_Abstractions_IDbConnectionStringBuilderConfig_ConnectionTimeoutInSecs">ConnectionTimeoutInSecs</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html#FluentDbTools_Common_Abstractions_IDbConnectionStringBuilderConfig_ConnectionTimeoutInSecs">ConnectionTimeoutInSecs</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbConnectionTimeoutKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbDatabaseNameKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbDatabaseNameKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L58">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbDatabaseNameKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbDatabaseNameKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbDatabaseNameKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbDatabaseNameKeys">GetDbDatabaseNameKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-keys: [&apos;database:databaseName&apos;,&apos;database:databaseConnectionName&apos;, &apos;database:serviceName&apos;, (postgres only) &apos;database:schema&apos;]</p>
+<remarks>PS! Keys from this function is prioritized before the above default-keys</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html#FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_DatabaseName">DatabaseName</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigDatabaseTargets.html#FluentDbTools_Common_Abstractions_IDbConfigDatabaseTargets_DatabaseName">DatabaseName</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbDatabaseNameKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbDataSourceKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbDataSourceKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L114">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbDataSourceKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbDataSourceKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbDataSourceKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbDataSourceKeys">GetDbDataSourceKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:dataSource&apos; </p>
+<remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html#FluentDbTools_Common_Abstractions_IDbConnectionStringBuilderConfig_Datasource">Datasource</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html#FluentDbTools_Common_Abstractions_IDbConnectionStringBuilderConfig_Datasource">Datasource</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbDataSourceKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbHostnameKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbHostnameKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L98">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbHostnameKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbHostnameKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbHostnameKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbHostnameKeys">GetDbHostnameKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:hostName&apos; </p>
+<remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html#FluentDbTools_Common_Abstractions_IDbConnectionStringBuilderConfig_Hostname">Hostname</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html#FluentDbTools_Common_Abstractions_IDbConnectionStringBuilderConfig_Hostname">Hostname</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbHostnameKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbPasswordKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbPasswordKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L74">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbPasswordKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbPasswordKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbPasswordKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbPasswordKeys">GetDbPasswordKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-keys [&apos;database:password&apos;, &apos;database:user&apos;]</p>
+<remarks>PS! Keys from this function is prioritized before the above default-keys</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigCredentials.html#FluentDbTools_Common_Abstractions_IDbConfigCredentials_Password">Password</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigCredentials.html#FluentDbTools_Common_Abstractions_IDbConfigCredentials_Password">Password</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbPasswordKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbPoolingKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbPoolingKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L130">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbPoolingKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbPoolingKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbPoolingKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbPoolingKeys">GetDbPoolingKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:pooling&apos; </p>
+<remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html#FluentDbTools_Common_Abstractions_IDbConnectionStringBuilderConfig_Pooling">Pooling</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html#FluentDbTools_Common_Abstractions_IDbConnectionStringBuilderConfig_Pooling">Pooling</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbPoolingKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbPortKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbPortKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L106">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbPortKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbPortKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbPortKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbPortKeys">GetDbPortKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:port&apos; </p>
+<remarks>PS! Keys from this function is prioritized before the above default-keys</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html#FluentDbTools_Common_Abstractions_IDbConnectionStringBuilderConfig_Port">Port</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConnectionStringBuilderConfig.html#FluentDbTools_Common_Abstractions_IDbConnectionStringBuilderConfig_Port">Port</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbPortKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L27">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaKeys">GetDbSchemaKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:schema&apos;</p>
+<remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html#FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_Schema">Schema</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html#FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_Schema">Schema</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbSchemaKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaPasswordKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaPasswordKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L35">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaPasswordKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaPasswordKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaPasswordKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaPasswordKeys">GetDbSchemaPasswordKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:migration:schemaPassword&apos;</p>
+<remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+<p>See <a href="https://dipsas.github.io/FluentDbTools/docs/doc/api/FluentDbTools.Migration.Abstractions.IDbMigrationConfig.html#SchemaPassword">IDbMigrationConfig.SchemaPassword</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbSchemaPasswordKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaPrefixIdStringKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaPrefixIdStringKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L43">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaPrefixIdStringKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaPrefixIdStringKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaPrefixIdStringKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaPrefixIdStringKeys">GetDbSchemaPrefixIdStringKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-keys: [&apos;database:schemaPrefix:id&apos;,&apos;database:migration:schemaPrefix:id&apos;]</p>
+<remarks>PS! Keys from this function is prioritized before the above default-keys</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html#FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_GetSchemaPrefixId">GetSchemaPrefixId()</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html#FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_GetSchemaPrefixId">GetSchemaPrefixId()</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbSchemaPrefixIdStringKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaUniquePrefixIdStringKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaUniquePrefixIdStringKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L51">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaUniquePrefixIdStringKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaUniquePrefixIdStringKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbSchemaUniquePrefixIdStringKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbSchemaUniquePrefixIdStringKeys">GetDbSchemaUniquePrefixIdStringKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-keys: [&apos;database:migration:schemaPrefix:uniqueId&apos;,&apos;database:schemaPrefix:uniqueId&apos;]</p>
+<remarks>PS! Keys from this function is prioritized before the above default-keys</remarks>
+<p>See <a href="https://dipsas.github.io/FluentDbTools/docs/doc/api/FluentDbTools.Migration.Abstractions.IDbMigrationConfig.html#GetSchemaPrefixUniqueId">IDbMigrationConfig.GetSchemaPrefixUniqueId()</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbSchemaUniquePrefixIdStringKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbTypeKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbTypeKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L19">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbTypeKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbTypeKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbTypeKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbTypeKeys">GetDbTypeKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:type&apos;</p>
+<remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html#FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_DbType">DbType</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigSchemaTargets.html#FluentDbTools_Common_Abstractions_IDbConfigSchemaTargets_DbType">DbType</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbTypeKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbUserKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbUserKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L66">View Source</a>
+  </span>
+  <a id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbUserKeys_" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbUserKeys*"></a>
+  <h4 id="FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys_GetDbUserKeys" data-uid="FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys.GetDbUserKeys">GetDbUserKeys()</h4>
+  <div class="markdown level1 summary"><p>Can be used to override default-key: &apos;database:user&apos;</p>
+<remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+<p>See <a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigCredentials.html#FluentDbTools_Common_Abstractions_IDbConfigCredentials_User">User</a> (<a class="xref" href="FluentDbTools.Common.Abstractions.IDbConfigCredentials.html#FluentDbTools_Common_Abstractions_IDbConfigCredentials_User">User</a>)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string[] GetDbUserKeys()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/new/4b73a01e1978250e7992a711a14f43416e415d33/apiSpec/new?filename=FluentDbTools_Common_Abstractions_PrioritizedConfig_IPrioritizedConfigKeys.md&amp;value=---%0Auid%3A%20FluentDbTools.Common.Abstractions.PrioritizedConfig.IPrioritizedConfigKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/DIPSAS/FluentDbTools/blob/4b73a01e1978250e7992a711a14f43416e415d33/src/FluentDbTools/Abstractions/FluentDbTools.Common.Abstractions/PrioritizedConfig/IPrioritizedConfigKeys.cs/#L9" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
