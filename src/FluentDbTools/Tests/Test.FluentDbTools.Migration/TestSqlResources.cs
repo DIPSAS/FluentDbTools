@@ -23,6 +23,10 @@ namespace Test.FluentDbTools.Migration
         /// Returns the default AdvanceScript sql
         /// </summary>
         public static string SmallScriptSql => CurrentAssembly.GetStringFromEmbeddedResource($"{_ResourceHelper.Location}.{nameof(SmallScriptSql)}.txt");
-        
+
+        /// <summary>
+        /// Returns the CreateTableWithErrorFilter sql
+        /// </summary>
+        public static string CreateTableWithErrorFilter => CurrentAssembly.GetStringFromEmbeddedResource($"{_ResourceHelper.Location}.{nameof(CreateTableWithErrorFilter)}.txt");
     }
 }

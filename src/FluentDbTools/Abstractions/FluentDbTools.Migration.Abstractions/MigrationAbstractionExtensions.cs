@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using FluentDbTools.Common.Abstractions;
 using FluentMigrator.Builders;
 using FluentMigrator.Expressions;
@@ -36,7 +38,7 @@ namespace FluentDbTools.Migration.Abstractions
         /// <param name="sql"></param>
         public static void ExecuteSql(this IExtendedMigrationProcessor processor, string sql)
         {
-            ExecuteSql(processor.ProcessSql, sql);
+            ExecuteSql(processor.ProcessSql, sql, false);
         }
 
 
@@ -45,7 +47,8 @@ namespace FluentDbTools.Migration.Abstractions
         /// </summary>
         /// <param name="action"></param>
         /// <param name="sql"></param>
-        public static void ExecuteSql(this Action<string> action, string sql)
+        /// <param name="detectErrorFilter"></param>
+        public static void ExecuteSql(this Action<string> action, string sql, bool detectErrorFilter = true)
         {
             if (action == null)
             {
@@ -54,15 +57,40 @@ namespace FluentDbTools.Migration.Abstractions
 
             if (!sql.Contains("\n") &&
                 !sql.Contains("\r") &&
-                !sql.Contains(";"))
+                !sql.Contains(";") && 
+                !Regex.IsMatch(sql,@"^\s*\/\s*$"))
             {
                 action(sql);
                 return;
             }
 
+            string sqlComment = null;
             foreach (var sqlStatement in sql.ExtractSqlStatements())
             {
-                action(sqlStatement);
+                if (!detectErrorFilter)
+                {
+                    action(sqlStatement);
+                    continue;
+                } 
+                
+                if (sqlStatement.IsSqlComment())
+                {
+                    sqlComment = sqlStatement;
+                }
+
+                try
+                {
+                    action(sqlStatement);
+                }
+                catch (Exception exception)
+                {
+                    if (exception.IsErrorFilterNumberMatch(sqlComment.GetErrorFilterNumbers()))
+                    {
+                        return;
+                    }
+
+                    throw;
+                }
             }
         }
 

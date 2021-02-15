@@ -1,0 +1,30 @@
+-- ErrorFilter = 955
+create table CLASSICPUMP.EVENTS(
+	messageid RAW(16) DEFAULT SYS_GUID() not null, 
+	sessionid varchar2(255), 
+	message blob not null,						  
+	created TIMESTAMP DEFAULT SYS_EXTRACT_UTC(systimestamp) NOT NULL,
+	routingkey VARCHAR2(255) NOT NULL,
+	module VARCHAR2(255),
+	contenttype varchar2(100) default 'application/json' not null)
+/
+
+-- ErrorFilter = 2260
+alter table CLASSICPUMP.EVENTS add constraint CLASSICPUMP_E_ID_PK primary key (MESSAGEID)
+/
+comment on table CLASSICPUMP.EVENTS is 'Events sent using ClassicPump.Queue'
+/
+comment on column CLASSICPUMP.EVENTS.messageid is 'Primary key'
+/
+comment on column CLASSICPUMP.EVENTS.sessionid is 'Optional : session_id'
+/
+comment on column CLASSICPUMP.EVENTS.message is 'Message'
+/
+comment on column CLASSICPUMP.EVENTS.created is 'Timestamp of message'
+/
+comment on column CLASSICPUMP.EVENTS.routingkey is 'Routingkey'
+/
+comment on column CLASSICPUMP.EVENTS.module is 'Optional: Module'
+/
+comment on column CLASSICPUMP.EVENTS.contenttype is 'ContentType'
+/

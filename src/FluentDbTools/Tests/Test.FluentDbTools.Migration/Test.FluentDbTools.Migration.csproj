@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\CreateTableWithErrorFilter.txt" />
     <None Remove="Resources\LargeScriptSql.txt" />
     <None Remove="Resources\SmallScriptSql.txt" />
   </ItemGroup>
@@ -23,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\CreateTableWithErrorFilter.txt" />
     <EmbeddedResource Include="Resources\LargeScriptSql.txt" />
     <EmbeddedResource Include="Resources\SmallScriptSql.txt" />
   </ItemGroup>
