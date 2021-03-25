@@ -59,6 +59,8 @@ namespace Example.FluentDbTools.Migration.MigrationModels
                 .WithColumn(Column.SequenceNumber).AsInt32().NotNullable().WithColumnDescription("sequence number.")
                 .WithColumn(Column.Alive).AsBoolean().NotNullable().WithColumnDescription("Alive flag.")
                 .WithColumn(Column.Username).AsString().WithColumnDescription("username.")
+                .WithColumn(Column.ExtraInformation).AsDatabaseBlob(this).NotNullable().WithColumnDescription("Extra Information as blob.")
+
                 .WithColumn("TestCol").AsGuid().WithColumnDescription("TestCol Guid")
                 .WithColumn(Column.Password).AsString().WithChangeLog(PersonLogContext).WithColumnDescription("password.")
                 .WithDefaultColumns() // Enable DefaultColumns functionality
