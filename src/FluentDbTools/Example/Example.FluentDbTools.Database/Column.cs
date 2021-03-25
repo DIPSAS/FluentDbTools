@@ -7,5 +7,6 @@
         public const string Alive = nameof(Entities.Person.Alive);
         public const string Username = nameof(Entities.Person.Username);
         public const string Password = nameof(Entities.Person.Password);
+        public const string ExtraInformation = nameof(Entities.Person.ExtraInformation);
     }
 }

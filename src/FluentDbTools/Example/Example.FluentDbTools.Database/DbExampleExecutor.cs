@@ -57,7 +57,7 @@ namespace Example.FluentDbTools.Database
             var persons = new List<Person>();
             for (var i = 0; i < nPersons; i++)
             {
-                var person = new Person {SequenceNumber = i + 1};
+                var person = new Person {SequenceNumber = i + 1, ExtraInformation = new ExtraInformation() { Info1 = "Info1", Info2 = "Info2", Details = new ExtraInformationDetails() { Details = "......"}}};
                 persons.Add(person);
             }
 
