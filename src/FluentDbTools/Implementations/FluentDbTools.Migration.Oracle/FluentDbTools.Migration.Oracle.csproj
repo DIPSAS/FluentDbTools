@@ -22,5 +22,4 @@
       <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.MSDependencyInjection.Oracle\FluentDbTools.Extensions.MSDependencyInjection.Oracle.csproj" />
       <ProjectReference Include="..\FluentDbTools.Migration.Common\FluentDbTools.Migration.Common.csproj" />
     </ItemGroup>
-
 </Project>

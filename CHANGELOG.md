@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+
+### Version 1.2.23 2021-04-08
+- Overrided OracleProcessorBase:DataSet Read(string template, params object[] args) in ExtendedOracleProcessorBase to log exception if it happens
+- Overrided OracleProcessorBase:DataSet ReadTableData(string schemaName, string tableName) in ExtendedOracleProcessorBase to handle exception better
+
 ### Version 1.2.20 2021-03-25
 - Expaned DataDictionaryRequiredLevel with new enum-values
 

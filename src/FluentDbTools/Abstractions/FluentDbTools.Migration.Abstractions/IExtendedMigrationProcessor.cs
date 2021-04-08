@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using FluentMigrator;
 using FluentMigrator.Expressions;
 
 namespace FluentDbTools.Migration.Abstractions
@@ -110,6 +111,13 @@ namespace FluentDbTools.Migration.Abstractions
         /// Ensure that connection is Closed if No-Connection is turned off
         /// </summary>
         void ExtendedEnsureConnectionIsClosed();
+
+        /// <inheritdoc cref="IMigrationProcessor.ReadTableData"/>
+        DataSet ReadTableData(string schemaName, string tableName);
+
+        /// <inheritdoc cref="IMigrationProcessor.Read"/>
+        DataSet Read(string template, params object[] args);
+
     }
 
     /// <summary>
