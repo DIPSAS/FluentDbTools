@@ -9,6 +9,7 @@ using FluentMigrator.Runner.Generators.Oracle;
 using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.Oracle;
+using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -56,7 +57,8 @@ namespace FluentDbTools.Migration.Oracle
                 sp.GetRequiredService<IConnectionStringAccessor>(),
                 sp.GetRequiredService<IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator>>(),
                 sp.GetService<IDbMigrationConfig>(), 
-                                    sp.GetService<IMigrationSourceItem>());
+                                    sp.GetService<IMigrationSourceItem>(),
+                sp.GetService<IVersionTableMetaData>());
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
@@ -9,6 +11,7 @@ using FluentMigrator.Runner.Generators.Oracle;
 using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.Oracle;
+using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 [assembly: InternalsVisibleTo("FluentDbTools.Extensions.Migration")]
@@ -17,6 +20,7 @@ namespace FluentDbTools.Migration.Oracle
     internal class ExtendedOracleManagedProcessor : OracleManagedProcessor, IExtendedMigrationProcessor<ExtendedOracleManagedProcessor>
     {
         private readonly IExtendedMigrationProcessor<ExtendedOracleProcessorBase> ExtendedMigrationProcessor;
+        private readonly IVersionTableMetaData VersionTableMetaData;
 
         public ExtendedOracleManagedProcessor(
             OracleManagedDbFactory factory,
@@ -25,16 +29,29 @@ namespace FluentDbTools.Migration.Oracle
             IOptionsSnapshot<ProcessorOptions> options,
             IConnectionStringAccessor connectionStringAccessor,
             IExtendedMigrationProcessor<ExtendedOracleProcessorBase> extendedMigrationProcessor,
-            ICustomMigrationProcessor<OracleProcessor> customMigrationProcessor = null
+            ICustomMigrationProcessor<OracleProcessor> customMigrationProcessor = null,
+            IVersionTableMetaData versionTableMetaData = null
         )
             : base(factory, generator, logger, options, connectionStringAccessor)
         {
             ExtendedMigrationProcessor = extendedMigrationProcessor;
+            VersionTableMetaData = versionTableMetaData;
             Initialize(customMigrationProcessor);
         }
 
         public override IList<string> DatabaseTypeAliases => new List<string> { ProcessorIds.OracleProcessorId };
         public override string DatabaseType => ProcessorIds.OracleProcessorId;
+
+        public override DataSet ReadTableData(string schemaName, string tableName)
+        {
+            return ExtendedMigrationProcessor.ReadTableData(schemaName, tableName);
+        }
+
+        public override DataSet Read(string template, params object[] args)
+        {
+            return ExtendedMigrationProcessor.Read(template, args);
+        }
+
 
         public override bool Exists(string template, params object[] args)
         {

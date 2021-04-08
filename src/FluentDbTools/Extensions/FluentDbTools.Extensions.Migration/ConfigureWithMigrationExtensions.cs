@@ -45,7 +45,8 @@ namespace FluentDbTools.Extensions.Migration
                 .Register(FluentDbTools.Migration.Oracle.ServiceRegistration.Register)
                 .Register(FluentDbTools.Migration.Postgres.ServiceRegistration.Register)
                 .RegisterDatabaseDependedFluentMigrationTypes()
-                .ConfigureWithMigrationAssemblies(FluentDbTools.Migration.ServiceRegistration.Register, assembliesWithMigrationModelArray);
+                .ConfigureWithMigrationAssemblies(FluentDbTools.Migration.ServiceRegistration.Register, assembliesWithMigrationModelArray)
+                .RegisterDatabaseDependedFluentMigrationTypes();
         }
 
 
@@ -75,9 +76,9 @@ namespace FluentDbTools.Extensions.Migration
         public static IServiceCollection AddDefaultDbMigrationConfig(this IServiceCollection serviceCollection,
             IEnumerable<Assembly> assemblies = null)
         {
-            assemblies = assemblies ?? new [] { Assembly.GetEntryAssembly(), Assembly.GetCallingAssembly(), Assembly.GetExecutingAssembly() };
+            assemblies = assemblies ?? new[] { Assembly.GetEntryAssembly(), Assembly.GetCallingAssembly(), Assembly.GetExecutingAssembly() };
 
-            serviceCollection.AddDefaultDbConfig(assemblies:assemblies);
+            serviceCollection.AddDefaultDbConfig(assemblies: assemblies);
             serviceCollection.TryAddScoped<IDbMigrationConfig, MsDbMigrationConfig>();
             return serviceCollection;
         }
@@ -85,7 +86,7 @@ namespace FluentDbTools.Extensions.Migration
         public static IServiceCollection RegisterDatabaseDependedFluentMigrationTypes(this IServiceCollection serviceCollection)
         {
             return serviceCollection
-            .AddScoped<IMigrationProcessor>(sp =>
+                .Replace(ServiceDescriptor.Scoped<IMigrationProcessor>(sp =>
             {
                 var isPostgres = sp.GetService<IDbMigrationConfig>()?.DbType == SupportedDatabaseTypes.Postgres;
                 if (isPostgres)
@@ -94,8 +95,8 @@ namespace FluentDbTools.Extensions.Migration
                 }
 
                 return sp.GetRequiredService<ExtendedOracleManagedProcessor>();
-            })
-            .AddScoped<IMigrationGenerator>(sp =>
+            }))
+            .Replace(ServiceDescriptor.Scoped<IMigrationGenerator>(sp =>
             {
                 var isPostgres = sp.GetService<IDbMigrationConfig>()?.DbType == SupportedDatabaseTypes.Postgres;
                 if (isPostgres)
@@ -104,7 +105,7 @@ namespace FluentDbTools.Extensions.Migration
                 }
 
                 return sp.GetRequiredService<OracleGenerator>();
-            });
+            }));
 
 
         }
@@ -117,11 +118,11 @@ namespace FluentDbTools.Extensions.Migration
             {
                 return dbMigrationConfig;
             }
-            
-            return new MsDbMigrationConfig( 
-                serviceProvider.GetRequiredService<IConfiguration>(), 
+
+            return new MsDbMigrationConfig(
+                serviceProvider.GetRequiredService<IConfiguration>(),
                 serviceProvider.GetDbConfig(false),
-                serviceProvider.GetService<IConfigurationChangedHandler>(), 
+                serviceProvider.GetService<IConfigurationChangedHandler>(),
                 serviceProvider.GetService<IPrioritizedConfigValues>(),
                 serviceProvider.GetServices<IPrioritizedConfigKeys>());
         }

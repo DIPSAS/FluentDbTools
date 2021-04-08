@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Dapper;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Abstractions.ExtendedExpressions;
@@ -13,6 +15,7 @@ using FluentMigrator.Runner;
 using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.Oracle;
+using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -23,11 +26,13 @@ namespace FluentDbTools.Migration.Oracle
         private IMigrationMetadata MigrationMetadata;
         private readonly IOptionsSnapshot<RunnerOptions> RunnerOptions;
         private readonly IDbMigrationConfig MigrationConfig;
+        private readonly IVersionTableMetaData VersionTableMetaData;
         private readonly IExtendedMigrationGenerator ExtendedGenerator;
         private ICustomMigrationProcessor CustomMigrationProcessor;
-        private bool Initialize_Initialized;
-        private Func<string> ConnectionStringFunc;
-        private string LatestComment = null;
+
+        [SuppressMessage("ReSharper", "InconsistentNaming")] private bool Initialize_Initialized;
+        private readonly Func<string> ConnectionStringFunc;
+        private string LatestComment;
         protected string SchemaPrefix => MigrationConfig?.GetSchemaPrefixId();
         protected string SchemaPrefixUniqueId => MigrationConfig?.GetSchemaPrefixUniqueId();
 
@@ -39,10 +44,12 @@ namespace FluentDbTools.Migration.Oracle
             IConnectionStringAccessor connectionStringAccessor,
             IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator> extendedGenerator,
             IDbMigrationConfig migrationConfig,
-            IMigrationSourceItem migrationSourceItem = null) : base(ProcessorIds.OracleProcessorId, factory, generator, logger, options, connectionStringAccessor)
+            IMigrationSourceItem migrationSourceItem = null,
+            IVersionTableMetaData versionTableMetaData = null) : base(ProcessorIds.OracleProcessorId, factory, generator, logger, options, connectionStringAccessor)
         {
             RunnerOptions = runnerOptions;
             MigrationConfig = migrationConfig;
+            VersionTableMetaData = versionTableMetaData;
             ExtendedGenerator = extendedGenerator;
             MigrationMetadata = new MigrationMetadata(migrationSourceItem).InitMetadata(MigrationConfig);
 
@@ -52,6 +59,78 @@ namespace FluentDbTools.Migration.Oracle
 
         private bool NoConnection => RunnerOptions?.Value?.NoConnection ?? true;
 
+        public override DataSet ReadTableData(string schemaName, string tableName)
+        {
+            try
+            {
+                return base.ReadTableData(schemaName, tableName);
+            }
+            catch (Exception exception)
+            {
+                Logger?.LogTrace(exception, $"Something went wrong when reading ReadTableData DataSet [schemaName: {schemaName}, tableName:{tableName}]. Return Empty ReadTableData DataSet...");
+#pragma warning disable 618
+                var metaData = VersionTableMetaData ?? new DefaultVersionTableMetaData(schemaName);
+#pragma warning restore 618
+
+                var dataSet = new DataSet();
+                var table = dataSet.Tables.Add(tableName);
+
+                if (tableName.EqualsIgnoreCase(metaData.TableName) == false)
+                {
+                    return dataSet;
+                }
+
+                table.Columns.Add(metaData.ColumnName, typeof(long));
+                table.Columns.Add(metaData.AppliedOnColumnName, typeof(DateTime));
+                table.Columns.Add(metaData.DescriptionColumnName, typeof(string));
+                try
+                {
+                    var splitOn = $"{metaData.AppliedOnColumnName}, {metaData.DescriptionColumnName}";
+                    var sql = $"select {metaData.ColumnName}, {metaData.AppliedOnColumnName}, {metaData.DescriptionColumnName} FROM {schemaName}.{tableName}";
+                    var rows = Connection.Query<decimal, DateTime, string, FluentDbToolsVersionTableMetadataRow>(
+                        sql,
+                        (version, appliedOn, description) => new FluentDbToolsVersionTableMetadataRow(version, appliedOn, description),
+                        splitOn: splitOn);
+
+
+                    foreach (var row in rows)
+                    {
+
+                        var dataRow = table.NewRow();
+                        table.Rows.Add(dataRow);
+                        dataRow.AcceptChanges();
+                        dataRow.ItemArray = new object[] { row.Version, row.AppliedOn, row.Description };
+                    }
+                }
+                catch
+                {
+                    //
+                }
+
+                return dataSet;
+            }
+        }
+
+        public override DataSet Read(string template, params object[] args)
+        {
+            try
+            {
+                return base.Read(template, args);
+            }
+            catch (Exception exception)
+            {
+                try
+                {
+                    Logger?.LogTrace(exception, $"Something went wrong when reading DataSet Sql:{string.Format(template, args)} [template:{template}, args:{string.Join(", ", args.Where(x => x != null).Select(x => $"{x}(type={x.GetType().Name})"))}]");
+                }
+                catch
+                {
+                    Logger?.LogTrace(exception, $"Something went wrong when reading DataSet [template:{template}, args:{string.Join(", ", args.Where(x => x != null).Select(x => $"{x}(type={x.GetType().Name})"))}]");
+                }
+
+                throw;
+            }
+        }
 
         public void ExtendedBeginTransaction()
         {
@@ -123,7 +202,7 @@ namespace FluentDbTools.Migration.Oracle
             {
                 return false;
             }
-            
+
             EnsureConnectionIsOpen();
 
             using (var command = CreateCommand(string.Format(template, args)))
@@ -563,7 +642,7 @@ namespace FluentDbTools.Migration.Oracle
                 return;
             }
 
-            
+
             using (var command = CreateCommand(commandText))
             {
                 if (commandText.IsSqlComment())
