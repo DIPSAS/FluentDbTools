@@ -66,6 +66,57 @@ namespace Test.FluentDbTools.DbProvider
             }
         }
 
+        [Fact]
+        public void BuildConnectionString_WithPoolingOff_ShouldReturnExpectedConnectionString()
+        {
+            var overridedConfig = new Dictionary<string, string>
+            {
+                {"database:servicename", "service"},
+                {"database:hostname", "host"},
+                {"database:pooling", "false"},
+                {"database:poolingKeyValues", "Key1=Value1"},
+            };
+
+            var dbConfig = GetDbConfig(overridedConfig);
+
+
+            var adminPrivilegeses = new[] { false, true };
+
+            foreach (var adminPrivileges in adminPrivilegeses)
+            {
+                using (var connection = dbConfig.GetDbProviderFactory(adminPrivileges).CreateConnection() as OracleConnection)
+                {
+                    connection.ConnectionString.ContainsIgnoreCase("Pooled=False");
+                }
+            }
+        }
+
+        [Fact]
+        public void BuildConnectionString_WithPoolingOn_ShouldReturnExpectedConnectionString()
+        {
+            var overridedConfig = new Dictionary<string, string>
+            {
+                {"database:servicename", "service"},
+                {"database:hostname", "host"},
+                {"database:pooling", "true"},
+                {"database:poolingKeyValues", "MIN POOL SIZE=2;MAX POOL SIZE=50;INCR POOL SIZE=5;DECR POOL SIZE=2"},
+            };
+
+            var dbConfig = GetDbConfig(overridedConfig);
+
+
+            var adminPrivilegeses = new[] { false, true };
+
+            foreach (var adminPrivileges in adminPrivilegeses)
+            {
+                using (var connection = dbConfig.GetDbProviderFactory(adminPrivileges).CreateConnection() as OracleConnection)
+                {
+                    connection.ConnectionString.ContainsIgnoreCase("Pooled=True");
+                    connection.ConnectionString.ContainsIgnoreCase("MIN POOL SIZE=5");
+                }
+            }
+        }
+
 
         [Fact]
         public void BuildConnectionString_WhenDatasourceIsTnsAliasName_ShouldReturnExpectedDataSourceString()

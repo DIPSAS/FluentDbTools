@@ -89,6 +89,13 @@ namespace FluentDbTools.Contracts
 
         /// <summary>
         /// DbConnectionStringBuilderConfig defaults: <br/>
+        /// - Function returning Default connection pooling switch (true/false)
+        /// </summary>
+        public Func<IDictionary<string,string>> GetDefaultPoolingKeyValues = () => null;
+
+
+        /// <summary>
+        /// DbConnectionStringBuilderConfig defaults: <br/>
         /// - Function returning Default database dataSource. Overrides <see cref="GetDefaultHostName"/> and <see cref="GetDefaultPort"/>
         /// </summary>
         public Func<string> GetDefaultDataSource = () => null;

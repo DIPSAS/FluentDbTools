@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
 
 namespace FluentDbTools.Contracts
@@ -12,6 +13,7 @@ namespace FluentDbTools.Contracts
         private string DataSourceField;
         private bool? PoolingField;
         private string ConnectionTimeoutInSecsField;
+        private IDictionary<string, string> PoolingKeyValuesField;
 
         /// <inheritdoc />
         public DbConfigCredentials DbConfigCredentials { get; set; }
@@ -80,6 +82,13 @@ namespace FluentDbTools.Contracts
         }
 
         /// <inheritdoc />
+        public IDictionary<string, string> PoolingKeyValues
+        {
+            get => PoolingKeyValuesField ?? Defaults.GetDefaultPoolingKeyValues?.Invoke();
+            set => PoolingKeyValuesField = value;
+        }
+        
+        /// <inheritdoc />
         public virtual string Datasource
         {
             get => DataSourceField ?? Defaults.GetDefaultDataSource?.Invoke();
@@ -101,6 +110,7 @@ namespace FluentDbTools.Contracts
             PoolingField = null;
             PortField = null;
             HostnameField = null;
+            PoolingKeyValues = null;
 
             base.OnConfigurationChanged(getValueFunc);
 

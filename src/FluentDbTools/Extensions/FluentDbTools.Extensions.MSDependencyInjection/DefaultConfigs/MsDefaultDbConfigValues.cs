@@ -45,6 +45,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             GetDefaultDataSource = () => GetConfigValueString(prioritizedConfigValues.GetDbDataSource, configuration.GetDbDataSource);
             GetDefaultConnectionTimeoutInSecs = () => GetConfigValueString(prioritizedConfigValues.GetDbConnectionTimeout, configuration.GetDbConnectionTimeout);
             GetDefaultPooling = () => GetConfigValueBool(prioritizedConfigValues.GetDbPooling, configuration.GetDbPooling);
+            GetDefaultPoolingKeyValues = () => GetConfigValueDictionary(prioritizedConfigValues.GetDbPoolingKeyValues, configuration.GetDbPoolingKeyValues);
 
             // DbConfig defaults
             GetDefaultConnectionString = () => GetConfigValueString(prioritizedConfigValues.GetDbConnectionString, configuration.GetDbConnectionString);
@@ -64,8 +65,13 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             SupportedDatabaseTypes GetConfigValueSupportedDatabaseTypes(Func<SupportedDatabaseTypes?> firstPriority, Func<SupportedDatabaseTypes> nextPriority)
             {
                 return firstPriority?.Invoke() ?? nextPriority.Invoke();
-                
             }
+
+            IDictionary<string,string> GetConfigValueDictionary(Func<IDictionary<string,string>> firstPriority, Func<IDictionary<string,string>> nextPriority)
+            {
+                return firstPriority?.Invoke() ?? nextPriority.Invoke();
+            }
+
         }
 
         /// <summary>

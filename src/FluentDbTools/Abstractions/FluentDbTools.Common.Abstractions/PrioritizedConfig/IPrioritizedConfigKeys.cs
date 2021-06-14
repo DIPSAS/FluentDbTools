@@ -130,6 +130,14 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
         string[] GetDbPoolingKeys();
 
         /// <summary>
+        /// <para>Can be used to override default-key: 'database:poolingKeyValues' </para>
+        /// <remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
+        /// <para>See <see cref="IDbConnectionStringBuilderConfig.PoolingKeyValues">IDbConfig.PoolingKeyValues</see> (<see cref="IDbConnectionStringBuilderConfig.PoolingKeyValues"/>)</para>
+        /// </summary>
+        /// <returns></returns>
+        string[] GetDbPoolingKeyValuesKeys();
+
+        /// <summary>
         /// <para>Can be used to override default-key: 'database:connectionString' </para>
         /// <remarks>PS! Keys from this function is prioritized before the above default-key</remarks>
         /// <para>See <see cref="IDbConfig.ConnectionString"/></para>

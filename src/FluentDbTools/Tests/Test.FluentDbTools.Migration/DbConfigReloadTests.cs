@@ -170,6 +170,8 @@ namespace Test.FluentDbTools.Migration
         public string Port { get; set; }
         public bool Pooling { get; set; }
         public string ConnectionTimeoutInSecs { get; set; }
+
+        public IDictionary<string, string> PoolingKeyValues { get; set; }
         public string ConnectionString { get; set; }
         public string AdminConnectionString { get; set; }
         public IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false, string sectionName = null)

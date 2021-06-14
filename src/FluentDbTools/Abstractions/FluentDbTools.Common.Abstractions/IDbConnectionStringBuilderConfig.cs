@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace FluentDbTools.Common.Abstractions
@@ -32,6 +33,11 @@ namespace FluentDbTools.Common.Abstractions
         /// <remarks>Default config-key: 'database:pooling'</remarks>
         /// </summary>
         bool Pooling { get; }
+
+        /// <summary>
+        /// Additional Pooling properties
+        /// </summary>
+        IDictionary<string,string> PoolingKeyValues { get; }
 
         /// <summary>
         /// <para>Used to specify Connection Timeout or not</para>

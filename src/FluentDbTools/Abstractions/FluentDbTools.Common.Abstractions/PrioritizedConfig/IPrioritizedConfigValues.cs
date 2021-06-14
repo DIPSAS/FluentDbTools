@@ -1,4 +1,6 @@
-﻿namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
+﻿using System.Collections.Generic;
+
+namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
 {
     /// <summary>
     /// <para>Contains methods for override config-values from 'database' and 'database:migration' section.</para>
@@ -125,6 +127,15 @@
         /// </summary>
         /// <returns></returns>
         bool? GetDbPooling();
+
+        /// <summary>
+        /// <para>Can be used to override the value from default-key: 'database:poolingKeyValues' </para>
+        /// <remarks>PS! Value from this function is prioritized before the above value from default-key</remarks>
+        /// <para>See <see cref="IDbConnectionStringBuilderConfig.PoolingKeyValues">IDbConfig.Pooling</see> (<see cref="IDbConnectionStringBuilderConfig.PoolingKeyValues"/>)</para>
+        /// </summary>
+        /// <returns></returns>
+        IDictionary<string,string> GetDbPoolingKeyValues();
+
 
         /// <summary>
         /// <para>Can be used to override the value from default-key: 'database:connectionString' </para>
