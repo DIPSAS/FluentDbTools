@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -653,6 +655,40 @@ namespace FluentDbTools.Common.Abstractions
                     .Split(' ')
                     .Select(x => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Trim()))
                     .ToArray());
+        }
+
+        /// <summary>
+        /// <para>Convert string to <see cref="IDictionary"/>&lt;<see cref="string"/>,<see cref="string"/>&gt; </para>
+        /// <para>
+        /// Must be on format Key1=Value1,Key2=Value2<br/>
+        /// OR Key1=Value1;Key2=Value2
+        /// </para>
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static IDictionary<string,string> ToDictionary(this string value) 
+        {
+            var splitChar = value.Contains(",") ? ',' : ';';
+            var split = value.Split(splitChar);
+            if (!split.Any())
+            {
+                return null;
+            }
+
+            var dict = new Dictionary<string, string>();
+            // ReSharper disable once LoopCanBeConvertedToQuery
+            foreach (var keyValueString in split)
+            {
+                var keyValue = keyValueString.Trim().Split('=');
+                if (keyValue.Length <= 1)
+                {
+                    continue;
+                }
+                dict.Add(keyValue[0].Trim(), keyValue[1].Trim());
+            }
+
+            return dict;
+
         }
     }
 }

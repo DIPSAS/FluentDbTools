@@ -166,6 +166,16 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
         }
 
         /// <inheritdoc />
+        public virtual IDictionary<string, string> GetDbPoolingKeyValues()
+        {
+            var value = GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbPoolingKeyValuesKeys() != null)?
+                .SelectMany(x => x?.GetDbPoolingKeyValuesKeys())?.ToArray());
+
+            return value.IsNotEmpty() ? value.ToDictionary() : null;
+        }
+
+
+        /// <inheritdoc />
         public virtual string GetDbConnectionString()
         {
             return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbConnectionStringKeys() != null)?

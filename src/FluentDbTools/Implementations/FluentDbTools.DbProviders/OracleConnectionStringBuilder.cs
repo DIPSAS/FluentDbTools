@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
 
@@ -28,14 +29,24 @@ namespace FluentDbTools.DbProviders
 
         internal static string BuildConnectionString(IDbConnectionStringBuilderConfig dbConfig, string datasource, bool isAdminMode)
         {
-            var connstr = string.Format(DefaultConnectionStringTemplate,
+            var poolingStr = $"{dbConfig.Pooling}";
+            if (dbConfig.Pooling && dbConfig.PoolingKeyValues?.Any() == true)
+            {
+                // ReSharper disable once LoopCanBeConvertedToQuery
+                foreach (var keyValue in dbConfig.PoolingKeyValues)
+                {
+                    poolingStr += $";{keyValue.Key} = {keyValue.Value}";
+                }
+            }
+
+            var connectionString = string.Format(DefaultConnectionStringTemplate,
                 (isAdminMode ? dbConfig.AdminUser : dbConfig.User).ToUpper(),
                 isAdminMode ? dbConfig.AdminPassword : dbConfig.Password,
                 datasource,
-                dbConfig.Pooling,
+                poolingStr,
                 GetConnectionTimeout(dbConfig));
 
-            return connstr;
+            return connectionString;
         }
 
         internal static string GetDataSourceTemplate(IDbConnectionStringBuilderConfig dbConfig)

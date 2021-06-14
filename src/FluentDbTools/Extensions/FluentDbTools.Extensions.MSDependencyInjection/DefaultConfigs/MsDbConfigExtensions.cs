@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using FluentDbTools.Common.Abstractions;
@@ -8,7 +9,7 @@ using FluentDbTools.Contracts;
 using FluentDbTools.Extensions.DbProvider;
 using Microsoft.Extensions.Configuration;
 
-[assembly:InternalsVisibleTo("FluentDbTools.Extensions.Migration")]
+[assembly: InternalsVisibleTo("FluentDbTools.Extensions.Migration")]
 namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 {
     public static class MsDbConfigExtensions
@@ -38,7 +39,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         internal static string GetDbPassword(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("password",  configuration.GetSecret(GetDbUser(configuration)).WithDefault(DefaultDbPassword));
+            return section.GetSectionStringValue("password", configuration.GetSecret(GetDbUser(configuration)).WithDefault(DefaultDbPassword));
         }
 
         public static string GetSecret(this IConfiguration configuration, string user, string section = "database:secret")
@@ -150,6 +151,13 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             return pooling;
         }
 
+        internal static IDictionary<string, string> GetDbPoolingKeyValues(this IConfiguration configuration)
+        {
+            var section = configuration?.GetDbSection();
+            var value = section.GetSectionStringValue("poolingKeyValues");
+            return string.IsNullOrEmpty(value) ? null : value.ToDictionary();
+        }
+
         internal static string GetDbSchema(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
@@ -161,7 +169,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
                 : schema.ToLower();
             return schema;
         }
-        
+
         internal static string GetDbConnectionString(this IConfiguration configuration)
         {
             var section = configuration?.GetDbSection();
@@ -230,7 +238,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
                         {
                             dictionary.Add(key, value.Value);
                         }
-                        
+
                     }
                     continue;
                 }
@@ -271,7 +279,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             DbConfigCredentials dbConfigCredentials = null,
             IPrioritizedConfigValues prioritizedConfigValues = null)
         {
-            return new MsDbConfig(configuration,null,defaultDbConfigValues,dbConfigCredentials,prioritizedConfigValues);
+            return new MsDbConfig(configuration, null, defaultDbConfigValues, dbConfigCredentials, prioritizedConfigValues);
         }
     }
 }

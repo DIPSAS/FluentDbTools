@@ -189,6 +189,18 @@
         }
 
         /// <summary>
+        /// <inheritdoc cref="IPrioritizedConfigKeys.GetDbPoolingKeyValuesKeys"/>
+        /// <para>_______________________________________________________________________________</para>
+        /// <para>This method return <c>null</c>.</para>
+        /// <para>Override this method to customize it for your implementation</para>
+        /// </summary>
+        /// <returns></returns>
+        public virtual string[] GetDbPoolingKeyValuesKeys()
+        {
+            return null;
+        }
+
+        /// <summary>
         /// <inheritdoc cref="IPrioritizedConfigKeys.GetDbConnectionStringKeys"/>
         /// <para>_______________________________________________________________________________</para>
         /// <para>This method return <c>null</c>.</para>
