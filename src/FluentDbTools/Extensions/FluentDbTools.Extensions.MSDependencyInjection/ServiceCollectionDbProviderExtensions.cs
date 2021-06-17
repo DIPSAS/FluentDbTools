@@ -24,27 +24,29 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         public static IServiceCollection AddDbProvider<TDbConfig>(
             this IServiceCollection serviceCollection,
             Action actionToRunIfDbFactoryIsNull = null,
-            bool asSingleton = true)
+            bool asSingleton = true, 
+            bool openConnectionWhenRequest = true)
             where TDbConfig : class, IDbConfig
         {
             return serviceCollection
                 .AddDbConfig<TDbConfig>(asSingleton)
-                .AddDbProvider(actionToRunIfDbFactoryIsNull, asSingleton);
+                .AddDbProvider(actionToRunIfDbFactoryIsNull, asSingleton, openConnectionWhenRequest);
         }
 
         public static IServiceCollection AddDbProvider(this
             IServiceCollection serviceCollection,
             Type dbConfigType,
             Action actionToRunIfDbFactoryIsNull = null,
-            bool asSingleton = true)
+            bool asSingleton = true, 
+            bool openConnectionWhenRequest = true)
         {
             return serviceCollection
                 .AddDbConfig(dbConfigType, asSingleton)
-                .AddDbProvider(actionToRunIfDbFactoryIsNull, asSingleton);
+                .AddDbProvider(actionToRunIfDbFactoryIsNull, asSingleton, openConnectionWhenRequest);
         }
         
         public static IServiceCollection AddDbProvider(this IServiceCollection serviceCollection,
-            Action actionToRunIfDbFactoryIsNull = null, bool asSingleton = true)
+            Action actionToRunIfDbFactoryIsNull = null, bool asSingleton = true, bool openConnectionWhenRequest = true)
         {
             serviceCollection.AddDbConfigDatabaseTargets();
             if (asSingleton)
@@ -59,11 +61,11 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
             serviceCollection.IfExistThen<DbConnection>(() => serviceCollection.TryAddScoped<IDbConnection>(sp => sp.GetRequiredService<DbConnection>()));
 
             return serviceCollection
-                .AddDbConnection(actionToRunIfDbFactoryIsNull)
+                .AddDbConnection(actionToRunIfDbFactoryIsNull, openConnectionWhenRequest)
                 .AddDbTransaction();
         }
 
-        static IServiceCollection AddDbConnection(this IServiceCollection serviceCollection, Action actionToRunIfDbFactoryIsNull = null)
+        static IServiceCollection AddDbConnection(this IServiceCollection serviceCollection, Action actionToRunIfDbFactoryIsNull = null, bool openConnectionWhenRequest = true)
         {
             serviceCollection.TryAddScoped<IDbConnection>(sp =>
             {
@@ -97,7 +99,10 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
 
                 try
                 {
-                    dbConnection.SafeOpen();
+                    if (openConnectionWhenRequest)
+                    {
+                        dbConnection.SafeOpen();
+                    }
                 }
                 catch (Exception exception)
                 {
