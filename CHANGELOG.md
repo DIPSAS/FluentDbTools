@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
 
+### Version 1.2.25 2021-06-17
+- Added openConnectionWhenRequest parameter to ServiceCollectionDbProviderExtensions:AddDbProvider method
+
 ### Version 1.2.24 2021-06-14
 - Added database:poolingKeyValues to tune connecting-pooling 
 
