@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using FluentDbTools.Common.Abstractions;
 using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Logging;
 using Microsoft.Extensions.Options;
-
+[assembly: InternalsVisibleTo("Test.FluentDbTools.Migration")]
 namespace FluentDbTools.Migration
 {
     /// <summary>
@@ -25,49 +27,92 @@ namespace FluentDbTools.Migration
                 IAssemblySource assemblySource,
                 IOptions<LogFileFluentMigratorLoggerOptions> options,
                 bool disposeWriter = true)
-            : base(GetStreamWriter(assemblySource, options), options.Value, disposeWriter)
+            : base(GetStreamWriter(assemblySource, options?.Value, out _), options?.Value, disposeWriter)
         {
         }
 
-        private static StreamWriter GetStreamWriter(IAssemblySource assemblySource, IOptions<LogFileFluentMigratorLoggerOptions> options)
+        internal static StreamWriter GetStreamWriter(IAssemblySource assemblySource, LogFileFluentMigratorLoggerOptions options, out string logFilename)
         {
-            const int retryInitStreamWriter = 10;
-            Exception fileException = null;
-            var absolutePath = GetOutputFileName(assemblySource, options.Value);
+            const int retryInitStreamWriter = 2;
 
-            for (var retries = 0; retries < retryInitStreamWriter; retries++)
+            for (var i = 0; i < 10; i++)
             {
-                try
+                // ReSharper disable once StringLiteralTypo
+                var postfix = i == 0 ? null : $"{DateTime.Now:HHmmss}";
+                logFilename = GetOutputFileName(assemblySource, options, postfix);
+                if (GetStreamWriterLocal(logFilename, out var streamWriter))
                 {
-                    return new StreamWriter(absolutePath, true, Encoding.UTF8);
-                }
-                catch (IOException exception)
-                {
-                    fileException = exception;
-                    Task.Delay(TimeSpan.FromMilliseconds(250)).Wait();
+                    return streamWriter;
                 }
             }
 
-            if (fileException != null)
-            {
-                throw fileException;
-            }
+            logFilename = GetOutputFileName(assemblySource, options, new Random().Next(100000, 999999).ToString());
+            return new StreamWriter(logFilename, true, Encoding.UTF8);
 
-            return new StreamWriter(absolutePath, true, Encoding.UTF8);
+            bool GetStreamWriterLocal(string logFile, out StreamWriter streamWriter)
+            {
+                streamWriter = null;
+                for (var retries = 0; retries < retryInitStreamWriter; retries++)
+                {
+                    try
+                    {
+                        streamWriter = new StreamWriter(logFile, true, Encoding.UTF8);
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        Task.Delay(TimeSpan.FromMilliseconds(250)).Wait();
+                    }
+                }
+
+                return false;
+            }
         }
 
-        private static string GetOutputFileName(
+        internal static string GetOutputFileName(
             IAssemblySource assemblySource,
-            LogFileFluentMigratorLoggerOptions options)
+            LogFileFluentMigratorLoggerOptions options,
+            string postfix = null)
         {
+            string logFile = null;
             if (!string.IsNullOrEmpty(options.OutputFileName))
-                return options.OutputFileName;
+            {
+                logFile = options.OutputFileName;
+            }
 
-            if (assemblySource.Assemblies.Count == 0)
-                return "fluentmigrator.sql";
+            if (logFile == null && assemblySource.Assemblies.Count == 0)
+            {
+                logFile = "FluentMigratorSql.log";
+            }
 
-            var assembly = assemblySource.Assemblies.First();
-            return assembly.Location + ".sql";
+            if (logFile == null)
+            {
+                var assembly = assemblySource.Assemblies.First();
+                logFile = assembly.Location + ".sql";
+            }
+
+            if (postfix == null)
+            {
+                return logFile;
+            }
+
+            var info = new FileInfo(logFile);
+            if (info.Exists == false)
+            {
+                return logFile;
+            }
+
+            if (info.DirectoryName != null && Directory.GetCurrentDirectory().EqualsIgnoreCase(info.DirectoryName) == false)
+            {
+                logFile = Path.Combine(info.DirectoryName, $"{info.Name.SubstringTo(".")}-{postfix}{info.Extension}");
+            }
+            else
+            {
+                logFile = Path.Combine($"{info.Name.SubstringTo(".")}-{postfix}{info.Extension}");
+            }
+            
+
+            return logFile;
         }
 
     }

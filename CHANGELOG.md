@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.2.26 2021-11-05
+- Improved LogFileAppendFluentMigratorLoggerProvider. 
+  If logfile is already open, change logfile to a filename with timestamp - ex. "abcd.log" => "abcd-20211105.log"
 
 ### Version 1.2.25 2021-06-17
 - Added openConnectionWhenRequest parameter to ServiceCollectionDbProviderExtensions:AddDbProvider method

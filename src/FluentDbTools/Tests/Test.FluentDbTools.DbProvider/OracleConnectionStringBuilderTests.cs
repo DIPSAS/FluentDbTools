@@ -157,7 +157,7 @@ namespace Test.FluentDbTools.DbProvider
                 using (var connection = dbConfig.GetDbProviderFactory(true).CreateConnection())
                 {
                     connection.DataSource.Should().Be(expectedDataSource);
-                    connection.Open();
+                    connection.SafeOpen();
                 }
             };
 
@@ -180,7 +180,7 @@ namespace Test.FluentDbTools.DbProvider
                 using (var oracleConnection = dbConfig.GetDbProviderFactory(true).CreateConnection())
                 {
                     oracleConnection.DataSource.Should().Be(expectedDataSource);
-                    oracleConnection.Open();
+                    oracleConnection.SafeOpen();
                 }
             };
 
@@ -255,7 +255,7 @@ namespace Test.FluentDbTools.DbProvider
             {
                 using (var connection = new OracleConnection(connectionString))
                 {
-                    connection.Open();
+                    connection.SafeOpen();
                 }
             };
 
@@ -275,7 +275,7 @@ namespace Test.FluentDbTools.DbProvider
             {
                 using (var connection = new OracleConnection(connectionString))
                 {
-                    connection.Open();
+                    connection.SafeOpen();
                 }
             };
 
@@ -296,7 +296,7 @@ namespace Test.FluentDbTools.DbProvider
             {
                 using (var connection = new OracleConnection(connectionString))
                 {
-                    connection.Open();
+                    connection.SafeOpen();
                 }
             };
 
@@ -317,7 +317,7 @@ namespace Test.FluentDbTools.DbProvider
             {
                 using (var connection = new OracleConnection(connectionString))
                 {
-                    connection.Open();
+                    connection.SafeOpen();
                 }
             };
 
@@ -343,7 +343,7 @@ namespace Test.FluentDbTools.DbProvider
             {
                 using (var connection = new OracleConnection(connectionString))
                 {
-                    connection.Open();
+                    connection.SafeOpen();
                 }
             };
             // ORA-12514: TNS:listener does not currently know of service requested in connect descriptor
@@ -363,7 +363,7 @@ namespace Test.FluentDbTools.DbProvider
             {
                 using (var connection = new OracleConnection(connectionString))
                 {
-                    connection.Open();
+                    connection.SafeOpen();
                 }
             };
 
