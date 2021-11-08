@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.IO;
+using FluentAssertions;
 using FluentDbTools.Migration;
 using FluentMigrator.Runner.Logging;
 using Xunit;
@@ -10,8 +11,12 @@ namespace Test.FluentDbTools.Migration
         [Fact]
         public void GetStreamWriter()
         {
+            if (Directory.Exists(@"sub0"))
+            {
+                Directory.Delete(@"sub0", true);
+            }
 
-            var options = new LogFileFluentMigratorLoggerOptions() { OutputFileName = "abcd.log"};
+            var options = new LogFileFluentMigratorLoggerOptions() { OutputFileName = @"sub0\sub1\abcd.log"};
             var streamWriter1 = LogFileAppendFluentMigratorLoggerProvider.GetStreamWriter(null, options, out var logFile);
             streamWriter1.Should().NotBeNull();
             logFile.Should().EndWith(options.OutputFileName);

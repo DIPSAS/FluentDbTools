@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.2.27 2021-11-08
+- Improved LogFileAppendFluentMigratorLoggerProvider. 
+  If directories or directory is missing, the directory will be created before the logfile is created
+
 ### Version 1.2.26 2021-11-05
 - Improved LogFileAppendFluentMigratorLoggerProvider. 
   If logfile is already open, change logfile to a filename with timestamp - ex. "abcd.log" => "abcd-20211105.log"
