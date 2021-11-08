@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -91,16 +92,36 @@ namespace FluentDbTools.Migration
                 logFile = assembly.Location + ".sql";
             }
 
+            var info = new FileInfo(logFile);
+
+            if (info.DirectoryName != null)
+            {
+                var directoryInfo = new DirectoryInfo(info.DirectoryName);
+                var subs = new List<string>();
+                while (directoryInfo != null && directoryInfo.Exists == false)
+                {
+                    subs.Add(directoryInfo.Name);
+                    directoryInfo = directoryInfo.Parent;
+                }
+
+                if (subs.Any())
+                {
+                    subs.Reverse();
+                    subs.Aggregate(directoryInfo, (current, sub) => current?.CreateSubdirectory(sub));
+
+                }
+            }
+
+            if (info.Exists == false)
+            {
+                return logFile;
+            }
+
             if (postfix == null)
             {
                 return logFile;
             }
 
-            var info = new FileInfo(logFile);
-            if (info.Exists == false)
-            {
-                return logFile;
-            }
 
             if (info.DirectoryName != null && Directory.GetCurrentDirectory().EqualsIgnoreCase(info.DirectoryName) == false)
             {
