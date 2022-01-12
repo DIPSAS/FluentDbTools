@@ -1,7 +1,7 @@
 declare
 begin
-	-- {CommonSchemaName}.cpsesjon.dwp_logginn('MIGRATION-{User}');
-    {AuthCodeSchemaName}.cpSesjon.dwp_logginn ('MIGRATION-{User}');
+	-- {CommonSchemaName}.cpsesjon.dwp_logginn('MIGRATION-{MigrationName}');
+    {AuthCodeSchemaName}.cpSesjon.dwp_logginn ('MIGRATION-{MigrationName}');
 	{AuthCodeSchemaName}.cpsesjon.dwp_Oppgradering;
 end;
 /

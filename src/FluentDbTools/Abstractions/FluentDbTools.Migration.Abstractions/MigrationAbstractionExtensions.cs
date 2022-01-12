@@ -101,7 +101,9 @@ namespace FluentDbTools.Migration.Abstractions
         /// Replace {SchemaPrefixId} with <paramref name="schemaPrefixId"/> or  <see cref="IDbConfigSchemaTargets.GetSchemaPrefixId()"/><br/>
         /// Replace {SchemaPrefixUniqueId} with <paramref name="schemaPrefixUniqueId"/> or  <see cref="IDbMigrationConfig.GetSchemaPrefixUniqueId()"/><br/>
         /// Replace {MigrationName} with <paramref name="migrationName"/> or  <see cref="IDbMigrationConfig.GetMigrationName()"/><br/>
-        /// Replace {User} with <paramref name="migrationName"/> or  <see cref="IDbMigrationConfig.GetMigrationName()"/><br/>
+        /// Replace {SchemaPassword} with <paramref name="schemaPassword"/> or <see cref="IDbMigrationConfig.SchemaPassword"/> or <see cref="IDbConfigCredentials.Password"/> <br/>
+        /// Replace {User} with <paramref name="user"/> or <see cref="IDbConfigCredentials.User"/><br/>
+        /// Replace {Password} with <paramref name="password"/> or <see cref="IDbConfigCredentials.Password"/> or <see cref="IDbConfigCredentials.User"/> <br/>
         /// </summary>
         /// <param name="migrationConfig"></param>
         /// <param name="sql"></param>
@@ -109,8 +111,12 @@ namespace FluentDbTools.Migration.Abstractions
         /// <param name="schemaPrefixId"></param>
         /// <param name="schemaPrefixUniqueId"></param>
         /// <param name="migrationName"></param>
+        /// <param name="schemaPassword"></param>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
         /// <returns></returns>
-        public static string PrepareSql(this IDbMigrationConfig migrationConfig, string sql, string schemaName = null, string schemaPrefixId = null, string schemaPrefixUniqueId = null, string migrationName = null)
+        public static string PrepareSql(this IDbMigrationConfig migrationConfig, string sql, string schemaName = null, string schemaPrefixId = null, string schemaPrefixUniqueId = null, 
+            string migrationName = null, string schemaPassword = null, string user = null, string password = null)
         {
             if (sql == null)
             {
@@ -118,13 +124,20 @@ namespace FluentDbTools.Migration.Abstractions
             }
 
             schemaName = schemaName ?? migrationConfig.Schema;
+            schemaPassword = schemaPassword ?? migrationConfig.SchemaPassword.WithDefault(schemaName).WithDefault(migrationConfig.GetDbConfig()?.Password);
             schemaPrefixId = schemaPrefixId ?? migrationConfig.GetSchemaPrefixId();
             schemaPrefixUniqueId = schemaPrefixUniqueId ?? migrationConfig.GetSchemaPrefixUniqueId();
             migrationName = migrationName ?? migrationConfig.GetMigrationName();
+            
+            user = user ?? migrationConfig?.GetDbConfig().User.WithDefault(migrationName);
+            password = password ?? migrationConfig?.GetDbConfig().Password;
+
             return sql
                 .ReplaceIgnoreCase("{MigrationName}", migrationName)
-                .ReplaceIgnoreCase("{User}", migrationName)
+                .ReplaceIgnoreCase("{User}", user)
+                .ReplaceIgnoreCase("{Password}", password)
                 .ReplaceIgnoreCase("{SchemaName}", schemaName?.ToUpper())
+                .ReplaceIgnoreCase("{SchemaPassword}", schemaPassword?.ToUpper())
                 .ReplaceIgnoreCase("{SchemaPrefixId}", schemaPrefixId)
                 .ReplaceIgnoreCase("{SchemaPrefixUniqueId}", schemaPrefixUniqueId);
         }
