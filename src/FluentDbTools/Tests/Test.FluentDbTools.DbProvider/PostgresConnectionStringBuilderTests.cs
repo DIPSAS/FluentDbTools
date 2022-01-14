@@ -108,7 +108,7 @@ namespace Test.FluentDbTools.DbProvider
                 }
             };
             // HostNotFound - "No such host is known"
-            action.Should().Throw<SocketException>().Which.SocketErrorCode.Should().Be(SocketError.HostNotFound);
+            action.Should().Throw<SocketException>().Which.SocketErrorCode.Should().Be(BaseConfig.InContainer ? SocketError.TryAgain : SocketError.HostNotFound);
         }
 
         private static DbConfig GetDbConfig(Dictionary<string, string> overrideConfig = null, bool ignoreSettingTimeout = false)

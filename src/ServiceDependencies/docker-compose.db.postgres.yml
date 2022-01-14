@@ -1,20 +1,20 @@
 version: '3'
 
 services:
-  postgres-db-web:
-    image: dpage/pgadmin4
-    hostname: postgres-db-web
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - 8080:80
-    networks:
-      - backend_network
+  # postgres-db-web:
+  #   image: dpage/pgadmin4
+  #   hostname: postgres-db-web
+  #   deploy:
+  #     replicas: 1
+  #     restart_policy:
+  #       condition: on-failure
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #   ports:
+  #     - 8080:80
+  #   networks:
+  #     - backend_network
 
   postgres-db:
     image: postgres

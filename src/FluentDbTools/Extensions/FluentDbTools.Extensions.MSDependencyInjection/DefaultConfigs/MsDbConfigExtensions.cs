@@ -14,7 +14,6 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 {
     public static class MsDbConfigExtensions
     {
-        private const SupportedDatabaseTypes DefaultDatabaseType = SupportedDatabaseTypes.Postgres;
         private const string DefaultDbUser = "user";
         private const string DefaultDbPassword = "password";
         private const bool DefaultDbPooling = true;
@@ -25,7 +24,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             var section = configuration?.GetDbSection();
             if (!Enum.TryParse(section?["type"], true, out SupportedDatabaseTypes availableDatabaseType))
             {
-                availableDatabaseType = DefaultDatabaseType;
+                availableDatabaseType = DefaultDbConfigValues.DefaultDbType;
             }
             return availableDatabaseType;
         }

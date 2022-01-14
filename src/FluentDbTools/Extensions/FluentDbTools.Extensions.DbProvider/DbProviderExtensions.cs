@@ -3,8 +3,10 @@ using System.Collections.Concurrent;
 using System.Data;
 using System.Data.Common;
 using System.IO;
+using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
 // ReSharper disable UnusedMember.Global
+[assembly:InternalsVisibleTo("FluentDbTools.Extensions.MSDependencyInjection")]
 
 namespace FluentDbTools.Extensions.DbProvider
 {
@@ -37,11 +39,18 @@ namespace FluentDbTools.Extensions.DbProvider
         /// 
         /// </summary>
         /// <param name="dbType"></param>
+        /// <param name="assert"></param>
         /// <returns></returns>
-        public static IDbConnectionStringBuilder GetConnectionStringProvider(this SupportedDatabaseTypes dbType)
+        public static IDbConnectionStringBuilder GetConnectionStringProvider(this SupportedDatabaseTypes dbType, bool assert = true)
         {
+            if (!assert)
+            {
+                return DbConnectionProviders.TryGetValue(dbType, out var provider) ? provider : null;
+            }
+
             AssertDbConnectionImplemented(dbType);
             return DbConnectionProviders[dbType];
+
         }
 
         /// <summary>
@@ -56,9 +65,7 @@ namespace FluentDbTools.Extensions.DbProvider
                 return dbConfig.ConnectionString;
             }
 
-            var dbType = dbConfig.DbType;
-            AssertDbConnectionImplemented(dbType);
-            return dbType.GetConnectionStringProvider().BuildConnectionString(dbConfig);
+            return BuildConnectionString(dbConfig);
         }
 
 
@@ -74,11 +81,9 @@ namespace FluentDbTools.Extensions.DbProvider
                 return dbConfig.AdminConnectionString;
             }
 
-            var dbType = dbConfig.DbType;
-            AssertDbConnectionImplemented(dbType);
-            return dbType.GetConnectionStringProvider().BuildAdminConnectionString(dbConfig);
+            return BuildAdminConnectionString(dbConfig);
         }
-        
+
         /// <summary>
         /// Return a new instance of DbProviderFactory created from dbConfig settings 
         /// </summary>
@@ -259,5 +264,27 @@ namespace FluentDbTools.Extensions.DbProvider
         {
             return Directory.Exists(pathToCheck) && File.Exists(Path.Combine(pathToCheck, "tnsnames.ora"));
         }
+
+        internal static string BuildConnectionString(this IDbConfig dbConfig, bool assert = true)
+        {
+            var dbType = dbConfig.DbType;
+            if (assert)
+            {
+                AssertDbConnectionImplemented(dbType);
+            }
+
+            return dbType.GetConnectionStringProvider(assert)?.BuildConnectionString(dbConfig);
+        }
+
+        internal static string BuildAdminConnectionString(this IDbConfig dbConfig, bool assert = true)
+        {
+            var dbType = dbConfig.DbType;
+            if (assert)
+            {
+                AssertDbConnectionImplemented(dbType);
+            }
+            return dbType.GetConnectionStringProvider(assert)?.BuildAdminConnectionString(dbConfig);
+        }
+
     }
 }
