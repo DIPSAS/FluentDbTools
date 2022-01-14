@@ -14,7 +14,7 @@ namespace FluentDbTools.Contracts
         /// <summary>
         /// Default database type
         /// </summary>
-        public const SupportedDatabaseTypes DefaultDbType = SupportedDatabaseTypes.Postgres;
+        public static SupportedDatabaseTypes DefaultDbType { get; set; } = SupportedDatabaseTypes.Postgres;
 
         #region DbConfigDatabaseTargets defaults       
         /// <summary>
