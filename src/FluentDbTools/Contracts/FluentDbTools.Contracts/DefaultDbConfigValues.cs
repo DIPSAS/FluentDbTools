@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Contracts
 {
@@ -9,12 +10,14 @@ namespace FluentDbTools.Contracts
     /// </summary>
     public class DefaultDbConfigValues
     {
+        public const SupportedDatabaseTypes LibraryDefaultDbType = SupportedDatabaseTypes.Postgres;
+
         private Dictionary<string, string> AllConfigValuesField;
 
         /// <summary>
         /// Default database type
         /// </summary>
-        public static SupportedDatabaseTypes DefaultDbType { get; set; } = SupportedDatabaseTypes.Postgres;
+        public static SupportedDatabaseTypes DefaultDbType { get; set; } = WithLibraryDefaultDbType();
 
         #region DbConfigDatabaseTargets defaults       
         /// <summary>
@@ -130,6 +133,7 @@ namespace FluentDbTools.Contracts
         /// - Function returning Default SchemaPrefixUniqueId <br/>
         /// </summary>
         public Func<string> GetDefaultSchemaPrefixUniqueIdString = () => null;
+
         #endregion
 
         /// <summary>
@@ -144,5 +148,35 @@ namespace FluentDbTools.Contracts
 
             return AllConfigValuesField;
         }
+
+        /// <summary>
+        /// Change <see cref="DefaultDbType">DefaultDbType</see> back to <see cref="SupportedDatabaseTypes.Postgres">Postgres</see>
+        /// </summary>
+        /// <returns></returns>
+        public static SupportedDatabaseTypes WithLibraryDefaultDbType()
+        {
+            return WithDefaultDbType(LibraryDefaultDbType);
+        }
+
+        /// <summary>
+        /// Change <see cref="DefaultDbType">DefaultDbType</see> to <see cref="SupportedDatabaseTypes.Oracle">Oracle</see>
+        /// </summary>
+        /// <returns></returns>
+        public static SupportedDatabaseTypes WithOracleDefaultDbType()
+        {
+            return WithDefaultDbType(SupportedDatabaseTypes.Oracle);
+        }
+
+        /// <summary>
+        /// Change <see cref="DefaultDbType">DefaultDbType</see> to <paramref name="dbType"/>
+        /// </summary>
+        /// <param name="dbType"></param>
+        /// <returns></returns>
+        public static SupportedDatabaseTypes WithDefaultDbType(SupportedDatabaseTypes dbType)
+        {
+            DefaultDbType = dbType;
+            return DefaultDbType;
+        }
+
     }
 }

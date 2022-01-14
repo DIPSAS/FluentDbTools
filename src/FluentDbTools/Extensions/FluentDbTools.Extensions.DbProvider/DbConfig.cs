@@ -23,7 +23,7 @@ namespace FluentDbTools.Extensions.DbProvider
         /// <inheritdoc />
         public virtual string ConnectionString
         {
-            get => ConnectionStringField ?? Defaults.GetDefaultConnectionString();
+            get => ConnectionStringField ?? Defaults.GetDefaultConnectionString() ?? this.BuildConnectionString(false);
             set => ConnectionStringField = value;
         }
 
@@ -32,7 +32,7 @@ namespace FluentDbTools.Extensions.DbProvider
         /// <inheritdoc />
         public virtual string AdminConnectionString
         {
-            get => AdminConnectionStringField ?? Defaults.GetDefaultAdminConnectionString();
+            get => AdminConnectionStringField ?? Defaults.GetDefaultAdminConnectionString() ?? this.BuildAdminConnectionString(false);
             set => AdminConnectionStringField = value;
         }
 

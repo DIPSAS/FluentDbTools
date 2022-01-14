@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using Example.FluentDbTools.Config;
 using FluentAssertions;
 using Xunit;
 using FluentDbTools.Common.Abstractions;
@@ -63,15 +62,15 @@ namespace Test.FluentDbTools
             var current = CultureInfo.CurrentCulture;
             var currentIgnoreCaseStringComparison = StringExtensions.CurrentIgnoreCaseStringComparison;
 
-            isEqual = isEqual ?? !BaseConfig.InContainer;
+            isEqual ??= false;
 
-            s2 = s2 ?? s1;
+            s2 ??= s1;
 
             try
             {
                 CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(cultureName ?? "nb-NO");
                 StringExtensions.CurrentIgnoreCaseStringComparison = stringComparison;
-                s1.EqualsIgnoreCase(s2).Should().Be(isEqual.Value);
+                s1.EqualsIgnoreCase(s2).Should().Be(isEqual == true);
             }
             finally
             {
