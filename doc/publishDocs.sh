@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Changed end-of-line endings to Unuix(LF) (Hint - Notepad++ => Edit-menu => EOL Conversion => Unuix(LF))
 # If any commands fail, halt immediately:
 set -eu
 
