@@ -14,7 +14,8 @@ fi
 git config user.email "deploy@travis-ci.org"
 git config user.name "Deployment Bot"
 
-git config credential.helper '!auth() { sleep 1; echo "username=${DOCUMENTATION_DEPLOY_USERNAME}"; echo "password=${DOCUMENTATION_DEPLOY_TOKEN}"; }; auth'
+#git config credential.helper '!auth() { sleep 1; echo "username=${DOCUMENTATION_DEPLOY_USERNAME}"; echo "password=${DOCUMENTATION_DEPLOY_TOKEN}"; }; auth'
+git config credential.helper '!auth() { sleep 1; echo "username=dips-aho"; echo "password=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"; }; auth'
 
 # Force-reset the gh-pages branch to the latest master, and check it out:
 git branch -f gh-pages master
