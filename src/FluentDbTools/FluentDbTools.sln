@@ -78,6 +78,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7367735B
 		..\..\.travis.yml = ..\..\.travis.yml
 		..\..\build-management.yml = ..\..\build-management.yml
 		..\..\CHANGELOG.md = ..\..\CHANGELOG.md
+		..\..\docfx.json = ..\..\docfx.json
+		..\..\docker-compose.documentation.yml = ..\..\docker-compose.documentation.yml
 		..\Dockerfile_Test = ..\Dockerfile_Test
 		icon.png = icon.png
 		..\private-example.env = ..\private-example.env
@@ -91,6 +93,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.SqlBuilder.Dapper", "Implementations\FluentDbTools.SqlBuilder.Dapper\FluentDbTools.SqlBuilder.Dapper.csproj", "{D403D960-C481-4BAB-8FB9-B4A2800695FA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDbTools.Abstractions", "Abstractions\FluentDbTools.Abstractions\FluentDbTools.Abstractions.csproj", "{AE493C32-E178-48B6-8781-3E42D6E98305}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{CE552BC9-2B97-415A-A183-A89AFA240200}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\doc\Dockerfile_BuildDocs = ..\..\doc\Dockerfile_BuildDocs
+		..\..\doc\index.md = ..\..\doc\index.md
+		..\..\doc\publishDocs.sh = ..\..\doc\publishDocs.sh
+		..\..\doc\toc.yml = ..\..\doc\toc.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -249,6 +259,7 @@ Global
 		{E410FFB3-FA7F-4905-A14E-A15BD934063C} = {65B7029A-534B-446A-90A8-64DC2E75D487}
 		{D403D960-C481-4BAB-8FB9-B4A2800695FA} = {4852BBC1-F0A6-456A-9C0B-1854FBD95F41}
 		{AE493C32-E178-48B6-8781-3E42D6E98305} = {49A16F56-EDC2-4980-8F9F-081833D2DA18}
+		{CE552BC9-2B97-415A-A183-A89AFA240200} = {7367735B-8D2F-4073-A270-42A27FFE4E44}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {456583DA-E724-4868-A195-2FE2F14160A6}
