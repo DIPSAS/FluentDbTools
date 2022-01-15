@@ -1,7 +1,7 @@
 FROM mono:latest
 
-ENV DOCUMENTATION_DEPLOY_USERNAME insert-username-here
-ENV DOCUMENTATION_DEPLOY_TOKEN insert-personal-access-token-here
+ENV DOCUMENTATION_DEPLOY_USERNAME=dips-aho
+ENV DOCUMENTATION_DEPLOY_TOKEN=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
 
 # We need to install the .NET Core SDK alongside Mono to get proper code analysis:
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE 1
