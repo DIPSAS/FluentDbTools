@@ -150,9 +150,9 @@ namespace FluentDbTools.Migration.Postgres
         {
             var dbConfig = dbMigrationConfig.GetDbConfig();
             return string.Format(ConnectionStringWithoutDatabaseTemplate,
-                dbConfig.AdminUser.ToLower(),
+                dbConfig.AdminUser?.ToLower(),
                 dbConfig.AdminPassword,
-                dbConfig.Hostname.ToLower(),
+                dbConfig.Hostname?.ToLower(),
                 dbConfig.Port,
                 dbConfig.Pooling);
         }

@@ -30,12 +30,12 @@ namespace FluentDbTools.DbProviders
         private static string BuildConnectionString(IDbConnectionStringBuilderConfig dbConfig, bool isAdminMode)
         {
             var connstr = string.Format(DefaultConnectionStringTemplate,
-                (isAdminMode ? dbConfig.AdminUser : dbConfig.User).ToLower(),
-                isAdminMode ? dbConfig.AdminPassword : dbConfig.Password,
-                dbConfig.Hostname,
-                dbConfig.Port,
-                dbConfig.DatabaseName.ToLower(),
-                dbConfig.Pooling,
+                (isAdminMode ? dbConfig?.AdminUser : dbConfig?.User)?.ToLower(),
+                isAdminMode ? dbConfig?.AdminPassword : dbConfig?.Password,
+                dbConfig?.Hostname,
+                dbConfig?.Port,
+                dbConfig?.DatabaseName.ToLower(),
+                dbConfig?.Pooling,
                 GetConnectionTimeout(dbConfig));
 
             return connstr;

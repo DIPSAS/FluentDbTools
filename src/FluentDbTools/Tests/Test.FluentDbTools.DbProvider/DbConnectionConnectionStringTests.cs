@@ -61,6 +61,7 @@ namespace Test.FluentDbTools.DbProvider
                 configuration.CreateDbConfig().ConnectionString.Should().Be(expectedConnectionString);
 
                 DefaultDbConfigValues.WithLibraryDefaultDbType();
+                DefaultDbConfigValues.WithLibraryDefaultAdminUserAndPassword();
             }
         }
 
@@ -72,13 +73,26 @@ namespace Test.FluentDbTools.DbProvider
         {
             lock (LockObj)
             {
-                var configuration = GetConfiguration(configDbType);
+                try
+                {
+                    var configuration = GetConfiguration(configDbType);
 
-                DefaultDbConfigValues.WithOracleDefaultDbType();
+                    DefaultDbConfigValues.WithOracleDefaultDbType();
+                    DefaultDbConfigValues.WithEmptyAdminUserAndPassword();
 
-                configuration.CreateDbConfig().ConnectionString.Should().Be(expectedConnectionString);
-
-                DefaultDbConfigValues.WithLibraryDefaultDbType();
+                    var dbConfig = configuration.CreateDbConfig();
+                    dbConfig.ConnectionString.Should().Be(expectedConnectionString);
+                    var useridStr = configDbType == SupportedDatabaseTypes.Postgres ? "username" : "user id";
+                    dbConfig.AdminUser.Should().BeNull();
+                    dbConfig.AdminPassword.Should().BeNull();
+                    dbConfig.AdminConnectionString.ContainsIgnoreCase($"{useridStr}=;").Should().BeTrue();
+                    dbConfig.AdminConnectionString.ContainsIgnoreCase("password=;").Should().BeTrue();
+                }
+                finally
+                {
+                    DefaultDbConfigValues.WithLibraryDefaultDbType();
+                    DefaultDbConfigValues.WithLibraryDefaultAdminUserAndPassword();
+                }
             }
         }
 

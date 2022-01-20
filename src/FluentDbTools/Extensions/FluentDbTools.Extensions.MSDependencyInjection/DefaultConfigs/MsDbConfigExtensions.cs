@@ -42,6 +42,11 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 
         public static string GetSecret(this IConfiguration configuration, string user, string section = "database:secret")
         {
+            if (user == null)
+            {
+                return null;
+            }
+
             var secret = configuration.GetSection($"{section}:encrypted").GetConfigValue(user);
             if (secret.IsNotEmpty())
             {
@@ -60,38 +65,52 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 
         public static string GetDbAdminUser(this IConfiguration configuration)
         {
-            string defaultDbAdminUser;
-            switch (configuration.GetDbType())
+            string defaultDbAdminUser = null;
+            try
             {
-                case SupportedDatabaseTypes.Postgres:
-                    defaultDbAdminUser = DefaultDbConfigValues.DefaultPostgresAdminUserAndPassword.Item1;
-                    break;
-                case SupportedDatabaseTypes.Oracle:
-                    defaultDbAdminUser = DefaultDbConfigValues.DefaultOracleAdminUserAndPassword.Item1;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                switch (configuration.GetDbType())
+                {
+                    case SupportedDatabaseTypes.Postgres:
+                        defaultDbAdminUser = DefaultDbConfigValues.DefaultPostgresAdminUserAndPassword.Item1;
+                        break;
+                    case SupportedDatabaseTypes.Oracle:
+                        defaultDbAdminUser = DefaultDbConfigValues.DefaultOracleAdminUserAndPassword.Item1;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                var section = configuration?.GetDbSection();
+                return section.GetSectionStringValue("adminUser", defaultDbAdminUser);
             }
-            var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("adminUser", defaultDbAdminUser);
+            catch
+            {
+                return defaultDbAdminUser;
+            }
         }
 
         public static string GetDbAdminPassword(this IConfiguration configuration)
         {
-            string defaultDbAdminPassword;
-            switch (configuration.GetDbType())
+            string defaultDbAdminPassword = null;
+            try {
+                switch (configuration.GetDbType())
+                {
+                    case SupportedDatabaseTypes.Postgres:
+                        defaultDbAdminPassword = DefaultDbConfigValues.DefaultPostgresAdminUserAndPassword.Item2;
+                        break;
+                    case SupportedDatabaseTypes.Oracle:
+                        defaultDbAdminPassword = DefaultDbConfigValues.DefaultOracleAdminUserAndPassword.Item2;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                var section = configuration?.GetDbSection();
+                var dbAdminUser = GetDbAdminUser(configuration);
+                return section.GetSectionStringValue("adminPassword", (dbAdminUser == null ? null : configuration.GetSecret(dbAdminUser)).WithDefault(defaultDbAdminPassword));
+            } catch
             {
-                case SupportedDatabaseTypes.Postgres:
-                    defaultDbAdminPassword = DefaultDbConfigValues.DefaultPostgresAdminUserAndPassword.Item2;
-                    break;
-                case SupportedDatabaseTypes.Oracle:
-                    defaultDbAdminPassword = DefaultDbConfigValues.DefaultOracleAdminUserAndPassword.Item2;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                return defaultDbAdminPassword;
             }
-            var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("adminPassword", configuration.GetSecret(GetDbAdminUser(configuration)).WithDefault(defaultDbAdminPassword));
         }
 
         public static string GetDbHostname(this IConfiguration configuration)

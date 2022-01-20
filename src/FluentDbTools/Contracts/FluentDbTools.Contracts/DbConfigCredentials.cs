@@ -39,28 +39,38 @@ namespace FluentDbTools.Contracts
         /// <inheritdoc />
         public virtual string User
         {
-            get => UserField ?? Defaults.GetDefaultUser?.Invoke();
+            get => UserField ?? Defaults?.GetDefaultUser?.Invoke();
             set => UserField = value;
         }
 
         /// <inheritdoc />
         public virtual string Password
         {
-            get => PasswordField ?? Defaults.GetDefaultPassword?.Invoke();
+            get => PasswordField ?? Defaults?.GetDefaultPassword?.Invoke();
             set => PasswordField = value;
         }
 
         /// <inheritdoc />
         public virtual string AdminUser
         {
-            get => AdminUserField ?? Defaults.GetDefaultAdminUser?.Invoke();
+            get => AdminUserField ?? Defaults?.GetDefaultAdminUser?.Invoke();
             set => AdminUserField = value;
         }
 
         /// <inheritdoc />
         public virtual string AdminPassword
         {
-            get => AdminPasswordField ?? Defaults.GetDefaultAdminPassword?.Invoke();
+            get
+            {
+                try
+                {
+                    return AdminPasswordField ?? Defaults?.GetDefaultAdminPassword?.Invoke();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
             set => AdminPasswordField = value;
         }
 

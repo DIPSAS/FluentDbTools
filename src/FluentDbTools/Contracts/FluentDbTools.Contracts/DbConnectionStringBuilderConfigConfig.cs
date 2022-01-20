@@ -35,29 +35,41 @@ namespace FluentDbTools.Contracts
         /// <inheritdoc />
         public virtual string User
         {
-            get => DbConfigCredentials.User;
+            get => DbConfigCredentials?.User;
             set => DbConfigCredentials.User = value;
         }
 
         /// <inheritdoc />
         public virtual string Password
         {
-            get => DbConfigCredentials.Password;
+            get => DbConfigCredentials?.Password;
             set => DbConfigCredentials.Password = value;
         }
 
         /// <inheritdoc />
         public virtual string AdminUser
         {
-            get => DbConfigCredentials.AdminUser;
-            set => DbConfigCredentials.AdminUser = value;
+            get => DbConfigCredentials?.AdminUser;
+            set
+            {
+                if (DbConfigCredentials != null)
+                {
+                    DbConfigCredentials.AdminUser = value;
+                }
+            }
         }
 
         /// <inheritdoc />
         public virtual string AdminPassword
         {
-            get => DbConfigCredentials.AdminPassword;
-            set => DbConfigCredentials.AdminPassword = value;
+            get => DbConfigCredentials?.AdminPassword;
+            set
+            {
+                if (DbConfigCredentials != null)
+                {
+                    DbConfigCredentials.AdminPassword = value;
+                }
+            }
         }
 
         /// <inheritdoc />

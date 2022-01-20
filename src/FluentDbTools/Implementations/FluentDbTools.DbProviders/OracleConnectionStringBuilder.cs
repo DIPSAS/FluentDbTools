@@ -40,7 +40,7 @@ namespace FluentDbTools.DbProviders
             }
 
             var connectionString = string.Format(DefaultConnectionStringTemplate,
-                (isAdminMode ? dbConfig.AdminUser : dbConfig.User).ToUpper(),
+                (isAdminMode ? dbConfig.AdminUser : dbConfig.User)?.ToUpper(),
                 isAdminMode ? dbConfig.AdminPassword : dbConfig.Password,
                 datasource,
                 poolingStr,

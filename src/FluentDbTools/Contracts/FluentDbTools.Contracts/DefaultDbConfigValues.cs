@@ -63,13 +63,13 @@ namespace FluentDbTools.Contracts
         /// DbConfigCredentials defaults: <br/>
         /// - Function returning Default database admin user
         /// </summary>
-        public Func<string> GetDefaultAdminUser = () => "postgres";
+        public Func<string> GetDefaultAdminUser = () => DefaultPostgresAdminUserAndPassword.Item1;
 
         /// <summary>
         /// DbConfigCredentials defaults: <br/>
         /// - Function returning Default database admin user password
         /// </summary>
-        public Func<string> GetDefaultAdminPassword = () => "postgres";
+        public Func<string> GetDefaultAdminPassword = () => DefaultPostgresAdminUserAndPassword.Item2;
         #endregion
 
         #region DbConnectionStringBuilderConfig defaults
