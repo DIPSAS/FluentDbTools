@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.2.31 2022-01-19
+- Made Default admin username and password configurable
+
 ### Version 1.2.30 2022-01-14
 - More DefaultDbConfigValues.DefaultDbType stuff
 - Added tests

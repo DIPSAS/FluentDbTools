@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
+// ReSharper disable UnusedMember.Global
 #pragma warning disable CS1591
 
 namespace FluentDbTools.Contracts
@@ -11,6 +12,12 @@ namespace FluentDbTools.Contracts
     public class DefaultDbConfigValues
     {
         public const SupportedDatabaseTypes LibraryDefaultDbType = SupportedDatabaseTypes.Postgres;
+        public static Tuple<string, string> LibraryDefaultPostgresAdminUserAndPassword => new Tuple<string, string>("postgres", "postgres");
+        public static Tuple<string, string> LibraryDefaultOracleAdminUserAndPassword => new Tuple<string, string>("system", "oracle");
+        public static Tuple<string, string> EmptyAdminUserAndPassword => new Tuple<string, string>(null, null);
+
+        public static Tuple<string, string> DefaultOracleAdminUserAndPassword = LibraryDefaultOracleAdminUserAndPassword;
+        public static Tuple<string, string> DefaultPostgresAdminUserAndPassword = LibraryDefaultPostgresAdminUserAndPassword;
 
         private Dictionary<string, string> AllConfigValuesField;
 
@@ -94,7 +101,7 @@ namespace FluentDbTools.Contracts
         /// DbConnectionStringBuilderConfig defaults: <br/>
         /// - Function returning Default connection pooling switch (true/false)
         /// </summary>
-        public Func<IDictionary<string,string>> GetDefaultPoolingKeyValues = () => null;
+        public Func<IDictionary<string, string>> GetDefaultPoolingKeyValues = () => null;
 
 
         /// <summary>
@@ -178,5 +185,22 @@ namespace FluentDbTools.Contracts
             return DefaultDbType;
         }
 
+        /// <summary>
+        /// Change Oracle and Postgres Database.AdminUser and Database.AdminPassword to DEFAULT values
+        /// </summary>
+        public static void WithLibraryDefaultAdminUserAndPassword()
+        {
+            DefaultOracleAdminUserAndPassword = LibraryDefaultOracleAdminUserAndPassword;
+            DefaultPostgresAdminUserAndPassword = LibraryDefaultPostgresAdminUserAndPassword;
+        }
+
+        /// <summary>
+        /// Change Oracle and Postgres Database.AdminUser and Database.AdminPassword to EMPTY values
+        /// </summary>
+        public static void WithEmptyAdminUserAndPassword()
+        {
+            DefaultOracleAdminUserAndPassword = EmptyAdminUserAndPassword;
+            DefaultPostgresAdminUserAndPassword = EmptyAdminUserAndPassword;
+        }
     }
 }
