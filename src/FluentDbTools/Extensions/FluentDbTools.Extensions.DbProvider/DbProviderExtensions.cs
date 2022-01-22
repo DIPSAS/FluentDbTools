@@ -1,12 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Contracts;
+using FluentDbTools.DbProviders;
+
 // ReSharper disable UnusedMember.Global
-[assembly:InternalsVisibleTo("FluentDbTools.Extensions.MSDependencyInjection")]
+[assembly: InternalsVisibleTo("FluentDbTools.Extensions.MSDependencyInjection")]
 
 namespace FluentDbTools.Extensions.DbProvider
 {
@@ -18,15 +23,15 @@ namespace FluentDbTools.Extensions.DbProvider
         private const string ErrorMsg = "Database type {0} is not implemented. " +
                                         "Please register a database provider implementing the '{1}' interface, " +
                                         "and register with 'Register'.";
-       
+
         /// <summary>
         /// All registered IDbConnectionStringBuilders
         /// </summary>
         public static readonly ConcurrentDictionary<SupportedDatabaseTypes, IDbConnectionStringBuilder> DbConnectionProviders =
             new ConcurrentDictionary<SupportedDatabaseTypes, IDbConnectionStringBuilder>
             {
-                [SupportedDatabaseTypes.Oracle] = new DbProviders.OracleConnectionStringBuilder(),
-                [SupportedDatabaseTypes.Postgres] = new DbProviders.PostgresConnectionStringBuilder()
+                [SupportedDatabaseTypes.Oracle] = new OracleConnectionStringBuilder(),
+                [SupportedDatabaseTypes.Postgres] = new PostgresConnectionStringBuilder()
             };
 
         /// <summary>
@@ -70,12 +75,24 @@ namespace FluentDbTools.Extensions.DbProvider
 
 
         /// <summary>
-        /// Return dbConfig.AdminConnectionString if set, elsewhere AdminConnectionString is build from dbConfig settings 
+        /// <para>Return dbConfig.AdminConnectionString if set, elsewhere AdminConnectionString is build from dbConfig settings</para>
+        /// <para>
+        /// if <paramref name="validateAdminUserAndPassword"/> is TRUE (default is FALSE), exception will be thrown if an invalid AdminUser or AdminPassword is found:<br/>
+        /// - If both of them is invalid, an <see cref="AggregateException"></see> will be thrown<br/>
+        /// - If only one of them is invalid, an <see cref="ArgumentNullException"></see> or <see cref="ArgumentException"></see> will be thrown
+        /// </para>
         /// </summary>
         /// <param name="dbConfig"></param>
+        /// <param name="validateAdminUserAndPassword"></param>
         /// <returns></returns>
-        public static string GetAdminConnectionString(this IDbConfig dbConfig)
+        public static string GetAdminConnectionString(this IDbConfig dbConfig, bool validateAdminUserAndPassword = false)
         {
+            if (validateAdminUserAndPassword)
+            {
+                // Will throw exception if fail
+                dbConfig.ValidateDatabaseAdminValues();
+            }
+
             if (!string.IsNullOrEmpty(dbConfig.AdminConnectionString))
             {
                 return dbConfig.AdminConnectionString;
@@ -141,11 +158,11 @@ namespace FluentDbTools.Extensions.DbProvider
             {
                 return DbConnectionProviders[dbConnectionStringBuilder.DatabaseType];
             }
-            
+
             DbConnectionProviders[dbConnectionStringBuilder.DatabaseType] = dbConnectionStringBuilder;
             return dbConnectionStringBuilder;
         }
-        
+
         /// <summary>
         /// Add/Register dbProviderFactory to DbProviderFactories
         /// </summary>
@@ -159,7 +176,7 @@ namespace FluentDbTools.Extensions.DbProvider
             {
                 return DbProviderFactories[databaseType];
             }
-            
+
             DbProviderFactories[databaseType] = dbProviderFactory;
             return dbProviderFactory;
         }
@@ -189,7 +206,7 @@ namespace FluentDbTools.Extensions.DbProvider
             var resolvedPath = string.Empty;
             if (string.IsNullOrEmpty(path))
             {
-                
+
                 var environmentPaths = (environmentPath ?? Environment.GetEnvironmentVariable("PATH") ?? string.Empty).Split(Path.PathSeparator);
                 foreach (var pathToCheck in environmentPaths)
                 {
@@ -251,7 +268,7 @@ namespace FluentDbTools.Extensions.DbProvider
                 throw new NotImplementedException(string.Format(ErrorMsg, dbType.ToString(), nameof(IDbConnectionStringBuilder)));
             }
         }
-        
+
         private static void AssertDbProviderFactoryImplemented(SupportedDatabaseTypes dbType)
         {
             if (!DbProviderFactories.ContainsKey(dbType))
@@ -286,5 +303,230 @@ namespace FluentDbTools.Extensions.DbProvider
             return dbType.GetConnectionStringProvider(assert)?.BuildAdminConnectionString(dbConfig);
         }
 
+        /// <inheritdoc cref="ValidateDatabaseAdminValues(IDbConfig,bool,bool,bool)"/>
+        public static InvalidAdminValue[] ValidateDatabaseAdminValues(
+            this IServiceProvider sp,
+            bool validateAdminUser = true,
+            bool validateAdminPassword = true,
+            bool throwIfFail = false)
+        {
+            return sp.GetService(typeof(IDbConfig)) is IDbConfig dbConfig
+                ? dbConfig.ValidateDatabaseAdminValues(validateAdminUser, validateAdminPassword, throwIfFail)
+                : Array.Empty<InvalidAdminValue>();
+        }
+
+        /// <summary>
+        /// <para>Validate <see cref="IDbConfigCredentials.AdminUser">IDbConfig.AdminUser</see> and <see cref="IDbConfigCredentials.AdminPassword">IDbConfig.AdminPassword</see></para>
+        /// <para>
+        /// if <paramref name="throwIfFail"/> is TRUE (default is TRUE), exception will be thrown if any invalid values is found:<br/>
+        /// - If more than one invalid value is found, an <see cref="AggregateException"></see> will be thrown<br/>
+        /// - If only one invalid valid is found, an <see cref="ArgumentNullException"></see> or <see cref="ArgumentException"></see> will be thrown
+        /// </para>
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <param name="validateAdminUser">Enable validation check for invalid admin user (default is TRUE)</param>
+        /// <param name="validateAdminPassword">Enable validation check for invalid admin password (default is TRUE)</param>
+        /// <param name="throwIfFail">if TRUE (default is TRUE), exception will be thrown if any invalid values is found</param>
+        /// <returns></returns>
+        /// <exception cref="AggregateException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static InvalidAdminValue[] ValidateDatabaseAdminValues(
+            this IDbConfig dbConfig,
+            bool validateAdminUser = true,
+            bool validateAdminPassword = true,
+            bool throwIfFail = true)
+        {
+            var isMissingAdminUser = string.IsNullOrEmpty(dbConfig.AdminUser) ||
+                                     dbConfig.AdminUser == DefaultDbConfigValuesStatic.PossibleInvalidAdminUserAndPassword.AdminUser ||
+                                     dbConfig.AdminUser.IndexOfAny(DefaultDbConfigValuesStatic.InvalidDatabaseUserCharacter) > -1;
+
+            var isMissingAdminPassword = string.IsNullOrEmpty(dbConfig.AdminPassword) ||
+                                         dbConfig.AdminPassword == DefaultDbConfigValuesStatic.PossibleInvalidAdminUserAndPassword.AdminPassword;
+
+            validateAdminUser = validateAdminUser && isMissingAdminUser;
+            validateAdminPassword = validateAdminPassword && isMissingAdminPassword;
+
+            if (validateAdminUser == false && validateAdminPassword == false)
+            {
+                return Array.Empty<InvalidAdminValue>();
+            }
+
+            DbConfig dbConfigImplementation = null;
+            if (dbConfig is DbConfig dbConfigImpl)
+            {
+                dbConfigImplementation = dbConfigImpl;
+                var invalidAdminValues = dbConfigImplementation.InvalidAdminValuesInternal?.Where(x => x.IsAdminUser() && validateAdminUser || x.IsAdminPassword() && validateAdminPassword).ToArray();
+                if (invalidAdminValues != null)
+                {
+                    if (throwIfFail && invalidAdminValues.Any())
+                    {
+                        invalidAdminValues.ThrowIfInvalidDatabaseAdminValues();
+                    }
+
+                    return invalidAdminValues;
+                }
+            }
+
+            var array = dbConfig.GetPrioritizedConfigKeys();
+            
+            var dictionary = new Dictionary<InvalidAdminType, List<string[]>>();
+            foreach (var a in array)
+            {
+                if (validateAdminUser)
+                {
+                    var keys = a.GetDbAdminUserKeys();
+                    if (keys?.Any() == true)
+                    {
+                        if (dictionary.TryGetValue(InvalidAdminType.AdminUser, out var value))
+                        {
+                            value.Add(keys);
+                        }
+                        else
+                        {
+                            dictionary.Add(InvalidAdminType.AdminUser, new List<string[]> { keys });
+                        }
+                    }
+                }
+
+                if (validateAdminPassword)
+                {
+                    var keys = a.GetDbAdminPasswordKeys();
+                    if (keys?.Any() == true)
+                    {
+                        if (dictionary.TryGetValue(InvalidAdminType.AdminPassword, out var value))
+                        {
+                            value.Add(keys);
+                        }
+                        else
+                        {
+                            dictionary.Add(InvalidAdminType.AdminPassword, new List<string[]> { keys });
+                        }
+                    }
+                }
+            }
+
+            if (validateAdminUser)
+            {
+                var defaultKeys = new[] { "Database:AdminUser" };
+                if (dictionary.TryGetValue(InvalidAdminType.AdminUser, out var list))
+                {
+                    list.Add(defaultKeys);
+                }
+                else
+                {
+                    dictionary.Add(InvalidAdminType.AdminUser, new List<string[]> { defaultKeys });
+                }
+            }
+
+            if (validateAdminPassword)
+            {
+                var defaultKeys = new[] { "Database:AdminPassword" };
+                if (dictionary.TryGetValue(InvalidAdminType.AdminPassword, out var list))
+                {
+                    list.Add(defaultKeys);
+                }
+                else
+                {
+                    dictionary.Add(InvalidAdminType.AdminPassword, new List<string[]> { defaultKeys });
+                }
+            }
+
+            var result = dictionary.Select(ToInvalidAdmin).ToArray();
+
+            if (dbConfigImplementation != null)
+            {
+                dbConfigImplementation.InvalidAdminValuesInternal = result;
+            }
+
+            if (throwIfFail && result.Any())
+            {
+                result.ThrowIfInvalidDatabaseAdminValues();
+            }
+
+            return result;
+
+            InvalidAdminValue ToInvalidAdmin(KeyValuePair<InvalidAdminType, List<string[]>> x)
+            {
+                var value =
+                    new InvalidAdminValue
+                    {
+                        InvalidAdminType = x.Key,
+                        Value = x.Key == InvalidAdminType.AdminUser ? dbConfig.AdminUser : dbConfig.AdminPassword,
+                        ConfigurationKeys = x.Value.SelectMany(s => s).Distinct().Select(s => $"{ValidateDatabaseAdminValuesExtensions.ConvertConfigKeyToParamNameStyle(s)}").ToArray()
+                    };
+
+                if (value.ConfigurationKeys == null)
+                {
+                    return value;
+                }
+
+                if (string.IsNullOrEmpty(value.Value))
+                {
+                    var first = value.ConfigurationKeys.Length == 1
+                        ? "Required configuration parameter"
+                        : "All required configuration parameters";
+
+                    var next = value.ConfigurationKeys.Length == 1
+                        ? value.ConfigurationKeys.FirstOrDefault()
+                        : $"[{string.Join(", ", value.ConfigurationKeys)}]";
+
+                    value.GeneratedArgumentException = new ArgumentNullException(value.ConfigurationKeys.FirstOrDefault()?.Replace("'", ""), $"{first} {next} is not set.")
+                    {
+                        Source = value.InvalidAdminType.ToString("G")
+                    };
+                }
+                else
+                {
+                    var invalidKey = value.ConfigurationKeys.Length == 1
+                        ? value.ConfigurationKeys.FirstOrDefault()
+                        : null;
+                    if (invalidKey == null)
+                    {
+                        foreach (var key in value.ConfigurationKeys)
+                        {
+                            var configKey = ToConfigKey(key);
+                            if (dbConfig.GetConfigValue(configKey) == value.Value)
+                            {
+                                invalidKey = key;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (invalidKey != null)
+                    {
+                        value.ConfigurationKeys = new[] { invalidKey };
+                    }
+
+
+                    var first = value.ConfigurationKeys.Length == 1 || invalidKey != null
+                        ? "Required configuration parameter"
+                        : "One of the required configuration parameters";
+
+                    var next = invalidKey ??
+                               (value.ConfigurationKeys.Length == 1
+                                   ? value.ConfigurationKeys.FirstOrDefault()
+                                   : $"[{string.Join(", ", value.ConfigurationKeys)}]");
+
+
+                    value.GeneratedArgumentException = new ArgumentException($"{first} {next} has an invalid value '{value.Value}'.")
+                    {
+                        Source = value.InvalidAdminType.ToString("G")
+                    };
+                }
+
+                return value;
+            }
+
+            string ToConfigKey(string s)
+            {
+                s = s
+                    .Replace(".", ":")
+                    .Replace("'", "");
+
+                return s;
+            }
+        }
     }
 }

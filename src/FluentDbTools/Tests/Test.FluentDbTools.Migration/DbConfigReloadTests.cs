@@ -9,8 +9,10 @@ using System.Reflection.Emit;
 using System.Reflection.Metadata;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using Example.FluentDbTools.Migration;
 using FluentAssertions;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Common.Abstractions.PrioritizedConfig;
 using FluentDbTools.Extensions.Migration;
 using FluentDbTools.Extensions.Migration.DefaultConfigs;
 using FluentDbTools.Extensions.MSDependencyInjection;
@@ -178,5 +180,26 @@ namespace Test.FluentDbTools.Migration
         {
             return new Dictionary<string, string>();
         }
+
+        public string GetConfigValue(params string[] keys)
+        {
+            return null;
+        }
+
+        public IPrioritizedConfigKeys[] GetPrioritizedConfigKeys()
+        {
+            return new IPrioritizedConfigKeys[] { new TestPrioritizedConfigKeys() };
+        }
+
+        public string ConfigurationDelimiter { get; set; } = ":";
+
+        public IDbConfig ValidateAdminValues()
+        {
+            return this;
+        }
+
+        public InvalidAdminValue[] InvalidAdminValues => null;
+
+        public bool IsAdminValuesValid => true;
     }
 }

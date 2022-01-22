@@ -10,7 +10,6 @@ namespace Test.FluentDbTools.DbProvider
 {
     public class DbConnectionConnectionStringTests
     {
-        private static readonly object LockObj = new();
         private const string EmptyOracleConnectionString = "User Id=USER;Password=password;Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=xe)));Pooling=True";
         private const string EmptyPostgresConnectionString = "Username=user;Password=password;Host=;Port=5432;Database=user;Pooling=True";
 
@@ -20,13 +19,18 @@ namespace Test.FluentDbTools.DbProvider
         [InlineData(SupportedDatabaseTypes.Oracle, SupportedDatabaseTypes.Oracle)]
         public void DbConfigDbType_WithLibraryDefaultDbType_ShouldBeCorrectDbType(SupportedDatabaseTypes? configDbType, SupportedDatabaseTypes expectedDbType)
         {
-            lock (LockObj)
+            lock (TestCollectionFixtures.LockObj)
             {
-                var configuration = GetConfiguration(configDbType);
+                try
+                {
+                    var configuration = GetConfiguration(configDbType);
 
-                configuration.CreateDbConfig().DbType.Should().Be(expectedDbType);
-
-                DefaultDbConfigValues.WithLibraryDefaultDbType();
+                    configuration.CreateDbConfig().DbType.Should().Be(expectedDbType);
+                }
+                finally
+                {
+                    DefaultDbConfigValues.WithLibraryDefaultDbType();
+                }
             }
         }
 
@@ -36,15 +40,20 @@ namespace Test.FluentDbTools.DbProvider
         [InlineData(SupportedDatabaseTypes.Postgres, SupportedDatabaseTypes.Postgres)]
         public void DbConfigDbType_WithDefaultDbTypeSetToOracle_ShouldBeCorrectDbType(SupportedDatabaseTypes? configDbType, SupportedDatabaseTypes expectedDbType)
         {
-            lock (LockObj)
+            lock (TestCollectionFixtures.LockObj)
             {
-                var configuration = GetConfiguration(configDbType);
+                try
+                {
+                    var configuration = GetConfiguration(configDbType);
 
-                DefaultDbConfigValues.WithOracleDefaultDbType();
+                    DefaultDbConfigValues.WithOracleDefaultDbType();
 
-                configuration.CreateDbConfig().DbType.Should().Be(expectedDbType);
-
-                DefaultDbConfigValues.WithLibraryDefaultDbType();
+                    configuration.CreateDbConfig().DbType.Should().Be(expectedDbType);
+                }
+                finally
+                {
+                    DefaultDbConfigValues.WithLibraryDefaultDbType();
+                }
             }
         }
 
@@ -54,14 +63,22 @@ namespace Test.FluentDbTools.DbProvider
         [InlineData(SupportedDatabaseTypes.Oracle, EmptyOracleConnectionString)]
         public void DbConfigConnectionString_WithLibraryDefaultDbType_ShouldBeCorrectConnectionString(SupportedDatabaseTypes? configDbType, string expectedConnectionString)
         {
-            lock (LockObj)
+            lock (TestCollectionFixtures.LockObj)
             {
-                var configuration = GetConfiguration(configDbType);
+                try
+                {
+                    var configuration = GetConfiguration(configDbType);
 
-                configuration.CreateDbConfig().ConnectionString.Should().Be(expectedConnectionString);
+                    configuration.CreateDbConfig().ConnectionString.Should().Be(expectedConnectionString);
 
-                DefaultDbConfigValues.WithLibraryDefaultDbType();
-                DefaultDbConfigValues.WithLibraryDefaultAdminUserAndPassword();
+                    DefaultDbConfigValues.WithLibraryDefaultDbType();
+                    DefaultDbConfigValues.WithLibraryDefaultAdminUserAndPassword();
+                }
+                finally
+                {
+                    DefaultDbConfigValues.WithLibraryDefaultDbType();
+                    DefaultDbConfigValues.WithLibraryDefaultAdminUserAndPassword();
+                }
             }
         }
 
@@ -71,7 +88,7 @@ namespace Test.FluentDbTools.DbProvider
         [InlineData(SupportedDatabaseTypes.Postgres, EmptyPostgresConnectionString)]
         public void DbConfigConnectionString_WithDefaultDbTypeSetToOracle_ShouldBeCorrectConnectionString(SupportedDatabaseTypes? configDbType, string expectedConnectionString)
         {
-            lock (LockObj)
+            lock (TestCollectionFixtures.LockObj)
             {
                 try
                 {

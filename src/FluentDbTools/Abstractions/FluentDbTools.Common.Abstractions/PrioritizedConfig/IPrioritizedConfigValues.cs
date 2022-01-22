@@ -152,5 +152,12 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
         /// </summary>
         /// <returns></returns>
         string GetDbAdminConnectionString();
+
+        /// <summary>
+        /// <para>Get Prioritized config keys</para>
+        /// <para>Name 'Prioritized' is used to signal that these keys is prioritized before default-keys</para>
+        /// </summary>
+        /// <returns></returns>
+        IPrioritizedConfigKeys[] GetPrioritizedConfigKeys();
     }
 }

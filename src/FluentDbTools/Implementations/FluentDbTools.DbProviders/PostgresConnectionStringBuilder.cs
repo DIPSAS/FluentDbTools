@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
 
 [assembly: InternalsVisibleTo("FluentDbTools.Extensions.DbProvider")]
@@ -29,16 +30,27 @@ namespace FluentDbTools.DbProviders
 
         private static string BuildConnectionString(IDbConnectionStringBuilderConfig dbConfig, bool isAdminMode)
         {
-            var connstr = string.Format(DefaultConnectionStringTemplate,
-                (isAdminMode ? dbConfig?.AdminUser : dbConfig?.User)?.ToLower(),
-                isAdminMode ? dbConfig?.AdminPassword : dbConfig?.Password,
+            var adminUser = dbConfig.AdminUser;
+            var adminPassword = dbConfig.AdminPassword;
+            if (isAdminMode && dbConfig is IDbConfig dbConfigForValidation)
+            {
+                if (dbConfigForValidation.IsAdminValuesValid == false)
+                {
+                    adminUser = "";
+                    adminPassword = "";
+                };
+            }
+
+            var connectionString = string.Format(DefaultConnectionStringTemplate,
+                (isAdminMode ? adminUser : dbConfig?.User)?.ToLower(),
+                isAdminMode ? adminPassword : dbConfig?.Password,
                 dbConfig?.Hostname,
                 dbConfig?.Port,
                 dbConfig?.DatabaseName.ToLower(),
                 dbConfig?.Pooling,
                 GetConnectionTimeout(dbConfig));
 
-            return connstr;
+            return connectionString;
         }
 
 

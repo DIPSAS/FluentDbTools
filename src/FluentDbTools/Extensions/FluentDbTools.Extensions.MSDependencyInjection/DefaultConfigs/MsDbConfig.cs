@@ -20,11 +20,26 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             DefaultDbConfigValues defaultDbConfigValues = null,
             DbConfigCredentials dbConfigCredentials = null,
             IPrioritizedConfigValues prioritizedConfigValues = null,
-            IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null) :
+            IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null,
+            IConfigurationDelimiter delimiter = null) :
             base(defaultDbConfigValues ?? new MsDefaultDbConfigValues(configuration,prioritizedConfigValues, prioritizedConfigKeys), dbConfigCredentials)
         {
             Configuration = configuration;
             configurationChangedHandler?.RegisterConfigurationChangedCallback(OnConfigurationChanged);
+
+            ConfigurationDelimiter = delimiter?.Delimiter ?? ":";
+        }
+
+        /// <inheritdoc />
+        public override string GetConfigValue(params string[] keys)
+        {
+            return Configuration.GetConfigValue(keys);
+        }
+
+        /// <inheritdoc />
+        public override IPrioritizedConfigKeys[] GetPrioritizedConfigKeys()
+        {
+            return Defaults.PrioritizedConfigKeys;
         }
 
         /// <inheritdoc />

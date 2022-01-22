@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using Example.FluentDbTools.Config;
@@ -6,7 +6,6 @@ using FluentAssertions;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Extensions.MSDependencyInjection;
-using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;

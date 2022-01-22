@@ -319,7 +319,36 @@ namespace FluentDbTools.Common.Abstractions
         {
             return sql?.Trim().StartsWith("--") ?? false;
         }
+
+        /// <summary>
+        /// Build configuration key by <see cref="IDbConfig.ConfigurationDelimiter"/> and <paramref name="keys"/>
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <param name="keys"></param>
+        /// <returns>FROM ["a","b","c"] with Delimiter=":" TO "a:b:c" </returns>
+        public static string GetConfigKey(this IDbConfig dbConfig, params string[] keys)
+        {
+            return string.Join(dbConfig?.ConfigurationDelimiter ?? ":", keys);
+        }
+
+        /// <summary>
+        /// <para>Get the oracle service name from config</para>
+        /// 1. Get config "database:dataSource".<br/>
+        /// 2. If config "database:dataSource" is NULL, get <see cref="IDbConfigDatabaseTargets.DatabaseName"><paramref name="dbConfig"/>.DatabaseName</see><br/><br/>
+        /// ------ See <see cref="IDbConfigDatabaseTargets.DatabaseName"/> ---------------------------<br/>
+        /// <br/>
+        /// Get <inheritdoc cref="IDbConfigDatabaseTargets.DatabaseName" path="/summary/remarks[1]"/>
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <returns></returns>
+        public static string GetOracleServiceName(this IDbConnectionStringBuilderConfig dbConfig)
+        {
+            if (dbConfig is IDbConfig dbConfigFull)
+            {
+                return dbConfigFull.GetConfigValue(dbConfigFull.GetConfigKey("database", "dataSource")) ?? dbConfig.DatabaseName;
+            }
+
+            return dbConfig.DatabaseName;
+        }
     }
-
-
 }

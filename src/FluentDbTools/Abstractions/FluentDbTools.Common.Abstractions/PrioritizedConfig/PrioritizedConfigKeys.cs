@@ -1,4 +1,9 @@
-﻿namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+#pragma warning disable CS1591
+
+namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
 {
     /// <summary>
     /// <inheritdoc cref="IPrioritizedConfigKeys"/>
@@ -8,6 +13,15 @@
     /// </summary>
     public class PrioritizedConfigKeys : IPrioritizedConfigKeys
     {
+        public static string[] DefaultDbUserKeys = null;
+        public static string[] DefaultDbPasswordKeys = null;
+
+        public static string[] DefaultDbAdminUserKeys = { "database:upgrade:user" };
+        public static string[] DefaultDbAdminPasswordKeys = { "database:upgrade:password" };
+
+        public static string[] DefaultDbSchemaKeys = null;
+        public static string[] DefaultDbSchemaPasswordKeys = null;
+
         /// <summary>
         /// <inheritdoc cref="IPrioritizedConfigKeys.GetDbTypeKeys"/>
         /// <para>_______________________________________________________________________________</para>
@@ -29,7 +43,7 @@
         /// <returns></returns>
         public virtual string[] GetDbSchemaKeys()
         {
-            return null;
+            return DefaultDbSchemaKeys;
         }
 
         /// <summary>
@@ -41,7 +55,7 @@
         /// <returns></returns>
         public virtual string[] GetDbSchemaPasswordKeys()
         {
-            return null;
+            return DefaultDbSchemaPasswordKeys;
         }
 
         /// <summary>
@@ -89,7 +103,7 @@
         /// <returns></returns>
         public virtual string[] GetDbUserKeys()
         {
-            return null;
+            return DefaultDbUserKeys;
         }
 
         /// <summary>
@@ -101,31 +115,31 @@
         /// <returns></returns>
         public virtual string[] GetDbPasswordKeys()
         {
-            return null;
+            return DefaultDbPasswordKeys;
         }
 
         /// <summary>
         /// <inheritdoc cref="IPrioritizedConfigKeys.GetDbAdminUserKeys"/>
         /// <para>_______________________________________________________________________________</para>
-        /// <para>This method return <c>null</c>.</para>
+        /// <para>This method return <c>['database:upgrade:user']</c>.</para>
         /// <para>Override this method to customize it for your implementation</para>
         /// </summary>
         /// <returns></returns>
         public virtual string[] GetDbAdminUserKeys()
         {
-            return null;
+            return DefaultDbAdminUserKeys;
         }
 
         /// <summary>
         /// <inheritdoc cref="IPrioritizedConfigKeys.GetDbAdminPasswordKeys"/>
         /// <para>_______________________________________________________________________________</para>
-        /// <para>This method return <c>null</c>.</para>
+        /// <para>This method return <c>['database:upgrade:password']</c>.</para>
         /// <para>Override this method to customize it for your implementation</para>
         /// </summary>
         /// <returns></returns>
         public virtual string[] GetDbAdminPasswordKeys()
         {
-            return null;
+            return DefaultDbAdminPasswordKeys;
         }
 
         /// <summary>

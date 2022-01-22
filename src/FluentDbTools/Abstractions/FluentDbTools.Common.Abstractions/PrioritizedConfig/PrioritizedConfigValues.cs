@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -30,16 +30,22 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
             IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null,
             IConfigurationDelimiter configurationDelimiter = null)
         {
-            PrioritizedConfigKeys = prioritizedConfigKeys?.Distinct().OrderBy(c => c.Order).ToArray() ?? Array.Empty<IPrioritizedConfigKeys>();
+            PrioritizedConfigKeys = ToPrioritizedConfigKeysArray();
             GetConfigValueFunc = getConfigValueFunc;
 
             Delimiter = configurationDelimiter?.Delimiter ?? ":";
+
+            IPrioritizedConfigKeys[] ToPrioritizedConfigKeysArray()
+            {
+                var array = prioritizedConfigKeys as IPrioritizedConfigKeys[] ?? prioritizedConfigKeys?.ToArray() ?? GetDefaultPrioritizedConfigKeys();
+                return array.Any() == false ? GetDefaultPrioritizedConfigKeys() : array.Distinct().OrderBy(x => x.Order).ToArray();
+            }
         }
 
         /// <inheritdoc />
         public virtual SupportedDatabaseTypes? GetDbType()
         {
-            var value = GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbTypeKeys() != null)?
+            var value = GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbTypeKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbTypeKeys())?.ToArray());
             if (value.IsEmpty())
             {
@@ -54,7 +60,7 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
         /// <inheritdoc />
         public virtual string GetDbSchema()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbSchemaKeys())?.ToArray());
         }
 
@@ -66,35 +72,35 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
                 return password;
             }
             
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaPasswordKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaPasswordKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbSchemaPasswordKeys())?.ToArray());
         }
 
         /// <inheritdoc />
         public virtual string GetDbSchemaPrefixIdString()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaPrefixIdStringKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaPrefixIdStringKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbSchemaPrefixIdStringKeys())?.ToArray());
         }
 
         /// <inheritdoc />
         public virtual string GetDbSchemaUniquePrefixIdString()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaUniquePrefixIdStringKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbSchemaUniquePrefixIdStringKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbSchemaUniquePrefixIdStringKeys())?.ToArray());
         }
 
         /// <inheritdoc />
         public virtual string GetDbDatabaseName()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbDatabaseNameKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbDatabaseNameKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbDatabaseNameKeys())?.ToArray());
         }
 
         /// <inheritdoc />
         public virtual string GetDbUser()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbUserKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbUserKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbUserKeys())?.ToArray());
         }
 
@@ -105,14 +111,14 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
             {
                 return password;
             }
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbPasswordKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbPasswordKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbPasswordKeys())?.ToArray());
         }
 
         /// <inheritdoc />
         public virtual string GetDbAdminUser()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbAdminUserKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbAdminUserKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbAdminUserKeys())?.ToArray());
         }
 
@@ -124,42 +130,42 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
                 return password;
             }
 
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbAdminPasswordKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbAdminPasswordKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbAdminPasswordKeys())?.ToArray());
         }
 
         /// <inheritdoc />
         public virtual string GetDbHostname()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbHostnameKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbHostnameKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbHostnameKeys())?.ToArray());
         }
 
         /// <inheritdoc />
         public virtual string GetDbPort()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbHostnameKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbHostnameKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbHostnameKeys())?.ToArray());
         }
 
         /// <inheritdoc />
         public virtual string GetDbDataSource()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbDataSourceKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbDataSourceKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbDataSourceKeys())?.ToArray());
         }
 
         /// <inheritdoc />
         public virtual string GetDbConnectionTimeout()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbConnectionTimeoutKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbConnectionTimeoutKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbConnectionTimeoutKeys())?.ToArray());
         }
 
         /// <inheritdoc />
         public virtual bool? GetDbPooling()
         {
-            var value = GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbPoolingKeys() != null)?
+            var value = GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbPoolingKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbPoolingKeys())?.ToArray());
 
             return value.IsNotEmpty() ? (bool?)value.IsTrue() : null;
@@ -168,7 +174,7 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
         /// <inheritdoc />
         public virtual IDictionary<string, string> GetDbPoolingKeyValues()
         {
-            var value = GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbPoolingKeyValuesKeys() != null)?
+            var value = GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbPoolingKeyValuesKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbPoolingKeyValuesKeys())?.ToArray());
 
             return value.IsNotEmpty() ? value.ToDictionary() : null;
@@ -178,15 +184,21 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
         /// <inheritdoc />
         public virtual string GetDbConnectionString()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbConnectionStringKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbConnectionStringKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbConnectionStringKeys())?.ToArray());
         }
 
         /// <inheritdoc />
         public virtual string GetDbAdminConnectionString()
         {
-            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbAdminConnectionStringKeys() != null)?
+            return GetConfigValue(PrioritizedConfigKeys?.Where(x => x?.GetDbAdminConnectionStringKeys()?.Any() == true)?
                 .SelectMany(x => x?.GetDbAdminConnectionStringKeys())?.ToArray());
+        }
+
+        /// <inheritdoc />
+        public IPrioritizedConfigKeys[] GetPrioritizedConfigKeys()
+        {
+            return PrioritizedConfigKeys;
         }
 
         private string GetConfigValue(params string[] keys)
@@ -208,6 +220,11 @@ namespace FluentDbTools.Common.Abstractions.PrioritizedConfig
                 $"database{Delimiter}{user}{Delimiter}password",
                 $"database{Delimiter}{user.Replace("_","")}{Delimiter}password");
             return passwordByUser.IsNotEmpty();
+        }
+
+        private IPrioritizedConfigKeys[] GetDefaultPrioritizedConfigKeys()
+        {
+            return new IPrioritizedConfigKeys[] { new PrioritizedConfigKeys() };
         }
     }
 }

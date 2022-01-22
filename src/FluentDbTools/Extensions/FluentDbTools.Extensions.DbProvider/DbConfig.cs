@@ -1,7 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Common.Abstractions.PrioritizedConfig;
 using FluentDbTools.Contracts;
+using DefaultDbConfigValues = FluentDbTools.Contracts.DefaultDbConfigValues;
+
+// ReSharper disable VirtualMemberCallInConstructor
 
 namespace FluentDbTools.Extensions.DbProvider
 {
@@ -43,12 +48,59 @@ namespace FluentDbTools.Extensions.DbProvider
         }
 
         /// <inheritdoc />
+        public virtual string GetConfigValue(params string[] keys)
+        {
+            return null;
+        }
+
+        /// <inheritdoc />
+        public virtual IPrioritizedConfigKeys[] GetPrioritizedConfigKeys()
+        {
+            return new IPrioritizedConfigKeys[] { new PrioritizedConfigKeys() };
+        }
+
+        /// <inheritdoc />
+        public string ConfigurationDelimiter { get; set; } = ":";
+
+        /// <inheritdoc />
+        public IDbConfig ValidateAdminValues()
+        {
+            if (IsAdminValuesValid)
+            {
+                return this;
+            }
+
+            InvalidAdminValues.ThrowIfInvalidDatabaseAdminValues();
+            return this;
+        }
+
+        internal InvalidAdminValue[] InvalidAdminValuesInternal;
+        /// <inheritdoc />
+        public InvalidAdminValue[] InvalidAdminValues => ValidateDatabaseAdminValues();
+
+        /// <inheritdoc />
+        public bool IsAdminValuesValid => InvalidAdminValues.Any() == false;
+
+        /// <inheritdoc />
         protected override void OnConfigurationChanged(Func<string[], string> getValueFunc)
         {
+            
             AdminConnectionStringField = null;
             ConnectionStringField = null;
             base.OnConfigurationChanged(getValueFunc);
-
         }
+
+        private InvalidAdminValue[] ValidateDatabaseAdminValues()
+        {
+            try
+            {
+                return InvalidAdminValuesInternal ?? (InvalidAdminValuesInternal = this.ValidateDatabaseAdminValues(throwIfFail: false) ?? Array.Empty<InvalidAdminValue>());
+            }
+            catch
+            {
+                return Array.Empty<InvalidAdminValue>();
+            }
+        }
+
     }
 }

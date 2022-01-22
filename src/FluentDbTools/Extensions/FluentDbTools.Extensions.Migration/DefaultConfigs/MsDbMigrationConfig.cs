@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentDbTools.Common.Abstractions;
@@ -41,7 +41,8 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
             IPrioritizedConfigValues prioritizedConfigValues = null,
             IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null)
         {
-            var prioritizedConfigKeysArray = (prioritizedConfigKeys ?? new[] { new PrioritizedConfigKeys() }).ToArray();
+            var prioritizedConfigKeysArray = ToPrioritizedConfigKeysArray();
+
             PrioritizedConfigValues = prioritizedConfigValues ??
                                       new PrioritizedConfigValues(configuration.GetConfigValue, prioritizedConfigKeysArray);
 
@@ -65,6 +66,12 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
 
             GetDbConfig = () => dbConfig;
             configurationChangedHandler?.RegisterConfigurationChangedCallback(OnConfigurationChanged);
+
+            IPrioritizedConfigKeys[] ToPrioritizedConfigKeysArray()
+            {
+                var array = prioritizedConfigKeys as IPrioritizedConfigKeys[] ?? prioritizedConfigKeys?.ToArray() ?? GetDefaultPrioritizedConfigKeys();
+                return array.Any() == false ? GetDefaultPrioritizedConfigKeys() : array.Distinct().OrderBy(x => x.Order).ToArray();
+            }
         }
 
         private string SchemaPasswordField;
@@ -164,5 +171,9 @@ namespace FluentDbTools.Extensions.Migration.DefaultConfigs
             return new MsDefaultDbConfigValues(Configuration, PrioritizedConfigValues, prioritizedConfigKeysArray);
         }
 
+        private IPrioritizedConfigKeys[] GetDefaultPrioritizedConfigKeys()
+        {
+            return new IPrioritizedConfigKeys[] { new PrioritizedConfigKeys() };
+        }
     }
 }

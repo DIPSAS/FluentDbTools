@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
@@ -22,13 +22,23 @@ namespace FluentDbTools.DbProviders
 
         public SupportedDatabaseTypes DatabaseType => SupportedDatabaseTypes.Oracle;
 
-        public string BuildConnectionString(IDbConnectionStringBuilderConfig dbConfig) => BuildConnectionString(dbConfig, GetDataSourceTemplate(dbConfig), false);
+        public string BuildConnectionString(IDbConnectionStringBuilderConfig dbConfig) => BuildConnectionString(dbConfig, GetDataSource(dbConfig), false);
 
-        public string BuildAdminConnectionString(IDbConnectionStringBuilderConfig dbConfig) => BuildConnectionString(dbConfig, GetDataSourceTemplate(dbConfig), true);
+        public string BuildAdminConnectionString(IDbConnectionStringBuilderConfig dbConfig) => BuildConnectionString(dbConfig, GetDataSource(dbConfig), true);
 
 
         internal static string BuildConnectionString(IDbConnectionStringBuilderConfig dbConfig, string datasource, bool isAdminMode)
         {
+            var adminUser = dbConfig.AdminUser;
+            var adminPassword = dbConfig.AdminPassword;
+            if (isAdminMode && dbConfig is IDbConfig dbConfigFull)
+            {
+                if (dbConfigFull.IsAdminValuesValid == false)
+                {
+                    adminUser = "";
+                    adminPassword = "";
+                };
+            }
             var poolingStr = $"{dbConfig.Pooling}";
             if (dbConfig.Pooling && dbConfig.PoolingKeyValues?.Any() == true)
             {
@@ -40,8 +50,8 @@ namespace FluentDbTools.DbProviders
             }
 
             var connectionString = string.Format(DefaultConnectionStringTemplate,
-                (isAdminMode ? dbConfig.AdminUser : dbConfig.User)?.ToUpper(),
-                isAdminMode ? dbConfig.AdminPassword : dbConfig.Password,
+                (isAdminMode ? adminUser : dbConfig.User)?.ToUpper(),
+                isAdminMode ? adminPassword : dbConfig.Password,
                 datasource,
                 poolingStr,
                 GetConnectionTimeout(dbConfig));
@@ -49,16 +59,18 @@ namespace FluentDbTools.DbProviders
             return connectionString;
         }
 
-        internal static string GetDataSourceTemplate(IDbConnectionStringBuilderConfig dbConfig)
+        internal static string GetDataSource(IDbConnectionStringBuilderConfig dbConfig)
         {
-            return !string.IsNullOrEmpty(dbConfig.Datasource)
-                ? dbConfig.Datasource
-                : GetDefaultDataSource(dbConfig.Hostname, dbConfig.Port, dbConfig.DatabaseName?.ToLower());
+            var dataSource = dbConfig.Datasource;
+
+            return !string.IsNullOrEmpty(dataSource)
+                ? dataSource
+                : GetDefaultDataSource(dbConfig.Hostname, dbConfig.Port, dbConfig.GetOracleServiceName()?.ToLower());
         }
 
-        internal static string GetDefaultDataSource(string hostName, string port, string servicename)
+        internal static string GetDefaultDataSource(string hostName, string port, string serviceName)
         {
-            return string.Format(DefaultDataSourceTemplate, hostName, port, servicename);
+            return string.Format(DefaultDataSourceTemplate, hostName, port, serviceName);
         }
 
         private static string GetConnectionTimeout(IDbConnectionStringBuilderConfig dbConfig)

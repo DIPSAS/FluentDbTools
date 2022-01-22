@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
+using FluentDbTools.Common.Abstractions.PrioritizedConfig;
+
 // ReSharper disable UnusedMember.Global
 #pragma warning disable CS1591
 
@@ -11,15 +13,13 @@ namespace FluentDbTools.Contracts
     /// </summary>
     public class DefaultDbConfigValues
     {
-        public const SupportedDatabaseTypes LibraryDefaultDbType = SupportedDatabaseTypes.Postgres;
-        public static Tuple<string, string> LibraryDefaultPostgresAdminUserAndPassword => new Tuple<string, string>("postgres", "postgres");
-        public static Tuple<string, string> LibraryDefaultOracleAdminUserAndPassword => new Tuple<string, string>("system", "oracle");
-        public static Tuple<string, string> EmptyAdminUserAndPassword => new Tuple<string, string>(null, null);
-
-        public static Tuple<string, string> DefaultOracleAdminUserAndPassword = LibraryDefaultOracleAdminUserAndPassword;
-        public static Tuple<string, string> DefaultPostgresAdminUserAndPassword = LibraryDefaultPostgresAdminUserAndPassword;
-
         private Dictionary<string, string> AllConfigValuesField;
+
+        /// <summary>
+        /// <para>Get Prioritized config keys</para>
+        /// <para>Name 'Prioritized' is used to signal that these keys is prioritized before default-keys</para>
+        /// </summary>
+        public IPrioritizedConfigKeys[] PrioritizedConfigKeys { get; set; } = { new PrioritizedConfigKeys() };
 
         /// <summary>
         /// Default database type
@@ -43,7 +43,7 @@ namespace FluentDbTools.Contracts
         /// DbConfigDatabaseTargets defaults: <br/>
         /// - Function returning Default database name. Not in use for Oracle connection
         /// </summary>
-        public Func<string> GetDefaultDatabaseName = null;
+        public Func<string> GetDefaultDatabaseName = () => DefaultDbConfigValuesStatic.DefaultServiceName;
         #endregion
 
         #region DbConfigCredentials defaults
@@ -63,13 +63,13 @@ namespace FluentDbTools.Contracts
         /// DbConfigCredentials defaults: <br/>
         /// - Function returning Default database admin user
         /// </summary>
-        public Func<string> GetDefaultAdminUser = () => DefaultPostgresAdminUserAndPassword.Item1;
+        public Func<string> GetDefaultAdminUser = () => DefaultDbConfigValuesStatic.DefaultPostgresAdminUserAndPassword.AdminUser;
 
         /// <summary>
         /// DbConfigCredentials defaults: <br/>
         /// - Function returning Default database admin user password
         /// </summary>
-        public Func<string> GetDefaultAdminPassword = () => DefaultPostgresAdminUserAndPassword.Item2;
+        public Func<string> GetDefaultAdminPassword = () => DefaultDbConfigValuesStatic.DefaultPostgresAdminUserAndPassword.AdminPassword;
         #endregion
 
         #region DbConnectionStringBuilderConfig defaults
@@ -83,7 +83,7 @@ namespace FluentDbTools.Contracts
         /// DbConnectionStringBuilderConfig defaults: <br/>
         /// - Function returning Default database port number
         /// </summary>
-        public Func<string> GetDefaultPort = () => "5432";
+        public Func<string> GetDefaultPort = () => DefaultDbType == SupportedDatabaseTypes.Oracle ? DefaultDbConfigValuesStatic.DefaultOraclePort : DefaultDbConfigValuesStatic.DefaultPostgresPort;
 
         /// <summary>
         /// DbConnectionStringBuilderConfig defaults: <br/>
@@ -162,7 +162,7 @@ namespace FluentDbTools.Contracts
         /// <returns></returns>
         public static SupportedDatabaseTypes WithLibraryDefaultDbType()
         {
-            return WithDefaultDbType(LibraryDefaultDbType);
+            return WithDefaultDbType(DefaultDbConfigValuesStatic.LibraryDefaultDbType);
         }
 
         /// <summary>
@@ -186,21 +186,64 @@ namespace FluentDbTools.Contracts
         }
 
         /// <summary>
-        /// Change Oracle and Postgres Database.AdminUser and Database.AdminPassword to DEFAULT values
+        /// <para>Change default Oracle and Postgres Database.AdminUser and Database.AdminPassword to DEFAULT values</para>
+        /// - Change <see cref="DefaultDbConfigValuesStatic.DefaultOracleAdminUserAndPassword"/> back to library default <see cref="DefaultDbConfigValuesStatic.LibraryDefaultOracleAdminUserAndPassword"/><br/>
+        /// - Change <see cref="DefaultDbConfigValuesStatic.DefaultPostgresAdminUserAndPassword"/> back to library default <see cref="DefaultDbConfigValuesStatic.LibraryDefaultPostgresAdminUserAndPassword"/><br/>
         /// </summary>
         public static void WithLibraryDefaultAdminUserAndPassword()
         {
-            DefaultOracleAdminUserAndPassword = LibraryDefaultOracleAdminUserAndPassword;
-            DefaultPostgresAdminUserAndPassword = LibraryDefaultPostgresAdminUserAndPassword;
+            DefaultDbConfigValuesStatic.DefaultOracleAdminUserAndPassword = DefaultDbConfigValuesStatic.LibraryDefaultOracleAdminUserAndPassword;
+            DefaultDbConfigValuesStatic.DefaultPostgresAdminUserAndPassword = DefaultDbConfigValuesStatic.LibraryDefaultPostgresAdminUserAndPassword;
         }
 
         /// <summary>
-        /// Change Oracle and Postgres Database.AdminUser and Database.AdminPassword to EMPTY values
+        /// <para>Change default Oracle and Postgres Database.AdminUser and Database.AdminPassword to EMPTY values <see cref="DefaultDbConfigValuesStatic.EmptyAdminUserAndPassword"/></para>
+        /// - Change <see cref="DefaultDbConfigValuesStatic.DefaultOracleAdminUserAndPassword"/><br/>
+        /// - Change <see cref="DefaultDbConfigValuesStatic.DefaultPostgresAdminUserAndPassword"/><br/>
         /// </summary>
         public static void WithEmptyAdminUserAndPassword()
         {
-            DefaultOracleAdminUserAndPassword = EmptyAdminUserAndPassword;
-            DefaultPostgresAdminUserAndPassword = EmptyAdminUserAndPassword;
+            DefaultDbConfigValuesStatic.DefaultOracleAdminUserAndPassword = DefaultDbConfigValuesStatic.EmptyAdminUserAndPassword;
+            DefaultDbConfigValuesStatic.DefaultPostgresAdminUserAndPassword = DefaultDbConfigValuesStatic.EmptyAdminUserAndPassword;
+        }
+
+        /// <summary>
+        /// Change the <see cref="DefaultDbConfigValuesStatic.PossibleInvalidAdminUserAndPassword"/> back to library default <see cref="DefaultDbConfigValuesStatic.LibraryDefaultPossibleInvalidAdminUserAndPassword"/>
+        /// </summary>
+        public static void WithLibraryDefaultPossibleInvalidAdminUserAndPassword()
+        {
+            DefaultDbConfigValuesStatic.PossibleInvalidAdminUserAndPassword = DefaultDbConfigValuesStatic.LibraryDefaultPossibleInvalidAdminUserAndPassword;
+        }
+
+        /// <summary>
+        /// Change the <see cref="DefaultDbConfigValuesStatic.PossibleInvalidAdminUserAndPassword"/> by parameters <paramref name="invalidAdminUser"/> and <paramref name="invalidAdminPassword"/>
+        /// </summary>
+        /// <param name="invalidAdminUser"></param>
+        /// <param name="invalidAdminPassword"></param>
+        public static void WithPossibleInvalidAdminUserAndPassword(string invalidAdminUser = DefaultDbConfigValuesStatic.DefaultPossibleInvalidDbUpgradeUser, string invalidAdminPassword = DefaultDbConfigValuesStatic.DefaultPossibleInvalidDbUpgradePassword)
+        {
+            DefaultDbConfigValuesStatic.PossibleInvalidAdminUserAndPassword = (invalidAdminUser, invalidAdminPassword);
+        }
+
+        /// <summary>
+        /// Get the value from <see cref="DefaultDbConfigValuesStatic.PossibleInvalidAdminUserAndPassword"/>
+        /// </summary>
+        /// <returns></returns>
+        public static (string AdminUser, string AdminPassword) GetPossibleInvalidAdminUserAndPassword()
+        {
+            return DefaultDbConfigValuesStatic.PossibleInvalidAdminUserAndPassword;
+        }
+        
+        /// Change the <see cref="DefaultDbConfigValuesStatic.DefaultServiceName"/> back to <paramref name="serviceName"/>
+        public static void WithDefaultServiceName(string serviceName)
+        {
+            DefaultDbConfigValuesStatic.DefaultServiceName = serviceName;
+        }
+
+        /// Change the <see cref="DefaultDbConfigValuesStatic.DefaultServiceName"/> back to library default <see cref="DefaultDbConfigValuesStatic.LibraryDefaultServiceName"/>
+        public static void WithLibraryDefaultServiceName()
+        {
+            DefaultDbConfigValuesStatic.DefaultServiceName = DefaultDbConfigValuesStatic.LibraryDefaultServiceName;
         }
     }
 }

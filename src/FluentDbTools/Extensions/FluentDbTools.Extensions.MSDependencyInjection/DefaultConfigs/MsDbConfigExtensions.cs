@@ -71,10 +71,10 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
                 switch (configuration.GetDbType())
                 {
                     case SupportedDatabaseTypes.Postgres:
-                        defaultDbAdminUser = DefaultDbConfigValues.DefaultPostgresAdminUserAndPassword.Item1;
+                        defaultDbAdminUser = DefaultDbConfigValuesStatic.DefaultPostgresAdminUserAndPassword.AdminUser;
                         break;
                     case SupportedDatabaseTypes.Oracle:
-                        defaultDbAdminUser = DefaultDbConfigValues.DefaultOracleAdminUserAndPassword.Item1;
+                        defaultDbAdminUser = DefaultDbConfigValuesStatic.DefaultOracleAdminUserAndPassword.AdminUser;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -92,14 +92,15 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         public static string GetDbAdminPassword(this IConfiguration configuration)
         {
             string defaultDbAdminPassword = null;
-            try {
+            try
+            {
                 switch (configuration.GetDbType())
                 {
                     case SupportedDatabaseTypes.Postgres:
-                        defaultDbAdminPassword = DefaultDbConfigValues.DefaultPostgresAdminUserAndPassword.Item2;
+                        defaultDbAdminPassword = DefaultDbConfigValuesStatic.DefaultPostgresAdminUserAndPassword.AdminPassword;
                         break;
                     case SupportedDatabaseTypes.Oracle:
-                        defaultDbAdminPassword = DefaultDbConfigValues.DefaultOracleAdminUserAndPassword.Item2;
+                        defaultDbAdminPassword = DefaultDbConfigValuesStatic.DefaultOracleAdminUserAndPassword.AdminPassword;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -107,7 +108,8 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
                 var section = configuration?.GetDbSection();
                 var dbAdminUser = GetDbAdminUser(configuration);
                 return section.GetSectionStringValue("adminPassword", (dbAdminUser == null ? null : configuration.GetSecret(dbAdminUser)).WithDefault(defaultDbAdminPassword));
-            } catch
+            }
+            catch
             {
                 return defaultDbAdminPassword;
             }
@@ -125,10 +127,10 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             switch (configuration.GetDbType())
             {
                 case SupportedDatabaseTypes.Postgres:
-                    defaultDbPort = "5432";
+                    defaultDbPort = DefaultDbConfigValuesStatic.DefaultPostgresPort;
                     break;
                 case SupportedDatabaseTypes.Oracle:
-                    defaultDbPort = "1521";
+                    defaultDbPort = DefaultDbConfigValuesStatic.DefaultOraclePort;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -137,24 +139,32 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
             return section.GetSectionStringValue("port", defaultDbPort);
         }
 
+        public static string GetDbDataSource(this IConfiguration configuration)
+        {
+            var section = configuration?.GetDbSection();
+            return section.GetSectionStringValue("dataSource");
+        }
+
         public static string GetDbDatabaseName(this IConfiguration configuration)
         {
             string defaultConnectionName;
+            string[] defaultDatabaseNames = { "serviceName", "databaseName", "databaseConnectionName" };
             switch (configuration.GetDbType())
             {
                 case SupportedDatabaseTypes.Postgres:
+                    defaultDatabaseNames = new[] { "databaseName", "databaseConnectionName", "serviceName" };
                     defaultConnectionName = configuration.GetDbSchema();
                     break;
                 case SupportedDatabaseTypes.Oracle:
-                    defaultConnectionName = "xe";
+                    defaultConnectionName = DefaultDbConfigValuesStatic.DefaultServiceName;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
             var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("databaseName")
-                ?? section.GetSectionStringValue("databaseConnectionName")
-                ?? section.GetSectionStringValue("servicename")
+            return section.GetSectionStringValue(defaultDatabaseNames[0])
+                ?? section.GetSectionStringValue(defaultDatabaseNames[1])
+                ?? section.GetSectionStringValue(defaultDatabaseNames[2])
                 ?? defaultConnectionName;
         }
 
@@ -204,12 +214,6 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         {
             var section = configuration?.GetDbSection();
             return section.GetSectionStringValue("connectionTimeoutInSecs");
-        }
-
-        public static string GetDbDataSource(this IConfiguration configuration)
-        {
-            var section = configuration?.GetDbSection();
-            return section.GetSectionStringValue("dataSource");
         }
 
         public static IConfigurationSection GetDbSection(this IConfiguration configuration)
@@ -290,13 +294,17 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         /// <param name="defaultDbConfigValues"></param>
         /// <param name="dbConfigCredentials"></param>
         /// <param name="prioritizedConfigValues"></param>
+        /// <param name="prioritizedConfigKeys"></param>
+        /// <param name="configurationDelimiter"></param>
         /// <returns></returns>
         public static DbConfig CreateDbConfig(this IConfiguration configuration,
             DefaultDbConfigValues defaultDbConfigValues = null,
             DbConfigCredentials dbConfigCredentials = null,
-            IPrioritizedConfigValues prioritizedConfigValues = null)
+            IPrioritizedConfigValues prioritizedConfigValues = null,
+            IEnumerable<IPrioritizedConfigKeys> prioritizedConfigKeys = null,
+            IConfigurationDelimiter configurationDelimiter = null)
         {
-            return new MsDbConfig(configuration, null, defaultDbConfigValues, dbConfigCredentials, prioritizedConfigValues);
+            return new MsDbConfig(configuration, null, defaultDbConfigValues, dbConfigCredentials, prioritizedConfigValues, prioritizedConfigKeys, configurationDelimiter);
         }
     }
 }
