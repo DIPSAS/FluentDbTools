@@ -464,8 +464,8 @@ namespace FluentDbTools.Extensions.DbProvider
                 if (string.IsNullOrEmpty(value.Value))
                 {
                     var first = value.ConfigurationKeys.Length == 1
-                        ? ValidateDatabaseAdminValuesExtensions.RequiredConfigurationParameter
-                        : ValidateDatabaseAdminValuesExtensions.AllRequiredConfigurationParameters;
+                        ? ExceptionExtensions.RequiredConfigurationParameter
+                        : ExceptionExtensions.AllRequiredConfigurationParameters;
 
                     var next = value.ConfigurationKeys.Length == 1
                         ? value.ConfigurationKeys.FirstOrDefault()
@@ -501,8 +501,8 @@ namespace FluentDbTools.Extensions.DbProvider
 
 
                     var first = value.ConfigurationKeys.Length == 1 || invalidKey != null
-                        ? ValidateDatabaseAdminValuesExtensions.RequiredConfigurationParameter
-                        : ValidateDatabaseAdminValuesExtensions.OneOfTheRequiredConfigurationParameters;
+                        ? ExceptionExtensions.RequiredConfigurationParameter
+                        : ExceptionExtensions.OneOfTheRequiredConfigurationParameters;
 
                     var next = invalidKey ??
                                (value.ConfigurationKeys.Length == 1
