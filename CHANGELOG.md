@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.2.34 2022-01-21
+- Improved IsInvalidDatabaseAdminException extension method.
+- Added tests for the IsInvalidDatabaseAdminException-method
+
 ### Version 1.2.33 2022-01-20
 - Added DatabaseAdmin validation feature to IDbConfig.AdminUser and IDbConfig.AdminPassword
 

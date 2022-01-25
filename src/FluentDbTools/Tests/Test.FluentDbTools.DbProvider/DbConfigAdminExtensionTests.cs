@@ -324,8 +324,91 @@ namespace Test.FluentDbTools.DbProvider
             }
         }
 
+        [Theory]
+        [InlineData("ArgumentNullException", "param","Hmm.", false)]
+        [InlineData("ArgumentNullException", "param","required configuration", false)]
+        [InlineData("ArgumentNullException", null,"One of the required configuration parameters", false)]
+        [InlineData("ArgumentNullException", null,"All required configuration parameters", false)]
+        [InlineData("ArgumentNullException", null,"Required configuration parameter", false)]
+        [InlineData("ArgumentNullException", "param","One of the required configuration parameters", true)]
+        [InlineData("ArgumentNullException", "param","All required configuration parameters", true)]
+        [InlineData("ArgumentNullException", "param","Required configuration parameter", true)]
+        [InlineData("ArgumentException", null,"Hmm.", false)]
+        [InlineData("ArgumentException", null,"required configuration", false)]
+        [InlineData("ArgumentException", null,"One of the required configuration parameters", true)]
+        [InlineData("ArgumentException", null,"All required configuration parameters", true)]
+        [InlineData("ArgumentException", null,"Required configuration parameter", true)]
+        [InlineData("ArgumentException", "param","One of the required configuration parameters", true)]
+        [InlineData("ArgumentException", "param","All required configuration parameters", true)]
+        [InlineData("ArgumentException", "param","Required configuration parameter", true)]
+        [InlineData("Exception", "param","Required configuration parameter", false)]
+        [InlineData("AggregateException|ArgumentException", "param","One of the required configuration parameters", true)]
+        [InlineData("AggregateException|ArgumentException", null,"One of the required configuration parameters", true)]
+        [InlineData("AggregateException|ArgumentException", "param","Hmm", false)]
+        [InlineData("AggregateException|ArgumentException", null,"Hmm", false)]
+        [InlineData("AggregateException|ArgumentNullException", "param","One of the required configuration parameters", true)]
+        [InlineData("AggregateException|ArgumentNullException", null,"One of the required configuration parameters", false)]
+        [InlineData("AggregateException|ArgumentNullException", "param","Hmm", false)]
+        [InlineData("AggregateException|ArgumentNullException", null,"Hmm", false)]
+        [InlineData("AggregateException|ArgumentException,ArgumentNullException", "param","Hmm", false)]
+        [InlineData("AggregateException|ArgumentException,ArgumentNullException", "param","Hmm,Hmm2", false)]
+        [InlineData("AggregateException|ArgumentException,ArgumentNullException", "param","Hmm,Required configuration parameter", true)]
+        [InlineData("AggregateException|ArgumentException,ArgumentNullException", null,"Hmm,Required configuration parameter", false)]
+        [InlineData("AggregateException|ArgumentException,ArgumentNullException", null,"Required configuration parameter,Required configuration parameter", true)]
+        [InlineData("AggregateException|ArgumentException,ArgumentNullException", null,"Required configuration parameter,Hmm", true)]
+        [InlineData("AggregateException|Exception", "param","Required configuration parameter", false)]
+        [InlineData("AggregateException|Exception,Exception", "param","One of the required configuration parameters,Required configuration parameter", false)]
+        [InlineData("AggregateException|Exception,ArgumentNullException", "param","One of the required configuration parameters,Required configuration parameter", true)]
+        [InlineData("AggregateException|Exception,ArgumentNullException", null,"One of the required configuration parameters,Required configuration parameter", false)]
+        [InlineData("AggregateException|Exception,ArgumentException", "param","One of the required configuration parameters,Required configuration parameter", true)]
+        [InlineData("AggregateException|Exception,ArgumentException", null,"One of the required configuration parameters,Required configuration parameter", true)]
+        public void IsInvalidDatabaseAdminException_Exception_ShouldHaveExpectedReturn(string exceptionType, string paramName, string message, bool expectedReturn)
+        {
+            var exception = CreateException(exceptionType, paramName, message);
 
+            if (exceptionType.StartsWithIgnoreCase("AggregateException"))
+            {
+                var types= exceptionType.ReplaceIgnoreCase("AggregateException|", "");
+                var messages = message.Split(",").Select(x => x.Trim()).ToArray();
+                var innerExceptions = new List<Exception>();
 
+                var typesArray = types.Split(",").Where(x => x.Trim().IsNotEmpty()).ToArray();
+                for (var i = 0; i < typesArray.Length; i++)
+                {
+                    var msg = messages[0];
+                    if (messages.Length >= i + 1)
+                    {
+                        msg = messages[i];
+                    }
+                    innerExceptions.Add(CreateException(typesArray[i], paramName, msg));
+
+                }
+                exception = new AggregateException(innerExceptions);
+            }
+
+            exception.IsInvalidDatabaseAdminException().Should().Be(expectedReturn);
+
+        }
+
+        private static Exception CreateException(string exceptionType, string paramName, string message)
+        {
+            Exception createdException = null;
+            if (exceptionType.EqualsIgnoreCase("ArgumentNullException"))
+            {
+                createdException = new ArgumentNullException(paramName, message);
+            }
+
+            if (exceptionType.EqualsIgnoreCase("ArgumentException"))
+            {
+                createdException = new ArgumentException(message);
+            }
+
+            if (exceptionType.EqualsIgnoreCase("Exception"))
+            {
+                createdException = new Exception(message);
+            }
+            return createdException;
+        }
 
         private IConfiguration GetConfiguration(IDictionary<string, string> defaultConfig = null)
         {

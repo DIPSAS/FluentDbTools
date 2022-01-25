@@ -453,7 +453,7 @@ namespace FluentDbTools.Extensions.DbProvider
                     {
                         InvalidAdminType = x.Key,
                         Value = x.Key == InvalidAdminType.AdminUser ? dbConfig.AdminUser : dbConfig.AdminPassword,
-                        ConfigurationKeys = x.Value.SelectMany(s => s).Distinct().Select(s => $"{ValidateDatabaseAdminValuesExtensions.ConvertConfigKeyToParamNameStyle(s)}").ToArray()
+                        ConfigurationKeys = x.Value.SelectMany(s => s).Distinct().Select(s => $"{s.ConvertConfigKeyToParamNameStyle()}").ToArray()
                     };
 
                 if (value.ConfigurationKeys == null)
@@ -464,8 +464,8 @@ namespace FluentDbTools.Extensions.DbProvider
                 if (string.IsNullOrEmpty(value.Value))
                 {
                     var first = value.ConfigurationKeys.Length == 1
-                        ? "Required configuration parameter"
-                        : "All required configuration parameters";
+                        ? ValidateDatabaseAdminValuesExtensions.RequiredConfigurationParameter
+                        : ValidateDatabaseAdminValuesExtensions.AllRequiredConfigurationParameters;
 
                     var next = value.ConfigurationKeys.Length == 1
                         ? value.ConfigurationKeys.FirstOrDefault()
@@ -501,8 +501,8 @@ namespace FluentDbTools.Extensions.DbProvider
 
 
                     var first = value.ConfigurationKeys.Length == 1 || invalidKey != null
-                        ? "Required configuration parameter"
-                        : "One of the required configuration parameters";
+                        ? ValidateDatabaseAdminValuesExtensions.RequiredConfigurationParameter
+                        : ValidateDatabaseAdminValuesExtensions.OneOfTheRequiredConfigurationParameters;
 
                     var next = invalidKey ??
                                (value.ConfigurationKeys.Length == 1
@@ -528,5 +528,6 @@ namespace FluentDbTools.Extensions.DbProvider
                 return s;
             }
         }
+
     }
 }
