@@ -8,10 +8,8 @@ ARG VERSION=1.0.0
 ARG NUGET_FOLDER=nuget
 ARG SOLUTION_FOLDER=MySolutioNamespace
 
-ENV SOLUTION_FOLDER=$SOLUTION_FOLDER
-
 COPY ./build.proj.template ./${SOLUTION_FOLDER}/build.proj
-RUN dotnet pack ./${SOLUTION_FOLDER}/build.proj --include-symbols -p:SymbolPackageFormat=snupkg --include-source -c Release /p:Version=${VERSION} /p:PackageVersion=${VERSION}
+RUN dotnet pack ./${SOLUTION_FOLDER}/build.proj --include-symbols -p:SymbolPackageFormat=snupkg --include-source -c Release /p:SOLUTION_FOLDER=/src/${SOLUTION_FOLDER} /p:Version=${VERSION} /p:PackageVersion=${VERSION}
 RUN if [ -d "${NUGET_FOLDER}" ]; then rm -Rf ${NUGET_FOLDER}; fi
 RUN mkdir -p ${NUGET_FOLDER}
 RUN ls ${SOLUTION_FOLDER}/*/*/bin/Release/*.*nupkg | xargs -I % sh -c 'cp % ${NUGET_FOLDER}/$(basename %)'

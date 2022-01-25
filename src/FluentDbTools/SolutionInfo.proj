@@ -2,10 +2,10 @@
 
     <PropertyGroup>
 
-        <Authors>DIPS AS, Team Frost</Authors> 
+        <Authors>DIPS AS, Team Simplify, aho@dips.no</Authors> 
         <Owners>DIPSAS</Owners> 
         <Company>DIPS AS</Company> 
-        <Copyright>Copyright © 2019</Copyright> 
+        <Copyright>Copyright © 2021</Copyright> 
 
         <Product>FluentDbTools</Product> 
         <ProductName>FluentDbTools</ProductName> 
@@ -13,11 +13,13 @@
 
         <RepositoryType>git</RepositoryType> 
         <RepositoryUrl>https://github.com/DIPSAS/FluentDbTools</RepositoryUrl> 
-        <PackageIconUrl>https://raw.githubusercontent.com/DIPSAS/FluentDbTools/master/src/FluentDbTools/icon.png</PackageIconUrl> 
+	    <PackageIcon>icon.png</PackageIcon>
         <Description>FluentDbTools provides a fluent SQL abstraction layer for creating database connections, building sql queries and migrating your database.</Description>
         <PackageTags>database,sql,sqlbuilder,migrator,fluentmigrator</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <DocumentationFile>$(TargetDir)\$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup> 
-
+	<ItemGroup>
+		<None Include="$(SOLUTION_FOLDER)\icon.png" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 </Project>
