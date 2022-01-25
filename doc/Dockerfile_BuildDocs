@@ -1,7 +1,7 @@
 FROM mono:latest
 
-ENV DOCUMENTATION_DEPLOY_USERNAME in example dips-aho
-ENV DOCUMENTATION_DEPLOY_TOKEN in example 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
+ENV DOCUMENTATION_DEPLOY_USERNAME "in example dips-aho"
+ENV DOCUMENTATION_DEPLOY_TOKEN "in example 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"
 
 # We need to install the .NET Core SDK alongside Mono to get proper code analysis:
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE 1
