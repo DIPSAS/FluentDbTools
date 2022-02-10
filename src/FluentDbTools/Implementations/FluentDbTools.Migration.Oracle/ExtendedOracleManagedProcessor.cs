@@ -146,7 +146,7 @@ namespace FluentDbTools.Migration.Oracle
 
         public override void Process(AlterColumnExpression expression)
         {
-            base.Process(expression);
+            ExtendedMigrationProcessor.Process(expression);
         }
 
         protected override void Process(string sql)
@@ -183,6 +183,30 @@ namespace FluentDbTools.Migration.Oracle
         public bool IsExists(string template, params object[] args)
         {
             return Exists(template, args);
+        }
+
+        public override void RollbackTransaction()
+        {
+            try
+            {
+                base.RollbackTransaction();
+            }
+            catch
+            {
+                //
+            }
+        }
+
+        protected override void Dispose(bool isDisposing)
+        {
+            try
+            {
+                base.Dispose(isDisposing);
+            }
+            catch
+            {
+                //
+            }
         }
     }
 }

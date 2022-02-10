@@ -89,7 +89,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                 }
 
 
-                var dbConnection = dbProviderFactory.CreateConnection();
+                var dbConnection = dbProviderFactory.CreateConnection() ?? sp.GetDbConfig()?.CreateDbConnection();
 
                 if (dbConnection == null)
                 {

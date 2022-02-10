@@ -1,0 +1,11 @@
+﻿-- ErrorFilter = 6512, 1918
+BEGIN 
+  EXECUTE IMMEDIATE 'CREATE TABLE InvalidSchema.Person (PersonId RAW(16) DEFAULT sys_guid() NOT NULL, SequenceNumber NUMBER(10,0) NOT NULL, Alive NUMBER(1,0) NOT NULL, Username NVARCHAR2(255) NOT NULL, ExtraInformation BLOB, TestCol RAW(16) NOT NULL, Password NVARCHAR2(255) NOT NULL, ParentId_FK RAW(16))';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.PersonId IS ''Unique id.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.SequenceNumber IS ''sequence number.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.Alive IS ''Alive flag.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.Username IS ''username.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.ExtraInformation IS ''Extra Information as blob.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.TestCol IS ''TestCol Guid''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.Password IS ''password.'''; 
+END;

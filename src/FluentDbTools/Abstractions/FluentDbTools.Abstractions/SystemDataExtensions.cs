@@ -10,18 +10,22 @@ namespace System.Data
 {
     public static class SystemDataExtensions
     {
+        private static Exception LatestFilteredException;
+
         [SuppressMessage("ReSharper", "InvertIf")]
         public static int ExecuteNonQuery(this IDbCommand command, string errorFilter)
         {
             try
             {
+                LatestFilteredException = null;
                 return command.ExecuteNonQuery();
             }
             catch (Exception exception)
             {
-                if (exception.IsErrorFilterNumberMatch(GetErrorFilterNumbers(errorFilter)))
+                if (exception.IsErrorFilterNumberMatchAndReturnErrorNumber(GetErrorFilterNumbers(errorFilter), out var errorNumber))
                 {
-                    return 0;
+                    LatestFilteredException = exception;
+                    return 0 - errorNumber;
                 }
 
                 throw;
@@ -32,19 +36,24 @@ namespace System.Data
         {
             try
             {
+                LatestFilteredException = null;
                 return command.ExecuteNonQuery();
             }
             catch (Exception exception)
             {
-                if (exception.IsErrorFilterNumberMatch(errorFilterNumbers))
+                if (exception.IsErrorFilterNumberMatchAndReturnErrorNumber(errorFilterNumbers, out var errorNumber))
                 {
-                    return 0;
+                    LatestFilteredException = exception;
+                    return 0 - errorNumber;
                 }
 
                 throw;
             }
+        }
 
-
+        public static Exception GetLatestFilteredException(this IDbCommand _)
+        {
+            return LatestFilteredException;
         }
 
         public static long[] GetErrorFilterNumbers(this string errorFilter)
@@ -81,6 +90,13 @@ namespace System.Data
         [SuppressMessage("ReSharper", "InvertIf")]
         public static bool IsErrorFilterNumberMatch(this Exception exception, long[] errorFilterNumbers)
         {
+            return IsErrorFilterNumberMatchAndReturnErrorNumber(exception, errorFilterNumbers, out _);
+        }
+
+        [SuppressMessage("ReSharper", "InvertIf")]
+        public static bool IsErrorFilterNumberMatchAndReturnErrorNumber(this Exception exception, long[] errorFilterNumbers, out int number)
+        {
+            number = 0;
             if (exception.GetType().Name != "OracleException")
             {
                 return false;
@@ -91,7 +107,7 @@ namespace System.Data
             {
                 if (exception.Message.StartsWithIgnoreCase("ORA-"))
                 {
-                    if (long.TryParse(exception.Message.SubstringTo(":").Replace(":","").ReplaceIgnoreCase("ORA-", ""), out var number))
+                    if (int.TryParse(exception.Message.SubstringTo(":").Replace(":","").ReplaceIgnoreCase("ORA-", ""), out number))
                     {
                         if (errorFilterNumbers.Contains(number))
                         {

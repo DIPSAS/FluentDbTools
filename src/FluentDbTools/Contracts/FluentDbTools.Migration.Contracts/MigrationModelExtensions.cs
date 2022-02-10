@@ -1,4 +1,9 @@
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Abstractions.ExtendedExpressions;
@@ -16,9 +21,12 @@ using FluentMigrator.Builders.Delete.Table;
 using FluentMigrator.Builders.Rename;
 using FluentMigrator.Builders.Rename.Column;
 using FluentMigrator.Builders.Rename.Table;
+using FluentMigrator.Expressions;
 using FluentMigrator.Infrastructure;
 using FluentMigrator.Runner.Processors.Oracle;
 using Microsoft.Extensions.DependencyInjection;
+
+[assembly:InternalsVisibleTo("FluentDbTools.Migration.Oracle")]
 
 // ReSharper disable InvertIf
 
@@ -253,7 +261,7 @@ namespace FluentDbTools.Migration.Contracts
         {
             return AddChangeLogCreateColumnSyntax(syntax, changeLog);
         }
-        
+
         /// <summary>
         /// ChangeLog activation for Create.Table(..) syntax or Create.Column(..) syntax <br/>
         /// -------------------------------------------------<br/>
@@ -299,7 +307,7 @@ namespace FluentDbTools.Migration.Contracts
         /// <param name="changeLog"></param>
         /// <param name="migration"></param>
         /// <returns><see cref="IRenameTableToSyntax"/></returns>
-        public static T WithChangeLog<T>(this T syntax, ChangeLogContext changeLog, IMigrationModel migration) where T:IRenameTableToSyntax
+        public static T WithChangeLog<T>(this T syntax, ChangeLogContext changeLog, IMigrationModel migration) where T : IRenameTableToSyntax
         {
             return AddChangeLogDynamicSyntax(syntax, changeLog, migration);
         }
@@ -352,6 +360,184 @@ namespace FluentDbTools.Migration.Contracts
         {
             return AddChangeLogAlterTableSyntax(syntax, changeLog);
         }
+
+        private static readonly ConcurrentDictionary<string, int[]> ErrorFilter = new ConcurrentDictionary<string, int[]>();
+
+        /// <summary>
+        /// Add ErrorFilter to the <paramref name="syntax"/>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="errors"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static ICreateColumnOptionSyntax WithErrorFilter(this ICreateColumnOptionSyntax syntax, params int[] errors)
+        {
+            if (errors.Length == 0)
+            {
+                return syntax;
+            }
+
+            if (syntax is CreateColumnExpressionBuilder builder)
+            {
+                var id = $"{nameof(CreateColumnExpression)}_{builder.Expression.TableName}";
+                if (builder.Expression.Column?.Name.IsNotEmpty() ?? false)
+                {
+                    id = $"{id}_{builder.Expression.Column?.Name}";
+                }
+
+                AddOrUpdateErrorFilter(id, errors);
+            }
+
+            return syntax;
+        }
+
+
+        /// <summary>
+        /// Add ErrorFilter to the <paramref name="syntax"/>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="errors"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static IAlterTableAddColumnOrAlterColumnSyntax WithErrorFilter(this IAlterTableAddColumnOrAlterColumnSyntax syntax, params int[] errors)
+        {
+            if (errors.Length == 0)
+            {
+                return syntax;
+            }
+
+            if (syntax is AlterTableExpressionBuilder builder)
+            {
+                var id = $"{nameof(AlterTableExpression)}_{builder.Expression.TableName}";
+                if (builder.CurrentColumn?.Name.IsNotEmpty() ?? false)
+                {
+                    id = $"{id}_{builder.CurrentColumn?.Name}";
+                }
+
+                AddOrUpdateErrorFilter(id, errors);
+            }
+
+            return syntax;
+        }
+
+        /// <summary>
+        /// Add ErrorFilter to the <paramref name="syntax"/>
+        /// </summary>
+        /// <param name="syntax"></param>
+        /// <param name="errors"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T WithErrorFilter<T>(this T syntax, params int[] errors) where T : ICreateTableWithColumnSyntax
+        {
+            if (errors.Length == 0)
+            {
+                return syntax;
+            }
+
+            if (syntax is CreateTableExpressionBuilder builder)
+            {
+                var id = $"{nameof(CreateTableExpression)}_{builder.Expression.TableName}";
+
+                if (builder.CurrentColumn?.Name.IsNotEmpty() ?? false)
+                {
+                    id = $"{id}_{builder.CurrentColumn?.Name}";
+                }
+
+                AddOrUpdateErrorFilter(id, errors);
+            }
+
+            return syntax;
+        }
+
+        internal static int[] GetErrorFilters(this CreateTableExpression expression)
+        {
+            var id = $"{expression.GetType().Name}_{expression.TableName}";
+            var errors = Array.Empty<int>();
+            if (ErrorFilter.TryGetValue($"{id}", out var tableErrors) && tableErrors.Any())
+            {
+                errors = errors.Union(tableErrors).Distinct().OrderBy(i => i).ToArray();
+            }
+
+            foreach (var column in expression.Columns.Select(x => x.Name))
+            {
+                if (ErrorFilter.TryGetValue($"{id}_{column}", out var colErrors) && colErrors.Any())
+                {
+                    errors = errors.Union(colErrors).Distinct().OrderBy(i => i).ToArray();
+                }
+            }
+
+            return errors;
+        }
+
+        internal static int[] GetErrorFilters(this AlterTableExpression expression)
+        {
+            var id = $"{expression.GetType().Name}_{expression.TableName}";
+            var errors = Array.Empty<int>();
+            if (ErrorFilter.TryGetValue($"{id}", out var tableErrors) && tableErrors.Any())
+            {
+                errors = errors.Union(tableErrors).Distinct().OrderBy(i => i).ToArray();
+            }
+
+
+            return errors;
+        }
+
+        internal static int[] GetErrorFilters(this CreateColumnExpression expression)
+        {
+            var id = $"{expression.GetType().Name}_{expression.TableName}";
+            var errors = Array.Empty<int>();
+            if (ErrorFilter.TryGetValue($"{id}", out var tableErrors) && tableErrors.Any())
+            {
+                errors = errors.Union(tableErrors).Distinct().OrderBy(i => i).ToArray();
+            }
+
+            if (ErrorFilter.TryGetValue($"{id}_{expression.Column.Name}", out var colErrors) && colErrors.Any())
+            {
+                errors = errors.Union(colErrors).Distinct().OrderBy(i => i).ToArray();
+            }
+
+            return errors;
+        }
+
+
+        internal static int[] GetErrorFilters(this AlterColumnExpression expression)
+        {
+            var id = $"{expression.GetType().Name}_{expression.TableName}";
+            var errors = Array.Empty<int>();
+            if (ErrorFilter.TryGetValue($"{id}", out var tableErrors) && tableErrors.Any())
+            {
+                errors = errors.Union(tableErrors).Distinct().OrderBy(i => i).ToArray();
+            }
+
+            if (ErrorFilter.TryGetValue($"{id}_{expression.Column.Name}", out var colErrors) && colErrors.Any())
+            {
+                errors = errors.Union(colErrors).Distinct().OrderBy(i => i).ToArray();
+            }
+
+            return errors;
+        }
+
+
+        private static void AddOrUpdateErrorFilter(string key, int[] errors)
+        {
+            if (errors.Any() == false)
+            {
+                return;
+            }
+
+            if (ErrorFilter.TryGetValue(key, out var existingErrors))
+            {
+                if (existingErrors?.Any() == true)
+                {
+                    ErrorFilter[key] = errors.Union(existingErrors).Distinct().OrderBy(i => i).ToArray();
+                }
+            }
+            else
+            {
+                ErrorFilter.TryAdd(key, errors.OrderBy(i => i).ToArray());
+            }
+        }
+
 
         /// <summary>
         /// Add foreign column on table specified in <paramref name="syntax"/>. Referenced table will be <paramref name="primaryTableName"/><br/>

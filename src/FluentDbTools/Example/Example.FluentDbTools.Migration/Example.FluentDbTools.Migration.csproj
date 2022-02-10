@@ -10,8 +10,18 @@
   <Import Project="..\..\SolutionInfo.proj" />
 
   <ItemGroup>
+    <EmbeddedResource Include="MigrationModels\ExecuteEmbeddedSql.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Extensions\FluentDbTools.Extensions.Migration\FluentDbTools.Extensions.Migration.csproj" />
     <ProjectReference Include="..\Example.FluentDbTools.Database\Example.FluentDbTools.Database.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="MigrationModels\ExecuteSql.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using Dapper;
 using FluentDbTools.Common.Abstractions;
@@ -647,16 +648,33 @@ namespace Test.FluentDbTools.Migration
             }
         }
 
-        [Fact]
-        public void OracleMigration_WhenDataSourceIsInvalidTnsAliasName_ShouldFailWithTnsResolvingError()
+        [Theory]
+        [InlineData("","Mi")]
+        [InlineData(@"subfolder\",@"subfolder\")]
+        [InlineData(@"C:\DIPS-Log\",@"Mi")]
+        [InlineData(@"C:\DIPS-Log\",@"LogPath\",@"LogPath\")]
+        [InlineData(@"${LogPath}",@"Mi")]
+        [InlineData(@"${LogPath}",@"LogPath\", @"LogPath\")]
+        public void OracleMigration_WhenDataSourceIsInvalidTnsAliasName_ShouldFailWithTnsResolvingError(string fileStart, string expectedStart, string logPath = null)
         {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                fileStart = fileStart.ReplaceIgnoreCase(@"\", $"{Path.DirectorySeparatorChar}");
+                expectedStart = expectedStart.ReplaceIgnoreCase(@"\", $"{Path.DirectorySeparatorChar}");
+                logPath = logPath.ReplaceIgnoreCase(@"\", $"{Path.DirectorySeparatorChar}");
+            }
+
             var databaseType = SupportedDatabaseTypes.Oracle;
 
             var inMemoryOverrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType, OverrideConfig.NewRandomSchema);
+            if (logPath != null)
+            {
+                inMemoryOverrideConfig["LogPath"] = logPath;
+            }
             inMemoryOverrideConfig["database:dataSource"] = "InvalidTnsAlias";
             inMemoryOverrideConfig["database:connectionTimeoutInSecs"] = "5";
             inMemoryOverrideConfig.TryGetValue("database:schema", out var schema);
-            var logFile = $"Migration_Success_{schema}_{databaseType}.sql";
+            var logFile = $"{fileStart}Migration_Success_{schema}_{databaseType}.sql";
 
             inMemoryOverrideConfig.Add("Logging:Migration:ShowSql", "True");
             inMemoryOverrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
@@ -670,7 +688,8 @@ namespace Test.FluentDbTools.Migration
                 var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
                 var versionTable = scope.ServiceProvider.GetService<IVersionTableMetaData>();
                 var config = scope.ServiceProvider.GetDbConfig();
-
+                var configuration = scope.ServiceProvider.GetService<IConfiguration>();
+                logFile = configuration.GetMigrationLogFile();
                 config.Datasource.Should().Be(inMemoryOverrideConfig["database:dataSource"]);
                 config
                     .GetDbProviderFactory(true).CreateConnection()
@@ -695,6 +714,7 @@ namespace Test.FluentDbTools.Migration
 
             }
 
+            logFile.Should().StartWith(expectedStart);
             ShowLogFileContent(logFile);
         }
 

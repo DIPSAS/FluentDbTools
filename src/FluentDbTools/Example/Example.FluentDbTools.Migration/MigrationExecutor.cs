@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentDbTools.Common.Abstractions;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,14 +15,18 @@ namespace Example.FluentDbTools.Migration
             var provider = MigrationBuilder.BuildMigration(
                 databaseType,
                 overrideConfig);
-
-            using (var scope = provider.CreateScope())
+            try
             {
-                var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
-
-                migrationRunner.MigrateUp();
+                using (var scope = provider.CreateScope())
+                {
+                    var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
+                    migrationRunner.MigrateUp();
+                }
             }
-
+            catch (InvalidOperationException)
+            {
+                //
+            }
         }
     }
 }

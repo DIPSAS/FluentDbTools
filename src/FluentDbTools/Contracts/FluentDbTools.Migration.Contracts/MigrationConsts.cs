@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace FluentDbTools.Migration.Contracts
 {
     public static class MigrationConsts

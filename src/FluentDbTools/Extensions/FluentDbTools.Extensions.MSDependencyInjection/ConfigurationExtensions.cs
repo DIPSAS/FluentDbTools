@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.InteropServices;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using Microsoft.Extensions.Configuration;
@@ -134,7 +136,49 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         /// <returns></returns>
         public static string GetMigrationLogFile(this IConfiguration configuration)
         {
-            return configuration.GetConfigValue("Logging:Migration:File", "LogMigrationFile");
+            var file = configuration.GetConfigValue("Logging:Migration:File", "LogMigrationFile");
+            return file.IsEmpty() ? file : GetLogFile(configuration, file);
+        }
+
+        /// <summary>
+        /// Get log file based on LogPath
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static string GetLogFile(this IConfiguration configuration, string file)
+        {
+            if (file.IsEmpty())
+            {
+                return file;
+            }
+
+            var startPathToReplace = @"DIPS-Log";
+            var pathToReplaceWindows = $@"C:\{startPathToReplace}\";
+            var pathToReplaceRuntime = $"C:{Path.DirectorySeparatorChar}{startPathToReplace}{Path.DirectorySeparatorChar}";
+            var defaultLogPath = string.Empty;
+            var logPath = configuration.GetConfigValue("LogPath").WithDefault(defaultLogPath).Trim();
+            var windowsLogPath = logPath.IsEmpty() ? logPath : $@"{logPath.TrimEnd('\\')}\";
+            var runtimeLogPath = logPath.IsEmpty() ? logPath : $@"{logPath.TrimEnd(Path.DirectorySeparatorChar)}{Path.DirectorySeparatorChar}";
+            file = file.ReplaceIgnoreCase(defaultLogPath, logPath)
+                .ReplaceIgnoreCase(pathToReplaceWindows, windowsLogPath)
+                .ReplaceIgnoreCase(pathToReplaceRuntime, runtimeLogPath)
+                .ReplaceIgnoreCase("${LogPath}", logPath);
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) &&
+                file.StartsWith(@"\\"))
+            {
+                return file;
+            }
+
+            if (file.StartsWith(@"\") == false)
+            {
+                return file;
+            }
+
+            file = file.Substring(1);
+
+            return file.StartsWith(@"\") ? file.Substring(1) : file;
         }
 
         /// <summary>

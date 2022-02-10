@@ -68,6 +68,13 @@ namespace FluentDbTools.Migration.Abstractions
         void Process(PerformDBOperationExpression expression);
 
         /// <summary>
+        /// AlterColumn process method
+        /// </summary>
+        /// <param name="expression"></param>
+        void Process(AlterColumnExpression expression);
+
+
+        /// <summary>
         /// Return the default Migration IDbConnection
         /// </summary>
         /// <returns></returns>

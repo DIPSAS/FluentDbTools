@@ -43,7 +43,7 @@ namespace FluentDbTools.Migration.Contracts.MigrationExpressions.Execute
                 AdditionalSqlTitleConverterFunc = AdditionalSqlTitleConverter
             };
 
-            _context.Expressions.Add(expression);
+            _context.Expressions.Add(expression as ExecuteSqlScriptExpression);
         }
 
         /// <inheritdoc />

@@ -234,15 +234,20 @@ namespace FluentDbTools.Common.Abstractions
         /// <exception cref="T:System.ArgumentException"><paramref name="oldValue">oldValue</paramref> is the empty string ("").</exception>
         public static string ReplaceIgnoreCase(this string value, string oldValue, string newValue)
         {
-            var pos = value.IndexOf(oldValue, CurrentIgnoreCaseStringComparison);
+            if (value.IsEmpty() || oldValue.IsEmpty())
+            {
+                return value;
+            }
+
+            var pos = value?.IndexOf(oldValue, CurrentIgnoreCaseStringComparison) ?? -1;
             if (pos == -1)
             {
                 return value;
             }
 
-            var oldValueToReplace = value.Substring(pos, oldValue.Length);
+            var oldValueToReplace = value?.Substring(pos, oldValue.Length);
 
-            return value.Replace(oldValueToReplace, newValue);
+            return oldValueToReplace.IsEmpty() ? value : value?.Replace(oldValueToReplace, newValue);
         }
 
         /// <summary>

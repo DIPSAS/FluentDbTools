@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -8,6 +9,7 @@ using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
 using FluentDbTools.Migration.Abstractions.ExtendedExpressions;
 using FluentDbTools.Migration.Common;
+using FluentDbTools.Migration.Contracts;
 using FluentDbTools.Migration.Contracts.MigrationExpressions;
 using FluentMigrator;
 using FluentMigrator.Expressions;
@@ -18,6 +20,7 @@ using FluentMigrator.Runner.Processors.Oracle;
 using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Oracle.ManagedDataAccess.Client;
 
 namespace FluentDbTools.Migration.Oracle
 {
@@ -236,6 +239,65 @@ namespace FluentDbTools.Migration.Oracle
             base.Process(expression);
         }
 
+        public override void Process(AlterTableExpression expression)
+        {
+            var errorFilters = expression.GetErrorFilters();
+            if (errorFilters.Any() == false)
+            {
+                base.Process(expression);
+                return;
+            }
+
+            var sql = Generator.Generate(expression);
+            ProcessWithErrorFilter(errorFilters, sql);
+        }
+
+
+        public override void Process(AlterColumnExpression expression)
+        {
+            var errorFilters = expression.GetErrorFilters();
+            if (errorFilters.Any() == false)
+            {
+                base.Process(expression);
+                return;
+            }
+
+            var sql = Generator.Generate(expression);
+            ProcessWithErrorFilter(errorFilters, sql);
+        }
+
+        public override void Process(CreateColumnExpression expression)
+        {
+            var errorFilters = expression.GetErrorFilters();
+            if (errorFilters.Any() == false)
+            {
+                base.Process(expression);
+                return;
+            }
+
+
+            var sql = Generator.Generate(expression);
+            ProcessWithErrorFilter(errorFilters, sql);
+        }
+
+        public override void Process(CreateTableExpression expression)
+        {
+            if (TableExists(expression.SchemaName, expression.TableName))
+            {
+                return;
+            }
+
+            var errorFilters = expression.GetErrorFilters();
+            if (errorFilters.Any() == false)
+            {
+                base.Process(expression);
+                return;
+            }
+
+
+            var sql = Generator.Generate(expression);
+            ProcessWithErrorFilter(errorFilters, sql);
+        }
 
 
         public override void Process(DeleteDataExpression expression)
@@ -261,16 +323,6 @@ namespace FluentDbTools.Migration.Oracle
         public IDbConnection GetMigrationDbConnection()
         {
             return Connection;
-        }
-
-        public override void Process(CreateTableExpression expression)
-        {
-            if (TableExists(expression.SchemaName, expression.TableName))
-            {
-                return;
-            }
-
-            base.Process(expression);
         }
 
         private void AddDefaultColumns(CreateTableExpression expression)
@@ -599,9 +651,9 @@ namespace FluentDbTools.Migration.Oracle
                 {
                     foreach (var commandText in statementsSql)
                     {
-                        if (Regex.IsMatch(commandText, @"^\s*\/\s*$"))
+                        if (ShouldExtractSqlStatements(commandText, out var sqlStatements))
                         {
-                            foreach (var commandText2 in commandText.ExtractSqlStatements())
+                            foreach (var commandText2 in sqlStatements)
                             {
                                 ExecuteCommand(runningSql = commandText2);
                             }
@@ -626,6 +678,42 @@ namespace FluentDbTools.Migration.Oracle
                 throw;
             }
 
+            bool ShouldExtractSqlStatements(string commandText, out string[] sqlStatements)
+            {
+                sqlStatements = null;
+                try
+                {
+                    if (commandText.IsEmpty())
+                    {
+                        return false;
+                    }
+
+                    if (Regex.IsMatch(commandText, @"^\s*\/\s*$"))
+                    {
+                        sqlStatements = commandText.ExtractSqlStatements()?.ToArray() ?? Array.Empty<string>();
+                        return true;
+                    }
+
+                    if (commandText.IsSqlComment() == false)
+                    {
+                        return false;
+                    }
+
+                    if (commandText.Trim().EndsWithIgnoreCase("*/"))
+                    {
+                        return false;
+                    }
+
+                    sqlStatements = commandText.ExtractSqlStatements()?.ToArray() ?? Array.Empty<string>();
+                    var isTrue = sqlStatements.Length > 1;
+
+                    return isTrue;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
         }
 
         private void ExecuteCommand(string commandText, bool logSqlInternal = false)
@@ -645,15 +733,32 @@ namespace FluentDbTools.Migration.Oracle
 
             using (var command = CreateCommand(commandText))
             {
+                var affectedRows = 0;
                 if (commandText.IsSqlComment())
                 {
                     LatestComment = commandText;
                 }
                 else
                 {
-                    command.ExecuteNonQuery(LatestComment);
-                    LatestComment = null;
+                    try
+                    {
+                        affectedRows = command.ExecuteNonQuery(LatestComment);
+                    }
+                    finally
+                    {
+                        LatestComment = null;
+                    }
+                    
                 }
+
+                if (affectedRows != 0 && affectedRows != -1)
+                {
+                    var latestFilteredException = command.GetLatestFilteredException();
+                    commandText = affectedRows > -1
+                        ? $"/* Affected rows: {affectedRows} */\n{commandText}"
+                        : $"/* Executed Successfully by ErrorFilter: {Math.Abs(affectedRows)} {(latestFilteredException != null ? $" -- {latestFilteredException.Message}" : string.Empty )} */\n{commandText} ";
+                }
+
 
                 if (logSqlInternal)
                 {
@@ -661,6 +766,44 @@ namespace FluentDbTools.Migration.Oracle
                     return;
                 }
                 Logger.LogSql(commandText);
+            }
+        }
+
+        private void ProcessWithErrorFilter(IEnumerable<int> errorFilters, string sql)
+        {
+            var array = new[]
+            {
+                "-- ErrorFilter = " + string.Join(",", errorFilters),
+                sql
+            };
+
+            var statementSql = string.Join("\n", array);
+
+            ProcessSql(statementSql);
+            //Process(new SqlStatement { Sql = statementSql, IsExternal = true });
+        }
+
+        public override void RollbackTransaction()
+        {
+            try
+            {
+                base.RollbackTransaction();
+            }
+            catch
+            {
+                //
+            }
+        }
+
+        protected override void Dispose(bool isDisposing)
+        {
+            try
+            {
+                base.Dispose(isDisposing);
+            }
+            catch
+            {
+                //
             }
         }
     }

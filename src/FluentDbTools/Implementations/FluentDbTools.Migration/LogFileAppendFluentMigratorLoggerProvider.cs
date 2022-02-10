@@ -81,15 +81,15 @@ namespace FluentDbTools.Migration
                 logFile = options.OutputFileName;
             }
 
-            if (logFile == null && assemblySource.Assemblies.Count == 0)
+            if (logFile == null && assemblySource?.Assemblies.Count == 0)
             {
                 logFile = "FluentMigratorSql.log";
             }
 
             if (logFile == null)
             {
-                var assembly = assemblySource.Assemblies.First();
-                logFile = assembly.Location + ".sql";
+                var assembly = assemblySource?.Assemblies.First();
+                logFile = (assembly?.Location ?? "FluentMigrator") + ".sql";
             }
 
             var info = new FileInfo(logFile);

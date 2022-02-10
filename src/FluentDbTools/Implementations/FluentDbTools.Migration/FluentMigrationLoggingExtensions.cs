@@ -124,6 +124,7 @@ namespace FluentDbTools.Migration
             }
             else
             {
+                LogFileAppendFluentMigratorLoggerProvider.GetOutputFileName(null, options);
                 loggingBuilder.Services.AddSingleton<ILoggerProvider>(sp =>
                     new LogFileFluentMigratorLoggerProvider(sp.GetService<IAssemblySource>(),
                         sp.GetService<IOptions<LogFileFluentMigratorLoggerOptions>>()));
