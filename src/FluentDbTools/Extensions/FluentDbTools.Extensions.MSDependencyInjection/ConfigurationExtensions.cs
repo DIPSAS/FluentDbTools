@@ -91,23 +91,26 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         }
 
         /// <summary>
-        /// MigrationLogging with Console logging can be enabled from configuration key(s):
-        ///     [Logging:Migration:Console | LogMigrationConsole ]= true
-        ///     OR
-        ///     [Logging:Migration:LogLevel |Logging:LogLevel:Migration] != None
-        ///     When both Logging:Console:LogLevel and Logging:LogLevel:Console is null, Console logging will be enabled.
+        /// MigrationLogging with Console logging can be enabled from configuration key(s): <br/>
+        ///     [Logging:Migration:ConsoleEnabled | LogMigrationConsole ]= true or section Logging:Migration:Console exists<br/>
+        ///     OR<br/>
+        ///     [Logging:Migration:Console:LogLevel | Logging:LogLevel:Migration:Console |
+        ///      Logging:Migration:LogLevel | Logging:LogLevel:Migration ] != None<br/><br/>
+        ///     When all [Logging:Migration:Console:LogLevel, Logging:LogLevel:Migration:Console, 
+        ///      Logging:Migration:LogLevel, Logging:LogLevel:Migration] is null, Console logging will be enabled.
         /// </summary>
         /// <param name="configuration"></param>
         /// <returns></returns>
         public static bool IsMigrationConsoleLogEnabled(this IConfiguration configuration)
         {
             var consoleLogEnabled = configuration
-                .GetConfigValue("Logging:Migration:Console", "LogMigrationConsole")
-                .WithDefault(false)
+                .GetConfigValue("Logging:Migration:ConsoleEnabled", "LogMigrationConsole")
+                .WithDefault(configuration.GetSection("Logging:Migration:Console") != null)
                 .IsTrue();
 
-            return consoleLogEnabled || !configuration
-                       .GetConfigValue("Logging:Migration:LogLevel", "Logging:LogLevel:Migration")
+            return consoleLogEnabled ||
+                   !configuration
+                       .GetConfigValue("Logging:Migration:Console:LogLevel", "Logging:LogLevel:Migration:Console", "Logging:Migration:LogLevel", "Logging:LogLevel:Migration")
                        .WithDefault("Information")
                        .EqualsIgnoreCase("None");
         }
@@ -119,13 +122,28 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         /// </summary>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static bool IsMigrationLogShowSqlEnabled(this IConfiguration configuration)
+        public static bool IsMigrationLogFileShowSqlEnabled(this IConfiguration configuration)
         {
             return configuration
-                .GetConfigValue("Logging:Migration:ShowSql", "LogMigrationShowSql")
+                .GetConfigValue("Logging:Migration:File:ShowSql", "Logging:Migration:ShowSql", "LogMigrationShowSql")
+                .WithDefault(true)
+                .IsTrue();
+        }
+
+        /// <summary>
+        /// MigrationLogging with Sql logging can be enabled from configuration key(s):
+        ///     [Logging:Migration:ShowSql | Logging:LogMigrationShowSql | LogMigrationShowSql] = true
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static bool IsMigrationConsoleLogShowSqlEnabled(this IConfiguration configuration)
+        {
+            return configuration
+                .GetConfigValue("Logging:Migration:Console:ShowSql", "Logging:Migration:ShowSql", "LogMigrationShowSql")
                 .WithDefault(false)
                 .IsTrue();
         }
+
 
         /// <summary>
         /// MigrationLogging with File location can be configured from configuration key(s):
@@ -133,11 +151,12 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         ///     If set, IsMigrationLogFileEnabled() will be true
         /// </summary>
         /// <param name="configuration"></param>
+        /// <param name="defaultLogPath"></param>
         /// <returns></returns>
-        public static string GetMigrationLogFile(this IConfiguration configuration)
+        public static string GetMigrationLogFile(this IConfiguration configuration, string defaultLogPath = null)
         {
-            var file = configuration.GetConfigValue("Logging:Migration:File", "LogMigrationFile");
-            return file.IsEmpty() ? file : GetLogFile(configuration, file);
+            var file = configuration.GetConfigValue("Logging:Migration:FileName", "Logging:Migration:File", "LogMigrationFile");
+            return file.IsEmpty() ? file : GetLogFile(configuration, file, defaultLogPath);
         }
 
         /// <summary>
@@ -145,8 +164,9 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="file"></param>
+        /// <param name="defaultLogPath"></param>
         /// <returns></returns>
-        public static string GetLogFile(this IConfiguration configuration, string file)
+        public static string GetLogFile(this IConfiguration configuration, string file, string defaultLogPath = null)
         {
             if (file.IsEmpty())
             {
@@ -156,7 +176,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
             var startPathToReplace = @"DIPS-Log";
             var pathToReplaceWindows = $@"C:\{startPathToReplace}\";
             var pathToReplaceRuntime = $"C:{Path.DirectorySeparatorChar}{startPathToReplace}{Path.DirectorySeparatorChar}";
-            var defaultLogPath = string.Empty;
+            defaultLogPath = defaultLogPath ?? string.Empty;
             var logPath = configuration.GetConfigValue("LogPath").WithDefault(defaultLogPath).Trim();
             var windowsLogPath = logPath.IsEmpty() ? logPath : $@"{logPath.TrimEnd('\\')}\";
             var runtimeLogPath = logPath.IsEmpty() ? logPath : $@"{logPath.TrimEnd(Path.DirectorySeparatorChar)}{Path.DirectorySeparatorChar}";
@@ -193,7 +213,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         {
             var enabled = configuration
                 .GetConfigValue("Logging:Migration:FileEnabled", "LogMigrationFileEnabled")
-                .WithDefault(false)
+                .WithDefault(configuration.GetSection("Logging:Migration:File") != null)
                 .IsTrue();
 
             return enabled || configuration.GetMigrationLogFile().IsNotEmpty();
@@ -205,11 +225,25 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         /// </summary>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static bool IsMigrationLogShowElapsedTimeEnabled(this IConfiguration configuration)
+        public static bool IsMigrationLogConsoleShowElapsedTimeEnabled(this IConfiguration configuration)
         {
-            return configuration.GetConfigValue("Logging:Migration:ShowElapsedTime", "LogMigrationShowElapsedTime")
+            return configuration.GetConfigValue("Logging:Migration:File:ShowElapsedTime", "Logging:Migration:ShowElapsedTime", "LogMigrationShowElapsedTime")
                 .WithDefault(false)
                 .IsTrue();
         }
+
+        /// <summary>
+        /// MigrationLogging with ElapsedTime can be enabled from configuration key(s):
+        ///     [Logging:Migration:ShowElapsedTime | Logging:LogMigrationShowElapsedTime | LogMigrationShowElapsedTime] == true
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static bool IsMigrationLogFileShowElapsedTimeEnabled(this IConfiguration configuration)
+        {
+            return configuration.GetConfigValue("Logging:Migration:File:ShowElapsedTime", "Logging:Migration:ShowElapsedTime", "LogMigrationShowElapsedTime")
+                .WithDefault(false)
+                .IsTrue();
+        }
+
     }
 }

@@ -43,7 +43,7 @@ namespace Example.FluentDbTools.Migration.MigrationModels
             // the tableName Person will be created.
             var syntax = Create
                 .Table(Table.Person.GetPrefixedName(SchemaPrefixId)).InSchema(SchemaName)
-                .WithErrorFilter(1001)
+                .WithErrorFilter(1001, 2275)
                 .WithChangeLog(PersonLogContext)
                 .WithColumn(Table.Person + "Id").AsGuid().WithColumnDescription("Unique id.");
 
@@ -57,6 +57,7 @@ namespace Example.FluentDbTools.Migration.MigrationModels
             }
 
             syntax
+                .WithErrorFilter(2275)
                 .WithChangeLog(PersonLogContext) // ChangeLog activation for Create.Table(..)
                 .WithColumn(Column.SequenceNumber).AsInt32().NotNullable().WithColumnDescription("sequence number.")
                 .WithColumn(Column.Alive).AsBoolean().NotNullable().WithColumnDescription("Alive flag.")
@@ -68,7 +69,8 @@ namespace Example.FluentDbTools.Migration.MigrationModels
                 .WithErrorFilter(1002)
                 .WithDefaultColumns() // Enable DefaultColumns functionality
                 .WithChangeLog(PersonLogContext)
-                .WithForeignKeyColumn("Parent".GetPrefixedName(SchemaPrefixId), this, "ParentId_FK", "ParentId").AsGuid().Nullable()
+                .WithErrorFilter(2275)
+                .WithForeignKeyColumn("Parent".GetPrefixedName(SchemaPrefixId), this, "ParentId_FK", "ParentId",errors:2275).AsGuid().Nullable()
                 .WithDefaultColumns()
                 .WithChangeLog(PersonLogContext)
                 .WithChangeLog(PersonLogContext)
@@ -104,7 +106,7 @@ namespace Example.FluentDbTools.Migration.MigrationModels
 
             Create.Column("CreateColumn")
                 .OnTable(Table.Person, this).AsInt16().Nullable()
-                .WithErrorFilter(3001)
+                .WithErrorFilter(3001,1430)
                 .WithChangeLog(PersonLogContext);
 
             if (IsOracle())
@@ -115,7 +117,9 @@ namespace Example.FluentDbTools.Migration.MigrationModels
             if (IsOracle())
             {
                 var sql =
-@"-- ErrorFilter = 6512, 955 	
+@"
+-- Title = Testing ErrorFilter parsing
+-- ErrorFilter = 6512, 955 	
 BEGIN 
   EXECUTE IMMEDIATE 'CREATE TABLE {SchemaName}.{SchemaPrefixId}Person (PersonId RAW(16) DEFAULT sys_guid() NOT NULL, SequenceNumber NUMBER(10,0) NOT NULL, Alive NUMBER(1,0) NOT NULL, Username NVARCHAR2(255) NOT NULL, ExtraInformation BLOB, TestCol RAW(16) NOT NULL, Password NVARCHAR2(255) NOT NULL, ParentId_FK RAW(16))';
   EXECUTE IMMEDIATE 'COMMENT ON COLUMN {SchemaName}.{SchemaPrefixId}Person.PersonId IS ''Unique id.''';

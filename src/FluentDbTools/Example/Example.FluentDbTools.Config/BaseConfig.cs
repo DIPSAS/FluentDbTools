@@ -62,8 +62,9 @@ namespace Example.FluentDbTools.Config
                 case "oracle":
                     return SupportedDatabaseTypes.Oracle;
                 case "postgres":
-                default:
                     return SupportedDatabaseTypes.Postgres;
+                default:
+                    return SupportedDatabaseTypes.Oracle;
             }
         }
     }

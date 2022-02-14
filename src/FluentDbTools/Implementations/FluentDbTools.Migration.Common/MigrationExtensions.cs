@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration.Abstractions;
@@ -34,15 +35,26 @@ namespace FluentDbTools.Migration.Common
             }
         }
 
-        public static void LogSqlInternal(this ILogger logger, string sql)
+        public static void LogSqlInternal(this ILogger logger, string sql, bool logSql = true)
         {
             var forLogging = sql.ConvertToSqlTitle();
             if (forLogging != sql)
             {
+                forLogging = Regex.Replace(forLogging, "(^)-- ", "");
                 logger.LogSay(forLogging);
             }
 
-            logger.LogSql(sql);
+            if (logSql == false)
+            {
+                return;
+            }
+
+            var sqlToLog = sql.IsSqlComment() ? sql.SqlWithoutComment() : sql;
+            if (sqlToLog.IsNotEmpty())
+            {
+                logger.LogSql(sqlToLog);
+            }
+
         }
     }
 }

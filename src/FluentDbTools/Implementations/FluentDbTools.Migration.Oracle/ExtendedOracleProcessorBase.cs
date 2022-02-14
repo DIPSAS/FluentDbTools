@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Dapper;
@@ -15,12 +16,12 @@ using FluentMigrator;
 using FluentMigrator.Expressions;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Initialization;
+using FluentMigrator.Runner.Logging;
 using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.Oracle;
 using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Oracle.ManagedDataAccess.Client;
 
 namespace FluentDbTools.Migration.Oracle
 {
@@ -30,12 +31,16 @@ namespace FluentDbTools.Migration.Oracle
         private readonly IOptionsSnapshot<RunnerOptions> RunnerOptions;
         private readonly IDbMigrationConfig MigrationConfig;
         private readonly IVersionTableMetaData VersionTableMetaData;
+        private readonly FluentMigratorLoggerOptions LoggerOptions;
+        private readonly LogFileFluentMigratorLoggerOptions LoggerFileOptions;
         private readonly IExtendedMigrationGenerator ExtendedGenerator;
         private ICustomMigrationProcessor CustomMigrationProcessor;
 
         [SuppressMessage("ReSharper", "InconsistentNaming")] private bool Initialize_Initialized;
         private readonly Func<string> ConnectionStringFunc;
         private string LatestComment;
+        private string LatestTitle;
+        private readonly bool IsSqlLogEnabled;
         protected string SchemaPrefix => MigrationConfig?.GetSchemaPrefixId();
         protected string SchemaPrefixUniqueId => MigrationConfig?.GetSchemaPrefixUniqueId();
 
@@ -48,11 +53,18 @@ namespace FluentDbTools.Migration.Oracle
             IExtendedMigrationGenerator<ExtendedOracleMigrationGenerator> extendedGenerator,
             IDbMigrationConfig migrationConfig,
             IMigrationSourceItem migrationSourceItem = null,
-            IVersionTableMetaData versionTableMetaData = null) : base(ProcessorIds.OracleProcessorId, factory, generator, logger, options, connectionStringAccessor)
+            IVersionTableMetaData versionTableMetaData = null,
+            IOptions<FluentMigratorLoggerOptions> loggerGenOptions = null,
+            IOptions<LogFileFluentMigratorLoggerOptions> logFileOptions = null) : base(ProcessorIds.OracleProcessorId, factory, generator, logger, options, connectionStringAccessor)
         {
             RunnerOptions = runnerOptions;
             MigrationConfig = migrationConfig;
             VersionTableMetaData = versionTableMetaData;
+            LoggerOptions = loggerGenOptions?.Value;
+            LoggerFileOptions = logFileOptions?.Value;
+
+            IsSqlLogEnabled = (LoggerOptions?.ShowSql ?? false) || (LoggerFileOptions?.ShowSql ?? false);
+
             ExtendedGenerator = extendedGenerator;
             MigrationMetadata = new MigrationMetadata(migrationSourceItem).InitMetadata(MigrationConfig);
 
@@ -241,43 +253,20 @@ namespace FluentDbTools.Migration.Oracle
 
         public override void Process(AlterTableExpression expression)
         {
-            var errorFilters = expression.GetErrorFilters();
-            if (errorFilters.Any() == false)
-            {
-                base.Process(expression);
-                return;
-            }
-
             var sql = Generator.Generate(expression);
-            ProcessWithErrorFilter(errorFilters, sql);
+            ProcessWithErrorFilter(sql, expression.GetErrorFilters());
         }
-
 
         public override void Process(AlterColumnExpression expression)
         {
-            var errorFilters = expression.GetErrorFilters();
-            if (errorFilters.Any() == false)
-            {
-                base.Process(expression);
-                return;
-            }
-
             var sql = Generator.Generate(expression);
-            ProcessWithErrorFilter(errorFilters, sql);
+            ProcessWithErrorFilter(sql, expression.GetErrorFilters());
         }
 
         public override void Process(CreateColumnExpression expression)
         {
-            var errorFilters = expression.GetErrorFilters();
-            if (errorFilters.Any() == false)
-            {
-                base.Process(expression);
-                return;
-            }
-
-
             var sql = Generator.Generate(expression);
-            ProcessWithErrorFilter(errorFilters, sql);
+            ProcessWithErrorFilter(sql, expression.GetErrorFilters());
         }
 
         public override void Process(CreateTableExpression expression)
@@ -287,18 +276,15 @@ namespace FluentDbTools.Migration.Oracle
                 return;
             }
 
-            var errorFilters = expression.GetErrorFilters();
-            if (errorFilters.Any() == false)
-            {
-                base.Process(expression);
-                return;
-            }
-
-
             var sql = Generator.Generate(expression);
-            ProcessWithErrorFilter(errorFilters, sql);
+            ProcessWithErrorFilter(sql, expression.GetErrorFilters());
         }
 
+        public override void Process(CreateForeignKeyExpression expression)
+        {
+            var sql = Generator.Generate(expression);
+            ProcessWithErrorFilter(sql, expression.GetErrorFilters());
+        }
 
         public override void Process(DeleteDataExpression expression)
         {
@@ -414,7 +400,7 @@ namespace FluentDbTools.Migration.Oracle
                 return;
             }
 
-            Process(ExtendedGenerator.Generate(expression));
+            ProcessWithErrorFilter(ExtendedGenerator.Generate(expression), expression.GetErrorFilters());
         }
 
         public override void Process(CreateIndexExpression expression)
@@ -528,7 +514,7 @@ namespace FluentDbTools.Migration.Oracle
                     }
 
                     var stopwatch = new StopWatch();
-
+                    Logger.LogHeader("Drop Oracle schema(user)");
                     Logger.LogSay($"Dropping Oracle schema(user) '{expression.SchemaName}'...");
                     stopwatch.Time(() => Process(ExtendedGenerator.Generate(expression)));
                     Logger.LogSay($"Dropped Oracle schema(user) '{expression.SchemaName}'...");
@@ -645,7 +631,7 @@ namespace FluentDbTools.Migration.Oracle
                     .Select(x => x.Trim())
                     .Where(x => !string.IsNullOrEmpty(x)).ToArray();
 
-                LatestComment = null;
+                LatestTitle = LatestComment = null;
 
                 if (!sqlStatement.IsExternal)
                 {
@@ -655,22 +641,24 @@ namespace FluentDbTools.Migration.Oracle
                         {
                             foreach (var commandText2 in sqlStatements)
                             {
-                                ExecuteCommand(runningSql = commandText2);
+                                ExecuteCommand(runningSql = commandText2, sqlStatement.ParseTitle);
                             }
+                            LatestTitle = LatestComment = null;
                         }
                         else
                         {
-                            ExecuteCommand(runningSql = commandText.ConvertSimpleSqlComment());
+                            ExecuteCommand(runningSql = commandText.ConvertSimpleSqlComment(), sqlStatement.ParseTitle);
                         }
                     }
+
                     return;
                 }
 
                 foreach (var commandText in sqlStatement.Sql.ExtractSqlStatements())
                 {
-                    ExecuteCommand(runningSql = commandText, true);
+                    ExecuteCommand(runningSql = commandText, sqlStatement.ParseTitle);
                 }
-
+                LatestTitle = LatestComment = null;
             }
             catch (Exception exception)
             {
@@ -733,54 +721,96 @@ namespace FluentDbTools.Migration.Oracle
 
             using (var command = CreateCommand(commandText))
             {
-                var affectedRows = 0;
-                if (commandText.IsSqlComment())
+                var isCleanSqlCommand = false;
+                try
                 {
-                    LatestComment = commandText;
-                }
-                else
-                {
-                    try
+                    var affectedRows = 0;
+                    if (commandText.IsSqlComment())
                     {
-                        affectedRows = command.ExecuteNonQuery(LatestComment);
+                        var isTitle = false;
+                        var title = commandText?.Replace("/*", "--").Replace("*/", "").StripForLoggingRemoveTitlePrefix(ref isTitle);
+                        if (isTitle)
+                        {
+                            LatestTitle = title;
+                            return;
+                        }
+
+                        LatestComment = LatestComment.IsEmpty() ? commandText : $"{LatestComment}\n{commandText}";
                     }
-                    finally
+                    else
                     {
-                        LatestComment = null;
+
+                        try
+                        {
+
+                            affectedRows = command.ExecuteNonQuery(LatestComment);
+                        }
+                        finally
+                        {
+                            isCleanSqlCommand = true;
+                        }
                     }
-                    
-                }
 
-                if (affectedRows != 0 && affectedRows != -1)
+                    if (affectedRows != 0 && affectedRows != -1)
+                    {
+                        var latestFilteredException = command.GetLatestFilteredException();
+                        var logText = affectedRows > -1
+                            ? $"/* Affected rows: {affectedRows} */"
+                            : $"/* Executed Successfully by ErrorFilter: {Math.Abs(affectedRows)} {(latestFilteredException != null ? $"-- {latestFilteredException.Message.Replace("\n", " ")}" : string.Empty)} */ ";
+
+                        LogText(logText, true, false);
+                    }
+
+                    LogText(commandText, logSqlInternal, isCleanSqlCommand);
+                }
+                finally
                 {
-                    var latestFilteredException = command.GetLatestFilteredException();
-                    commandText = affectedRows > -1
-                        ? $"/* Affected rows: {affectedRows} */\n{commandText}"
-                        : $"/* Executed Successfully by ErrorFilter: {Math.Abs(affectedRows)} {(latestFilteredException != null ? $" -- {latestFilteredException.Message}" : string.Empty )} */\n{commandText} ";
+                    if (isCleanSqlCommand)
+                    {
+                        LatestTitle = LatestComment = null;
+                    }
                 }
 
+            }
 
-                if (logSqlInternal)
+            void LogText(string logText, bool shouldLogSqlInternal, bool isCleanSqlCommand)
+            {
+                if (commandText != null && commandText.IsOneLine() && commandText.EndsWith(";") == false)
                 {
-                    Logger.LogSqlInternal(commandText);
-                    return;
+                    commandText += ";";
                 }
-                Logger.LogSql(commandText);
+
+                if (shouldLogSqlInternal)
+                {
+                    if (isCleanSqlCommand && LatestTitle.IsNotEmpty())
+                    {
+                        logText = $"{LatestTitle}\n{logText}";
+                    }
+                    Logger.LogSqlInternal(logText, IsSqlLogEnabled);
+                }
+                else if (IsSqlLogEnabled)
+                {
+                    Logger.LogSql(commandText);
+                }
             }
         }
 
-        private void ProcessWithErrorFilter(IEnumerable<int> errorFilters, string sql)
+        private void ProcessWithErrorFilter(string sql, params int[] errorFilters)
         {
-            var array = new[]
+            var statementSql = sql;
+            if (errorFilters.Any())
             {
-                "-- ErrorFilter = " + string.Join(",", errorFilters),
-                sql
-            };
+                var array = new[]
+                {
+                    "-- ErrorFilter = " + string.Join(",", errorFilters),
+                    sql
+                };
 
-            var statementSql = string.Join("\n", array);
+                statementSql = string.Join("\n", array);
+            }
 
-            ProcessSql(statementSql);
-            //Process(new SqlStatement { Sql = statementSql, IsExternal = true });
+
+            Process(new SqlStatement { Sql = statementSql, IsExternal = false, ParseTitle = !IsSqlLogEnabled});
         }
 
         public override void RollbackTransaction()

@@ -7,6 +7,8 @@ using Example.FluentDbTools.Config;
 using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Database;
 using Example.FluentDbTools.Migration;
+using Example.FluentDbTools.Migration.MigrationModels;
+using FluentDbTools.Extensions.Migration;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentDbTools.Migration;
 using FluentDbTools.Migration.Abstractions;
@@ -23,7 +25,7 @@ using Xunit.Abstractions;
 
 namespace Test.FluentDbTools.DbProvider
 {
-    [Collection(TestCollectionFixtures.CollectionTag)]
+    //[Collection(TestCollectionFixtures.CollectionTag)]
     public class DbProviderTests
     {
         private readonly ITestOutputHelper TestOutputHelper;
@@ -36,30 +38,34 @@ namespace Test.FluentDbTools.DbProvider
 
         [Theory]
         [MemberData(nameof(TestParameters.DbParameters), MemberType = typeof(TestParameters))]
+        //[InlineData(SupportedDatabaseTypes.Oracle)]
         public async Task DbProvider_ExampleRepository_Success(SupportedDatabaseTypes databaseType)
         {
 
             var overrideConfig = OverrideConfig.GetInMemoryOverrideConfig(databaseType);
             overrideConfig.TryGetValue("database:schema", out var schema);
-            overrideConfig.Add("database:schemaprefix:id", "EX");
-            overrideConfig.Add("database:migration:schemaprefix:id", "EX");
+            //overrideConfig.Add("database:schemaprefix:id", "EX");
+            //overrideConfig.Add("database:migration:schemaprefix:id", "EX");
             var logFile = $"DbProvider_ExampleRepository_Success_{schema}_{databaseType}.sql";
             var loglogFile = $"DbProvider_ExampleRepository_Success_{schema}_{databaseType}.log";
-            overrideConfig.Add("Logging:Migration:ShowSql", "True");
+            overrideConfig.Add("Logging:Migration:File:ShowSql", "false");
             overrideConfig.Add("Logging:Migration:ShowElapsedTime", "True");
             overrideConfig.Add("Logging:Migration:File", logFile);
+            overrideConfig.Add("Logging:Migration:Console:ShowSql", "false");
+            //overrideConfig.Add("Logging:Migration:Console", "True");
             overrideConfig.Add("Logging:File", loglogFile);
 
-            var provider = MigrationBuilder.BuildMigration(databaseType, overrideConfig);
+            var provider = MigrationBuilder.BuildMigration(databaseType, overrideConfig, assemblies: new []{ typeof(AddPersonTable).Assembly});
             using var scope = provider.CreateScope();
             try
             {
                 var migrationRunner = scope.ServiceProvider.GetService<IMigrationRunner>();
                 var configuration = scope.ServiceProvider.GetService<IConfiguration>();
                 logFile = configuration.GetMigrationLogFile();
+                migrationRunner.DropSchema(scope.ServiceProvider.GetVersionTableMetaData());
                 migrationRunner.MigrateUp();
                 await DbExampleExecutor.ExecuteDbExample(databaseType, overrideConfig);
-                migrationRunner.DropSchema(scope.ServiceProvider.GetRequiredService<IVersionTableMetaData>());
+                migrationRunner.DropSchema(scope.ServiceProvider.GetVersionTableMetaData());
             }
             catch (InvalidOperationException)
             {

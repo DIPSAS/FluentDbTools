@@ -33,14 +33,76 @@ namespace Test.FluentDbTools
         [InlineData("/* My comment1 */\n/* My comment2 */", "-- My comment1\n-- My comment2")]
         [InlineData("create index Schema.IndexName_idx on Schema.Table (COL1,COL2)", "Create Index [Schema.IndexName_idx => Schema.Table(COL1,COL2)]")]
         [InlineData("alter table Schema.Table\nadd constraint ..", "Alter Table [Schema.Table]")]
-        [InlineData("create table Schema.Table\n(column....", "Create Table [Schema.Table]")]
+        [InlineData("create table Schema.Table", "Create Table [Schema.Table]")]
+        [InlineData("create table Schema.Table\n(column1,column2)", "Create Table [Schema.Table (column1, column2)]")]
+        [InlineData("create table Schema.Table\n(column....", "Create Table [Schema.Table (column....)]")]
         [InlineData("comment on column Schema.Table.Column\n is 'my comment'", "Add Column Comment [Schema.Table.Column => 'my comment']")]
+        [InlineData("comment on column Schema.Table.Column is 'my comment'", "Add Column Comment [Schema.Table.Column => 'my comment']")]
         [InlineData("-- Create/Recreate indexes", "-- Create/Recreate indexes")]
-        [InlineData("-- Title Create table Schema.Table", "-- Title Create table Schema.Table")]
-        [InlineData("-- Title Create table Schema.Table\n-- Title Test\n-- EndTitle", "-- Title Create table Schema.Table\nTest")]
+        [InlineData("-- Title = Create table Schema.Table", "-- Title Create table Schema.Table")]
+        [InlineData("-- Title= Create table Schema.Table", "-- Title Create table Schema.Table")]
+        [InlineData("-- Title =Create table Schema.Table", "-- Title Create table Schema.Table")]
+        [InlineData("-- Title Create table Schema.Table\n-- Title = Title2\n-- Title= Title3\n-- Title=Title4\nBEGIN", "-- Title Create table Schema.Table\nTitle2\nTitle3\nTitle4")]
+        [InlineData("-- Title Create table Schema.Table\n-- Title = Title2\n-- Title= Title3\n-- Title=Title4\n-- EndTitle", "-- Title Create table Schema.Table\nTitle2\nTitle3\nTitle4")]
+        [InlineData(@"
+-- Title = Testing ErrorFilter parsing
+-- ErrorFilter = 6512, 955 	
+BEGIN 
+  EXECUTE IMMEDIATE 'CREATE TABLE {SchemaName}.{SchemaPrefixId}Person (PersonId RAW(16) DEFAULT sys_guid() NOT NULL, SequenceNumber NUMBER(10,0) NOT NULL, Alive NUMBER(1,0) NOT NULL, Username NVARCHAR2(255) NOT NULL, ExtraInformation BLOB, TestCol RAW(16) NOT NULL, Password NVARCHAR2(255) NOT NULL, ParentId_FK RAW(16))';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN {SchemaName}.{SchemaPrefixId}Person.PersonId IS ''Unique id.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN {SchemaName}.{SchemaPrefixId}Person.SequenceNumber IS ''sequence number.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN {SchemaName}.{SchemaPrefixId}Person.Alive IS ''Alive flag.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN {SchemaName}.{SchemaPrefixId}Person.Username IS ''username.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN {SchemaName}.{SchemaPrefixId}Person.ExtraInformation IS ''Extra Information as blob.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN {SchemaName}.{SchemaPrefixId}Person.TestCol IS ''TestCol Guid''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN {SchemaName}.{SchemaPrefixId}Person.Password IS ''password.'''; 
+END;", 
+            "-- Title Testing ErrorFilter parsing")]
+
+        [InlineData(@"
+-- ErrorFilter = 6512, 1918
+BEGIN 
+  EXECUTE IMMEDIATE 'CREATE TABLE InvalidSchema.Person (PersonId RAW(16) DEFAULT sys_guid() NOT NULL, SequenceNumber NUMBER(10,0) NOT NULL, Alive NUMBER(1,0) NOT NULL, Username NVARCHAR2(255) NOT NULL, ExtraInformation BLOB, TestCol RAW(16) NOT NULL, Password NVARCHAR2(255) NOT NULL, ParentId_FK RAW(16))';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.PersonId IS ''Unique id.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.SequenceNumber IS ''sequence number.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.Alive IS ''Alive flag.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.Username IS ''username.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.ExtraInformation IS ''Extra Information as blob.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.TestCol IS ''TestCol Guid''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.Password IS ''password.'''; 
+END;", 
+@"Create Table [InvalidSchema.Person (PersonId, SequenceNumber, Alive, Username, ExtraInformation, TestCol, Password, ParentId_FK)]
+With Column Comment [PersonId => 'Unique id.']
+With Column Comment [SequenceNumber => 'sequence number.']
+With Column Comment [Alive => 'Alive flag.']
+With Column Comment [Username => 'username.']
+With Column Comment [ExtraInformation => 'Extra Information as blob.']
+With Column Comment [TestCol => 'TestCol Guid']
+With Column Comment [Password => 'password.']"
+)]
+        [InlineData(@"
+-- ErrorFilter = 6512, 1918
+BEGIN 
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.PersonId IS ''Unique id.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.SequenceNumber IS ''sequence number.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.Alive IS ''Alive flag.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.Username IS ''username.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.ExtraInformation IS ''Extra Information as blob.''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.TestCol IS ''TestCol Guid''';
+  EXECUTE IMMEDIATE 'COMMENT ON COLUMN InvalidSchema.Person.Password IS ''password.'''; 
+END;", 
+@"Add Column Comment [InvalidSchema.Person.PersonId => 'Unique id.']
+Add Column Comment [InvalidSchema.Person.SequenceNumber => 'sequence number.']
+Add Column Comment [InvalidSchema.Person.Alive => 'Alive flag.']
+Add Column Comment [InvalidSchema.Person.Username => 'username.']
+Add Column Comment [InvalidSchema.Person.ExtraInformation => 'Extra Information as blob.']
+Add Column Comment [InvalidSchema.Person.TestCol => 'TestCol Guid']
+Add Column Comment [InvalidSchema.Person.Password => 'password.']"
+)]
+
         public void ConvertToSqlTitle_StringExtensions_ShouldBeOk(string sql, string expected)
         {
-            sql.ConvertToSqlTitle().Should().Be(expected);
+            sql.ConvertToSqlTitle().Should().Be(expected.Replace("\r",""));
         }
 
         [Theory]
@@ -56,7 +118,6 @@ namespace Test.FluentDbTools
         [InlineData(false, "i", "İ", StringComparison.CurrentCultureIgnoreCase, "en-GB")]
         [InlineData(false, "i", "I", StringComparison.CurrentCultureIgnoreCase, "tr-TR")]
         [InlineData(true, "i", "İ", StringComparison.CurrentCultureIgnoreCase, "tr-TR")]
-
         public void EqualsIgnoreCase_StringExtensions_ShouldBeOk(bool? isEqual, string s1, string s2 = null, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase, string cultureName = "nb-NO")
         {
             var current = CultureInfo.CurrentCulture;

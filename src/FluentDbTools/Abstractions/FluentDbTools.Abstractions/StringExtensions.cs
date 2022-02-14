@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 // ReSharper disable UnusedMember.Global
-
+[assembly:InternalsVisibleTo("FluentDbTools.Migration.Oracle")]
 namespace FluentDbTools.Common.Abstractions
 {
     /// <summary>
@@ -19,6 +20,62 @@ namespace FluentDbTools.Common.Abstractions
         /// </summary>
         public static StringComparison CurrentIgnoreCaseStringComparison = StringComparison.OrdinalIgnoreCase;
 
+
+        /// <summary>
+        /// Removes all leading and trailing occurrences of [' ', '\n', '\n'] from the current string.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="additionalChars"></param>
+        /// <returns></returns>
+        public static string TrimWhiteSpaces(this string value, params char[] additionalChars)
+        {
+            value = value?.Trim('\n', '\r', ' ');
+            if (additionalChars.Any())
+            {
+                value = value?.Trim(additionalChars);
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Removes all trailing occurrences of [' ', '\n', '\n'] from the current string.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string TrimEndWhiteSpaces(this string value)
+        {
+            return value?.TrimEnd('\n', '\r', ' ');
+        }
+
+        /// <summary>
+        /// Tells if string is one line. (Not containing <paramref name="splitChar"/> character)
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="splitChar"></param>
+        /// <returns></returns>
+        public static bool IsOneLine(this string value, char splitChar = '\n')
+        {
+            return value.Split(splitChar).Count(IsNotEmpty) == 1;
+        }
+
+        /// <summary>
+        /// <para>Return a multi-lines string.</para>
+        /// <remarks>Code behind is:
+        /// <code>value.Split('\n')</code></remarks>
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="splitChar"></param>
+        /// <returns></returns>
+        public static string[] ToMultiLine(this string value, char splitChar = '\n')
+        {
+            if (value.IsOneLine(splitChar))
+            {
+                return new[] { value };
+            }
+
+            return value.Split(splitChar).Where(IsNotEmpty).ToArray();
+        }
 
         /// <summary>
         /// return 'defaultValue' if 'value' is [null | string.Empty], elsewhere 'value' is returned
@@ -271,7 +328,7 @@ namespace FluentDbTools.Common.Abstractions
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        public static string SubstringFrom(this string value, string from, params string [] to)
+        public static string SubstringFrom(this string value, string from, params string[] to)
         {
             var pos = value.IndexOf(from, CurrentIgnoreCaseStringComparison);
 
@@ -284,7 +341,7 @@ namespace FluentDbTools.Common.Abstractions
             pos = -1;
             foreach (var s in to)
             {
-                var posFount = subStr.IndexOf(s, from.Length - 1,  CurrentIgnoreCaseStringComparison);
+                var posFount = subStr.IndexOf(s, from.Length - 1, CurrentIgnoreCaseStringComparison);
                 if (posFount > -1 && (pos == -1 || posFount < pos))
                 {
                     pos = posFount;
@@ -301,7 +358,7 @@ namespace FluentDbTools.Common.Abstractions
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        public static string SubstringFromAdnIncludeToString(this string value, string from, params string [] to)
+        public static string SubstringFromAdnIncludeToString(this string value, string from, params string[] to)
         {
             var pos = value.IndexOf(from, CurrentIgnoreCaseStringComparison);
 
@@ -316,7 +373,7 @@ namespace FluentDbTools.Common.Abstractions
             foreach (var s in to)
             {
                 toString = s;
-                var posFount = subStr.IndexOf(s, from.Length - 1,  CurrentIgnoreCaseStringComparison);
+                var posFount = subStr.IndexOf(s, from.Length - 1, CurrentIgnoreCaseStringComparison);
                 if (posFount > -1 && (pos == -1 || posFount < pos))
                 {
                     pos = posFount;
@@ -325,7 +382,16 @@ namespace FluentDbTools.Common.Abstractions
             return pos > -1 ? $"{subStr.Substring(0, pos).Trim()}{toString}" : subStr.Trim();
         }
 
-
+        /// <summary>
+        /// Remove comments from sql
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string SqlWithoutComment(this string value)
+        {
+            var sqlWithoutComment =  string.Join("\n",value.ToMultiLine().Where(x => x.Trim().StartsWith("/*") == false && x.Trim().EndsWith("*/") == false && x.Trim().StartsWith("--") == false).Where(IsNotEmpty).ToArray());
+            return sqlWithoutComment;
+        }
 
         /// <summary>
         /// Strip sql for logging
@@ -333,13 +399,15 @@ namespace FluentDbTools.Common.Abstractions
         /// <param name="value"></param>
         /// <param name="additionalSqlTitleConverterFunc"></param>
         /// <returns></returns>
-        public static string ConvertToSqlTitle(this string value, Func<string,string> additionalSqlTitleConverterFunc = null)
+        public static string ConvertToSqlTitle(this string value, Func<string, string> additionalSqlTitleConverterFunc = null)
         {
-            value = StripForLoggingRemoveComment(value, out var isComment);
+            value = value.TrimWhiteSpaces();
+            value = StripForLoggingRemoveComment(value, out var isComment, out var isOneLine);
             if (isComment)
             {
-                return value;
+                return isOneLine ? StripForLoggingRemoveTitlePrefix(value, ref isComment) : value;
             }
+
             if (additionalSqlTitleConverterFunc != null)
             {
                 var newValue = additionalSqlTitleConverterFunc.Invoke(value);
@@ -349,43 +417,69 @@ namespace FluentDbTools.Common.Abstractions
                 }
             }
 
-            value = StripForLoggingRemoveCreateStatement(value);
+            value = StripForLoggingRemoveCreateStatement(value, isOneLine);
             return value;
         }
 
-        private static string StripForLoggingRemoveComment(string value, out bool isComment)
+        private static string StripForLoggingRemoveComment(string value, out bool isComment, out bool isOneLine)
         {
+            isOneLine = false;
             isComment = false;
-            if (value.Split('\n').Count(IsNotEmpty) == 1)
+            if (IsOneLine(value))
             {
+                isOneLine = true;
                 if (value.StartsWith("--"))
                 {
                     isComment = true;
                     return value;
                 }
-            } 
+            }
 
             if (value.StartsWith("/*"))
             {
                 isComment = true;
                 value = value.Replace("/*", "").Replace("*/", "");
-                var strings = value.Split('\n').Select(x => $"-- {x.Trim()}").ToArray();
+                var strings = value.Split('\n').Select(x => $"-- {x.TrimWhiteSpaces()}").ToArray();
                 value = string.Join("\n", strings);
                 return value;
             }
 
-            if (value.ContainsIgnoreCase("-- Title "))
+            value = StripForLoggingRemoveTitlePrefix(value, ref isComment);
+
+            return value;
+        }
+
+        internal static string StripForLoggingRemoveTitlePrefix(this string value, ref bool isTitleComment)
+        {
+            var titlePattern = "\\-\\- Title( |= |=| = | =)";
+            var match = Regex.Match(value, titlePattern, RegexOptions.IgnoreCase);
+            if (match.Success)
             {
-                isComment = true;
+                isTitleComment = true;
+
                 if (value.ContainsIgnoreCase("-- EndTitle"))
                 {
-                    value = value.SubstringFrom("-- Title ", "-- EndTitle").TrimEnd(' ','\n');
-                    value = value.ReplaceIgnoreCase("-- Title ", "").Replace("--", "");
-                    value = "-- Title " + value.Trim('\n',' ');
-                    return value;
+                    value = value.SubstringFrom(match.Value, "-- EndTitle").TrimEndWhiteSpaces();
                 }
-                value = value.SubstringFrom("-- Title ", "\n");
-                return value;
+                else
+                {
+
+                    var lines = value.Split('\n');
+                    if (lines.Length > 1)
+                    {
+                        foreach (var line in lines)
+                        {
+                            if (line.StartsWithIgnoreCase("-- Title")) continue;
+                            value = value.SubstringTo(line).TrimWhiteSpaces();
+                            break;
+                        }
+                    }
+                }
+
+                value = Regex.Replace(value, titlePattern, "", RegexOptions.IgnoreCase);
+
+                value = Regex.Replace(value, "(^)(= |=)", "", RegexOptions.Multiline).Replace("--", "");
+                value = "-- Title " + value.TrimWhiteSpaces();
             }
 
             return value;
@@ -396,8 +490,10 @@ namespace FluentDbTools.Common.Abstractions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string StripForLoggingRemoveCreateStatement(string value)
+        public static string StripForLoggingRemoveCreateStatement(string value, bool? isOneLineOrNull = null)
         {
+            var isOneLine = isOneLineOrNull ?? value.IsOneLine();
+
             value = StripForLoggingRemoveCreateUser(value);
             value = StripForLoggingRemoveCreatePackageBody(value);
             value = StripForLoggingRemoveCreatePackage(value);
@@ -406,9 +502,12 @@ namespace FluentDbTools.Common.Abstractions
             value = StripForLoggingRemoveCreateProcedure(value);
             value = StripForLoggingRemoveCreateFunction(value);
             value = StripForLoggingRemoveCreateIndex(value);
-            value = StripForLoggingRemoveCreateComment(value);
-            value = StripForLoggingRemoveCreateTable(value);
-            value = StripForLoggingRemoveAlterTable(value);
+            value = StripForLoggingRemoveCreateTable(value, out var isCreateTable);
+            if (isCreateTable == false)
+            {
+                value = StripForLoggingRemoveAlterTable(value);
+                value = StripForLoggingRemoveCreateComment(value, out _);
+            }
             return value;
         }
 
@@ -421,7 +520,7 @@ namespace FluentDbTools.Common.Abstractions
         {
             var org = value;
             var search = "CREATE USER".ToTitleCase(true);
-            value = value.SubstringFrom(search, "IDENTIFIED" ,"ENABLE", "ACCOUNT", "DEFAULT","TEMPORARY","TABLESPACE", "\n");
+            value = value.SubstringFrom(search, "IDENTIFIED", "ENABLE", "ACCOUNT", "DEFAULT", "TEMPORARY", "TABLESPACE", "\n");
             if (org.EqualsIgnoreCase(value))
             {
                 return org;
@@ -439,7 +538,7 @@ namespace FluentDbTools.Common.Abstractions
         {
             var org = value;
             var search = "CREATE OR REPLACE PACKAGE BODY".ToTitleCase(true);
-            value = value.SubstringFrom(search, " IS " ," IS\n", " IS"," AS " ," AS\n", " AS", "\n");
+            value = value.SubstringFrom(search, " IS ", " IS\n", " IS", " AS ", " AS\n", " AS", "\n");
             if (org.EqualsIgnoreCase(value))
             {
                 return org;
@@ -459,7 +558,7 @@ namespace FluentDbTools.Common.Abstractions
         {
             var org = value;
             var search = "CREATE OR REPLACE PACKAGE".ToTitleCase(true);
-            value = value.SubstringFrom(search, " IS " ," IS\n", " IS"," AS " ," AS\n", " AS", "\n");
+            value = value.SubstringFrom(search, " IS ", " IS\n", " IS", " AS ", " AS\n", " AS", "\n");
             if (org.EqualsIgnoreCase(value))
             {
                 return org;
@@ -478,7 +577,7 @@ namespace FluentDbTools.Common.Abstractions
         {
             var org = value;
             var search = "CREATE SEQUENCE".ToTitleCase(true);
-            value = value.SubstringFrom(search, "minvalue" ,"\n");
+            value = value.SubstringFrom(search, "minvalue", "\n");
             if (org.EqualsIgnoreCase(value))
             {
                 return org;
@@ -517,7 +616,7 @@ namespace FluentDbTools.Common.Abstractions
         {
             var org = value;
             var search = "CREATE OR REPLACE PROCEDURE".ToTitleCase(true);
-            value = value.SubstringFrom(search, "(", " IS " ," IS\n", " IS"," AS " ," AS\n", " AS", "\n");
+            value = value.SubstringFrom(search, "(", " IS ", " IS\n", " IS", " AS ", " AS\n", " AS", "\n");
             if (org.EqualsIgnoreCase(value))
             {
                 return org;
@@ -569,7 +668,7 @@ namespace FluentDbTools.Common.Abstractions
                 return org;
             }
 
-            value = $"Create Index [{trim.ReplaceIgnoreCase(" on ", " => ")}{org.SubstringFromAdnIncludeToString("(",")")}]";
+            value = $"Create Index [{trim.ReplaceIgnoreCase(" on ", " => ")}{org.SubstringFromAdnIncludeToString("(", ")")}]";
             return value;
         }
 
@@ -577,23 +676,37 @@ namespace FluentDbTools.Common.Abstractions
         /// 
         /// </summary>
         /// <param name="value"></param>
+        /// <param name="isCreateTable"></param>
         /// <returns></returns>
-        public static string StripForLoggingRemoveCreateTable(string value)
+        public static string StripForLoggingRemoveCreateTable(string value, out bool isCreateTable)
         {
             var org = value;
             var search = "CREATE TABLE".ToTitleCase(true);
             value = value.SubstringFrom(search, "(", "\n");
-            if (org.EqualsIgnoreCase(value))
+            isCreateTable = org.EqualsIgnoreCase(value) == false || org.StartsWithIgnoreCase(search);
+            if (isCreateTable == false)
             {
                 return org;
             }
 
-            var trim = value.ReplaceIgnoreCase(search, "").Trim();
-            if (!org.ContainsIgnoreCase("("))
+            var trim = value.ReplaceIgnoreCase(search, "").TrimWhiteSpaces();
+            var pos = org.IndexOf("(", StringComparison.OrdinalIgnoreCase);
+            if (pos == -1)
             {
-                return org;
+                return org.StartsWithIgnoreCase(search) ? $"{search} [{trim}]" : org;
             }
-            value = $"{search} [{trim}]";
+
+            var substring = org.Substring(pos + 1).SubstringTo(";").Replace("\n", " ");
+            var arr = substring.Split(',').Select(x => x.TrimStart().SubstringTo(" ").TrimWhiteSpaces('(', ')', ',')).Where(x => string.IsNullOrWhiteSpace(x) == false).Where(y => int.TryParse(y, out _) == false).Where(x => x.StartsWithIgnoreCase("CONSTRAINT") == false).ToArray();
+            var colStr = string.Join(", ", arr);
+            isCreateTable = true;
+            value = $"{search} [{trim} ({colStr})]";
+            var comment = StripForLoggingRemoveCreateComment(org, out var isAddComment);
+            if (isAddComment && comment.IsNotEmpty())
+            {
+                comment = comment.ReplaceIgnoreCase("Add ", "With ").ReplaceIgnoreCase($"{trim}.", "");
+                value = $"{value}\n{comment}";
+            }
             return value;
         }
 
@@ -606,7 +719,7 @@ namespace FluentDbTools.Common.Abstractions
         {
             var org = value;
             var search = "ALTER TABLE".ToTitleCase(true);
-            value = value.SubstringFrom(search, "add", "remove", "\n");
+            value = value.SubstringFrom(search, "add", "remove", "rename", "drop", "modify", "\n", ";");
             if (org.EqualsIgnoreCase(value))
             {
                 return org;
@@ -617,26 +730,47 @@ namespace FluentDbTools.Common.Abstractions
         }
 
 
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static string StripForLoggingRemoveCreateComment(string value)
+        public static string StripForLoggingRemoveCreateComment(string value, out bool isAddComment)
         {
-            var org = value;
+            isAddComment = false;
+            var isAddCommentValue = false;
+            var isOneLine = value.IsOneLine(';');
+
             var search = "comment on column".ToTitleCase(true);
-            value = value.SubstringFrom(search, "is", "\n");
-            if (org.EqualsIgnoreCase(value))
+
+            if (isOneLine)
             {
-                return org;
+                var value2 = value.SubstringFrom(search, "is", ";", "\n").Replace("\n", " ");
+
+                value = value.EqualsIgnoreCase(value2) ? value2 : ToTitle(value);
+                isAddComment = isAddCommentValue;
+                return value;
             }
 
-            var comment = org.SubstringFrom("is '").Substring(2).Trim();
-            value = $"Add Column Comment [{value.ReplaceIgnoreCase(search, "").Trim()} => {comment}]";
-            return value;
+            var lines = value.ToMultiLine();
+            if (lines.Length == 1)
+            {
+                lines = value.ToMultiLine(';');
+            }
+
+            var parsedLines = lines.Select(ToTitle).Where(IsNotEmpty).ToList();
+            isAddComment = isAddCommentValue;
+            return string.Join("\n", parsedLines);
+
+            string ToTitle(string valueToParse)
+            {
+                if (valueToParse.ContainsIgnoreCase(search) == false)
+                {
+                    return null;
+                }
+                var comment = valueToParse.SubstringFrom("is '").Substring(2).TrimWhiteSpaces(';');
+                valueToParse = valueToParse.SubstringFrom(search, "is", "\n");
+                var addColumnComment = "Add Column Comment";
+                var parsed = $"{addColumnComment} [{valueToParse.ReplaceIgnoreCase(search, "").TrimWhiteSpaces(';')} => {comment}]";
+                parsed = parsed.Replace("'''", "'").Replace("''", "'");
+                isAddCommentValue = parsed.StartsWithIgnoreCase(addColumnComment);
+                return parsed;
+            }
         }
 
         public static string[] SplitOnCapitalLetters(this string @string)
@@ -655,7 +789,7 @@ namespace FluentDbTools.Common.Abstractions
             {
                 @string = @string.ToLower();
             }
-            return string.Join(" ", 
+            return string.Join(" ",
                 @string
                     .Split(' ')
                     .Select(x => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Trim()))
@@ -671,7 +805,7 @@ namespace FluentDbTools.Common.Abstractions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static IDictionary<string,string> ToDictionary(this string value) 
+        public static IDictionary<string, string> ToDictionary(this string value)
         {
             var splitChar = value.Contains(",") ? ',' : ';';
             var split = value.Split(splitChar);

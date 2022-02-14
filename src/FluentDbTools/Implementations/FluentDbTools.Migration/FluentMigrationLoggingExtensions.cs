@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Initialization;
@@ -39,8 +41,8 @@ namespace FluentDbTools.Migration
 
             var options = new FluentMigratorLoggerOptions
             {
-                ShowSql = configuration.IsMigrationLogShowSqlEnabled(),
-                ShowElapsedTime = configuration.IsMigrationLogShowElapsedTimeEnabled()
+                ShowSql = configuration.IsMigrationConsoleLogShowSqlEnabled(),
+                ShowElapsedTime = configuration.IsMigrationLogConsoleShowElapsedTimeEnabled()
             };
 
             return loggingBuilder.AddFluentMigratorConsoleLogger(options, true);
@@ -90,8 +92,8 @@ namespace FluentDbTools.Migration
 
             var options = new LogFileFluentMigratorLoggerOptions
             {
-                ShowSql = configuration.IsMigrationLogShowSqlEnabled(),
-                ShowElapsedTime = configuration.IsMigrationLogShowElapsedTimeEnabled(),
+                ShowSql = configuration.IsMigrationLogFileShowSqlEnabled(),
+                ShowElapsedTime = configuration.IsMigrationLogFileShowElapsedTimeEnabled(),
                 OutputFileName = configuration.GetMigrationLogFile()
             };
 
@@ -124,13 +126,25 @@ namespace FluentDbTools.Migration
             }
             else
             {
-                LogFileAppendFluentMigratorLoggerProvider.GetOutputFileName(null, options);
-                loggingBuilder.Services.AddSingleton<ILoggerProvider>(sp =>
-                    new LogFileFluentMigratorLoggerProvider(sp.GetService<IAssemblySource>(),
-                        sp.GetService<IOptions<LogFileFluentMigratorLoggerOptions>>()));
+                if (options != null)
+                {
+                    var writer = LogFileAppendFluentMigratorLoggerProvider.GetStreamWriter(null, options, out var logFile);
+                    writer?.Close();
+
+                    options.OutputFileName = logFile;
+                }
+
+                loggingBuilder.Services.AddSingleton(ImplementationDefaultMigrationLoggingFactory);
 
             }
             return loggingBuilder;
+        }
+
+        private static ILoggerProvider ImplementationDefaultMigrationLoggingFactory(IServiceProvider sp)
+        {
+            return new LogFileFluentMigratorLoggerProvider(
+                sp.GetService<IAssemblySource>(),
+                sp.GetService<IOptions<LogFileFluentMigratorLoggerOptions>>());
         }
 
         private static IConfiguration GetConfiguration(

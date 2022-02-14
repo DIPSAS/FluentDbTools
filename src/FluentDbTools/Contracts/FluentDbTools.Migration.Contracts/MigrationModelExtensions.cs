@@ -13,6 +13,7 @@ using FluentMigrator.Builders.Alter;
 using FluentMigrator.Builders.Alter.Table;
 using FluentMigrator.Builders.Create;
 using FluentMigrator.Builders.Create.Column;
+using FluentMigrator.Builders.Create.ForeignKey;
 using FluentMigrator.Builders.Create.Sequence;
 using FluentMigrator.Builders.Create.Table;
 using FluentMigrator.Builders.Delete;
@@ -433,7 +434,7 @@ namespace FluentDbTools.Migration.Contracts
             {
                 return syntax;
             }
-
+             
             if (syntax is CreateTableExpressionBuilder builder)
             {
                 var id = $"{nameof(CreateTableExpression)}_{builder.Expression.TableName}";
@@ -448,6 +449,62 @@ namespace FluentDbTools.Migration.Contracts
 
             return syntax;
         }
+
+
+        internal static int[] GetErrorFilters(this CreateConstraintExpression expression)
+        {
+            var id = $"{expression.GetType().Name}_{expression.Constraint.TableName}";
+            var errors = Array.Empty<int>();
+            if (ErrorFilter.TryGetValue($"{id}", out var tableErrors) && tableErrors.Any())
+            {
+                errors = errors.Union(tableErrors).Distinct().OrderBy(i => i).ToArray();
+            }
+
+            foreach (var column in expression.Constraint.Columns)
+            {
+                if (ErrorFilter.TryGetValue($"{id}_{column}", out var colErrors) && colErrors.Any())
+                {
+                    errors = errors.Union(colErrors).Distinct().OrderBy(i => i).ToArray();
+                }
+            }
+            return errors;
+        }
+
+        internal static int[] GetErrorFilters(this CreateForeignKeyExpression expression)
+        {
+            var id = $"{expression.GetType().Name}_{expression.ForeignKey.PrimaryTable}";
+            var errors = Array.Empty<int>();
+            if (ErrorFilter.TryGetValue($"{id}", out var tableErrors) && tableErrors.Any())
+            {
+                errors = errors.Union(tableErrors).Distinct().OrderBy(i => i).ToArray();
+            }
+
+            foreach (var column in expression.ForeignKey.PrimaryColumns)
+            {
+                if (ErrorFilter.TryGetValue($"{id}_{column}", out var colErrors) && colErrors.Any())
+                {
+                    errors = errors.Union(colErrors).Distinct().OrderBy(i => i).ToArray();
+                }
+            }
+
+            var id2 = $"{expression.GetType().Name}_{expression.ForeignKey.ForeignTable}";
+            if (ErrorFilter.TryGetValue($"{id2}", out var tableErrors2) && tableErrors2.Any())
+            {
+                errors = errors.Union(tableErrors2).Distinct().OrderBy(i => i).ToArray();
+            }
+
+            foreach (var column in expression.ForeignKey.ForeignColumns)
+            {
+                if (ErrorFilter.TryGetValue($"{id2}_{column}", out var colErrors) && colErrors.Any())
+                {
+                    errors = errors.Union(colErrors).Distinct().OrderBy(i => i).ToArray();
+                }
+            }
+
+            return errors;
+
+        }
+
 
         internal static int[] GetErrorFilters(this CreateTableExpression expression)
         {
@@ -754,15 +811,17 @@ namespace FluentDbTools.Migration.Contracts
         /// <param name="migration"></param>
         /// <param name="columnName"></param>
         /// <param name="primaryColumnName"></param>
+        /// <param name="errors"></param>
         /// <returns></returns>
         public static ICreateTableColumnAsTypeSyntax WithForeignKeyColumn(
             this ICreateTableWithColumnSyntax syntax,
             string primaryTableName,
             MigrationModel migration,
             string columnName = null,
-            string primaryColumnName = null)
+            string primaryColumnName = null,
+            params int[] errors)
         {
-            return syntax.WithForeignKeyColumn(primaryTableName, migration, migration.SchemaPrefixId, columnName, primaryColumnName);
+            return syntax.WithForeignKeyColumn(primaryTableName, migration, migration.SchemaPrefixId, columnName, primaryColumnName, errors);
 
         }
 
@@ -786,6 +845,7 @@ namespace FluentDbTools.Migration.Contracts
         /// <param name="schemaPrefix"></param>
         /// <param name="columnName"></param>
         /// <param name="primaryColumnName"></param>
+        /// <param name="errors"></param>
         /// <returns></returns>
         public static ICreateTableColumnAsTypeSyntax WithForeignKeyColumn(
             this ICreateTableWithColumnSyntax syntax,
@@ -793,7 +853,8 @@ namespace FluentDbTools.Migration.Contracts
             FluentMigrator.Migration migration,
             string schemaPrefix = null,
             string columnName = null,
-            string primaryColumnName = null)
+            string primaryColumnName = null,
+            params int[] errors)
         {
             var expression = ((CreateTableExpressionBuilder)syntax).Expression;
             var fromTable = expression.TableName.GetPrefixedName(schemaPrefix);
@@ -812,13 +873,23 @@ namespace FluentDbTools.Migration.Contracts
             primaryColumnName = primaryColumnName ?? ColumnName.Id;
             var syntaxWithColumn = syntax.WithColumn(columnName);
 
-            migration?.Create
+            var fkSyntax = migration?.Create
                 .ForeignKey(fkName)
                 .FromTable(fromTable).InSchema(fromSchemaName)
                 .ForeignColumn(columnName)
                 .ToTable(primaryTableName).InSchema(toSchemaName)
                 .PrimaryColumn(primaryColumnName)
                 .OnDelete(Rule.SetNull);
+            
+            if (fkSyntax is CreateForeignKeyExpressionBuilder builder)
+            {
+                var id = $"{nameof(CreateForeignKeyExpression)}_{builder.Expression.ForeignKey.PrimaryTable}";
+                AddOrUpdateErrorFilter(id, errors);
+
+                var id2 = $"{nameof(CreateForeignKeyExpression)}_{builder.Expression.ForeignKey.ForeignTable}";
+                AddOrUpdateErrorFilter(id2, errors);
+
+            }
 
             return syntaxWithColumn;
         }

@@ -108,11 +108,20 @@ namespace FluentDbTools.Migration.Oracle
             ExtendedMigrationProcessor.Process(expression);
         }
 
+        public override void Process(CreateColumnExpression expression)
+        {
+            ExtendedMigrationProcessor.Process(expression);
+        }
+
         public override void Process(CreateSequenceExpression expression)
         {
             ExtendedMigrationProcessor.Process(expression);
         }
 
+        public override void Process(CreateForeignKeyExpression expression)
+        {
+            ExtendedMigrationProcessor.Process(expression);
+        }
 
         public override void Process(CreateConstraintExpression expression)
         {

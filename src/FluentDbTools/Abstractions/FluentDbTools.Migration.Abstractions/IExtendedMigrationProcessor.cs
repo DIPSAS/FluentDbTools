@@ -38,6 +38,13 @@ namespace FluentDbTools.Migration.Abstractions
         void Process(CreateConstraintExpression expression);
 
         /// <summary>
+        /// Create Foreign key Process method
+        /// </summary>
+        /// <param name="expression"></param>
+        void Process(CreateForeignKeyExpression expression);
+
+
+        /// <summary>
         /// Create index process method
         /// </summary>
         /// <param name="expression"></param>
@@ -48,6 +55,13 @@ namespace FluentDbTools.Migration.Abstractions
         /// </summary>
         /// <param name="expression"></param>
         void Process(CreateTableExpression expression);
+
+        /// <summary>
+        /// Create column process method
+        /// </summary>
+        /// <param name="expression"></param>
+        void Process(CreateColumnExpression expression);
+
 
         /// <summary>
         /// Create sequence process method
