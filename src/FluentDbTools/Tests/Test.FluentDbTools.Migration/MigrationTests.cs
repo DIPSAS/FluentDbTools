@@ -657,6 +657,15 @@ namespace Test.FluentDbTools.Migration
         [InlineData(@"${LogPath}",@"LogPath\", @"LogPath\")]
         public void OracleMigration_WhenDataSourceIsInvalidTnsAliasName_ShouldFailWithTnsResolvingError(string fileStart, string expectedStart, string logPath = null)
         {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && fileStart.StartsWithIgnoreCase(@"C:\DIPS-Log") && logPath == null)
+            {
+                if (Directory.Exists(@"C:\DIPS-Log") == false)
+                {
+                    Directory.CreateDirectory(@"C:\DIPS-Log");
+                }
+
+                expectedStart = Path.Combine(fileStart, expectedStart);
+            }
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 fileStart = fileStart.ReplaceIgnoreCase(@"\", $"{Path.DirectorySeparatorChar}");

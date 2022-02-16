@@ -6,10 +6,10 @@ using FluentDbTools.Common.Abstractions;
 using Example.FluentDbTools.Migration.MigrationModels;
 using FluentDbTools.Extensions.Migration;
 using FluentDbTools.Extensions.MSDependencyInjection;
-using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
-using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using FluentDbTools.Migration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace Example.FluentDbTools.Migration
 {
@@ -28,13 +28,11 @@ namespace Example.FluentDbTools.Migration
             return new ServiceCollection()
                 .ConfigureWithMigrationAndScanForVersionTable(MigrationAssemblies)
                 .AddDefaultDbConfig(assemblies:assemblies)
-                .UseExampleConfiguration(
-                    databaseType,
-                    overrideConfig,
-                    loadExampleConfig)
-            
-                    .AddLogging(x => x.AddFluentMigratorConsoleLogger(null)
-                             .AddFluentMigratorFileLogger());
+                .UseExampleConfiguration(databaseType, overrideConfig, loadExampleConfig)
+                .RemoveAll<ILoggerProvider>()
+                .AddLogging(x => x
+                    .AddFluentMigratorConsoleLogger()
+                    .AddFluentMigratorFileLogger());
         }
 
         public static IServiceProvider BuildMigration(
@@ -49,7 +47,6 @@ namespace Example.FluentDbTools.Migration
 
             var serviceCollection = BuildMigrationServiceCollection(databaseType, overrideConfig, loadExampleConfig, assemblies);
             additionalRegistration?.Invoke(serviceCollection);
-
 
             return serviceCollection.BuildServiceProvider(validateScope);
         }

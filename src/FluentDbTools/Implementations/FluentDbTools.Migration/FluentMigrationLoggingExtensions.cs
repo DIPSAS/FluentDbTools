@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentMigrator.Runner;
-using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,13 +13,9 @@ namespace FluentDbTools.Migration
 {
     public static class FluentMigrationLoggingExtensions
     {
+        private static bool MigrationConsoleLoggingDisabledReported;
+        private static bool MigrationFileLoggingDisabledReported;
         public static bool UseLogFileAppendFluentMigratorLoggerProvider { get; set; }
-        public static IServiceCollection AddLogFileAppendFluentMigratorLoggerProvider(this IServiceCollection sc)
-        {
-            sc.Remove(new ServiceDescriptor(typeof(ILoggerProvider), typeof(LogFileFluentMigratorLoggerProvider)));
-            sc.AddSingleton<ILoggerProvider, LogFileAppendFluentMigratorLoggerProvider>();
-            return sc;
-        }
 
         /// <summary>
         /// Remove all log-providers and add FluentMigratorConsoleLoggerProvider if enabled by configuration
@@ -34,8 +28,21 @@ namespace FluentDbTools.Migration
           IConfiguration configuration = null)
         {
             configuration = GetConfiguration(loggingBuilder, configuration);
-            if (configuration == null || !configuration.IsMigrationConsoleLogEnabled())
+            string disabledReason = null;   
+            if (configuration == null || !configuration.IsMigrationConsoleLogEnabledInternal(out disabledReason))
             {
+                disabledReason = disabledReason ?? "by missing configuration";
+                loggingBuilder.Services.RemoveFluentMigratorLoggerOptions();
+                loggingBuilder.Services.Remove(new ServiceDescriptor(typeof(ILoggerProvider), typeof(FluentMigratorConsoleLoggerProvider)));
+
+                if (MigrationConsoleLoggingDisabledReported == false)
+                {
+                    MigrationConsoleLoggingDisabledReported = true;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Migration Console logging is turned off {disabledReason}");
+                    Console.ResetColor();
+                }
+
                 return loggingBuilder;
             }
 
@@ -45,7 +52,7 @@ namespace FluentDbTools.Migration
                 ShowElapsedTime = configuration.IsMigrationLogConsoleShowElapsedTimeEnabled()
             };
 
-            return loggingBuilder.AddFluentMigratorConsoleLogger(options, true);
+            return loggingBuilder.AddFluentMigratorConsoleLogger(options);
         }
 
         /// <summary>
@@ -65,12 +72,22 @@ namespace FluentDbTools.Migration
                 loggingBuilder.ClearProviders();
             }
 
-            loggingBuilder.Services.RemoveAll<IOptions<FluentMigratorLoggerOptions>>();
-            loggingBuilder.Services.RemoveAll<ILoggerProvider>();
+            if (options == null)
+            {
+                var configuration = GetConfiguration(loggingBuilder, null);
+                options = new FluentMigratorLoggerOptions
+                {
+                    ShowSql = configuration?.IsMigrationConsoleLogShowSqlEnabled() ?? false,
+                    ShowElapsedTime = configuration?.IsMigrationLogConsoleShowElapsedTimeEnabled() ?? false
+                };
+            }
+            loggingBuilder.Services.RemoveFluentMigratorLoggerOptions();
+
             loggingBuilder.Services.TryAddSingleton<IOptions<FluentMigratorLoggerOptions>>(new OptionsWrapper<FluentMigratorLoggerOptions>(options));
             loggingBuilder.Services.TryAddSingleton<ILoggerProvider, FluentMigratorConsoleLoggerProvider>();
 
             return loggingBuilder;
+
         }
 
         /// <summary>
@@ -85,8 +102,21 @@ namespace FluentDbTools.Migration
         {
             configuration = GetConfiguration(loggingBuilder, configuration);
 
-            if (configuration == null || !configuration.IsMigrationLogFileEnabled())
+            string disabledReason = null;   
+
+            if (configuration == null || !configuration.IsMigrationLogFileEnabledInternal(out disabledReason))
             {
+                disabledReason = disabledReason ?? "by missing configuration";
+                loggingBuilder.Services.RemoveLogFileFluentMigratorLoggerOptions();
+                loggingBuilder.Services.RemoveFluentMigratorLogFileProviders();
+                if (MigrationFileLoggingDisabledReported == false)
+                {
+                    MigrationFileLoggingDisabledReported = true;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Migration File logging is turned off {disabledReason}");
+                    Console.ResetColor();
+                }
+
                 return loggingBuilder;
             }
 
@@ -117,16 +147,26 @@ namespace FluentDbTools.Migration
                 loggingBuilder.ClearProviders();
             }
 
-            loggingBuilder.Services.RemoveAll<IOptions<LogFileFluentMigratorLoggerOptions>>();
-            loggingBuilder.Services.AddSingleton<IOptions<LogFileFluentMigratorLoggerOptions>>(sp => new OptionsWrapper<LogFileFluentMigratorLoggerOptions>(options));
+            if (options == null)
+            {
+                var configuration = GetConfiguration(loggingBuilder, null);
+                options = new LogFileFluentMigratorLoggerOptions
+                {
+                    ShowSql = configuration?.IsMigrationLogFileShowSqlEnabled() ?? false,
+                    ShowElapsedTime = configuration?.IsMigrationLogFileShowElapsedTimeEnabled() ?? false,
+                    OutputFileName = configuration?.GetMigrationLogFile()
+                };
+            }
+
+            loggingBuilder.Services.RemoveLogFileFluentMigratorLoggerOptions();
+            loggingBuilder.Services.AddSingleton<IOptions<LogFileFluentMigratorLoggerOptions>>(new OptionsWrapper<LogFileFluentMigratorLoggerOptions>(options));
             if (UseLogFileAppendFluentMigratorLoggerProvider)
             {
                 loggingBuilder.Services.AddLogFileAppendFluentMigratorLoggerProvider();
-
             }
             else
             {
-                if (options != null)
+                if (options?.OutputFileName != null)
                 {
                     var writer = LogFileAppendFluentMigratorLoggerProvider.GetStreamWriter(null, options, out var logFile);
                     writer?.Close();
@@ -134,18 +174,70 @@ namespace FluentDbTools.Migration
                     options.OutputFileName = logFile;
                 }
 
-                loggingBuilder.Services.AddSingleton(ImplementationDefaultMigrationLoggingFactory);
+                loggingBuilder.Services.AddLogFileFluentMigratorLoggerProvider();
 
             }
             return loggingBuilder;
         }
 
-        private static ILoggerProvider ImplementationDefaultMigrationLoggingFactory(IServiceProvider sp)
+        /// <summary>
+        /// Add LogFileAppendFluentMigratorLoggerProvider
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        /// <returns></returns>
+        internal static IServiceCollection AddLogFileAppendFluentMigratorLoggerProvider(this IServiceCollection serviceCollection)
         {
-            return new LogFileFluentMigratorLoggerProvider(
-                sp.GetService<IAssemblySource>(),
-                sp.GetService<IOptions<LogFileFluentMigratorLoggerOptions>>());
+            return serviceCollection
+                .RemoveFluentMigratorLogFileProviders()
+                .AddSingleton<ILoggerProvider,LogFileAppendFluentMigratorLoggerProvider>();
         }
+
+        /// <summary>
+        /// Add LogFileFluentMigratorLoggerProvider
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        /// <returns></returns>
+        internal static IServiceCollection AddLogFileFluentMigratorLoggerProvider(this IServiceCollection serviceCollection)
+        {
+            return serviceCollection
+                .RemoveFluentMigratorLogFileProviders()
+                .AddSingleton<ILoggerProvider,LogFileFluentMigratorLoggerProvider>();
+        }
+
+        private static IServiceCollection RemoveFluentMigratorLogFileProviders(this IServiceCollection serviceCollection)
+        {
+            var toRemove = serviceCollection.FirstOrDefault(x => x.ImplementationInstance?.GetType() == typeof(LogFileFluentMigratorLoggerProvider) || x.ImplementationType == typeof(LogFileFluentMigratorLoggerProvider));
+            if (toRemove != null)
+            {
+                serviceCollection.Remove(toRemove);
+            }
+
+            toRemove = serviceCollection.FirstOrDefault(x => x.ImplementationInstance?.GetType() == typeof(LogFileAppendFluentMigratorLoggerProvider) || x.ImplementationType == typeof(LogFileAppendFluentMigratorLoggerProvider));
+            if (toRemove != null)
+            {
+                serviceCollection.Remove(toRemove);
+            }
+            return serviceCollection;
+        }
+
+        private static void RemoveFluentMigratorLoggerOptions(this IServiceCollection serviceCollection)
+        {
+            var toRemove = serviceCollection.FirstOrDefault(x => x.ImplementationInstance?.GetType() == typeof(OptionsWrapper<FluentMigratorLoggerOptions>) || x.ImplementationType == typeof(OptionsWrapper<FluentMigratorLoggerOptions>));
+            if (toRemove != null)
+            {
+                serviceCollection.Remove(toRemove);
+            }
+        }
+
+        private static void RemoveLogFileFluentMigratorLoggerOptions(this IServiceCollection serviceCollection)
+        {
+            var toRemove = serviceCollection.FirstOrDefault(x => x.ImplementationInstance?.GetType() == typeof(OptionsWrapper<LogFileFluentMigratorLoggerOptions>) || x.ImplementationType == typeof(OptionsWrapper<LogFileFluentMigratorLoggerOptions>));
+            if (toRemove != null)
+            {
+                serviceCollection.Remove(toRemove);
+            }
+        }
+
 
         private static IConfiguration GetConfiguration(
           ILoggingBuilder loggingBuilder,

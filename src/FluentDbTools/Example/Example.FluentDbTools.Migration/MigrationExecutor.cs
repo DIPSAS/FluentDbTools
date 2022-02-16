@@ -27,6 +27,7 @@ namespace Example.FluentDbTools.Migration
                     {
                         migrationRunner.DropSchema(scope.ServiceProvider.GetVersionTableMetaData());
                     }
+
                     migrationRunner.MigrateUp();
                 }
             }
