@@ -69,6 +69,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                 serviceProvider.TryAddScoped<IDbConfig, MsDbConfig>();
             }
 
+            serviceProvider.TryAddTransient<IDbUserGrantsConfig>(sp => sp.GetService<IDbConfig>());
             serviceProvider.AddPrioritizedConfigKeysRegistration(assemblies, asSingleton);
 
             return serviceProvider.AddDbConfigDatabaseTargets();
@@ -77,6 +78,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         public static IServiceCollection AddDbConfig(this IServiceCollection serviceProvider, Type dbConfigType, bool asSingleton = true)
         {
             serviceProvider.RemoveAll<IDbConfig>();
+            serviceProvider.RemoveAll<IDbUserGrantsConfig>();
 
             if (asSingleton)
             {
@@ -86,6 +88,8 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
             {
                 serviceProvider.AddScoped(typeof(IDbConfig), dbConfigType);
             }
+
+            serviceProvider.TryAddTransient<IDbUserGrantsConfig>(sp => sp.GetService<IDbConfig>());
 
             serviceProvider.AddPrioritizedConfigKeysRegistration(asSingleton);
 
@@ -97,6 +101,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         {
             serviceProvider.RemoveAll<IDbConfig>();
             serviceProvider.RemoveAll<IPrioritizedConfigKeys>();
+            serviceProvider.RemoveAll<IDbUserGrantsConfig>();
 
             if (asSingleton)
             {
@@ -107,6 +112,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                 serviceProvider.AddScoped<IDbConfig, TDbConfig>();
             }
 
+            serviceProvider.TryAddTransient<IDbUserGrantsConfig>(sp => sp.GetService<IDbConfig>());
             serviceProvider.AddPrioritizedConfigKeysRegistration(asSingleton);
 
             return serviceProvider.AddDbConfigDatabaseTargets();
@@ -116,6 +122,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         public static IServiceCollection AddDbConfig<TDbConfig>(this IServiceCollection serviceProvider, TDbConfig impl, bool asSingleton = true) where TDbConfig : class, IDbConfig
         {
             serviceProvider.RemoveAll<IDbConfig>();
+            serviceProvider.RemoveAll<IDbUserGrantsConfig>();
 
             if (asSingleton)
             {
@@ -126,6 +133,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
                 serviceProvider.AddScoped<IDbConfig>(sp => impl);
             }
 
+            serviceProvider.TryAddTransient<IDbUserGrantsConfig>(sp => sp.GetService<IDbConfig>());
             serviceProvider.AddPrioritizedConfigKeysRegistration(asSingleton);
 
             return serviceProvider.AddDbConfigDatabaseTargets();

@@ -7,7 +7,7 @@ namespace FluentDbTools.Common.Abstractions
     /// <summary>
     /// Database ConnectionStrings properties
     /// </summary>
-    public interface IDbConfig : IDbConnectionStringBuilderConfig, IDbConfigAdminExtension
+    public interface IDbConfig : IDbConnectionStringBuilderConfig, IDbUserGrantsConfig, IDbConfigAdminExtension
     {
         /// <summary>
         /// <para>If set, overrides all other config values related to the connection string.</para>

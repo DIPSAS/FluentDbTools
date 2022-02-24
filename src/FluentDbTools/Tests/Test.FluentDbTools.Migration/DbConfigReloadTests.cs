@@ -201,5 +201,8 @@ namespace Test.FluentDbTools.Migration
         public InvalidAdminValue[] InvalidAdminValues => null;
 
         public bool IsAdminValuesValid => true;
+        public string[] UserGrants => Array.Empty<string>();
+        public string[] AdditionalRolesGrants => Array.Empty<string>();
+        public bool IsDatabaseUserDependedOfUserGrants => false;
     }
 }

@@ -14,6 +14,8 @@ namespace FluentDbTools.Extensions.DbProvider
     public class DbConfig : DbConnectionStringBuilderConfig, IDbConfig
     {
 
+        private bool? IsDatabaseUserDependedOfUserGrantsField = null;
+
         /// <inheritdoc />
         public DbConfig(
             DefaultDbConfigValues defaultDbConfigValues = null,
@@ -75,6 +77,7 @@ namespace FluentDbTools.Extensions.DbProvider
         }
 
         internal InvalidAdminValue[] InvalidAdminValuesInternal;
+
         /// <inheritdoc />
         public InvalidAdminValue[] InvalidAdminValues => ValidateDatabaseAdminValues();
 
@@ -84,7 +87,7 @@ namespace FluentDbTools.Extensions.DbProvider
         /// <inheritdoc />
         protected override void OnConfigurationChanged(Func<string[], string> getValueFunc)
         {
-            
+
             AdminConnectionStringField = null;
             ConnectionStringField = null;
             base.OnConfigurationChanged(getValueFunc);
@@ -102,5 +105,20 @@ namespace FluentDbTools.Extensions.DbProvider
             }
         }
 
+        /// <inheritdoc />
+        public virtual string[] UserGrants => Array.Empty<string>();
+
+        /// <inheritdoc />
+        public virtual string[] AdditionalRolesGrants => Array.Empty<string>();
+
+        /// <inheritdoc />
+        public virtual bool IsDatabaseUserDependedOfUserGrants
+        {
+            get
+            {
+                IsDatabaseUserDependedOfUserGrantsField = IsDatabaseUserDependedOfUserGrantsField ?? (IsDatabaseUserDependedOfUserGrantsField = User.IsNotEmpty() && UserGrants?.Contains(User, StringComparer.OrdinalIgnoreCase) == true);
+                return IsDatabaseUserDependedOfUserGrantsField == true;
+            }
+        }
     }
 }
