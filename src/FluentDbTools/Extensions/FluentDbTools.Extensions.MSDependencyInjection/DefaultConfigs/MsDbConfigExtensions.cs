@@ -306,5 +306,6 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         {
             return new MsDbConfig(configuration, null, defaultDbConfigValues, dbConfigCredentials, prioritizedConfigValues, prioritizedConfigKeys, configurationDelimiter);
         }
+
     }
 }

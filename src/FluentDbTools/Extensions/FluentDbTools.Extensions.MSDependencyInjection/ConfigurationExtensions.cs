@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
@@ -274,6 +277,67 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
             return null;
         }
 
+        /// <summary>
+        /// ie. Outbox
+        /// </summary>
+        public static string UserGrantsFromConfigKey = "";
+        /// <summary>
+        /// Get granting users from configuration
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> GetUserGrantsFromConfig(this IDbConfig dbConfig)
+        {
+            var userGrants = dbConfig.GetAllDatabaseConfigValues()
+                .Where(x => x.Key.ContainsIgnoreCase("grants:users") && x.Value.IsNotEmpty())
+                .Select(x => x.Value)
+                .ToList();
 
+            if (userGrants.Any() == false && UserGrantsFromConfigKey.IsNotEmpty())
+            {
+                var outboxSchema = dbConfig.GetAllDatabaseConfigValues().FirstOrDefault(x =>
+                    x.Key.EqualsIgnoreCase($"database:{UserGrantsFromConfigKey}Schema") && x.Value.IsNotEmpty()).Value;
+                var schema = dbConfig.GetAllDatabaseConfigValues().FirstOrDefault(x =>
+                    x.Key.EqualsIgnoreCase("database:schema") && x.Value.IsNotEmpty()).Value;
+
+                if (string.Equals(outboxSchema, schema, StringComparison.OrdinalIgnoreCase))
+                {
+                    userGrants = dbConfig.GetAllDatabaseConfigValues()
+                        .Where(x => x.Key.ContainsIgnoreCase($"grants:{UserGrantsFromConfigKey}Users") && x.Value.IsNotEmpty())
+                        .Select(x => x.Value)
+                        .ToList();
+
+                }
+            }
+
+            var defaultAppUser = dbConfig.GetAllDatabaseConfigValues().GetValue("defaultApp:user");
+
+            if (defaultAppUser.IsNotEmpty())
+            {
+                userGrants.Add(defaultAppUser);
+            }
+
+            var result = userGrants.Distinct().SelectMany(userGrant => userGrant.Split(',')).ToArray();
+
+            return result.Select(x => x.Trim()).Distinct();
+        }
+
+        /// <summary>
+        /// Get additional roles for granting users from configuration
+        /// </summary>
+        /// <param name="dbConfig"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> GetAdditionalRolesGrantsFromConfig(this IDbConfig dbConfig)
+        {
+            var additionalRoles = dbConfig.GetAllDatabaseConfigValues()
+                .Where(x => x.Key.ContainsIgnoreCase("grants:additionalRoles") && x.Value.IsNotEmpty())
+                .Select(x => x.Value)
+                .ToArray();
+
+            var result = additionalRoles.Distinct().SelectMany(userGrant => userGrant.Split(',')).ToArray();
+
+            return result.Select(x => x.Trim()).Distinct();
+
+        }
     }
 }
