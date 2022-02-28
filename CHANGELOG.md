@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.2.40 2022-02-28
+- Improved ExtractSqlStatements. Problem with nested begin / end
+
 ### Version 1.2.39 2022-02-24
 - Added UserGrant configs
 

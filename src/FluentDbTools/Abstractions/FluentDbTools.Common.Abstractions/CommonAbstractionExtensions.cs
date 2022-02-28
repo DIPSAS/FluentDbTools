@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace FluentDbTools.Common.Abstractions
 {
@@ -79,7 +80,9 @@ namespace FluentDbTools.Common.Abstractions
                     lineNumber++;
 
                     var trimmed = line.TrimEnd();
-                    
+                    var trimmedStart = line.Trim().TrimStart('\t');
+                    var trimmedAll = line.Trim(' ', '\t', ';', '\n','\r');
+
                     if (string.IsNullOrWhiteSpace(trimmed))
                     {
                         continue;
@@ -117,8 +120,8 @@ namespace FluentDbTools.Common.Abstractions
                         continue;
                     }
 
-                    if (trimmed.Trim().TrimStart('\t').EqualsIgnoreCase("/*") ||
-                        trimmed.Trim().TrimStart('\t').StartsWithIgnoreCase("/* "))
+                    if (trimmedStart.EqualsIgnoreCase("/*") ||
+                        trimmedStart.StartsWithIgnoreCase("/* "))
                     {
                         nestedCommentStatementsCount++;
                     }
@@ -144,18 +147,18 @@ namespace FluentDbTools.Common.Abstractions
                         continue;
                     }
 
-                    if (trimmed.EqualsIgnoreCase("declare") ||
-                        trimmed.EqualsIgnoreCase("begin") ||
-                        trimmed.StartsWithIgnoreCase("declare ") ||
-                        trimmed.StartsWithIgnoreCase("begin "))
+                    if (trimmedAll.EqualsIgnoreCase("declare") ||
+                        trimmedAll.EqualsIgnoreCase("begin") ||
+                        trimmedAll.StartsWithIgnoreCase("declare ") ||
+                        trimmedAll.StartsWithIgnoreCase("begin "))
                     {
                         nestedSqlStatementsControl.Push(trimmed);
                         previousStatement = latestStatement;
                     }
 
                     if (nestedSqlStatementsControl.Any() &&
-                        (trimmed.EqualsIgnoreCase("end") ||
-                         trimmed.EndsWithIgnoreCase("end") ||
+                        (trimmedAll.EqualsIgnoreCase("end") ||
+                         trimmedAll.EndsWithIgnoreCase("end") ||
                          trimmed.EndsWithIgnoreCase("end;")) ||
                          (trimmed.StartsWithIgnoreCase("end ") && previousStatement.ContainsIgnoreCase("CREATE OR REPLACE"))
                         )

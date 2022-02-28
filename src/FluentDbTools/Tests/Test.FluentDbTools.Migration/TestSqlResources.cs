@@ -15,9 +15,14 @@ namespace Test.FluentDbTools.Migration
         private static readonly Assembly CurrentAssembly = typeof(TestSqlResources).Assembly;
 
         /// <summary>
-        /// Returns the default AdvanceScript sql
+        /// Returns the default LargeScriptSql sql
         /// </summary>
         public static string LargeScriptSql => CurrentAssembly.GetStringFromEmbeddedResource($"{_ResourceHelper.Location}.{nameof(LargeScriptSql)}.txt");
+
+        /// <summary>
+        /// Returns the default Large2ScriptSql sql
+        /// </summary>
+        public static string Large2ScriptSql => CurrentAssembly.GetStringFromEmbeddedResource($"{_ResourceHelper.Location}.{nameof(Large2ScriptSql)}.txt");
 
         /// <summary>
         /// Returns the default AdvanceScript sql

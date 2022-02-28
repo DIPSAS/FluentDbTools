@@ -56,6 +56,15 @@ namespace Test.FluentDbTools.Migration
             sql[1].EndsWithIgnoreCase("dipscoredb.cpfelles").Should().BeTrue();
         }
 
+        [Fact]
+        public void ExtractSqlStatements_Large2ScriptSql_ShouldHaveCount1()
+        {
+            var sql = TestSqlResources.Large2ScriptSql.ExtractSqlStatements().ToArray();
+            sql.Should().HaveCount(4);
+            sql[3].StartsWithIgnoreCase("declare").Should().BeTrue();
+            //sql[1].EndsWithIgnoreCase("dipscoredb.cpfelles").Should().BeTrue();
+        }
+
 
         [Fact]
         public void ExtractSqlStatements_LogonScriptSql_ShouldHaveCount2()

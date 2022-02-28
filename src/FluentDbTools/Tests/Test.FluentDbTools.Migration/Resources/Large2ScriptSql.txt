@@ -1,0 +1,61 @@
+-- Title = Create App user
+-- ErrorFilter = 1920, 1919, 1918, 1917, 1935, 6512, 990, 6550, 942, 1749
+DECLARE
+	p_appuser varchar2(30) := 'OUTBOX3_APP';
+	p_appuserpassword varchar2(30) := nvl('OUTBOX3_APP',Upper('OUTBOX3_APP'));
+	lCount number := 0;
+BEGIN
+	SELECT count(*) INTO lCount FROM sys.all_users u WHERE u.USERNAME = UPPER(p_appuser);
+	IF (lCount = 0) THEN
+		EXECUTE IMMEDIATE 'CREATE USER ' || UPPER(p_appuser) || ' IDENTIFIED BY ' || p_appuserpassword || ' ENABLE EDITIONS ACCOUNT UNLOCK';
+	END IF;
+
+	SELECT count(*) INTO lCount FROM sys.all_users u WHERE u.USERNAME = UPPER(p_appuser);
+	IF (lCount = 1) THEN
+		EXECUTE IMMEDIATE 'GRANT connect, resource TO ' || p_appuser;
+		EXECUTE IMMEDIATE 'GRANT alter session TO ' || p_appuser;
+		EXECUTE IMMEDIATE 'GRANT unlimited tablespace TO ' || p_appuser;
+
+		SELECT count(*) INTO lCount FROM sys.all_users u WHERE u.USERNAME = UPPER('DIPSDICTIONARYDB');
+		IF (lCount = 1) THEN
+			BEGIN
+				EXECUTE IMMEDIATE 'SELECT count(*) FROM DIPSDICTIONARYDB.DD_SCHEMAS s where s.SCHEMANAME = UPPER(p_appuser)' INTO lCount;
+				IF (lCount = 0) THEN
+					EXECUTE IMMEDIATE 'call DIPSDICTIONARY_CODE.METADATAAPI.AddOrUpdateSchema(p_schemaname => ''' || p_appuser || ''', p_remarks => null, p_shouldbelocked => 0, p_hasbeendropped => null)';
+				END IF;
+			EXCEPTION
+				WHEN OTHERS THEN
+				NULL;
+			END;
+		END IF;
+
+		SELECT count(*) INTO lCount FROM sys.all_users u WHERE u.USERNAME = UPPER('DWSECURITY');
+		IF (lCount = 1) THEN
+			EXECUTE IMMEDIATE 'grant select on DWSECURITY.SCSESSION to ' || p_appuser;
+		END IF;
+
+		SELECT count(*) INTO lCount FROM sys.all_users u WHERE u.USERNAME = UPPER('DIPSCOREDB');
+		IF (lCount = 1) THEN
+			EXECUTE IMMEDIATE 'grant select on DIPSCOREDB.DWBRUKER to ' || p_appuser;
+			EXECUTE IMMEDIATE 'grant select on DIPSCOREDB.DWPERSON to ' || p_appuser;
+			EXECUTE IMMEDIATE 'grant select on DIPSCOREDB.DWBRUKERROLLE to ' || p_appuser;
+			EXECUTE IMMEDIATE 'grant select on DIPSCOREDB.DWDELINSTITUSJON to ' || p_appuser;
+
+			-- Grants needed for generated triggers:
+			EXECUTE IMMEDIATE 'grant execute on DIPSCOREDB.CIDBA to ' || p_appuser;
+			EXECUTE IMMEDIATE 'grant execute on DIPSCOREDB.CISESSION to ' || p_appuser;
+			EXECUTE IMMEDIATE 'grant execute on DIPSCOREDB.CIDIPSOBJEKT to ' || p_appuser;
+			EXECUTE IMMEDIATE 'grant execute on DIPSCOREDB.CPDIPSEXCEPTIONS to ' || p_appuser;
+			EXECUTE IMMEDIATE 'grant execute on DIPSCOREDB.CPFELLES to ' || p_appuser;
+			EXECUTE IMMEDIATE 'grant execute on DIPSCOREDB.CPOPPSETT to ' || p_appuser;
+			EXECUTE IMMEDIATE 'grant execute on DIPSCOREDB.CPSESJON to ' || p_appuser;
+
+			EXECUTE IMMEDIATE 'grant select, insert on DIPSCOREDB.DWFEILLOGG to ' || p_appuser;
+			EXECUTE IMMEDIATE 'grant select on DIPSCOREDB.IVCODWKODEVERKVERDIER to ' || p_appuser;
+			EXECUTE IMMEDIATE 'grant select on DIPSCOREDB.DWBRUKTEKODEVERK to ' || p_appuser;
+		END IF;
+	END IF;
+EXCEPTION
+	WHEN OTHERS THEN
+	NULL;
+END;
