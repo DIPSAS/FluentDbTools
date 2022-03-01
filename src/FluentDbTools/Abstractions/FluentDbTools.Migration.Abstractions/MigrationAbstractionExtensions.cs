@@ -64,7 +64,8 @@ namespace FluentDbTools.Migration.Abstractions
                 return;
             }
 
-            string sqlComment = null;
+            string errorFilterComment = null;
+            var errorFilters = new List<long>();
             foreach (var sqlStatement in sql.ExtractSqlStatements())
             {
                 if (!detectErrorFilter)
@@ -75,7 +76,12 @@ namespace FluentDbTools.Migration.Abstractions
                 
                 if (sqlStatement.IsSqlComment())
                 {
-                    sqlComment = sqlStatement;
+                    var errorFilter = errorFilterComment.GetErrorFilterNumbers();
+                    if (errorFilter?.Any() == true)
+                    {
+                        errorFilters.AddRange(errorFilter);
+                    }
+                    errorFilterComment = sqlStatement;
                 }
 
                 try
@@ -84,7 +90,7 @@ namespace FluentDbTools.Migration.Abstractions
                 }
                 catch (Exception exception)
                 {
-                    if (exception.IsErrorFilterNumberMatch(sqlComment.GetErrorFilterNumbers()))
+                    if (exception.IsErrorFilterNumberMatch(errorFilters.ToArray()))
                     {
                         return;
                     }

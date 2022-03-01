@@ -103,18 +103,29 @@ namespace System.Data
             }
 
             // ReSharper disable once InvertIf
-            if (errorFilterNumbers.Any())
+            if (errorFilterNumbers?.Any() == true)
             {
-                if (exception.Message.StartsWithIgnoreCase("ORA-"))
+                var actualErrors = new List<long>();
+                while (exception != null)
                 {
-                    if (int.TryParse(exception.Message.SubstringTo(":").Replace(":","").ReplaceIgnoreCase("ORA-", ""), out number))
+                    var message = exception.Message;
+                    if (message.StartsWithIgnoreCase("ORA-"))
                     {
-                        if (errorFilterNumbers.Contains(number))
+                        if (int.TryParse(message.SubstringTo(":").Replace(":", "").ReplaceIgnoreCase("ORA-", ""), out number))
                         {
-                            return true;
+                            actualErrors.Add(number);
                         }
-
                     }
+
+                    exception = exception.InnerException;
+                }
+
+
+                if (actualErrors.Any())
+                {
+                    actualErrors = actualErrors.Distinct().ToList();
+                    number = (int)actualErrors.FirstOrDefault();
+                    return actualErrors.All(errorFilterNumbers.Contains);
                 }
             }
 

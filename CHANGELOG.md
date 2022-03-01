@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- the topmost header version must be set manually in the VERSION file -->
+### Version 1.2.42 2022-02-28
+- Improved IsErrorFilterNumberMatchAndReturnErrorNumber
+
 ### Version 1.2.41 2022-02-28
 - Improved ExtractSqlStatements. Still problem with nested begin / end and comments
 
