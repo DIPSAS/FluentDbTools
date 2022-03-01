@@ -25,6 +25,11 @@ namespace Test.FluentDbTools.Migration
         public static string Large2ScriptSql => CurrentAssembly.GetStringFromEmbeddedResource($"{_ResourceHelper.Location}.{nameof(Large2ScriptSql)}.txt");
 
         /// <summary>
+        /// Returns the default Large2ScriptSql sql
+        /// </summary>
+        public static string Large3ScriptSql => CurrentAssembly.GetStringFromEmbeddedResource($"{_ResourceHelper.Location}.{nameof(Large3ScriptSql)}.txt");
+
+        /// <summary>
         /// Returns the default AdvanceScript sql
         /// </summary>
         public static string SmallScriptSql => CurrentAssembly.GetStringFromEmbeddedResource($"{_ResourceHelper.Location}.{nameof(SmallScriptSql)}.txt");

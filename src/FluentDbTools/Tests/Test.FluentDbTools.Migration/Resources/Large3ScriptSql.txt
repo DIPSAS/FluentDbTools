@@ -1,0 +1,51 @@
+DECLARE
+	p_schemaname varchar2(30) := UPPER('SERVICE_DB');
+	p_rolename varchar2(30) := UPPER('SERVICE_DB_TABLE_ROLE');
+    lCount number := 0;
+    lDbaCount number := 0;
+	cursor c1 is select table_name from sys.all_tables WHERE OWNER = p_schemaname;
+BEGIN
+	SELECT count(*) INTO lDbaCount from sys.session_roles r where r.ROLE = 'DBA';
+	IF (lDbaCount = 1) THEN
+		SELECT count(*) INTO lCount FROM sys.role_tab_privs WHERE ROLE = p_rolename;
+	END IF;
+	IF (lCount = 0) THEN
+      BEGIN
+         EXECUTE IMMEDIATE 'CREATE ROLE ' || p_rolename;
+      EXCEPTION
+         WHEN OTHERS THEN
+         NULL;
+      END;
+	END IF;
+	IF (lCount = 0) THEN
+		BEGIN
+			EXECUTE IMMEDIATE 'CREATE ROLE ' || p_rolename;
+		EXCEPTION
+			WHEN OTHERS THEN
+			NULL;
+		END;
+	END IF;
+
+	/* Copied from DIPS.Rebus. Should not be enabled
+	IF (lDbaCount = 0) THEN
+		EXECUTE IMMEDIATE 'GRANT select, insert, update, delete ON ' || p_schemaname || '.{SchemaPrefixId}RE_DUPLICATIONFILTER TO ' || p_rolename;
+		EXECUTE IMMEDIATE 'GRANT select, insert, update, delete ON ' || p_schemaname || '.{SchemaPrefixId}RE_OUTBOX TO ' || p_rolename;
+		EXECUTE IMMEDIATE 'GRANT select, insert, update, delete ON ' || p_schemaname || '.{SchemaPrefixId}RE_OUTBOXSTATUS TO ' || p_rolename;
+		EXECUTE IMMEDIATE 'GRANT select, insert, update, delete ON ' || p_schemaname || '.{SchemaPrefixId}RE_VERSIONINFO TO ' || p_rolename;
+	END IF;
+	*/
+
+	-- Copied from DIPS.Rebus. Should not be enabled
+	-- IF (lDbaCount = 0) THEN
+	--    EXECUTE IMMEDIATE 'GRANT select, insert, update, delete ON ' || p_schemaname || '.{SchemaPrefixId}RE_DUPLICATIONFILTER TO ' || p_rolename;
+	--	  EXECUTE IMMEDIATE 'GRANT select, insert, update, delete ON ' || p_schemaname || '.{SchemaPrefixId}RE_OUTBOX TO ' || p_rolename;
+	--	  EXECUTE IMMEDIATE 'GRANT select, insert, update, delete ON ' || p_schemaname || '.{SchemaPrefixId}RE_OUTBOXSTATUS TO ' || p_rolename;
+	--	  EXECUTE IMMEDIATE 'GRANT select, insert, update, delete ON ' || p_schemaname || '.{SchemaPrefixId}RE_VERSIONINFO TO ' || p_rolename;
+	-- END IF;
+	
+
+
+	FOR c IN c1 LOOP
+		EXECUTE IMMEDIATE 'GRANT select, insert, update, delete ON ' || p_schemaname || '.' || c.table_name || ' TO ' || p_rolename;
+	END LOOP;
+END;

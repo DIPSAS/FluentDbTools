@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Example.FluentDbTools.Config;
 using Example.FluentDbTools.Migration;
 using FluentAssertions;
@@ -60,17 +61,41 @@ namespace Test.FluentDbTools.Migration
         public void ExtractSqlStatements_Large2ScriptSql_ShouldHaveCount1()
         {
             var sql = TestSqlResources.Large2ScriptSql.ExtractSqlStatements().ToArray();
-            sql.Should().HaveCount(4);
-            sql[3].StartsWithIgnoreCase("declare").Should().BeTrue();
+            sql.Should().HaveCount(3);
+            sql[0].StartsWithIgnoreCase("/* ").Should().BeTrue();
+            sql[1].StartsWithIgnoreCase("/* ").Should().BeTrue();
+            sql[2].StartsWithIgnoreCase("declare").Should().BeTrue();
             //sql[1].EndsWithIgnoreCase("dipscoredb.cpfelles").Should().BeTrue();
         }
+
+        [Fact]
+        public void ExtractSqlStatements_Large3ScriptSql_ShouldHaveCount1()
+        {
+            var sql = TestSqlResources.Large3ScriptSql.ExtractSqlStatements().ToArray();
+            sql.Should().HaveCount(1);
+            sql[0].StartsWithIgnoreCase("declare").Should().BeTrue();
+            
+            Sql().Should().Be(ScriptSqlWithoutEmptyLines());
+
+            string ScriptSqlWithoutEmptyLines()
+            {
+                return Regex.Replace(TestSqlResources.Large3ScriptSql, @"^\s*$\n|\r", string.Empty, RegexOptions.Multiline);
+            }
+
+            string Sql()
+            {
+                return string.Join('\n', sql);
+            }
+        }
+
 
 
         [Fact]
         public void ExtractSqlStatements_LogonScriptSql_ShouldHaveCount2()
         {
-            var sql = SqlResources.LogonScriptSql.ExtractSqlStatements();
-            sql.Should().HaveCount(2);
+            var sql = SqlResources.LogonScriptSql.ExtractSqlStatements().ToArray();
+            sql.Should().HaveCount(1);
+            sql[0].ToMultiLine()[2].Should().StartWith("	--");
         }
 
         [Fact]
@@ -99,7 +124,7 @@ namespace Test.FluentDbTools.Migration
         public void CheckThat_LargeScriptSql_IsFullyExecuted()
         {
             var schema = "DIPSEXAMPLEDB";
-            var dataSource = BaseConfig.InContainer ? null : "vt-tp-db-demo.dips.local/DIPS";
+            var dataSource = BaseConfig.InContainer ? null : "vt-smp-db-unit.dips.local/DIPS";
 
             Migrate(DoTheTest, dataSource, schema);
 

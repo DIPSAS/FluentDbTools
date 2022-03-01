@@ -81,7 +81,7 @@ namespace FluentDbTools.Common.Abstractions
 
                     var trimmed = line.TrimEnd();
                     var trimmedStart = line.Trim().TrimStart('\t');
-                    var trimmedAll = line.Trim(' ', '\t', ';', '\n','\r');
+                    var trimmedAll = line.Trim(' ', '\t', ';', '\n', '\r');
 
                     if (string.IsNullOrWhiteSpace(trimmed))
                     {
@@ -102,7 +102,7 @@ namespace FluentDbTools.Common.Abstractions
                     if (createOrReplaceStatements.Any())
                     {
                         createOrReplaceStatements.Add(trimmed);
-                        if (trimmed.StartsWithIgnoreCase("end "))
+                        if (trimmed.StartsWithIgnoreCase("end ") || trimmed.StartsWithIgnoreCase("end"))
                         {
                             var name = trimmed.Substring(4).Trim().TrimEnd(';');
                             if (createOrReplaceStatements.FirstOrDefault().ContainsIgnoreCase(name))
@@ -116,7 +116,15 @@ namespace FluentDbTools.Common.Abstractions
 
                     if (trimmed.Trim().StartsWith("-- "))
                     {
-                        yield return RegisterStatement(trimmed);
+                        if (nestedSqlStatementsControl.Any() == false)
+                        {
+                            yield return RegisterStatement(line);
+                        }
+                        else
+                        {
+                            nestedSqlStatements.Add(line);
+                        }
+                            
                         continue;
                     }
 
@@ -134,55 +142,85 @@ namespace FluentDbTools.Common.Abstractions
 
                         if (nestedCommentStatementsCount <= 0)
                         {
-                            nestedCommentStatements.Add(trimmed);
+                            nestedCommentStatements.Add(line);
                             nestedCommentStatementsCount = 0;
                             var sqlStatement = string.Join("\n", nestedCommentStatements);
-                            yield return RegisterStatement(sqlStatement);
+                            if (nestedSqlStatementsControl.Any() == false)
+                            {
+                                yield return RegisterStatement(sqlStatement);
+                            }
+                            else
+                            {
+                                nestedSqlStatements.Add(sqlStatement);
+                            }
                             continue;
                         }
                     }
                     if (nestedCommentStatementsCount > 0)
                     {
-                        nestedCommentStatements.Add(trimmed);
+                        nestedCommentStatements.Add(line);
                         continue;
                     }
 
                     if (trimmedAll.EqualsIgnoreCase("declare") ||
                         trimmedAll.EqualsIgnoreCase("begin") ||
-                        trimmedAll.StartsWithIgnoreCase("declare ") ||
-                        trimmedAll.StartsWithIgnoreCase("begin "))
+                        trimmed.StartsWithIgnoreCase("declare ") ||
+                        trimmed.StartsWithIgnoreCase("begin "))
                     {
-                        nestedSqlStatementsControl.Push(trimmed);
+                        nestedSqlStatementsControl.Push(line);
                         previousStatement = latestStatement;
                     }
 
-                    if (nestedSqlStatementsControl.Any() &&
-                        (trimmedAll.EqualsIgnoreCase("end") ||
-                         trimmedAll.EndsWithIgnoreCase("end") ||
-                         trimmed.EndsWithIgnoreCase("end;")) ||
-                         (trimmed.StartsWithIgnoreCase("end ") && previousStatement.ContainsIgnoreCase("CREATE OR REPLACE"))
-                        )
+                    var endsWith = trimmed.EndsWithIgnoreCase("end") || trimmed.EndsWithIgnoreCase("end;");
+                    var hasControl = nestedSqlStatementsControl.Any();
+                    if (hasControl &&
+                        (trimmed.EqualsIgnoreCase("end") || endsWith) ||
+                        trimmed.StartsWithIgnoreCase("end ") && previousStatement.ContainsIgnoreCase("CREATE OR REPLACE")
+                       )
                     {
-                        nestedSqlStatements.Add((trimmed.TrimEnd(';') + ";"));
+                        var @continue = true;
+                        if (endsWith && hasControl)
+                        {
+                            var startsWithTab = trimmed.StartsWith("\t");
+                            var startsWithSpace = line.StartsWith(" ");
+                            if (startsWithSpace || startsWithTab)
+                            {
+                                var firstControl = nestedSqlStatementsControl.Peek();
+                                var replaced = firstControl.ReplaceIgnoreCase("begin", "end");
+                                var beginEndStatementMatch = line.TrimEnd(' ', ';').EqualsIgnoreCase(replaced.TrimEnd(' ', ';'));
+                                if (beginEndStatementMatch)
+                                {
+                                    nestedSqlStatementsControl.Pop();
+                                }
 
-                        var item = nestedSqlStatementsControl.Pop();
-                        if (item.StartsWithIgnoreCase("begin"))
-                        {
-                            var firstControl = nestedSqlStatementsControl.Count > 0 ? nestedSqlStatementsControl.Peek() : string.Empty;
-                            if (nestedSqlStatementsControl.Count == 1 &&
-                                firstControl.StartsWithIgnoreCase("declare"))
-                            {
-                                nestedSqlStatementsControl.Pop();
+                                @continue = beginEndStatementMatch == false;
                             }
+
                         }
-                        if (!nestedSqlStatementsControl.Any())
+
+                        if (@continue)
                         {
-                            if (!nestedSqlStatements.Any())
+                            nestedSqlStatements.Add((trimmed.TrimEnd(';') + ";"));
+                            //nestedSqlStatementsAdded = true;
+
+                            var item = nestedSqlStatementsControl.Pop();
+                            if (item.TrimStart(' ', '\t', ';', '\n', '\r').StartsWithIgnoreCase("begin"))
                             {
-                                nestedSqlStatements.Add(trimmed);
+                                var firstControl = nestedSqlStatementsControl.Count > 0 ? nestedSqlStatementsControl.Peek()?.TrimStart(' ', '\t', ';', '\n', '\r') : string.Empty;
+                                if (nestedSqlStatementsControl.Count == 1 && firstControl.StartsWithIgnoreCase("declare"))
+                                {
+                                    nestedSqlStatementsControl.Pop();
+                                }
                             }
-                            yield return RegisterStatement(string.Join("\n", nestedSqlStatements));
-                            continue;
+                            if (!nestedSqlStatementsControl.Any())
+                            {
+                                if (!nestedSqlStatements.Any())
+                                {
+                                    nestedSqlStatements.Add(trimmed);
+                                }
+                                yield return RegisterStatement(string.Join("\n", nestedSqlStatements));
+                                continue;
+                            }
                         }
                     }
 
