@@ -11,10 +11,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FluentMigrator" Version="3.2.1" />
-      <PackageReference Include="FluentMigrator.Runner" Version="3.2.1" />
-      <PackageReference Include="FluentMigrator.Runner.Postgres" Version="3.2.1" />
-      <PackageReference Include="FluentMigrator.Runner.Oracle" Version="3.2.1" />
+      <PackageReference Include="FluentMigrator" Version="3.3.2" />
+      <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
+      <PackageReference Include="FluentMigrator.Runner.Postgres" Version="3.3.2" />
+      <PackageReference Include="FluentMigrator.Runner.Oracle" Version="3.3.2" />
       <PackageReference Include="Dapper" Version="1.50.5" />
     </ItemGroup>
 

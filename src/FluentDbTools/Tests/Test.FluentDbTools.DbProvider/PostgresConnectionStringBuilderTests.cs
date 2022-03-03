@@ -34,8 +34,23 @@ namespace Test.FluentDbTools.DbProvider
             {
                 using (var connection = dbConfig.GetDbProviderFactory(adminPrivileges).CreateConnection())
                 {
+                    try
+                    {
+                        connection.Open();
+                    }
+                    catch (PostgresException exception)
+                    {
+                        if (adminPrivileges == false && exception.SqlState == "28P01")
+                        {
+                            continue;
+                        }
+                    }
+
                     connection.DataSource.Should().Be(expectedDataSource);
-                    connection.ConnectionString.Should().Be(dbConfig.GetDbProviderFactory(adminPrivileges).CreateConnectionStringBuilder().ConnectionString);
+                    var connectionString = dbConfig.GetDbProviderFactory(true).CreateConnectionStringBuilder().ConnectionString;
+                    connectionString = connectionString.ReplaceIgnoreCase(connectionString.SubstringFromAdnIncludeToString("password=", ";"), "");
+                    connection.ConnectionString.Should().Be(connectionString);
+
                 }
             }
         }
@@ -54,9 +69,11 @@ namespace Test.FluentDbTools.DbProvider
 
             using (var connection = dbConfig.GetDbProviderFactory(true).CreateConnection())
             {
-                connection.DataSource.Should().Be(expectedDataSource);
-                connection.ConnectionString.Should().Be(dbConfig.GetDbProviderFactory(true).CreateConnectionStringBuilder().ConnectionString);
                 connection.Open();
+                connection.DataSource.Should().Be(expectedDataSource);
+                var connectionString = dbConfig.GetDbProviderFactory(true).CreateConnectionStringBuilder().ConnectionString;
+                connectionString = connectionString.ReplaceIgnoreCase(connectionString.SubstringFromAdnIncludeToString("password=", ";"), "");
+                connection.ConnectionString.Should().Be(connectionString);
             }
         }
         [Fact]
@@ -75,9 +92,11 @@ namespace Test.FluentDbTools.DbProvider
             {
                 using (var connection = dbConfig.GetDbProviderFactory(true).CreateConnection())
                 {
-                    connection.DataSource.Should().Be(expectedDataSource);
-                    connection.ConnectionString.Should().Be(dbConfig.GetDbProviderFactory(true).CreateConnectionStringBuilder().ConnectionString);
                     connection.Open();
+                    connection.DataSource.Should().Be(expectedDataSource);
+                    var connectionString = dbConfig.GetDbProviderFactory(true).CreateConnectionStringBuilder().ConnectionString;
+                    connectionString = connectionString.ReplaceIgnoreCase(connectionString.SubstringFromAdnIncludeToString("password=", ";"), "");
+                    connection.ConnectionString.Should().Be(connectionString);
                 }
             };
             // 3D000: invalid_catalog_name - database "InvalidDatabase" does not exists
@@ -101,9 +120,11 @@ namespace Test.FluentDbTools.DbProvider
             {
                 using (var connection = dbConfig.GetDbProviderFactory(true).CreateConnection())
                 {
-                    connection.DataSource.Should().Be(expectedDataSource);
-                    connection.ConnectionString.Should().Be(dbConfig.GetDbProviderFactory(true).CreateConnectionStringBuilder().ConnectionString);
                     connection.Open();
+                    connection.DataSource.Should().Be(expectedDataSource);
+                    var connectionString = dbConfig.GetDbProviderFactory(true).CreateConnectionStringBuilder().ConnectionString;
+                    connectionString = connectionString.ReplaceIgnoreCase(connectionString.SubstringFromAdnIncludeToString("password=", ";"), "");
+                    connection.ConnectionString.Should().Be(connectionString);
                 }
             };
             // HostNotFound - "No such host is known"

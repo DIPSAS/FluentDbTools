@@ -4,17 +4,20 @@ using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using FluentDbTools.Common.Abstractions;
 using FluentMigrator.Builders.Execute;
 using FluentMigrator.Expressions;
 using FluentMigrator.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+// ReSharper disable RedundantCast
+// ReSharper disable InconsistentNaming
 
 namespace FluentDbTools.Migration.Contracts.MigrationExpressions.Execute
 {
     internal class InternalExecuteExpressionRoot : IExecuteExpressionRoot
     {
         private readonly IMigrationContext _context;
-        private IEnumerable<ICustomSqlTitleConverter> TitleConverters;
+        private readonly IEnumerable<ICustomSqlTitleConverter> TitleConverters;
 
         public InternalExecuteExpressionRoot(IMigrationContext context)
         {
@@ -29,6 +32,16 @@ namespace FluentDbTools.Migration.Contracts.MigrationExpressions.Execute
             {
                 SqlStatement = sqlStatement,
                 AdditionalSqlTitleConverterFunc = AdditionalSqlTitleConverter
+            };
+            _context.Expressions.Add(expression);
+        }
+
+        public void Sql(string sqlStatement, string description)
+        {
+            var expression = new InternalExecuteSqlStatementExpression
+            {
+                SqlStatement = sqlStatement,
+                AdditionalSqlTitleConverterFunc = sql => description.IsNotEmpty() ? description : AdditionalSqlTitleConverter(sql)
             };
             _context.Expressions.Add(expression);
         }
