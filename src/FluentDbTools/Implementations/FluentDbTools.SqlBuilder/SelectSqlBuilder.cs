@@ -114,6 +114,7 @@ namespace FluentDbTools.SqlBuilder
         /// <typeparam name="T"></typeparam>
         /// <param name="selector"></param>
         /// <param name="statement"></param>
+        /// <param name="tableAlias"></param>
         /// <returns></returns>
         public ISelectSqlBuilder WhereIf<T>(Action<IWhereFieldSelector<T>> selector, Func<bool> statement, string tableAlias = null)
         {

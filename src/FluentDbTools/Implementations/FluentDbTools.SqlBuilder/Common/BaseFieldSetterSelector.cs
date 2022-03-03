@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions.Fields;
+#pragma warning disable CS1591
 
 namespace FluentDbTools.SqlBuilder.Common
 {
+    /// <inheritdoc />
     public abstract class BaseFieldSetterSelector<TClass> : IFieldSetterSelector<TClass>
     {
         protected readonly IDbConfigSchemaTargets DbConfigConfig;

@@ -1,0 +1,1 @@
+cmd /C "dbm -test > test.log"

@@ -3,6 +3,7 @@ using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.DbProvider;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
+// ReSharper disable ConvertToNullCoalescingCompoundAssignment
 
 namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 {
@@ -23,7 +24,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         public MsConfigurationChangedHandler(IConfiguration configuration = null)
         {
             Configuration = configuration;
-            if (Configuration != null)
+            if (Configuration != null && ChangeToken != null)
             {
                 ChangeCallback = ChangeToken.RegisterChangeCallback(state => RaiseConfigurationChanged(args => Configuration.GetConfigValue(args)), Configuration);
             }

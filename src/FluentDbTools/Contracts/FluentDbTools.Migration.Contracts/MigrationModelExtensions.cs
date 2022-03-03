@@ -369,7 +369,6 @@ namespace FluentDbTools.Migration.Contracts
         /// </summary>
         /// <param name="syntax"></param>
         /// <param name="errors"></param>
-        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static ICreateColumnOptionSyntax WithErrorFilter(this ICreateColumnOptionSyntax syntax, params int[] errors)
         {
@@ -398,7 +397,6 @@ namespace FluentDbTools.Migration.Contracts
         /// </summary>
         /// <param name="syntax"></param>
         /// <param name="errors"></param>
-        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static IAlterTableAddColumnOrAlterColumnSyntax WithErrorFilter(this IAlterTableAddColumnOrAlterColumnSyntax syntax, params int[] errors)
         {
@@ -598,7 +596,7 @@ namespace FluentDbTools.Migration.Contracts
 
         /// <summary>
         /// Add foreign column on table specified in <paramref name="syntax"/>. Referenced table will be <paramref name="primaryTableName"/><br/>
-        /// If SchemaPrefixId is defined in <paramref name="migration"/>, the referenced table will be computed to {SchemaPrefixId}{<see cref="primaryTableName"/>}
+        /// If SchemaPrefixId is defined in <paramref name="migration"/>, the referenced table will be computed to {SchemaPrefixId}{<paramref name="primaryTableName"/>}
         /// </summary>
         /// <param name="syntax"></param>
         /// <param name="primaryTableName"></param>

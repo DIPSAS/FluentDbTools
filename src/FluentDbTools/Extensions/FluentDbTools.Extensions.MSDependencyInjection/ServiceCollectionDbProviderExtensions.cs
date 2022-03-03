@@ -6,6 +6,12 @@ using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+// ReSharper disable InconsistentNaming
+// ReSharper disable ConstantNullCoalescingCondition
+// ReSharper disable RedundantTypeArgumentsOfMethod
+// ReSharper disable UnusedMember.Local
+
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Extensions.MSDependencyInjection
 {

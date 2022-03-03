@@ -4,6 +4,8 @@ using System.Linq;
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions.Parameters;
 using FluentDbTools.SqlBuilder.Common;
+// ReSharper disable NotAccessedField.Local
+#pragma warning disable CS1591
 
 namespace FluentDbTools.SqlBuilder.Parameters
 {

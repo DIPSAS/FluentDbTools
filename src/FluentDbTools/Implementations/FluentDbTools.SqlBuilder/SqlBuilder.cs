@@ -2,6 +2,8 @@
 using FluentDbTools.Common.Abstractions;
 using FluentDbTools.SqlBuilder.Abstractions;
 using FluentDbTools.SqlBuilder.Common;
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS1591
 
 [assembly: InternalsVisibleTo("Test.FluentDbTools.SqlBuilder")]
 namespace FluentDbTools.SqlBuilder

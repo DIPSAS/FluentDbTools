@@ -9,6 +9,8 @@ using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Extensions.MSDependencyInjection
 {
@@ -42,13 +44,13 @@ namespace FluentDbTools.Extensions.MSDependencyInjection
         }
 
 
-
         /// <summary>
         /// Register the DependencyInjection implementation of <see cref="IDbConfig"/>(Strong-type Ms<see cref="DbConfig"/>)<br/>
         /// Register the DependencyInjection implementation of <see cref="IConfigurationChangedHandler"/> 
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <param name="asSingleton"></param>
+        /// <param name="assemblies"></param>
         /// <returns></returns>
         public static IServiceCollection AddDefaultDbConfig(this IServiceCollection serviceProvider, bool asSingleton = true,
             IEnumerable<Assembly> assemblies = null)

@@ -1,7 +1,7 @@
-﻿using FluentDbTools.Migration.Abstractions;
-using FluentMigrator.Expressions;
+﻿using FluentMigrator.Expressions;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.VersionTableInfo;
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Migration
 {

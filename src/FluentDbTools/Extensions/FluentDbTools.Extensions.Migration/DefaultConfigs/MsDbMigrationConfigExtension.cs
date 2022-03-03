@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
 using FluentDbTools.Migration.Abstractions;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+// ReSharper disable InconsistentNaming
+// ReSharper disable ConstantNullCoalescingCondition
+
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Extensions.Migration.DefaultConfigs
 {

@@ -3,8 +3,7 @@
     "LogLevel": {
       "Default": "Debug"
     },
-    "Console":
-    {
+    "Console": {
       "IncludeScopes": true
     }
   },
@@ -23,7 +22,6 @@
     "migration": {
       "migrationName": "Changed-migrationName",
       "schemaPassword": "Changed-schemaPassword" // If not set, then it equals to 'database:password'
-    }
     }
   }
 }

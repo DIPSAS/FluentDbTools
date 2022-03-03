@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Migration
 {
@@ -166,7 +168,7 @@ namespace FluentDbTools.Migration
             }
             else
             {
-                if (options?.OutputFileName != null)
+                if (options.OutputFileName != null)
                 {
                     var writer = LogFileAppendFluentMigratorLoggerProvider.GetStreamWriter(null, options, out var logFile);
                     writer?.Close();

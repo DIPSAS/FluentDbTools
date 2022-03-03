@@ -1,12 +1,11 @@
 ﻿using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using FluentDbTools.Migration.Abstractions;
-using FluentMigrator;
 using FluentMigrator.Runner;
-using FluentMigrator.Runner.Generators.Generic;
 using FluentMigrator.Runner.Generators.Postgres;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Migration.Postgres
 {

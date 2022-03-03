@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentDbTools.SqlBuilder.Abstractions.Common;
+#pragma warning disable CS1591
 
 namespace FluentDbTools.SqlBuilder.Abstractions.Fields
 {

@@ -1,5 +1,7 @@
-using System;
-using System.Collections.Generic;
+
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Migration.Contracts
 {

@@ -1,8 +1,8 @@
-﻿using FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs;
-using FluentDbTools.Extensions.MSDependencyInjection;
+﻿using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
 using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
 using Microsoft.Extensions.DependencyInjection;
+#pragma warning disable CS1591
 
 namespace Example.FluentDbTools.Database
 {

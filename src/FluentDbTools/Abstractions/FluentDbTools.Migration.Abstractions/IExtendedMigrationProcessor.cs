@@ -10,7 +10,6 @@ namespace FluentDbTools.Migration.Abstractions
     /// Important database Exists methods
     /// Important database connections methods
     /// </summary>
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public interface IExtendedMigrationProcessor : IExtendedMigrationProcessorExists
     {
         /// <summary>
@@ -145,7 +144,6 @@ namespace FluentDbTools.Migration.Abstractions
     /// Represent <see cref="IExtendedMigrationProcessor"/> of <typeparamref name="T"/>
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [SuppressMessage("ReSharper", "UnusedTypeParameter")]
     public interface IExtendedMigrationProcessor<T> : IExtendedMigrationProcessor
     {
         /// <summary>

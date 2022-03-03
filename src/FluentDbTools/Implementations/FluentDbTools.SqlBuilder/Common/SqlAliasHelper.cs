@@ -3,6 +3,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using FluentDbTools.Common.Abstractions;
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+#pragma warning disable CS1591
 
 namespace FluentDbTools.SqlBuilder.Common
 {

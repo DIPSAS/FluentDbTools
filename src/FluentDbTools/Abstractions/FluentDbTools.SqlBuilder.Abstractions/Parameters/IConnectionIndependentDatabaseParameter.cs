@@ -1,5 +1,7 @@
 ﻿using System;
 using FluentDbTools.Common.Abstractions;
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS1591
 
 namespace FluentDbTools.SqlBuilder.Abstractions.Parameters
 {

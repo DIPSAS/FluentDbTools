@@ -17,6 +17,8 @@ using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Extensions.Migration
 {

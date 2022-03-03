@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
     <ItemGroup>
-      <!--<ProjectReferences Include="**/Test.FluentDbTools.csproj" />-->
-      <ProjectReferences Include="**/Test.*.csproj" />
+      <!-- <ProjectReferences Include="**/Test.FluentDbTools.SqlBuilder.MinimumDependencies.csproj" /> -->
+      <!-- <ProjectReferences Include="**/Test.FluentDbTools.Migration.csproj" /> -->
+      <ProjectReferences Include="**/Test.FluentDbTools.*.csproj" />
     </ItemGroup>
     <Target Name="build">
         <MSBuild Projects="@(ProjectReferences)" Targets="Build" />

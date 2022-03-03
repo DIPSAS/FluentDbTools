@@ -1,4 +1,8 @@
 ﻿using System.Data;
+// ReSharper disable UnusedMemberInSuper.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+#pragma warning disable CS1591
 
 namespace FluentDbTools.SqlBuilder.Abstractions.Parameters
 {

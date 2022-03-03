@@ -1,8 +1,7 @@
-﻿using FluentDbTools.Extensions.MSDependencyInjection;
-using FluentDbTools.Migration.Abstractions;
-using FluentMigrator;
+﻿using FluentDbTools.Migration.Abstractions;
 using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.DependencyInjection;
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Migration.Common
 {

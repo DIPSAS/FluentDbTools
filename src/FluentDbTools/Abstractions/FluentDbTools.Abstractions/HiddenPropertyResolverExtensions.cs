@@ -246,7 +246,6 @@ namespace System.Data
             return Expression.Lambda<Action<Exception, TValue>>(assignExp, targetExp, valueExp).Compile();
         }
 
-        [SuppressMessage("ReSharper", "RedundantAssignment")]
         public static string StripAllStackTraces(string message, ref Exception exception, string newStacktrace = null)
         {
             if (string.IsNullOrEmpty(message) == false)

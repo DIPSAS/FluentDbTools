@@ -1,17 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-    </PropertyGroup>
-    
-    <Import Project="..\..\SolutionInfo.proj" />
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net5.0;net6.0</TargetFrameworks>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\FluentDbTools.Extensions.MSDependencyInjection\FluentDbTools.Extensions.MSDependencyInjection.csproj" />
-    </ItemGroup>
-    
-    <ItemGroup>
-        <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.18.3" />
-    </ItemGroup>
+  <Import Project="..\..\SolutionInfo.proj" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluentDbTools.Extensions.MSDependencyInjection\FluentDbTools.Extensions.MSDependencyInjection.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' Or '$(TargetFramework)' == 'net5.0' Or '$(TargetFramework)' == 'net6.0'  ">
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.50" />
+  </ItemGroup>
+
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.140" />
+  </ItemGroup>
+
+
 
 </Project>

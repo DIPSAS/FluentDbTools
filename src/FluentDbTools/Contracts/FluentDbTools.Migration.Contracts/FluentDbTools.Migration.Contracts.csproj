@@ -7,7 +7,7 @@
     <Import Project="..\..\SolutionInfo.proj" />
 
     <ItemGroup>
-      <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
+      <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
     </ItemGroup>
 
     <ItemGroup>

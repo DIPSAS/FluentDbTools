@@ -1,9 +1,7 @@
 ﻿using System;
 using FluentDbTools.Extensions.MSDependencyInjection;
-using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
 using FluentDbTools.Migration.Abstractions;
-using FluentMigrator;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Generators.Oracle;
 using FluentMigrator.Runner.Initialization;
@@ -15,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Migration.Oracle
 {

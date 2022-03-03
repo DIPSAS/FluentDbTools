@@ -296,7 +296,6 @@ namespace FluentDbTools.Migration.Abstractions
         /// <param name="tableName"></param>
         /// <param name="fallbackTemplates"></param>
         /// <returns></returns>
-        [SuppressMessage("ReSharper", "LoopCanBeConvertedToQuery")]
         public static string GetTableConfigValue(this IDbMigrationConfig migrationConfig, string template, string tableName, params string[] fallbackTemplates)
         {
             if (migrationConfig == null)

@@ -18,6 +18,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         /// <param name="defaultDbConfigValues"></param>
         /// <param name="configurationChangedHandler"></param>
         /// <param name="prioritizedConfigValues"></param>
+        /// <param name="prioritizedConfigKeys"></param>
         public MsDbConfigCredentials(
             IConfiguration configuration, 
             DefaultDbConfigValues defaultDbConfigValues = null,

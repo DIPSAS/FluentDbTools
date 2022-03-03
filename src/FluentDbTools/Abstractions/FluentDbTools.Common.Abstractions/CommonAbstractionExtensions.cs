@@ -1,19 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace FluentDbTools.Common.Abstractions
 {
     /// <summary>
     /// Useful extension
     /// </summary>
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public static class Extensions
     {
 

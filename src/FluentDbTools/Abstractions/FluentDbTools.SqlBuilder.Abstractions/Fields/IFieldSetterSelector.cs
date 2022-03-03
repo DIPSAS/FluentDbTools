@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS1591
 
 namespace FluentDbTools.SqlBuilder.Abstractions.Fields
 {

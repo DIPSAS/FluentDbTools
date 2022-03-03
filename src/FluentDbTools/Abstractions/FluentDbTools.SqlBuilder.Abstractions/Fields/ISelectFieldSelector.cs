@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+#pragma warning disable CS1591
 
 namespace FluentDbTools.SqlBuilder.Abstractions.Fields
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+#pragma warning disable CS1591
 
 namespace Example.FluentDbTools.Config
 {

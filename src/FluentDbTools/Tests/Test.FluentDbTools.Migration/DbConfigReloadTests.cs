@@ -28,7 +28,7 @@ namespace Test.FluentDbTools.Migration
     public class DbConfigReloadTests
     {
         [Fact]
-        public void GetDbConfigValues_ChangeConfigFileContent_ChangedConfigDbValuesShouldBeReloaded()
+        public async Task GetDbConfigValues_ChangeConfigFileContent_ChangedConfigDbValuesShouldBeReloaded()
         {
             using (var provider = GetServiceProvider())
             using (var scope = provider.CreateScope())
@@ -47,9 +47,12 @@ namespace Test.FluentDbTools.Migration
                 var migrationName = dbMigration.GetMigrationName();
                 var migrationConfigValues = dbMigration.GetAllMigrationConfigValues();
 
+                user.Should().Be("user");
+
                 ChangeTestConfigContent();
 
-                Task.Delay(TimeSpan.FromSeconds(1)).Wait();
+                
+                await Task.Delay(TimeSpan.FromSeconds(OperatingSystem.IsWindows() ? 1 : 5));
 
                 dbConfig.User.Should().NotBe(user);
                 dbConfig.Password.Should().NotBe(password);
@@ -83,31 +86,33 @@ namespace Test.FluentDbTools.Migration
 
         private ServiceProvider GetServiceProvider()
         {
-            var assemblies = new [] { Assembly.GetEntryAssembly(), Assembly.GetCallingAssembly(), Assembly.GetExecutingAssembly() };
-            var configuration = (new ConfigurationBuilder().AddJsonFile(CreateTestConfig(), false, true)).Build();
+            var configuration = (new ConfigurationBuilder().AddJsonFile(CreateDefaultTestConfig(), false, true)).Build();
             return new ServiceCollection()
                 .AddSingleton<IConfiguration>(sc => configuration)
                 .AddDefaultDbMigrationConfig()
                 .BuildServiceProvider();
         }
 
-        private static string CreateTestConfig()
+        private static string CreateDefaultTestConfig()
         {
-            var destFileName = GetTestConfigFile();
-            File.Copy(GetDefaultConfigFile(), GetTestConfigFile(), true);
-            return destFileName;
+            var defaultConfigFile = GetDefaultConfigFile();
+            var testConfigFile = GetTestConfigFile();
+            File.Copy(defaultConfigFile, testConfigFile, true);
+            return testConfigFile;
         }
 
 
         private static void ChangeTestConfigContent()
         {
-            File.Copy(GetChangedConfigFile(), GetTestConfigFile(), true);
+            var changedConfigFile = GetChangedConfigFile();
+            var testConfigFile = GetTestConfigFile();
+            File.Copy(changedConfigFile, testConfigFile, true);
         }
 
 
         private static string GetTestConfigFile()
         {
-            return Path.Join(GetDefaultConfigDirectory(), "test.config.json");
+            return Path.Combine(Directory.GetCurrentDirectory(), "ConfigFiles", "test.config.json");
         }
 
         private static string GetChangedConfigFile()

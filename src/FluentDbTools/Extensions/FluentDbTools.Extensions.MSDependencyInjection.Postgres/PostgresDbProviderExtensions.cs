@@ -2,6 +2,7 @@
 using FluentDbTools.Extensions.DbProvider;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
+#pragma warning disable CS1591
 
 namespace FluentDbTools.Extensions.MSDependencyInjection.Postgres
 {

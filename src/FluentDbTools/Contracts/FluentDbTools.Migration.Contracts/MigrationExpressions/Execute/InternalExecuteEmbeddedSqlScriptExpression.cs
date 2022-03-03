@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using FluentDbTools.Common.Abstractions;
 using FluentMigrator;
 using FluentMigrator.Expressions;
 using FluentMigrator.Infrastructure;
 using JetBrains.Annotations;
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS0169
 
 namespace FluentDbTools.Migration.Contracts.MigrationExpressions.Execute
 {
@@ -18,14 +16,11 @@ namespace FluentDbTools.Migration.Contracts.MigrationExpressions.Execute
     internal class InternalExecuteEmbeddedSqlScriptExpression : ExecuteEmbeddedSqlScriptExpressionBase
     {
         public Func<string,string> AdditionalSqlTitleConverterFunc { get; set; }
-
-
+        
         private readonly ExecuteEmbeddedSqlScriptExpression ExecuteEmbeddedSqlScriptExpression;
-        [CanBeNull]
-        private readonly IReadOnlyCollection<IEmbeddedResourceProvider> _embeddedResourceProviders;
-
+        
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExecuteEmbeddedSqlScriptExpression"/> class.
+        /// Initializes a new instance of InternalExecuteEmbeddedSqlScriptExpression class
         /// </summary>
         [Obsolete]
         public InternalExecuteEmbeddedSqlScriptExpression()

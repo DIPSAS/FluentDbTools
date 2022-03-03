@@ -5,6 +5,8 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS1591
 
 // ReSharper disable UnusedMember.Global
 [assembly:InternalsVisibleTo("FluentDbTools.Migration.Oracle")]
@@ -245,7 +247,7 @@ namespace FluentDbTools.Common.Abstractions
         /// name of the object to add prefix to.<br/>
         /// If name start with value of {<paramref name="prefix"/>}, the value of <paramref name="name"/> will be returned
         /// </param>
-        /// <param name="prefix">if <paramref name="prefix"/> is NULL, the value will be defaulted to <paramref name="defaultPrefix'"/></param>
+        /// <param name="prefix">if <paramref name="prefix"/> is NULL, the value will be defaulted to <paramref name="defaultPrefix"/></param>
         /// <param name="defaultPrefix"></param>
         /// <returns></returns>
         public static string GetPrefixedName(this string name, string prefix, string defaultPrefix = null)
@@ -265,7 +267,7 @@ namespace FluentDbTools.Common.Abstractions
         /// remove {prefix} if name start with {prefix}
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="prefix">if <paramref name="prefix"/> is NULL, the value will be defaulted to <paramref name="defaultPrefix'"/></param>
+        /// <param name="prefix">if <paramref name="prefix"/> is NULL, the value will be defaulted to <paramref name="defaultPrefix"/></param>
         /// <param name="defaultPrefix"></param>
         /// <returns></returns>
         public static string TrimPrefixName(this string name, string prefix, string defaultPrefix = null)
@@ -417,7 +419,7 @@ namespace FluentDbTools.Common.Abstractions
                 }
             }
 
-            value = StripForLoggingRemoveCreateStatement(value, isOneLine);
+            value = StripForLoggingRemoveCreateStatement(value);
             return value;
         }
 
@@ -490,10 +492,8 @@ namespace FluentDbTools.Common.Abstractions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string StripForLoggingRemoveCreateStatement(string value, bool? isOneLineOrNull = null)
+        public static string StripForLoggingRemoveCreateStatement(string value)
         {
-            var isOneLine = isOneLineOrNull ?? value.IsOneLine();
-
             value = StripForLoggingRemoveCreateUser(value);
             value = StripForLoggingRemoveCreatePackageBody(value);
             value = StripForLoggingRemoveCreatePackage(value);

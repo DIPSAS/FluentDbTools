@@ -13,7 +13,6 @@ namespace System.Data
     {
         private static Exception LatestFilteredException;
 
-        [SuppressMessage("ReSharper", "InvertIf")]
         public static int ExecuteNonQuery(this IDbCommand command, string errorFilter)
         {
             try
@@ -88,13 +87,11 @@ namespace System.Data
             return errorFilterNumbers.ToArray();
         }
 
-        [SuppressMessage("ReSharper", "InvertIf")]
         public static bool IsErrorFilterNumberMatch(this Exception exception, long[] errorFilterNumbers)
         {
             return IsErrorFilterNumberMatchAndReturnErrorNumber(exception, errorFilterNumbers, out _);
         }
 
-        [SuppressMessage("ReSharper", "InvertIf")]
         public static bool IsErrorFilterNumberMatchAndReturnErrorNumber(this Exception exception, long[] errorFilterNumbers, out int number)
         {
             number = 0;
@@ -132,6 +129,5 @@ namespace System.Data
 
             return false;
         }
-
     }
 }

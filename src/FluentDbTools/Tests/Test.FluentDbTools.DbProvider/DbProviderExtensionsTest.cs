@@ -13,8 +13,8 @@ namespace Test.FluentDbTools.DbProvider
         public void ConfigureOracleTnsAdminPath_ValidPaths_ShouldReturnResolvedPath()
         {
             var str = Path.Combine("oracle", "product", "client", "network", "admin");
-            DbProviderExtensions.ConfigureOracleTnsAdminPath(Path.Combine("oracle", "product", "client", "bin")).Should().EndWithEquivalent(str);
-            DbProviderExtensions.ConfigureOracleTnsAdminPath(str).Should().EndWithEquivalent(str);
+            DbProviderExtensions.ConfigureOracleTnsAdminPath(Path.Combine("oracle", "product", "client", "bin")).Should().EndWithEquivalentOf(str);
+            DbProviderExtensions.ConfigureOracleTnsAdminPath(str).Should().EndWithEquivalentOf(str);
         }
 
         [Fact]
@@ -35,13 +35,13 @@ namespace Test.FluentDbTools.DbProvider
                                    $"{Path.PathSeparator}{Path.Combine("network", "admin")}" +
                                    $"{Path.PathSeparator}{Path.Combine("oracle", "product", "client", "bin")}" +
                                    $"{Path.PathSeparator}{Path.Combine("main2", "level1", "level2")}";
-            DbProviderExtensions.ConfigureOracleTnsAdminPath(string.Empty, environmentPath1).Should().EndWithEquivalent(expected);
+            DbProviderExtensions.ConfigureOracleTnsAdminPath(string.Empty, environmentPath1).Should().EndWithEquivalentOf(expected);
             
             var environmentPath2 = Path.Combine("main1", "level1", "level2") +
                                    $"{Path.PathSeparator}{Path.Combine("network", "admin")}" +
                                    $"{Path.PathSeparator}{expected}" +
                                    $"{Path.PathSeparator}{Path.Combine("main2", "level1", "level2")}";
-            DbProviderExtensions.ConfigureOracleTnsAdminPath(string.Empty, environmentPath2).Should().EndWithEquivalent(expected);
+            DbProviderExtensions.ConfigureOracleTnsAdminPath(string.Empty, environmentPath2).Should().EndWithEquivalentOf(expected);
         }
 
         [Fact]

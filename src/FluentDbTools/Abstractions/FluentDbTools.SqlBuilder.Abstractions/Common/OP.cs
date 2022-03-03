@@ -1,5 +1,9 @@
-﻿namespace FluentDbTools.SqlBuilder.Abstractions.Common
+﻿// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+#pragma warning disable CS1591
+namespace FluentDbTools.SqlBuilder.Abstractions.Common
 {
+
     public enum OP
     {
         /// <summary>
@@ -29,7 +33,7 @@
         ISNOT,
 
         /// <summary>
-        /// Less than or equal <=
+        /// Less than or equal &lt;=
         /// </summary>
         LTEQ,
 

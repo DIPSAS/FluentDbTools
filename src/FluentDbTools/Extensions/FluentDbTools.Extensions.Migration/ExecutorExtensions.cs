@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using FluentDbTools.Common.Abstractions;
 using FluentDbTools.Migration;
 using FluentDbTools.Migration.Abstractions;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.VersionTableInfo;
 using Microsoft.Extensions.DependencyInjection;
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS1591
+using MsDependencyInjectionServiceCollection = Microsoft.Extensions.DependencyInjection.ServiceCollection;
 
+// ReSharper disable UnusedMember.Global
 namespace FluentDbTools.Extensions.Migration
 {
     public static class ExecutorExtensions
@@ -124,7 +127,7 @@ namespace FluentDbTools.Extensions.Migration
             Func<IServiceProvider, IDbMigrationConfig> dbConfig,
             IEnumerable<Assembly> assembliesWithMigrationModels, IServiceCollection serviceCollection)
         {
-            serviceCollection = serviceCollection ?? new ServiceCollection();
+            serviceCollection = serviceCollection ?? new MsDependencyInjectionServiceCollection();
             var serviceProvider = serviceCollection
                 .AddScoped(dbConfig)
                 .ConfigureWithMigrationAndScanForVersionTable(assembliesWithMigrationModels)
