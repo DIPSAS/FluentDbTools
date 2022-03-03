@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using FluentDbTools.Common.Abstractions;
 // ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
 #pragma warning disable 1591
 
 // ReSharper disable once CheckNamespace
