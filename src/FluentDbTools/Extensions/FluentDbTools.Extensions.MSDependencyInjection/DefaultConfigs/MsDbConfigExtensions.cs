@@ -42,7 +42,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 
         public static string GetSecret(this IConfiguration configuration, string user, string section = "database:secret")
         {
-            if (user == null)
+            if (user == null || configuration == null)
             {
                 return null;
             }

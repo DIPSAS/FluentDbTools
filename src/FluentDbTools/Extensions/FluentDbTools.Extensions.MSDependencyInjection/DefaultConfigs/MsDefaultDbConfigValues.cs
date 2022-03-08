@@ -57,8 +57,15 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
 
             string GetConfigValueString(Func<string> firstPriority, Func<string> nextPriority)
             {
-                var value = firstPriority?.Invoke() ?? nextPriority?.Invoke();
-                return string.IsNullOrEmpty(value) ? null : value;
+                try
+                {
+                    var value = firstPriority?.Invoke() ?? nextPriority?.Invoke();
+                    return string.IsNullOrEmpty(value) ? null : value;
+                }
+                catch
+                {
+                    return null;
+                }
             }
 
             bool GetConfigValueBool(Func<bool?> firstPriority, Func<bool> nextPriority)
@@ -88,7 +95,7 @@ namespace FluentDbTools.Extensions.MSDependencyInjection.DefaultConfigs
         /// </summary>
         public override IDictionary<string, string> GetAllDatabaseConfigValues(bool reload = false, string sectionName = null)
         {
-            if (sectionName != null)
+            if (sectionName != null && Configuration != null)
             {
                 var section = Configuration.GetSection(sectionName) ??
                                     Configuration.GetDbSection().GetSection(sectionName);

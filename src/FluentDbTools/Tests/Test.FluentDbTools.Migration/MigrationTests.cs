@@ -11,8 +11,10 @@ using Example.FluentDbTools.Config;
 using Example.FluentDbTools.Database;
 using Example.FluentDbTools.Migration;
 using FluentAssertions;
+using FluentDbTools.Contracts;
 using FluentDbTools.Extensions.DbProvider;
 using FluentDbTools.Extensions.Migration;
+using FluentDbTools.Extensions.Migration.DefaultConfigs;
 using FluentDbTools.Extensions.MSDependencyInjection;
 using FluentDbTools.Extensions.MSDependencyInjection.Oracle;
 using FluentDbTools.Extensions.MSDependencyInjection.Postgres;
@@ -64,6 +66,45 @@ namespace Test.FluentDbTools.Migration
             }
         }
 
+        [Fact]
+        public void MigrationConfig_WithoutConfiguration_ShouldNotFail()
+        {
+            DefaultDbConfigValues.WithOracleDefaultDbType();
+            var migrationConfig = new MsDbMigrationConfig(null);
+            Action action = () =>
+            {
+                var dbConfig = migrationConfig.GetDbConfig();
+                var value = dbConfig.AdminConnectionString;
+                value = dbConfig.ConnectionString;
+                value = dbConfig.ConfigurationDelimiter;
+                value = dbConfig.User;
+                value = dbConfig.Password;
+                value = dbConfig.AdminUser;
+                value = dbConfig.AdminPassword;
+                value = dbConfig.ConnectionTimeoutInSecs;
+                value = dbConfig.Datasource;
+                value = dbConfig.Hostname;
+                value = dbConfig.DatabaseName;
+                value = dbConfig.Port;
+                value = dbConfig.Pooling.ToString();
+                value = dbConfig.Schema;
+                value = migrationConfig.Schema;
+                value = migrationConfig.SchemaPassword;
+                value = migrationConfig.DatabaseName;
+                value = migrationConfig.ConnectionString;
+                value = migrationConfig.DatabaseOwner;
+                value = migrationConfig.TempTablespace;
+                value = migrationConfig.ProcessorId;
+                value = migrationConfig.GetMigrationName();
+                value = migrationConfig.GetSchemaPrefixId();
+                value = migrationConfig.GetSchemaPrefixUniqueId();
+                migrationConfig.GetConfiguration().Should().BeNull();
+
+            };
+            action.Should().NotThrow();
+
+
+        }
 
         [Theory]
         [MemberData(nameof(TestParameters.DbParameters), MemberType = typeof(TestParameters))]
@@ -547,7 +588,7 @@ namespace Test.FluentDbTools.Migration
                 var dbConfig = migrationConfig.GetDbConfig();
 
                 dbConfig.Schema.Should().Be(nameof(OracleMigration_PrioritizeValues_IsResolvedCorrect));
-                
+
                 migrationConfig.Schema.Should().Be(dbConfig.Schema);
                 migrationConfig.SchemaPassword.Should().Be(nameof(OracleMigration_PrioritizeValues_IsResolvedCorrect) + "-password");
                 migrationConfig.GetSchemaPrefixId().Should().Be("SP");
@@ -563,7 +604,7 @@ namespace Test.FluentDbTools.Migration
         [InlineData("testing", "testing-pwd")]
         [InlineData(nameof(OracleMigration_PrioritizeValues_SchemePasswordIsResolvedCorrect), nameof(OracleMigration_PrioritizeValues_SchemePasswordIsResolvedCorrect) + "-pwd")]
         [InlineData("testing", null, "dbpassword")]
-        public void OracleMigration_PrioritizeValues_SchemePasswordIsResolvedCorrect(string schemaName,string schemaPassword, string expectedSchemaPassword=null)
+        public void OracleMigration_PrioritizeValues_SchemePasswordIsResolvedCorrect(string schemaName, string schemaPassword, string expectedSchemaPassword = null)
         {
             if (expectedSchemaPassword == null)
             {
@@ -649,12 +690,12 @@ namespace Test.FluentDbTools.Migration
         }
 
         [Theory]
-        [InlineData("","Mi")]
-        [InlineData(@"subfolder\",@"subfolder\")]
-        [InlineData(@"C:\DIPS-Log\",@"Mi")]
-        [InlineData(@"C:\DIPS-Log\",@"LogPath\",@"LogPath\")]
-        [InlineData(@"${LogPath}",@"Mi")]
-        [InlineData(@"${LogPath}",@"LogPath\", @"LogPath\")]
+        [InlineData("", "Mi")]
+        [InlineData(@"subfolder\", @"subfolder\")]
+        [InlineData(@"C:\DIPS-Log\", @"Mi")]
+        [InlineData(@"C:\DIPS-Log\", @"LogPath\", @"LogPath\")]
+        [InlineData(@"${LogPath}", @"Mi")]
+        [InlineData(@"${LogPath}", @"LogPath\", @"LogPath\")]
         public void OracleMigration_WhenDataSourceIsInvalidTnsAliasName_ShouldFailWithTnsResolvingError(string fileStart, string expectedStart, string logPath = null)
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && fileStart.StartsWithIgnoreCase(@"C:\DIPS-Log") && logPath == null)
